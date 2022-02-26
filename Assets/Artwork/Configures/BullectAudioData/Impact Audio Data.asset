@@ -21,3 +21,6 @@ MonoBehaviour:
     ImpactAudioClips:
     - {fileID: 8300000, guid: 091908a06d0b56143aaf6d3913444ab7, type: 3}
     - {fileID: 8300000, guid: fd208dd7a0eafc84f82ad5fde72ab8fc, type: 3}
+  - Tag: Untagged
+    ImpactAudioClips:
+    - {fileID: 8300000, guid: 89b4957f2e6ee4740adfdccd422b9262, type: 3}

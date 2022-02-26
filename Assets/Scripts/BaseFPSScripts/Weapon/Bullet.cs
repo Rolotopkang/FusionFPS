@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
 using UnityTemplateProjects.MultiplayerScripts;
 using Random = UnityEngine.Random;
@@ -48,7 +49,15 @@ namespace Scripts.Weapon
             else
             {
                 Instantiate(ImpactPrefab, tmp_Hit.point, Quaternion.LookRotation(tmp_Hit.normal, Vector3.up));
-                
+                var tmpTagsWithAudio = ImpactAudioData.ImpactTagsWithAudios.Find(
+                    (TMP_AudioData) =>
+                    {
+                        return TMP_AudioData.Tag.Equals(tmp_Hit.collider.tag);
+                    }
+                );
+                int ClipCount = tmpTagsWithAudio.ImpactAudioClips.Count;
+                AudioClip tmp_AudioClip = tmpTagsWithAudio.ImpactAudioClips[Random.Range(0, ClipCount)];
+                AudioSource.PlayClipAtPoint(tmp_AudioClip,tmp_Hit.point);
             }
 
 

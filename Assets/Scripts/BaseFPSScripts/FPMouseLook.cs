@@ -36,8 +36,8 @@ public class FPMouseLook : MonoBehaviour
 
         CameraRotation.y += tmp_MouseX * MouseSensitivity;
         CameraRotation.x -= tmp_MouseY * MouseSensitivity;
-
-
+        
+        //计算抖动
         CalculateRecoilOffset();
         
 

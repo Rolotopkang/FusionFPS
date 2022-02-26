@@ -12,6 +12,8 @@ namespace Scripts.Weapon
 
         private FPMouseLook mouseLook;
         public GameObject _ImpactPrefab;
+        public ImpactAudioData CostomImpactAudioData;
+        public float BulletLifeTime = 5f;
 
 
         protected override void Awake()
@@ -79,6 +81,8 @@ namespace Scripts.Weapon
 //            tmp_BulletScript.ImpactAudioData = ImpactAudioData;
             tmp_BulletScript.BulletSpeed = 500f;
             tmp_BulletScript.ImpactPrefab = _ImpactPrefab;
+            tmp_BulletScript.ImpactAudioData = CostomImpactAudioData;
+            Destroy(tmp_Bullet,BulletLifeTime);
         }
     }
 }
