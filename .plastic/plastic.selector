@@ -1,0 +1,4 @@
+repository "TOPGamingFPS@ssl://rolotopkang@sh03-plasticscm.unity.cn:8787"
+  path "/"
+    smartbranch "/main/1059649765" 
+     
