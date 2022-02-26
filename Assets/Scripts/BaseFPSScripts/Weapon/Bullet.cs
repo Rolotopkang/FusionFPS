@@ -13,6 +13,7 @@ namespace Scripts.Weapon
     {
         public float BulletSpeed;
         public GameObject ImpactPrefab;
+        public ImpactAudioData ImpactAudioData;
         
         private Transform bulletTransform;
         private Vector3 prevPosition;
@@ -47,6 +48,7 @@ namespace Scripts.Weapon
             else
             {
                 Instantiate(ImpactPrefab, tmp_Hit.point, Quaternion.LookRotation(tmp_Hit.normal, Vector3.up));
+                
             }
 
 
