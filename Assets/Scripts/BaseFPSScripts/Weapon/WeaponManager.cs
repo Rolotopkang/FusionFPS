@@ -22,7 +22,7 @@ public class WeaponManager : MonoBehaviour
     public Firearms MainWeapon;
     public Firearms SecondaryWeapon;
     public Text AmmoCountTextLabel;
-
+    public bool isAiming = false;
     private Firearms carriedWeapon;
 
     [SerializeField] private List<WeaponInfo> WeaponInfos;
@@ -97,12 +97,14 @@ public class WeaponManager : MonoBehaviour
         {
             //TODO:瞄准
             carriedWeapon.Aiming(true);
+            isAiming = true;
         }
 
         if (Input.GetMouseButtonUp(1))
         {
             //TODO:退出瞄准
             carriedWeapon.Aiming(false);
+            isAiming = false;
         }
 
         UpdateAmmoInfo(carriedWeapon.GetCurrentAmmo, carriedWeapon.GetCurrentMaxAmmoCarried);
@@ -115,6 +117,20 @@ public class WeaponManager : MonoBehaviour
             WorldCameraTransform.forward,
             out RaycastHit tmp_RaycastHit,
             RaycastMaxDistance, CheckItemLayerMask);
+        
+
+        if (tmp_IsItem)
+        {
+            Debug.DrawRay(WorldCameraTransform.position,
+                WorldCameraTransform.forward*RaycastMaxDistance,Color.green,
+                0f);
+        }
+        else
+        {
+            Debug.DrawRay(WorldCameraTransform.position,
+                WorldCameraTransform.forward*RaycastMaxDistance,Color.red,
+                0f);
+        }
 
 
         if (tmp_IsItem)
@@ -173,7 +189,6 @@ public class WeaponManager : MonoBehaviour
                     carriedWeapon.BaseIronSight.ScopeGameObject.SetActive(false);
                     carriedWeapon.SetupCarriedScope(tmp_ScopeInfo);
                 }
-
                 break;
             case AttachmentItem.AttachmentType.Other:
                 break;

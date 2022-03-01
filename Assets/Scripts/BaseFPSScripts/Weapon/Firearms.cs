@@ -13,7 +13,6 @@ namespace Scripts.Weapon
         public Camera GunCamera;
 
         public Transform MuzzlePointFront;
-        public Transform MuzzlePointBack;
         public Transform CasingPoint;
 
         public ParticleSystem MuzzleParticle;
@@ -23,8 +22,8 @@ namespace Scripts.Weapon
         public AudioSource FirearmsShootingAudioSource;
         public AudioSource FirearmsReloadAudioSource;
         public FirearmsAudioData FirearmsAudioData;
-        public ImpactAudioData ImpactAudioData;
-        public GameObject BulletImpactPrefab;
+
+        // public GameObject BulletImpactPrefab;
 
         public float FireRate;
         public float AimTime = 3;
