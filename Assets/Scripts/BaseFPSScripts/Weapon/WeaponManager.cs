@@ -51,12 +51,12 @@ public class WeaponManager : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         Debug.Log($"Current weapon is null? {carriedWeapon == null}");
 
-        MainWeapon = photonView.IsMine ? WeaponInfos[0].FP_Weapon : WeaponInfos[0].TP_Weapon;
+        SecondaryWeapon = photonView.IsMine ? WeaponInfos[0].FP_Weapon : WeaponInfos[0].TP_Weapon;
 
 
-        if (MainWeapon)
+        if (SecondaryWeapon)
         {
-            carriedWeapon = MainWeapon;
+            carriedWeapon = SecondaryWeapon;
             CharacterControllerMovement.SetupAnimator(carriedWeapon.GunAnimator);
         }
     }

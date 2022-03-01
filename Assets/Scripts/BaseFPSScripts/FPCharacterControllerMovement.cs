@@ -113,7 +113,6 @@ public class FPCharacterControllerMovement : MonoBehaviour
 
     internal void SetupAnimator(Animator _animator)
     {
-        Debug.Log($"Execute! the animator is empty??? {_animator == null}");
         characterAnimator = _animator;
     }
 }
