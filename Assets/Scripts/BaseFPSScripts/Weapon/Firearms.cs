@@ -8,7 +8,7 @@ namespace Scripts.Weapon
     public abstract class Firearms : IWeapon
     {
         public GameObject BulletPrefab;
-
+        public WeaponManager WeaponManager;
         public Camera EyeCamera;
         public Camera GunCamera;
 
@@ -130,6 +130,13 @@ namespace Scripts.Weapon
                         }
 
                         CurrentMaxAmmoCarried = tmp_RemainingAmmo <= 0 ? 0 : tmp_RemainingAmmo;
+                        IsReloading = false;
+                        yield break;
+                    }
+
+                    //换枪停止换弹
+                    if (WeaponManager.isChanging)
+                    {
                         IsReloading = false;
                         yield break;
                     }

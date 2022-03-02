@@ -30551,6 +30551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 4792577774353629631, guid: 17fdda320ea4e064b8b3738f0ff479d0, type: 3}
+  WeaponManager: {fileID: 6206461843256070245}
   EyeCamera: {fileID: 7715190202658296816}
   GunCamera: {fileID: 2222692190528660857}
   MuzzlePointFront: {fileID: 5092439999694120291}
@@ -33154,6 +33155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 4792577774353629631, guid: 17fdda320ea4e064b8b3738f0ff479d0, type: 3}
+  WeaponManager: {fileID: 6206461843256070245}
   EyeCamera: {fileID: 7715190202658296816}
   GunCamera: {fileID: 2222692190528660857}
   MuzzlePointFront: {fileID: 5796038989736088934}
@@ -34013,6 +34015,7 @@ MonoBehaviour:
   SecondaryWeapon: {fileID: 3504302014861369376}
   AmmoCountTextLabel: {fileID: 0}
   isAiming: 0
+  isChanging: 0
   WeaponInfos:
   - WeaponId: 1
     WeaponName: handGun

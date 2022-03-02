@@ -23,6 +23,7 @@ public class WeaponManager : MonoBehaviour
     public Firearms SecondaryWeapon;
     public Text AmmoCountTextLabel;
     public bool isAiming = false;
+    public bool isChanging = false;
     private Firearms carriedWeapon;
 
     [SerializeField] private List<WeaponInfo> WeaponInfos;
@@ -31,6 +32,7 @@ public class WeaponManager : MonoBehaviour
 
     private AnimatorStateInfo animationStateInfo;
     private IEnumerator waitingForHolsterEndCoroutine;
+    private IEnumerator waitingForTakeOutEndCoroutine;
     private PhotonView photonView;
 
     public List<Firearms> Arms = new List<Firearms>();
@@ -49,7 +51,6 @@ public class WeaponManager : MonoBehaviour
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
-        Debug.Log($"Current weapon is null? {carriedWeapon == null}");
 
         SecondaryWeapon = photonView.IsMine ? WeaponInfos[0].FP_Weapon : WeaponInfos[0].TP_Weapon;
 
@@ -99,6 +100,7 @@ public class WeaponManager : MonoBehaviour
             carriedWeapon.Aiming(true);
             isAiming = true;
         }
+        
 
         if (Input.GetMouseButtonUp(1))
         {
@@ -238,8 +240,16 @@ public class WeaponManager : MonoBehaviour
         if (waitingForHolsterEndCoroutine == null)
             waitingForHolsterEndCoroutine = WaitingForHolsterEnd();
         StartCoroutine(waitingForHolsterEndCoroutine);
+        if(isAiming){carriedWeapon.GunAnimator.SetBool("Aim", false);}
+        isChanging = true;
     }
 
+    private void StartWaitingForTakeOutEndCoroutine()
+    {
+        if (waitingForTakeOutEndCoroutine == null)
+            waitingForTakeOutEndCoroutine = WaitingForTakeOutEnd();
+        StartCoroutine(waitingForTakeOutEndCoroutine);
+    }
 
     private IEnumerator WaitingForHolsterEnd()
     {
@@ -253,6 +263,7 @@ public class WeaponManager : MonoBehaviour
                     var tmp_TargetWeapon = carriedWeapon == MainWeapon ? SecondaryWeapon : MainWeapon;
                     SetupCarriedWeapon(tmp_TargetWeapon);
                     waitingForHolsterEndCoroutine = null;
+                    StartWaitingForTakeOutEndCoroutine();
                     yield break;
                 }
             }
@@ -261,6 +272,25 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    private IEnumerator WaitingForTakeOutEnd()
+    {
+        while (true)
+        {
+            AnimatorStateInfo tmp_AnimatorStateInfo = carriedWeapon.GunAnimator.GetCurrentAnimatorStateInfo(0);
+            if (tmp_AnimatorStateInfo.IsTag("TakeOut"))
+            {
+                if (tmp_AnimatorStateInfo.normalizedTime >= 0.8f)
+                {
+                    isChanging = false;
+                    if(isAiming){carriedWeapon.Aiming(isAiming);}
+                        waitingForTakeOutEndCoroutine = null;
+                    yield break;
+                }
+            }
+            
+            yield return null;
+        }
+    }
 
     private void SetupCarriedWeapon(Firearms _targetWeapon)
     {
