@@ -11,8 +11,9 @@ using Random = UnityEngine.Random;
 
 public class HitManager : MonoBehaviour, IOnEventCallback
 {
-    public GameObject ImpactPrefab;
+    public List<GameObject> ImpactPrefabs;
     public ImpactAudioData ImpactAudioData;
+    public float ImpactStayTime;
 
 
     private void OnEnable()
@@ -36,12 +37,27 @@ public class HitManager : MonoBehaviour, IOnEventCallback
                 var tmp_HitPoint = (Vector3) tmp_HitData[0];
                 var tmp_HitNormal = (Vector3) tmp_HitData[1];
                 var tmp_HitTag = (string) tmp_HitData[2];
+                String tmp_ImpactPrefab = (string)tmp_HitData[3];
+                GameObject tmp_Impact = null;
 
+                foreach (var prefab in ImpactPrefabs)
+                {
+                    if (prefab.name.Equals(tmp_ImpactPrefab))
+                    {
+                        tmp_Impact = prefab;
+                    }
+                }
 
-                var tmp_BulletEffect = Instantiate(ImpactPrefab, tmp_HitPoint,
+                if (tmp_Impact == null)
+                {
+                    Debug.Log("can't find ImpactPrefab");
+                    break;
+                }
+                
+                var tmp_BulletEffect = Instantiate(tmp_Impact, tmp_HitPoint,
                     Quaternion.LookRotation(tmp_HitNormal, Vector3.up));
 
-                Destroy(tmp_BulletEffect, 3);
+                Destroy(tmp_BulletEffect, ImpactStayTime);
 
                 var tmp_TagsWithAudio =
                     ImpactAudioData.ImpactTagsWithAudios.Find((_audioData) => _audioData.Tag.Equals(tmp_HitTag));

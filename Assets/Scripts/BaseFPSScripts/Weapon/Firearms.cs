@@ -9,6 +9,7 @@ namespace Scripts.Weapon
     {
         public GameObject BulletPrefab;
         public WeaponManager WeaponManager;
+        public PlayerNumericalController PlayerNumericalController;
         public Camera EyeCamera;
         public Camera GunCamera;
 
@@ -27,7 +28,7 @@ namespace Scripts.Weapon
 
         public float FireRate;
         public float AimTime = 3;
-
+        public int GunDMG;
         public int AmmoInMag = 30;
         public int MaxAmmoCarried = 120;
 

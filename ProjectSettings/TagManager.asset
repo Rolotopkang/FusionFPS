@@ -8,6 +8,8 @@ TagManager:
   - Metal
   - Wood
   - Stone
+  - PlayerHead
+  - GlobalCamera
   layers:
   - Default
   - TransparentFX

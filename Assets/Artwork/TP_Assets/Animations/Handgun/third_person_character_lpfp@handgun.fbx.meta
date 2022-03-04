@@ -1,155 +1,437 @@
 fileFormatVersion: 2
 guid: fcf9a63fb657653428b6d105737e3b3e
-timeCreated: 1566311847
-licenseType: Store
 ModelImporter:
-  serializedVersion: 21
-  fileIDToRecycleName:
-    100000: Armature
-    100002: backpack
-    100004: chest
-    100006: f_index_01_L
-    100008: f_index_01_R
-    100010: f_index_02_L
-    100012: f_index_02_R
-    100014: f_index_03_L
-    100016: f_index_03_R
-    100018: f_middle_01_L
-    100020: f_middle_01_R
-    100022: f_middle_02_L
-    100024: f_middle_02_R
-    100026: f_middle_03_L
-    100028: f_middle_03_R
-    100030: foot_L
-    100032: foot_R
-    100034: goggles
-    100036: hand_L
-    100038: hand_R
-    100040: head
-    100042: headset
-    100044: heel_L
-    100046: heel_R
-    100048: helmet
-    100050: hips
-    100052: lower_arm_L
-    100054: lower_arm_R
-    100056: lower_leg_L
-    100058: lower_leg_R
-    100060: neck
-    100062: root
-    100064: shoulder_L
-    100066: shoulder_R
-    100068: spine
-    100070: third_person_character
-    100072: //RootNode
-    100074: thumb_01_L
-    100076: thumb_01_R
-    100078: thumb_02_L
-    100080: thumb_02_R
-    100082: thumb_03_L
-    100084: thumb_03_R
-    100086: toe_L
-    100088: toe_R
-    100090: upper_arm_L
-    100092: upper_arm_R
-    100094: upper_leg_L
-    100096: upper_leg_R
-    100098: weapon
-    400000: Armature
-    400002: backpack
-    400004: chest
-    400006: f_index_01_L
-    400008: f_index_01_R
-    400010: f_index_02_L
-    400012: f_index_02_R
-    400014: f_index_03_L
-    400016: f_index_03_R
-    400018: f_middle_01_L
-    400020: f_middle_01_R
-    400022: f_middle_02_L
-    400024: f_middle_02_R
-    400026: f_middle_03_L
-    400028: f_middle_03_R
-    400030: foot_L
-    400032: foot_R
-    400034: goggles
-    400036: hand_L
-    400038: hand_R
-    400040: head
-    400042: headset
-    400044: heel_L
-    400046: heel_R
-    400048: helmet
-    400050: hips
-    400052: lower_arm_L
-    400054: lower_arm_R
-    400056: lower_leg_L
-    400058: lower_leg_R
-    400060: neck
-    400062: root
-    400064: shoulder_L
-    400066: shoulder_R
-    400068: spine
-    400070: third_person_character
-    400072: //RootNode
-    400074: thumb_01_L
-    400076: thumb_01_R
-    400078: thumb_02_L
-    400080: thumb_02_R
-    400082: thumb_03_L
-    400084: thumb_03_R
-    400086: toe_L
-    400088: toe_R
-    400090: upper_arm_L
-    400092: upper_arm_R
-    400094: upper_leg_L
-    400096: upper_leg_R
-    400098: weapon
-    4300000: third_person_character
-    4300002: goggles
-    4300004: headset
-    4300006: helmet
-    4300008: backpack
-    7400000: pose@handgun_tpc
-    7400002: Armature|_reference@handgun_tpc
-    7400004: fire@handgun_tpc
-    7400006: grenade_throw_cancel@handgun_tpc
-    7400008: grenade_throw_full@handgun_tpc
-    7400010: grenade_throw_pose@handgun_tpc
-    7400012: grenade_throw_release@handgun_tpc
-    7400014: grenade_throw_start@handgun_tpc
-    7400016: idle@handgun_tpc
-    7400018: jump_land@handgun_tpc
-    7400020: jump_loop@handgun_tpc
-    7400022: jump_start@handgun_tpc
-    7400024: reload_ammo_left@handgun_tpc
-    7400026: reload_out_of_ammo@handgun_tpc
-    7400028: run_45_back_left@handgun_tpc
-    7400030: run_45_back_right@handgun_tpc
-    7400032: run_45_up_left@handgun_tpc
-    7400034: run_45_up_right@handgun_tpc
-    7400036: run_backward@handgun_tpc
-    7400038: run_forward@handgun_tpc
-    7400040: run_strafe_left@handgun_tpc
-    7400042: run_strafe_right@handgun_tpc
-    7400044: walk_45_back_left@handgun_tpc
-    7400046: walk_45_back_right@handgun_tpc
-    7400048: walk_45_up_left@handgun_tpc
-    7400050: walk_45_up_right@handgun_tpc
-    7400052: walk_backward@handgun_tpc
-    7400054: walk_forward@handgun_tpc
-    7400056: walk_strafe_left@handgun_tpc
-    7400058: walk_strafe_right@handgun
-    9500000: //RootNode
-    13700000: backpack
-    13700002: goggles
-    13700004: headset
-    13700006: helmet
-    13700008: third_person_character
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Armature
+  - first:
+      1: 100002
+    second: backpack
+  - first:
+      1: 100004
+    second: chest
+  - first:
+      1: 100006
+    second: f_index_01_L
+  - first:
+      1: 100008
+    second: f_index_01_R
+  - first:
+      1: 100010
+    second: f_index_02_L
+  - first:
+      1: 100012
+    second: f_index_02_R
+  - first:
+      1: 100014
+    second: f_index_03_L
+  - first:
+      1: 100016
+    second: f_index_03_R
+  - first:
+      1: 100018
+    second: f_middle_01_L
+  - first:
+      1: 100020
+    second: f_middle_01_R
+  - first:
+      1: 100022
+    second: f_middle_02_L
+  - first:
+      1: 100024
+    second: f_middle_02_R
+  - first:
+      1: 100026
+    second: f_middle_03_L
+  - first:
+      1: 100028
+    second: f_middle_03_R
+  - first:
+      1: 100030
+    second: foot_L
+  - first:
+      1: 100032
+    second: foot_R
+  - first:
+      1: 100034
+    second: goggles
+  - first:
+      1: 100036
+    second: hand_L
+  - first:
+      1: 100038
+    second: hand_R
+  - first:
+      1: 100040
+    second: head
+  - first:
+      1: 100042
+    second: headset
+  - first:
+      1: 100044
+    second: heel_L
+  - first:
+      1: 100046
+    second: heel_R
+  - first:
+      1: 100048
+    second: helmet
+  - first:
+      1: 100050
+    second: hips
+  - first:
+      1: 100052
+    second: lower_arm_L
+  - first:
+      1: 100054
+    second: lower_arm_R
+  - first:
+      1: 100056
+    second: lower_leg_L
+  - first:
+      1: 100058
+    second: lower_leg_R
+  - first:
+      1: 100060
+    second: neck
+  - first:
+      1: 100062
+    second: root
+  - first:
+      1: 100064
+    second: shoulder_L
+  - first:
+      1: 100066
+    second: shoulder_R
+  - first:
+      1: 100068
+    second: spine
+  - first:
+      1: 100070
+    second: third_person_character
+  - first:
+      1: 100072
+    second: //RootNode
+  - first:
+      1: 100074
+    second: thumb_01_L
+  - first:
+      1: 100076
+    second: thumb_01_R
+  - first:
+      1: 100078
+    second: thumb_02_L
+  - first:
+      1: 100080
+    second: thumb_02_R
+  - first:
+      1: 100082
+    second: thumb_03_L
+  - first:
+      1: 100084
+    second: thumb_03_R
+  - first:
+      1: 100086
+    second: toe_L
+  - first:
+      1: 100088
+    second: toe_R
+  - first:
+      1: 100090
+    second: upper_arm_L
+  - first:
+      1: 100092
+    second: upper_arm_R
+  - first:
+      1: 100094
+    second: upper_leg_L
+  - first:
+      1: 100096
+    second: upper_leg_R
+  - first:
+      1: 100098
+    second: weapon
+  - first:
+      4: 400000
+    second: Armature
+  - first:
+      4: 400002
+    second: backpack
+  - first:
+      4: 400004
+    second: chest
+  - first:
+      4: 400006
+    second: f_index_01_L
+  - first:
+      4: 400008
+    second: f_index_01_R
+  - first:
+      4: 400010
+    second: f_index_02_L
+  - first:
+      4: 400012
+    second: f_index_02_R
+  - first:
+      4: 400014
+    second: f_index_03_L
+  - first:
+      4: 400016
+    second: f_index_03_R
+  - first:
+      4: 400018
+    second: f_middle_01_L
+  - first:
+      4: 400020
+    second: f_middle_01_R
+  - first:
+      4: 400022
+    second: f_middle_02_L
+  - first:
+      4: 400024
+    second: f_middle_02_R
+  - first:
+      4: 400026
+    second: f_middle_03_L
+  - first:
+      4: 400028
+    second: f_middle_03_R
+  - first:
+      4: 400030
+    second: foot_L
+  - first:
+      4: 400032
+    second: foot_R
+  - first:
+      4: 400034
+    second: goggles
+  - first:
+      4: 400036
+    second: hand_L
+  - first:
+      4: 400038
+    second: hand_R
+  - first:
+      4: 400040
+    second: head
+  - first:
+      4: 400042
+    second: headset
+  - first:
+      4: 400044
+    second: heel_L
+  - first:
+      4: 400046
+    second: heel_R
+  - first:
+      4: 400048
+    second: helmet
+  - first:
+      4: 400050
+    second: hips
+  - first:
+      4: 400052
+    second: lower_arm_L
+  - first:
+      4: 400054
+    second: lower_arm_R
+  - first:
+      4: 400056
+    second: lower_leg_L
+  - first:
+      4: 400058
+    second: lower_leg_R
+  - first:
+      4: 400060
+    second: neck
+  - first:
+      4: 400062
+    second: root
+  - first:
+      4: 400064
+    second: shoulder_L
+  - first:
+      4: 400066
+    second: shoulder_R
+  - first:
+      4: 400068
+    second: spine
+  - first:
+      4: 400070
+    second: third_person_character
+  - first:
+      4: 400072
+    second: //RootNode
+  - first:
+      4: 400074
+    second: thumb_01_L
+  - first:
+      4: 400076
+    second: thumb_01_R
+  - first:
+      4: 400078
+    second: thumb_02_L
+  - first:
+      4: 400080
+    second: thumb_02_R
+  - first:
+      4: 400082
+    second: thumb_03_L
+  - first:
+      4: 400084
+    second: thumb_03_R
+  - first:
+      4: 400086
+    second: toe_L
+  - first:
+      4: 400088
+    second: toe_R
+  - first:
+      4: 400090
+    second: upper_arm_L
+  - first:
+      4: 400092
+    second: upper_arm_R
+  - first:
+      4: 400094
+    second: upper_leg_L
+  - first:
+      4: 400096
+    second: upper_leg_R
+  - first:
+      4: 400098
+    second: weapon
+  - first:
+      43: 4300000
+    second: third_person_character
+  - first:
+      43: 4300002
+    second: goggles
+  - first:
+      43: 4300004
+    second: headset
+  - first:
+      43: 4300006
+    second: helmet
+  - first:
+      43: 4300008
+    second: backpack
+  - first:
+      74: 7400000
+    second: pose@handgun_tpc
+  - first:
+      74: 7400002
+    second: Armature|_reference@handgun_tpc
+  - first:
+      74: 7400004
+    second: fire@handgun_tpc
+  - first:
+      74: 7400006
+    second: grenade_throw_cancel@handgun_tpc
+  - first:
+      74: 7400008
+    second: grenade_throw_full@handgun_tpc
+  - first:
+      74: 7400010
+    second: grenade_throw_pose@handgun_tpc
+  - first:
+      74: 7400012
+    second: grenade_throw_release@handgun_tpc
+  - first:
+      74: 7400014
+    second: grenade_throw_start@handgun_tpc
+  - first:
+      74: 7400016
+    second: idle@handgun_tpc
+  - first:
+      74: 7400018
+    second: jump_land@handgun_tpc
+  - first:
+      74: 7400020
+    second: jump_loop@handgun_tpc
+  - first:
+      74: 7400022
+    second: jump_start@handgun_tpc
+  - first:
+      74: 7400024
+    second: reload_ammo_left@handgun_tpc
+  - first:
+      74: 7400026
+    second: reload_out_of_ammo@handgun_tpc
+  - first:
+      74: 7400028
+    second: run_45_back_left@handgun_tpc
+  - first:
+      74: 7400030
+    second: run_45_back_right@handgun_tpc
+  - first:
+      74: 7400032
+    second: run_45_up_left@handgun_tpc
+  - first:
+      74: 7400034
+    second: run_45_up_right@handgun_tpc
+  - first:
+      74: 7400036
+    second: run_backward@handgun_tpc
+  - first:
+      74: 7400038
+    second: run_forward@handgun_tpc
+  - first:
+      74: 7400040
+    second: run_strafe_left@handgun_tpc
+  - first:
+      74: 7400042
+    second: run_strafe_right@handgun_tpc
+  - first:
+      74: 7400044
+    second: walk_45_back_left@handgun_tpc
+  - first:
+      74: 7400046
+    second: walk_45_back_right@handgun_tpc
+  - first:
+      74: 7400048
+    second: walk_45_up_left@handgun_tpc
+  - first:
+      74: 7400050
+    second: walk_45_up_right@handgun_tpc
+  - first:
+      74: 7400052
+    second: walk_backward@handgun_tpc
+  - first:
+      74: 7400054
+    second: walk_forward@handgun_tpc
+  - first:
+      74: 7400056
+    second: walk_strafe_left@handgun_tpc
+  - first:
+      74: 7400058
+    second: walk_strafe_right@handgun
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: backpack
+  - first:
+      137: 13700002
+    second: goggles
+  - first:
+      137: 13700004
+    second: headset
+  - first:
+      137: 13700006
+    second: helmet
+  - first:
+      137: 13700008
+    second: third_person_character
+  externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -163,17 +445,19 @@ ModelImporter:
       animation warnings that might lower retargeting quality:\nNote: Activate translation
       DOF on avatar to improve retargeting quality.\n\t'lower_leg_L' has scale animation
       that will be discarded.\n\t'lower_leg_R' has scale animation that will be discarded.\n\nClip
-      'Armature|run_45_up_left@handgun' has import animation warnings that might lower
+      'Armature|run_45_up_left@handgun' has import animation warnings that might
+      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
+      retargeting quality.\n\t'foot_R' has scale animation that will be discarded.\n\nClip
+      'Armature|run_45_up_right@handgun' has import animation warnings that might
+      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
+      retargeting quality.\n\t'foot_L' has scale animation that will be discarded.\n\nClip
+      'Armature|run_forward@handgun' has import animation warnings that might lower
       retargeting quality:\nNote: Activate translation DOF on avatar to improve retargeting
-      quality.\n\t'foot_R' has scale animation that will be discarded.\n\nClip 'Armature|run_45_up_right@handgun'
-      has import animation warnings that might lower retargeting quality:\nNote: Activate
-      translation DOF on avatar to improve retargeting quality.\n\t'foot_L' has scale
-      animation that will be discarded.\n\nClip 'Armature|run_forward@handgun' has
-      import animation warnings that might lower retargeting quality:\nNote: Activate
-      translation DOF on avatar to improve retargeting quality.\n\t'foot_R' has scale
-      animation that will be discarded.\n"
+      quality.\n\t'foot_R' has scale animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -185,6 +469,7 @@ ModelImporter:
     - serializedVersion: 16
       name: pose@handgun_tpc
       takeName: Armature|_pose_ref@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
@@ -213,6 +498,7 @@ ModelImporter:
     - serializedVersion: 16
       name: fire@handgun_tpc
       takeName: Armature|fire@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 21
       wrapMode: 0
@@ -241,6 +527,7 @@ ModelImporter:
     - serializedVersion: 16
       name: grenade_throw_cancel@handgun_tpc
       takeName: Armature|grenade_throw_cancel@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -269,6 +556,7 @@ ModelImporter:
     - serializedVersion: 16
       name: grenade_throw_full@handgun_tpc
       takeName: Armature|grenade_throw_full@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 44
       wrapMode: 0
@@ -297,6 +585,7 @@ ModelImporter:
     - serializedVersion: 16
       name: grenade_throw_pose@handgun_tpc
       takeName: Armature|grenade_throw_pose@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
@@ -325,6 +614,7 @@ ModelImporter:
     - serializedVersion: 16
       name: grenade_throw_release@handgun_tpc
       takeName: Armature|grenade_throw_release@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 32
       wrapMode: 0
@@ -353,6 +643,7 @@ ModelImporter:
     - serializedVersion: 16
       name: grenade_throw_start@handgun_tpc
       takeName: Armature|grenade_throw_start@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 13
       wrapMode: 0
@@ -381,6 +672,7 @@ ModelImporter:
     - serializedVersion: 16
       name: idle@handgun_tpc
       takeName: Armature|idle@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 59
       wrapMode: 0
@@ -409,6 +701,7 @@ ModelImporter:
     - serializedVersion: 16
       name: jump_land@handgun_tpc
       takeName: Armature|jump_land@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 18
       wrapMode: 0
@@ -437,6 +730,7 @@ ModelImporter:
     - serializedVersion: 16
       name: jump_loop@handgun_tpc
       takeName: Armature|jump_loop@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 30
       wrapMode: 0
@@ -465,6 +759,7 @@ ModelImporter:
     - serializedVersion: 16
       name: jump_start@handgun_tpc
       takeName: Armature|jump_start@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 12
       wrapMode: 0
@@ -493,6 +788,7 @@ ModelImporter:
     - serializedVersion: 16
       name: reload_ammo_left@handgun_tpc
       takeName: Armature|reload_ammo_left@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 70
       wrapMode: 0
@@ -521,6 +817,7 @@ ModelImporter:
     - serializedVersion: 16
       name: reload_out_of_ammo@handgun_tpc
       takeName: Armature|reload_out_of_ammo@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 99
       wrapMode: 0
@@ -549,6 +846,7 @@ ModelImporter:
     - serializedVersion: 16
       name: run_45_back_left@handgun_tpc
       takeName: Armature|run_45_back_left@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -577,6 +875,7 @@ ModelImporter:
     - serializedVersion: 16
       name: run_45_back_right@handgun_tpc
       takeName: Armature|run_45_back_right@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -605,6 +904,7 @@ ModelImporter:
     - serializedVersion: 16
       name: run_45_up_left@handgun_tpc
       takeName: Armature|run_45_up_left@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -633,6 +933,7 @@ ModelImporter:
     - serializedVersion: 16
       name: run_45_up_right@handgun_tpc
       takeName: Armature|run_45_up_right@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -661,6 +962,7 @@ ModelImporter:
     - serializedVersion: 16
       name: run_backward@handgun_tpc
       takeName: Armature|run_backward@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -689,6 +991,7 @@ ModelImporter:
     - serializedVersion: 16
       name: run_forward@handgun_tpc
       takeName: Armature|run_forward@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -717,6 +1020,7 @@ ModelImporter:
     - serializedVersion: 16
       name: run_strafe_left@handgun_tpc
       takeName: Armature|run_strafe_left@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -745,6 +1049,7 @@ ModelImporter:
     - serializedVersion: 16
       name: run_strafe_right@handgun_tpc
       takeName: Armature|run_strafe_right@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -773,6 +1078,7 @@ ModelImporter:
     - serializedVersion: 16
       name: walk_45_back_left@handgun_tpc
       takeName: Armature|walk_45_back_left@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 29
       wrapMode: 0
@@ -801,6 +1107,7 @@ ModelImporter:
     - serializedVersion: 16
       name: walk_45_back_right@handgun_tpc
       takeName: Armature|walk_45_back_right@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 29
       wrapMode: 0
@@ -829,6 +1136,7 @@ ModelImporter:
     - serializedVersion: 16
       name: walk_45_up_left@handgun_tpc
       takeName: Armature|walk_45_up_left@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 28
       wrapMode: 0
@@ -857,6 +1165,7 @@ ModelImporter:
     - serializedVersion: 16
       name: walk_45_up_right@handgun_tpc
       takeName: Armature|walk_45_up_right@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 28
       wrapMode: 0
@@ -885,6 +1194,7 @@ ModelImporter:
     - serializedVersion: 16
       name: walk_backward@handgun_tpc
       takeName: Armature|walk_backward@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 29
       wrapMode: 0
@@ -913,6 +1223,7 @@ ModelImporter:
     - serializedVersion: 16
       name: walk_forward@handgun_tpc
       takeName: Armature|walk_forward@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 28
       wrapMode: 0
@@ -941,6 +1252,7 @@ ModelImporter:
     - serializedVersion: 16
       name: walk_strafe_left@handgun_tpc
       takeName: Armature|walk_strafe_left@handgun_tpc
+      internalID: 0
       firstFrame: 0
       lastFrame: 29
       wrapMode: 0
@@ -969,6 +1281,7 @@ ModelImporter:
     - serializedVersion: 16
       name: walk_strafe_right@handgun
       takeName: Armature|walk_strafe_right@handgun
+      internalID: 0
       firstFrame: 0
       lastFrame: 29
       wrapMode: 0
@@ -1000,19 +1313,31 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
@@ -1020,10 +1345,13 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 1
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human:
     - boneName: hips
       humanName: Hips
@@ -1338,239 +1666,234 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: third_person_character_lpfp(Clone)
+    - name: third_person_character_lpfp@rifle(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Armature
-      parentName: third_person_character_lpfp(Clone)
+      parentName: third_person_character_lpfp@rifle(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
     - name: root
       parentName: Armature
       position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 0.9999996, z: 0.9999996}
     - name: hips
       parentName: root
-      position: {x: -0, y: 0.8989649, z: -0.057114247}
-      rotation: {x: 0.09476978, y: -0.00000023734553, z: -0.000000022594877, w: 0.99549925}
-      scale: {x: 0.9999989, y: 0.9999973, z: 0.99999887}
+      position: {x: -0.000000014901161, y: 0.045719407, z: 0.88020974}
+      rotation: {x: 0.77093655, y: -0.000000086531955, z: -0.00000012984152, w: 0.6369119}
+      scale: {x: 0.99999887, y: 0.9999975, z: 0.9999992}
     - name: spine
       parentName: hips
-      position: {x: -7.993605e-15, y: 0.15599132, z: -0.0000000037252899}
-      rotation: {x: -0.05852982, y: 0.000000119004916, z: 0.000000020931894, w: 0.9982857}
-      scale: {x: 0.9999985, y: 0.9999993, z: 0.9999991}
+      position: {x: 0.0000000037252899, y: 0.1559912, z: 0}
+      rotation: {x: -0.058529846, y: 0.000000119004895, z: 0.0000000209319, w: 0.9982857}
+      scale: {x: 0.9999988, y: 0.9999997, z: 0.99999946}
     - name: chest
       parentName: spine
-      position: {x: 1.3322674e-15, y: 0.13545196, z: 0.0000000018626449}
-      rotation: {x: -0.06309791, y: -1.0360531e-14, z: 0.000000015043714, w: 0.99800736}
-      scale: {x: 0.99999815, y: 0.99999964, z: 0.99999934}
+      position: {x: -0.000000006053596, y: 0.13545184, z: 0.000000029802319}
+      rotation: {x: -0.063097924, y: -2.1316282e-14, z: 0.000000015043724, w: 0.9980074}
+      scale: {x: 0.9999979, y: 1.0000005, z: 1.0000007}
     - name: neck
       parentName: chest
-      position: {x: -1.2768912e-10, y: 0.22775578, z: -0.00053556816}
-      rotation: {x: 0.19330588, y: -0.000000045034554, z: -0.00000006582977, w: 0.9811385}
-      scale: {x: 0.99999905, y: 0.99999934, z: 0.9999978}
+      position: {x: 0.000000017695127, y: 0.22775581, z: -0.0005355323}
+      rotation: {x: 0.255303, y: -0.00000011527757, z: -0.00000009132338, w: 0.9668611}
+      scale: {x: 0.9999989, y: 1.0000015, z: 0.99999684}
     - name: head
       parentName: neck
-      position: {x: -8.049116e-15, y: 0.08630178, z: 0.000000024912875}
-      rotation: {x: -0.09897361, y: 0.0000001642575, z: 0.000000027420716, w: 0.99509007}
-      scale: {x: 0.9999995, y: 0.9999992, z: 1.0000001}
+      position: {x: -0.000000044703476, y: 0.08630183, z: -0.000000027939674}
+      rotation: {x: -0.18062781, y: 0.00000011727633, z: 0.00000006462066, w: 0.98355156}
+      scale: {x: 0.99999964, y: 0.99999994, z: 0.99999905}
     - name: shoulder_L
       parentName: chest
-      position: {x: -0.03725746, y: 0.15521996, z: 0.07961214}
-      rotation: {x: -0.5114261, y: 0.4222492, z: 0.36699387, w: 0.6522764}
-      scale: {x: 0.99999756, y: 0.99999964, z: 0.9999984}
+      position: {x: -0.03725744, y: 0.15522002, z: 0.07961214}
+      rotation: {x: 0.51142585, y: -0.42224944, z: -0.3669941, w: -0.6522762}
+      scale: {x: 0.99999803, y: 0.99999994, z: 1.0000001}
     - name: upper_arm_L
       parentName: shoulder_L
-      position: {x: -0.0082757715, y: 0.145501, z: -0.033711553}
-      rotation: {x: 0.058902204, y: -0.6983918, z: 0.21325345, w: 0.6806632}
-      scale: {x: 1.0000001, y: 1.0000002, z: 1}
+      position: {x: -0.008275759, y: 0.14550106, z: -0.03371151}
+      rotation: {x: -0.057881467, y: 0.69510704, z: -0.2135231, w: -0.6840204}
+      scale: {x: 1.0000017, y: 0.99999964, z: 0.9999965}
     - name: lower_arm_L
       parentName: upper_arm_L
-      position: {x: -0.00000009819449, y: 0.29073876, z: 0.0000000018626449}
-      rotation: {x: 0.037302177, y: -0.005317508, z: -0.0066939504, w: 0.99926746}
-      scale: {x: 1, y: 1, z: 1.0000001}
+      position: {x: -0.00000006705522, y: 0.2907386, z: 0.000000026077029}
+      rotation: {x: 0.037509307, y: -0.0053186715, z: -0.0066628344, w: 0.99925995}
+      scale: {x: 0.9999992, y: 1.0000014, z: 0.9999984}
     - name: hand_L
       parentName: lower_arm_L
-      position: {x: -0.000000040665324, y: 0.27616578, z: -6.984918e-10}
-      rotation: {x: -0.022659408, y: 0.0014838686, z: -0.0453314, w: 0.9987139}
-      scale: {x: 0.9999998, y: 0.99999994, z: 0.9999999}
+      position: {x: -0.0000000037252899, y: 0.27616572, z: 0.000000008381902}
+      rotation: {x: -0.02248631, y: -0.0033549499, z: -0.045180608, w: 0.9987201}
+      scale: {x: 1.0000015, y: 1.0000002, z: 1.0000006}
     - name: f_index_01_L
       parentName: hand_L
-      position: {x: -0.0027858317, y: 0.113994405, z: 0.03511336}
-      rotation: {x: -0.0038635302, y: 0.019854784, z: 0.045842424, w: 0.9987439}
-      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+      position: {x: -0.002785824, y: 0.11399442, z: 0.03511342}
+      rotation: {x: -0.0038635987, y: 0.019854756, z: 0.045842297, w: 0.9987439}
+      scale: {x: 0.9999988, y: 1.0000013, z: 1.0000007}
     - name: f_index_02_L
       parentName: f_index_01_L
-      position: {x: -0.00000003201421, y: 0.028811203, z: 0.0000000037252899}
-      rotation: {x: -0.000089613204, y: -0.013896438, z: 0.004428165, w: 0.99989367}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.00000004097819, y: 0.028811302, z: 0.000000055879347}
+      rotation: {x: -0.0000895257, y: -0.013896495, z: 0.0044282516, w: 0.99989367}
+      scale: {x: 1.000002, y: 1.0000007, z: 1.0000007}
     - name: f_index_03_L
       parentName: f_index_02_L
-      position: {x: 0.0000000044528856, y: 0.028750043, z: -0.0000000023283062}
-      rotation: {x: -0.00014711311, y: 0.0014221024, z: 0.018873818, w: 0.9998209}
-      scale: {x: 1, y: 1.0000001, z: 0.99999994}
-    - name: f_middle_01_L
-      parentName: hand_L
-      position: {x: -0.0023270396, y: 0.113748945, z: -0.011647457}
-      rotation: {x: -0.0035386663, y: 0.01235342, z: 0.048820853, w: 0.99872494}
-      scale: {x: 1, y: 0.9999999, z: 1}
-    - name: f_middle_02_L
-      parentName: f_middle_01_L
-      position: {x: 0.000000046653433, y: 0.030101655, z: -6.984918e-10}
-      rotation: {x: -0.00015458962, y: -0.004866038, z: 0.010840313, w: 0.9999294}
-      scale: {x: 0.99999994, y: 1, z: 0.9999999}
-    - name: f_middle_03_L
-      parentName: f_middle_02_L
-      position: {x: -0.000000026338963, y: 0.030625654, z: -4.6566123e-10}
-      rotation: {x: -0.00038762004, y: 0.0047382456, z: 0.027422978, w: 0.9996126}
-      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+      position: {x: -0.000000029802319, y: 0.028750092, z: 0.00000007823109}
+      rotation: {x: -0.00014715057, y: 0.001422103, z: 0.01887376, w: 0.9998208}
+      scale: {x: 1.0000026, y: 1.0000013, z: 1.0000008}
     - name: thumb_01_L
       parentName: hand_L
-      position: {x: -0.00016631949, y: 0.042814016, z: 0.033891883}
-      rotation: {x: -0.3022685, y: 0.6278923, z: 0.272415, w: -0.6634569}
-      scale: {x: 1, y: 0.9999996, z: 1}
+      position: {x: -0.00016631185, y: 0.042814083, z: 0.033891942}
+      rotation: {x: 0.40627807, y: 0.028546065, z: 0.022613754, w: 0.91302353}
+      scale: {x: 1.0000011, y: 1.000001, z: 0.99999994}
     - name: thumb_02_L
       parentName: thumb_01_L
-      position: {x: -0.0000000686341, y: 0.031322297, z: 0.000000052154057}
-      rotation: {x: 0.0014320881, y: -0.0057412293, z: 0.019409426, w: 0.9997941}
-      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+      position: {x: -0.0000000074505797, y: 0.03132234, z: 0.000000048428767}
+      rotation: {x: 0.0014320909, y: -0.0057412027, z: 0.019409422, w: 0.9997941}
+      scale: {x: 1.0000001, y: 0.9999999, z: 1.0000006}
     - name: thumb_03_L
       parentName: thumb_02_L
-      position: {x: -0.00000010197981, y: 0.0312553, z: 0.000000014901159}
-      rotation: {x: -0.0000111929785, y: 0.003562422, z: 0.019474316, w: 0.999804}
-      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+      position: {x: -0.000000013038514, y: 0.031255204, z: 0.00000010617076}
+      rotation: {x: -0.000011082968, y: 0.0035625694, z: 0.01947426, w: 0.999804}
+      scale: {x: 1.000003, y: 0.99999994, z: 1.0000005}
+    - name: f_middle_01_L
+      parentName: hand_L
+      position: {x: -0.0023270247, y: 0.11374895, z: -0.011647393}
+      rotation: {x: -0.003538651, y: 0.012353433, z: 0.048820842, w: 0.99872494}
+      scale: {x: 1, y: 1.0000024, z: 1.0000018}
+    - name: f_middle_02_L
+      parentName: f_middle_01_L
+      position: {x: 0.000000028870996, y: 0.030101616, z: -0.000000059604638}
+      rotation: {x: -0.00015452568, y: -0.0048660412, z: 0.010840362, w: 0.9999294}
+      scale: {x: 1.000003, y: 1.000001, z: 1.0000008}
+    - name: f_middle_03_L
+      parentName: f_middle_02_L
+      position: {x: -0.000000029802319, y: 0.030625705, z: 0.0000000074505797}
+      rotation: {x: -0.00038775327, y: 0.0047381585, z: 0.027422955, w: 0.9996126}
+      scale: {x: 1.0000014, y: 1.000001, z: 1.000001}
     - name: shoulder_R
       parentName: chest
-      position: {x: 0.037257496, y: 0.15521996, z: 0.07961212}
-      rotation: {x: -0.5114259, y: -0.42224923, z: -0.3669938, w: 0.6522766}
-      scale: {x: 0.9999969, y: 0.9999961, z: 0.999999}
+      position: {x: 0.037257522, y: 0.15522003, z: 0.079612136}
+      rotation: {x: 0.51142585, y: 0.4222495, z: 0.36699393, w: -0.65227634}
+      scale: {x: 0.9999975, y: 0.99999684, z: 1.0000019}
     - name: upper_arm_R
       parentName: shoulder_R
-      position: {x: 0.008275787, y: 0.14550099, z: -0.033711564}
-      rotation: {x: 0.058903143, y: 0.69839394, z: -0.21325244, w: 0.68066126}
-      scale: {x: 0.9999998, y: 0.99999994, z: 0.99999994}
+      position: {x: 0.008275761, y: 0.14550105, z: -0.033711653}
+      rotation: {x: 0.057882227, y: 0.69510686, z: -0.2135228, w: 0.6840206}
+      scale: {x: 1.000002, y: 1.0000007, z: 0.9999983}
     - name: lower_arm_R
       parentName: upper_arm_R
-      position: {x: 0.000000028859628, y: 0.29073873, z: 0}
-      rotation: {x: 0.037303295, y: 0.005317239, z: 0.0066979504, w: 0.99926746}
-      scale: {x: 1.0000001, y: 1, z: 1}
+      position: {x: 0.00000009872018, y: 0.29073855, z: -0.000000014901159}
+      rotation: {x: 0.037508797, y: 0.0053186105, z: 0.0066628405, w: 0.99926}
+      scale: {x: 1.0000024, y: 1.0000011, z: 1.0000002}
     - name: hand_R
       parentName: lower_arm_R
-      position: {x: -0.00000009836366, y: 0.27616572, z: 0.0000000023283062}
-      rotation: {x: -0.02266949, y: -0.0014838829, z: 0.045330174, w: 0.99871373}
-      scale: {x: 0.9999999, y: 1, z: 1}
+      position: {x: -0.000000052154057, y: 0.27616575, z: -0.00000004097819}
+      rotation: {x: -0.022486275, y: 0.0033550642, z: 0.045180574, w: 0.9987201}
+      scale: {x: 0.9999998, y: 1.0000045, z: 0.9999981}
     - name: f_index_01_R
       parentName: hand_R
-      position: {x: 0.0027856848, y: 0.11399425, z: 0.035113376}
-      rotation: {x: -0.0038634671, y: -0.019854788, z: -0.045842543, w: 0.9987439}
-      scale: {x: 0.99999964, y: 0.99999946, z: 0.99999994}
+      position: {x: 0.002785838, y: 0.11399442, z: 0.03511326}
+      rotation: {x: -0.0038632816, y: -0.019854832, z: -0.04584252, w: 0.99874395}
+      scale: {x: 1.000003, y: 0.9999966, z: 1.0000004}
     - name: f_index_02_R
       parentName: f_index_01_R
-      position: {x: 0.000000069150694, y: 0.02881122, z: -0.0000000018626449}
-      rotation: {x: -0.00008966865, y: 0.013896443, z: -0.0044281404, w: 0.99989367}
-      scale: {x: 0.99999994, y: 0.9999998, z: 0.9999999}
+      position: {x: -0.000000022351738, y: 0.028811287, z: 0.00000010989605}
+      rotation: {x: -0.00008986026, y: 0.013896431, z: -0.004428264, w: 0.99989367}
+      scale: {x: 1.0000018, y: 1.0000012, z: 1.0000011}
     - name: f_index_03_R
       parentName: f_index_02_R
-      position: {x: 0.000000018058925, y: 0.028750055, z: -9.3132246e-10}
-      rotation: {x: -0.0001471125, y: -0.0014221051, z: -0.018873781, w: 0.9998209}
-      scale: {x: 0.99999994, y: 1, z: 1.0000001}
-    - name: f_middle_01_R
-      parentName: hand_R
-      position: {x: 0.002326907, y: 0.11374885, z: -0.011647459}
-      rotation: {x: -0.0035386505, y: -0.012353417, z: -0.04882093, w: 0.9987249}
-      scale: {x: 1, y: 0.9999999, z: 1}
-    - name: f_middle_02_R
-      parentName: f_middle_01_R
-      position: {x: 0.0000000076543065, y: 0.030101605, z: -0.0000000023283062}
-      rotation: {x: -0.00015459373, y: 0.004866041, z: -0.010840268, w: 0.9999294}
-      scale: {x: 0.9999998, y: 1, z: 0.9999999}
-    - name: f_middle_03_R
-      parentName: f_middle_02_R
-      position: {x: 0.000000064974294, y: 0.030625619, z: -4.6566123e-10}
-      rotation: {x: -0.00038761753, y: -0.004738245, z: -0.027423011, w: 0.9996126}
-      scale: {x: 0.9999998, y: 1.0000001, z: 0.9999999}
+      position: {x: -0.0000000037252899, y: 0.028750073, z: 0.00000014156102}
+      rotation: {x: -0.00014702287, y: -0.0014221251, z: -0.018873697, w: 0.9998209}
+      scale: {x: 1.0000013, y: 0.99999994, z: 1}
     - name: thumb_01_R
       parentName: hand_R
-      position: {x: 0.00016626118, y: 0.04281386, z: 0.033891894}
-      rotation: {x: 0.3009776, y: 0.63102, z: 0.27384096, w: 0.6604827}
-      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+      position: {x: 0.00016634118, y: 0.04281405, z: 0.03389174}
+      rotation: {x: 0.4062823, y: -0.028546065, z: -0.022614432, w: 0.91302156}
+      scale: {x: 1.0000011, y: 0.99999917, z: 0.99999976}
     - name: thumb_02_R
       parentName: thumb_01_R
-      position: {x: 0.000000028838254, y: 0.03132228, z: 0.000000048428767}
-      rotation: {x: 0.0014320769, y: 0.0057411883, z: -0.019409366, w: 0.9997941}
-      scale: {x: 1, y: 1, z: 0.99999994}
+      position: {x: -0.000000052154057, y: 0.031322252, z: 0.000000022351738}
+      rotation: {x: 0.0014319415, y: 0.0057412116, z: -0.01940934, w: 0.9997942}
+      scale: {x: 1.0000035, y: 0.99999994, z: 1.0000026}
     - name: thumb_03_R
       parentName: thumb_02_R
-      position: {x: -0.000000042375174, y: 0.031255234, z: -0.000000059604638}
-      rotation: {x: -0.000011207868, y: -0.0035624052, z: -0.019474348, w: 0.999804}
-      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+      position: {x: 0.000000059604638, y: 0.03125518, z: 0.00000001862645}
+      rotation: {x: -0.000011146528, y: -0.0035623405, z: -0.019474342, w: 0.999804}
+      scale: {x: 1.0000013, y: 0.99999964, z: 1.0000008}
+    - name: f_middle_01_R
+      parentName: hand_R
+      position: {x: 0.0023270303, y: 0.11374898, z: -0.01164757}
+      rotation: {x: -0.0035386318, y: -0.01235352, z: -0.048820894, w: 0.9987249}
+      scale: {x: 1.0000032, y: 0.99999696, z: 1.0000002}
+    - name: f_middle_02_R
+      parentName: f_middle_01_R
+      position: {x: -0.000000014901159, y: 0.030101676, z: -0.00000015459953}
+      rotation: {x: -0.00015462372, y: 0.0048660724, z: -0.010840333, w: 0.9999295}
+      scale: {x: 1.0000013, y: 1.0000015, z: 1.000001}
+    - name: f_middle_03_R
+      parentName: f_middle_02_R
+      position: {x: -0, y: 0.030625671, z: -0.00000007078051}
+      rotation: {x: -0.00038752728, y: -0.004738242, z: -0.027423004, w: 0.9996126}
+      scale: {x: 1.0000019, y: 0.99999946, z: 1.0000007}
     - name: upper_leg_L
       parentName: hips
-      position: {x: -0.091056794, y: -0.059234656, z: 0.05793703}
-      rotation: {x: 0.9903229, y: -0.011227934, z: 0.0036184937, w: 0.13828056}
-      scale: {x: 1, y: 1.0000001, z: 1.0000023}
+      position: {x: -0.09105677, y: -0.059234787, z: 0.057937063}
+      rotation: {x: 0.9903261, y: -0.011320478, z: 0.0013826258, w: 0.1382902}
+      scale: {x: 1, y: 1.0000026, z: 1.000004}
     - name: lower_leg_L
       parentName: upper_leg_L
-      position: {x: 0.0000000024010658, y: 0.361716, z: -0.000000007916241}
-      rotation: {x: 0.099802636, y: -0.0029224448, z: -0.009857556, w: 0.99495417}
-      scale: {x: 1.0000001, y: 1, z: 0.99999964}
+      position: {x: -0.000000044703476, y: 0.361716, z: -0.00000001862645}
+      rotation: {x: 0.09983068, y: -0.0029224462, z: -0.009860322, w: 0.9949513}
+      scale: {x: 1.0000001, y: 1.0000017, z: 0.9999983}
     - name: foot_L
       parentName: lower_leg_L
-      position: {x: 0.000000004275534, y: 0.33706585, z: 0.0000000032086969}
-      rotation: {x: -0.5048347, y: 0.000388006, z: -0.0014700864, w: 0.8632147}
-      scale: {x: 1.000001, y: 1.0000018, z: 1.0000023}
-    - name: heel_L
-      parentName: foot_L
-      position: {x: 0.0000000045290407, y: -0.0000000029730347, z: 0.000000010129198}
-      rotation: {x: -0.0000024719716, y: 0.75290203, z: 0.6581326, w: -0.0000039294164}
-      scale: {x: 1, y: 0.9999999, z: 1}
+      position: {x: 0.000000009313225, y: 0.33706585, z: -0.000000039115545}
+      rotation: {x: -0.5048694, y: 0.0024254203, z: -0.000544781, w: 0.8631922}
+      scale: {x: 1.0000011, y: 1.0000017, z: 1.0000012}
     - name: toe_L
       parentName: foot_L
-      position: {x: 0.0000000046714628, y: 0.15783103, z: -0.0000000057032556}
-      rotation: {x: -0.0000005606133, y: 0.9035248, z: -0.4285359, w: -0.000000028857237}
-      scale: {x: 1, y: 0.9999998, z: 1}
+      position: {x: 0.000000010377351, y: 0.15783106, z: -0.00000001862645}
+      rotation: {x: -0.000000579399, y: 0.9035246, z: -0.42853615, w: -0.00000006775371}
+      scale: {x: 1.0000004, y: 0.99999994, z: 1.0000007}
+    - name: heel_L
+      parentName: foot_L
+      position: {x: -0.000000022408553, y: 0.000000011175869, z: 0.000000011175869}
+      rotation: {x: -0.0000024845356, y: 0.75290203, z: 0.6581326, w: -0.0000039169095}
+      scale: {x: 1.0000008, y: 1.0000013, z: 1.0000005}
     - name: upper_leg_R
       parentName: hips
-      position: {x: 0.09105684, y: -0.05923466, z: 0.057936937}
-      rotation: {x: 0.99032277, y: 0.011227764, z: -0.0036188965, w: 0.13828123}
-      scale: {x: 1, y: 1.0000001, z: 1.0000019}
+      position: {x: 0.091056846, y: -0.05923466, z: 0.05793695}
+      rotation: {x: 0.9903261, y: 0.011320535, z: -0.0013830765, w: 0.1382902}
+      scale: {x: 1.0000001, y: 1.0000026, z: 1.0000038}
     - name: lower_leg_R
       parentName: upper_leg_R
-      position: {x: 5.09317e-10, y: 0.36171597, z: -6.111804e-10}
-      rotation: {x: 0.09980363, y: 0.0029224404, z: 0.009857645, w: 0.99495405}
-      scale: {x: 1.0000001, y: 0.99999994, z: 0.99999976}
+      position: {x: 0.000000005878973, y: 0.36171594, z: -0.000000012456438}
+      rotation: {x: 0.099830754, y: 0.002922441, z: 0.009860309, w: 0.9949513}
+      scale: {x: 1, y: 1.0000029, z: 0.99999887}
     - name: foot_R
       parentName: lower_leg_R
-      position: {x: -0.0000000024247127, y: 0.33706588, z: 0.0000000071231616}
-      rotation: {x: -0.50483525, y: -0.00038788363, z: 0.0014701061, w: 0.8632144}
-      scale: {x: 1.000001, y: 1.0000017, z: 1.0000025}
+      position: {x: -0, y: 0.33706594, z: -0.000000014901159}
+      rotation: {x: -0.5048694, y: -0.0024254199, z: 0.00054478203, w: 0.8631922}
+      scale: {x: 1.000001, y: 1.0000012, z: 1.0000037}
     - name: heel_R
       parentName: foot_R
-      position: {x: 0.0000000040609147, y: -0.0000000013254081, z: 0.000000027195892}
-      rotation: {x: 0.000002472441, y: 0.75290203, z: 0.6581326, w: 0.0000039298266}
-      scale: {x: 1, y: 0.9999995, z: 0.99999994}
+      position: {x: 0.0000000020812079, y: 0.000000014901159, z: 0.0000000074505797}
+      rotation: {x: 0.0000024839535, y: 0.75290215, z: 0.6581325, w: 0.0000039171423}
+      scale: {x: 1.0000004, y: 0.9999991, z: 1.0000004}
     - name: toe_R
       parentName: foot_R
-      position: {x: 0.0000000040931414, y: 0.15783106, z: 0.0000000057754326}
-      rotation: {x: 0.00000056040557, y: 0.9035248, z: -0.42853582, w: 0.000000028955757}
-      scale: {x: 0.9999998, y: 0.99999946, z: 0.9999994}
+      position: {x: -0.000000006003204, y: 0.15783106, z: 0}
+      rotation: {x: 0.0000005790498, y: 0.90352464, z: -0.4285363, w: 0.00000006891787}
+      scale: {x: 1.0000008, y: 1.0000001, z: 0.9999991}
     - name: weapon
       parentName: hips
-      position: {x: 0.00000029634018, y: 0.30729827, z: 0.62147045}
-      rotation: {x: 0.6369119, y: 0.0000005851156, z: 0.00000017969205, w: 0.77093655}
-      scale: {x: 0.9999998, y: 0.9999991, z: 0.9999981}
+      position: {x: -0.13503511, y: 0.5219438, z: 0.45494616}
+      rotation: {x: 0.6369119, y: 0.0000005851154, z: 0.00000017969197, w: 0.77093655}
+      scale: {x: 0.99999994, y: 0.99999905, z: 0.9999982}
     - name: third_person_character
-      parentName: third_person_character_lpfp(Clone)
+      parentName: third_person_character_lpfp@rifle(Clone)
       position: {x: -0, y: 0, z: 0}
-      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-      scale: {x: 1, y: 1, z: 1}
-    - name: backpack
-      parentName: third_person_character
-      position: {x: -0, y: 0.000000119209275, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
     - name: goggles
@@ -1588,6 +1911,11 @@ ModelImporter:
       position: {x: -0, y: 0.000000119209275, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
+    - name: backpack
+      parentName: third_person_character
+      position: {x: -0, y: 0.000000119209275, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -1595,15 +1923,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 3a0fc50da26e55e49a89c167d5562115,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 32bded04b17d7944e88a86ecd5ecac18, type: 3}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
+  avatarSetup: 2
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

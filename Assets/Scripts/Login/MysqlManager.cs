@@ -146,4 +146,9 @@ public class MysqlManager : Singleton<MysqlManager>
 
         return EnumTools.RegisterState.Error;
     }
+
+    private void OnApplicationQuit()
+    {
+        
+    }
 }
