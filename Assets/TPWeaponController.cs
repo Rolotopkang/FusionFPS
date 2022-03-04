@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Scripts.Weapon;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.Rendering;
 
 public class TPWeaponController : MonoBehaviour
@@ -11,8 +12,7 @@ public class TPWeaponController : MonoBehaviour
     public String WeaponName;
     public RuntimeAnimatorController AnimatorController;
     public List<Renderer> WeaponRenderer;
-    public GameObject WeaponRightHandIK;
-    public GameObject WeaponLeftHandIK;
+    public Rig Rig;
     public Animator TPAnimator;
     public AudioSource FirearmsShootingAudioSource;
     public AudioSource FirearmsReloadAudioSource;
@@ -28,11 +28,15 @@ public class TPWeaponController : MonoBehaviour
     public void Shoot()
     {
         Debug.Log("第三人称射击！");
+        
+        
         //特效播放
         MuzzleParticle.Play();
+        Debug.Log(MuzzleParticle.name+"name");
         CasingParticle.Play();
+        
         //动画播放
-        TPAnimator.Play("Fire",  0, 0);
+        TPAnimator.Play("Fire",  2, 0);
         
         // //声音？
         // FirearmsShootingAudioSource.clip = FirearmsAudioData.ShootingAudio;
@@ -42,55 +46,15 @@ public class TPWeaponController : MonoBehaviour
 
     public void Reload()
     {
-        TPAnimator.SetLayerWeight(1,1);
-        TPAnimator.SetTrigger("ReloadLeft");
+        TPAnimator.SetTrigger("rl");
         Debug.Log("animator set!!!!");
-        
-        // if (reloadAmmoCheckerCoroutine == null)
-        // {
-        //     reloadAmmoCheckerCoroutine = CheckReloadAmmoAnimationEnd();
-        //     StartCoroutine(reloadAmmoCheckerCoroutine);
-        //     IsReloading = true;
-        // }
-        // else
-        // {
-        //     StopCoroutine(reloadAmmoCheckerCoroutine);
-        //     reloadAmmoCheckerCoroutine = null;
-        //     reloadAmmoCheckerCoroutine = CheckReloadAmmoAnimationEnd();
-        //     StartCoroutine(reloadAmmoCheckerCoroutine);
-        //     IsReloading = true;
-        // }
     }
-
-
+    
     public void ReloadOutOf()
     {
-        TPAnimator.SetLayerWeight(1,1);
-        TPAnimator.SetTrigger("ReloadOutOf");
+        TPAnimator.SetTrigger("rof");
         Debug.Log("animator set OUtof!!!!");
     }
-    
-    
-    // protected IEnumerator CheckReloadAmmoAnimationEnd()
-    // {
-    //     while (true)
-    //     {
-    //         yield return null;
-    //
-    //         TPAnimatorStateInfo = TPAnimator.GetCurrentAnimatorStateInfo(TPAnimator.GetLayerIndex("Reload Layer"));
-    //         Debug.Log(TPAnimatorStateInfo.IsTag("ReloadAmmo"));
-    //         if (TPAnimatorStateInfo.IsTag("ReloadAmmo"))
-    //         {
-    //             if (TPAnimatorStateInfo.normalizedTime >= 0.9f)
-    //             {
-    //                 IsReloading = false;
-    //                 yield break;
-    //             }
-    //         }
-    //     }
-    // }
-    
-    
     
     /// <summary>
     /// 切换枪械
@@ -99,7 +63,7 @@ public class TPWeaponController : MonoBehaviour
     /// <param name="isMine">是否本地</param>
     public void HideSelf(bool set , bool isMine)
     {
-        // if(isMine){return;}
+        if(isMine){return;}
         
         if (!set)
         {
@@ -107,10 +71,9 @@ public class TPWeaponController : MonoBehaviour
             {
                 tpRenderer.shadowCastingMode = ShadowCastingMode.On;
             }
-
-            Debug.Log(TPAnimator.runtimeAnimatorController.name +"old" );
+            
             TPAnimator.runtimeAnimatorController = AnimatorController;
-            Debug.Log(TPAnimator.runtimeAnimatorController.name +"new" );
+            Rig.weight = 1;
         }
         else
         {
@@ -118,6 +81,7 @@ public class TPWeaponController : MonoBehaviour
             {
                 tpRenderer.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
             }
+            Rig.weight = 0;
         }
         
     }

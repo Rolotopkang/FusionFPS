@@ -18,10 +18,9 @@ public class PlayerNumericalController : MonoBehaviourPun, IDamager,IPunObservab
     private TPWeaponController newWeapon;
 
     public List<TPWeaponController> MultiplayerWeaponList;
-
     public static event Action<float> Respawn;
-
-    private void Start()
+    
+    private void Awake()
     {
         if (photonView.IsMine)
         {
@@ -31,12 +30,12 @@ public class PlayerNumericalController : MonoBehaviourPun, IDamager,IPunObservab
         }
         
         
+        //TODO
+        //改到游戏类里
         Hashtable tmp_hashtable = new Hashtable();
         tmp_hashtable.Add("Weapon","handgun_01");
         PhotonNetwork.SetPlayerCustomProperties(tmp_hashtable);
-        currentWeaponName = "handgun_01";
     }
-
 
     public void Shoot()
     {
@@ -65,8 +64,10 @@ public class PlayerNumericalController : MonoBehaviourPun, IDamager,IPunObservab
     private void ChangeTPWeapon()
     {
         newWeaponName = (String)photonView.Owner.CustomProperties["Weapon"];
-        
-        if(newWeaponName.Equals(currentWeaponName)){return;}
+
+        if (newWeaponName == null) { return; }
+
+        if(newWeaponName.Equals(currentWeaponName) || newWeaponName.Equals(String.Empty)){return;}
 
         foreach (var weapon in MultiplayerWeaponList)
         {
@@ -80,12 +81,13 @@ public class PlayerNumericalController : MonoBehaviourPun, IDamager,IPunObservab
                 currentWeapon = weapon;
             }
         }
-
-        Debug.Log(PhotonNetwork.NickName+currentWeaponName+"cuuuuuu");
+        
         currentWeapon.HideSelf(true,photonView.IsMine);
         currentWeapon.gameObject.SetActive(false);
+        
         newWeapon.gameObject.SetActive(true);
         newWeapon.HideSelf(false,photonView.IsMine);
+        
         currentWeaponName = newWeaponName;
     }
     
