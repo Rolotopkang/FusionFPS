@@ -27,12 +27,8 @@ public class TPWeaponController : MonoBehaviour
 
     public void Shoot()
     {
-        Debug.Log("第三人称射击！");
-        
-        
         //特效播放
         MuzzleParticle.Play();
-        Debug.Log(MuzzleParticle.name+"name");
         CasingParticle.Play();
         
         //动画播放
@@ -47,13 +43,11 @@ public class TPWeaponController : MonoBehaviour
     public void Reload()
     {
         TPAnimator.SetTrigger("rl");
-        Debug.Log("animator set!!!!");
     }
     
     public void ReloadOutOf()
     {
         TPAnimator.SetTrigger("rof");
-        Debug.Log("animator set OUtof!!!!");
     }
     
     /// <summary>

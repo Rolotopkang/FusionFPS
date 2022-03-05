@@ -4,18 +4,21 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Scripts.Weapon;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityTemplateProjects.MultiplayerScripts;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 [RequireComponent(typeof(PhotonView))]
 public class PlayerNumericalController : MonoBehaviourPun, IDamager,IPunObservable
 {
-    public int Heath;
+    public int Health;
+    public int MaxHealth;
     private GameObject globalCamera;
     public String currentWeaponName;
     public String newWeaponName;
     public TPWeaponController currentWeapon;
     private TPWeaponController newWeapon;
+    
 
     public List<TPWeaponController> MultiplayerWeaponList;
     public static event Action<float> Respawn;
@@ -35,6 +38,9 @@ public class PlayerNumericalController : MonoBehaviourPun, IDamager,IPunObservab
         Hashtable tmp_hashtable = new Hashtable();
         tmp_hashtable.Add("Weapon","handgun_01");
         PhotonNetwork.SetPlayerCustomProperties(tmp_hashtable);
+        
+        //Data
+        Health = MaxHealth;
     }
 
     public void Shoot()
@@ -89,6 +95,8 @@ public class PlayerNumericalController : MonoBehaviourPun, IDamager,IPunObservab
         newWeapon.HideSelf(false,photonView.IsMine);
         
         currentWeaponName = newWeaponName;
+        //草我是傻逼
+        currentWeapon = newWeapon;
     }
     
     public void TakeDamage(int _damage)
@@ -111,7 +119,7 @@ public class PlayerNumericalController : MonoBehaviourPun, IDamager,IPunObservab
             return;
         }
 
-        Heath -= _damage;
+        Health -= _damage;
     }
 
     [PunRPC]
@@ -139,6 +147,6 @@ public class PlayerNumericalController : MonoBehaviourPun, IDamager,IPunObservab
 
     private bool IsDeath()
     {
-        return Heath <= 0;
+        return Health <= 0;
     }
 }

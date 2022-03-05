@@ -49,7 +49,7 @@ public class MysqlManager : Singleton<MysqlManager>
 				connection.Close();
             }
 		}
-        Debug.Log(m_connectionString);
+        // Debug.Log(m_connectionString);
 	}
     
     
@@ -63,13 +63,11 @@ public class MysqlManager : Singleton<MysqlManager>
         try
         {
             connection.Open();
-            Debug.Log("------输入的用户名---" + username + "-密码-" + password);
             string sqlQuary = "select * from User where username ='" + username + "' and password = '" + password + "'";
             MySqlCommand comd = new MySqlCommand(sqlQuary, connection);
             MySqlDataReader reader = comd.ExecuteReader();
             if (reader.Read())
             {
-                Debug.Log("------用户存在，登录成功！------");
                 return EnumTools.LoginState.Success;
             }
             else
@@ -80,12 +78,10 @@ public class MysqlManager : Singleton<MysqlManager>
                 reader = comd.ExecuteReader();
                 if (reader.Read())
                 {
-                    Debug.Log("------密码错误------");
                     return EnumTools.LoginState.WrongPassword;
                 }
                 else
                 {
-                    Debug.Log("------用户不存在，请注册。或请检查用户名或和密码！------");
                     return EnumTools.LoginState.SearchNoUser;
                 }
             }

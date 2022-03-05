@@ -38,6 +38,23 @@ public class HitManager : MonoBehaviour, IOnEventCallback
                 var tmp_HitNormal = (Vector3) tmp_HitData[1];
                 var tmp_HitTag = (string) tmp_HitData[2];
                 String tmp_ImpactPrefab = (string)tmp_HitData[3];
+                bool tmp_TargetHiden = (bool) tmp_HitData[4];
+                Player tmp_ProjectileOwner = (Player) tmp_HitData[5];
+
+
+                //受击者看不见自身出血特效
+                //TODO 增加受击UI变化
+                if (tmp_TargetHiden)
+                {
+                    Player tmp_ProjeectileHitTarget = (Player) tmp_HitData[6];
+                    if (tmp_ProjeectileHitTarget.NickName.Equals(PhotonNetwork.LocalPlayer.NickName))
+                    {
+                        return;
+                    }
+                }
+                
+                
+
                 GameObject tmp_Impact = null;
 
                 foreach (var prefab in ImpactPrefabs)

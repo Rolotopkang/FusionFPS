@@ -10,6 +10,9 @@ TagManager:
   - Stone
   - PlayerHead
   - GlobalCamera
+  - PlayerHand
+  - PlayerLeg
+  - PlayerChest
   layers:
   - Default
   - TransparentFX
