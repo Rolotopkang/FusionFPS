@@ -1,9 +1,10 @@
 ﻿using System;
+using Photon.Pun;
 using Scripts;
 using Scripts.Weapon;
 using UnityEngine;
 
-public class FPMouseLook : MonoBehaviour
+public class FPMouseLook : MonoBehaviourPun
 {
     public float MouseSensitivity;
     public Transform characterTransform;
@@ -25,7 +26,6 @@ public class FPMouseLook : MonoBehaviour
     {
         cameraTransform = transform;
         cameraSpring = GetComponentInChildren<CameraSpring>();
-
     }
 
     void Update()
@@ -61,6 +61,7 @@ public class FPMouseLook : MonoBehaviour
 
     public void FiringForTest()
     {
+        if (!photonView.IsMine) { return; }
         currentRecoil += RecoilRange;
         cameraSpring.StartCameraSpring();
         currentRecoilTime = 0;

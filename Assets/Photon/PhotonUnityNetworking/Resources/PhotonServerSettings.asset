@@ -43,6 +43,9 @@ MonoBehaviour:
   - RPC_ReleaseTrigger
   - RPC_ReloadAmmo
   - RPC_TakeDamage
+  - RPC_Shoot
+  - RPC_Reload
+  - RPC_ReloadOutOf
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

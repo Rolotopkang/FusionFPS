@@ -11,13 +11,13 @@ public class BattleRoomManager : MonoBehaviour
     private void Start()
     {
         StartSpawn(0);
-        Player.Respawn += StartSpawn;
+        PlayerNumericalController.Respawn += StartSpawn;
     }
 
 
     private void OnDisable()
     {
-        Player.Respawn -= StartSpawn;
+        PlayerNumericalController.Respawn -= StartSpawn;
     }
 
     private void StartSpawn(float _timeToSpawn)

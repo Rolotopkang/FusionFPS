@@ -8,7 +8,8 @@ namespace Scripts.Weapon
     public abstract class Firearms : IWeapon
     {
         public GameObject BulletPrefab;
-
+        public WeaponManager WeaponManager;
+        public PlayerNumericalController PlayerNumericalController;
         public Camera EyeCamera;
         public Camera GunCamera;
 
@@ -27,7 +28,7 @@ namespace Scripts.Weapon
 
         public float FireRate;
         public float AimTime = 3;
-
+        public int GunDMG;
         public int AmmoInMag = 30;
         public int MaxAmmoCarried = 120;
 
@@ -130,6 +131,13 @@ namespace Scripts.Weapon
                         }
 
                         CurrentMaxAmmoCarried = tmp_RemainingAmmo <= 0 ? 0 : tmp_RemainingAmmo;
+                        IsReloading = false;
+                        yield break;
+                    }
+
+                    //换枪停止换弹
+                    if (WeaponManager.isChanging)
+                    {
                         IsReloading = false;
                         yield break;
                     }

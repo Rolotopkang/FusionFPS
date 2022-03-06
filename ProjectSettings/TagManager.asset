@@ -8,6 +8,11 @@ TagManager:
   - Metal
   - Wood
   - Stone
+  - PlayerHead
+  - GlobalCamera
+  - PlayerHand
+  - PlayerLeg
+  - PlayerChest
   layers:
   - Default
   - TransparentFX

@@ -18,6 +18,11 @@ public class CroshairUI : MonoBehaviour
 
     private float currentSize;
 
+    private void Start()
+    {
+        currentSize = OriginalSize;
+    }
+
     private void Update()
     {
         bool tmp_IsMoving = CharacterController.velocity.magnitude > 0;

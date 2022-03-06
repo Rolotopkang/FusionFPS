@@ -41,7 +41,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
         foreach (RoomInfo room in roomList)
         {
-            Debug.Log(room.Name);
             if (room.PlayerCount != 0)
             {
                 GameObject newRoom = Instantiate(RoomNameButtonPrefab, gridLayout.position, Quaternion.identity);
