@@ -997,7 +997,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &216038763
 GameObject:
@@ -6419,7 +6419,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &992191437
 MonoBehaviour:
@@ -11548,6 +11548,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 671596379778234750, guid: 6eda6a75838b1cd4b99713dffedc17fe, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 698602306276463562, guid: 6eda6a75838b1cd4b99713dffedc17fe, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1266149387305594276, guid: 6eda6a75838b1cd4b99713dffedc17fe, type: 3}
       propertyPath: m_Name
       value: Player Variant
@@ -11776,7 +11784,15 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: 0.0000007189809
       objectReference: {fileID: 0}
+    - target: {fileID: 3428769090102064487, guid: 6eda6a75838b1cd4b99713dffedc17fe, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4117321283112888136, guid: 6eda6a75838b1cd4b99713dffedc17fe, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809280303928135402, guid: 6eda6a75838b1cd4b99713dffedc17fe, type: 3}
       propertyPath: sceneViewId
       value: 3
       objectReference: {fileID: 0}
