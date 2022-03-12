@@ -136,7 +136,15 @@ namespace InfimaGames.LowPolyShooterPack
 		/// <summary>
 		/// Last Frame's Aiming Value.
 		/// </summary>
-		private bool wasAiming;
+		private bool wasAiming = false;
+		/// <summary>
+		/// 正在更换配件
+		/// </summary>
+		private bool scopeChanging;
+		/// <summary>
+		/// 曾经更换配件
+		/// </summary>
+		private bool wasscopeChanging;
 		/// <summary>
 		/// True if the character is running.
 		/// </summary>
@@ -279,6 +287,10 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		private bool holdingButtonRun;
 		/// <summary>
+		/// 是否按住切换配件键
+		/// </summary>
+		private bool holdingButtonScopeChanger;
+		/// <summary>
 		/// True if the player is holding the firing button.
 		/// </summary>
 		private bool holdingButtonFire;
@@ -292,6 +304,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// True if the game cursor is locked! Used when pressing "Escape" to allow developers to more easily access the editor.
 		/// </summary>
 		private bool cursorLocked;
+
+		private bool menuOpened;
 
 		#endregion
 
@@ -373,6 +387,7 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Always make sure that our cursor is locked when the game starts!
 			cursorLocked = true;
+			menuOpened = false;
 			//Update the cursor's state.
 			UpdateCursorState();
 
@@ -418,7 +433,9 @@ namespace InfimaGames.LowPolyShooterPack
 			aiming = holdingButtonAim && CanAim();
 			//Match Run.
 			running = holdingButtonRun && CanRun();
-			
+			//Match ScopeChanger
+			scopeChanging = holdingButtonScopeChanger && CanScopeChang();
+
 			//Check if we're aiming.
 			switch (aiming)
 			{
@@ -429,6 +446,24 @@ namespace InfimaGames.LowPolyShooterPack
 				//Just Stopped.
 				case false when wasAiming:
 					equippedWeaponScope.OnAimStop();
+					break;
+			}
+
+			switch (scopeChanging)
+			{
+				case true when !wasscopeChanging:
+					//Toggle the cursor locked value.
+					cursorLocked = !cursorLocked;
+					//Update the cursor's state.
+					UpdateCursorState();
+					wasscopeChanging = true;
+					break;
+				case false when wasscopeChanging:
+					//Toggle the cursor locked value.
+					cursorLocked = !cursorLocked;
+					//Update the cursor's state.
+					UpdateCursorState();
+					wasscopeChanging = false;
 					break;
 			}
 
@@ -613,7 +648,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public override int GetGrenadesCurrent() => grenadeCount;
 		public override int GetGrenadesTotal() => grenadeTotal;
 		
-		public override bool IsCrosshairVisible() => !aiming && !holstered;
+		public override bool IsCrosshairVisible() => !aiming && !holstered && !scopeChanging;
 		public override bool IsRunning() => running;
 		
 		/// <summary>
@@ -623,7 +658,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 		public override bool IsAiming() => aiming;
 		public override bool IsCursorLocked() => cursorLocked;
-		
+		public override bool IsMenuOpened() => menuOpened;
+
+		public override bool IsScopeChanging() => scopeChanging;
+
 		public override bool IsTutorialTextVisible() => tutorialTextVisible;
 		
 		public override Vector2 GetInputMovement() => axisMovement;
@@ -699,6 +737,10 @@ namespace InfimaGames.LowPolyShooterPack
 			//Update Animator Aiming.
 			const string boolNameAim = "Aim";
 			characterAnimator.SetBool(boolNameAim, aiming);
+			
+			//Update Animator ScopeChanger
+			const string boolNameScopeChanger = "ScopeChanger";
+			characterAnimator.SetBool(boolNameScopeChanger,scopeChanging);
 			
 			//Update Animator Running.
 			const string boolNameRun = "Running";
@@ -963,6 +1005,10 @@ namespace InfimaGames.LowPolyShooterPack
 			//Block.
 			if (inspecting)
 				return false;
+			
+			//Block.
+			if (scopeChanging)
+				return false;
 
 			//Return.
 			return true;
@@ -997,6 +1043,10 @@ namespace InfimaGames.LowPolyShooterPack
 			if (!equippedWeapon.CanReloadWhenFull() && equippedWeapon.IsFull())
 				return false;
 			
+			//Block.
+			if (scopeChanging)
+				return false;
+			
 			//Return.
 			return true;
 		}
@@ -1020,6 +1070,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Block.
 			if (inspecting)
+				return false;
+			
+			//Block.
+			if (scopeChanging)
 				return false;
 			
 			//We need to have grenades!
@@ -1070,6 +1124,10 @@ namespace InfimaGames.LowPolyShooterPack
 				return false;
 
 			//Block.
+			if (scopeChanging)
+				return false;
+			
+			//Block.
 			if (inspecting)
 				return false;
 			
@@ -1096,6 +1154,10 @@ namespace InfimaGames.LowPolyShooterPack
 				return false;
 
 			//Block.
+			if (scopeChanging)
+				return false;
+			
+			//Block.
 			if (inspecting)
 				return false;
 			
@@ -1120,6 +1182,10 @@ namespace InfimaGames.LowPolyShooterPack
 			if (reloading || bolting)
 				return false;
 
+			//Block.
+			if (scopeChanging)
+				return false;
+			
 			//Block.
 			if (inspecting)
 				return false;
@@ -1146,7 +1212,37 @@ namespace InfimaGames.LowPolyShooterPack
 			if (reloading || holstering)
 				return false;
 			
+			//Block.
+			if (scopeChanging)
+				return false;
+			
 			//Return.
+			return true;
+		}
+
+		/// <summary>
+		/// 更换配件执行条件
+		/// </summary>
+		/// <returns></returns>
+		private bool CanScopeChang()
+		{
+			//Block.
+			if (holstered || inspecting)
+				return false;
+
+			//Block.
+			if (meleeing || throwingGrenade)
+				return false;
+			
+			//Block.
+			if (holstering)
+				return false;
+			
+			//Block
+			if (aiming || reloading)
+				return false;
+			
+			
 			return true;
 		}
 		
@@ -1180,12 +1276,20 @@ namespace InfimaGames.LowPolyShooterPack
 			if (axisMovement.y <= 0 || Math.Abs(Mathf.Abs(axisMovement.x) - 1) < 0.01f)
 				return false;
 			
+			//Block.
+			if (scopeChanging)
+				return false;
+			
 			//Return.
 			return true;
 		}
 
 		#endregion
 
+		
+		
+		
+		
 		#region INPUT
 
 		/// <summary>
@@ -1194,7 +1298,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnTryFire(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 
 			//Switch.
@@ -1239,7 +1343,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnTryPlayReload(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 			
 			//Block.
@@ -1263,7 +1367,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnTryInspect(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 			
 			//Block.
@@ -1286,7 +1390,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnTryAiming(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 
 			//Switch.
@@ -1304,12 +1408,31 @@ namespace InfimaGames.LowPolyShooterPack
 		}
 
 		/// <summary>
+		/// 打开选配件界面
+		/// </summary>
+		public void OnTryScopeChanger(InputAction.CallbackContext context)
+		{
+			//Switch.
+			switch (context.phase)
+			{
+				case InputActionPhase.Started:
+					//Started.
+					holdingButtonScopeChanger = true;
+					break;
+				case InputActionPhase.Canceled:
+					//Canceled.
+					holdingButtonScopeChanger = false;
+					break;
+			}
+		}
+		
+		/// <summary>
 		/// Holster.
 		/// </summary>
 		public void OnTryHolster(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 			
 			//Switch.
@@ -1334,7 +1457,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnTryThrowGrenade(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 			
 			//Switch.
@@ -1355,7 +1478,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnTryMelee(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 			
 			//Switch.
@@ -1375,7 +1498,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnTryRun(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 			
 			//Switch.
@@ -1400,7 +1523,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnTryCrouch(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 
 			//Switch.
@@ -1423,7 +1546,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnTryJump(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 
 			//Switch.
@@ -1442,7 +1565,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnTryInventoryNext(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
-			if (!cursorLocked)
+			if (menuOpened)
 				return;
 			
 			//Null Check.
@@ -1477,8 +1600,11 @@ namespace InfimaGames.LowPolyShooterPack
 			{
 				//Performed.
 				case {phase: InputActionPhase.Performed}:
+					//更换配件无法呼出菜单
+					if(scopeChanging){break;}
 					//Toggle the cursor locked value.
 					cursorLocked = !cursorLocked;
+					menuOpened = !menuOpened;
 					//Update the cursor's state.
 					UpdateCursorState();
 					break;
@@ -1491,7 +1617,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnMove(InputAction.CallbackContext context)
 		{
 			//Read.
-			axisMovement = cursorLocked ? context.ReadValue<Vector2>() : default;
+			axisMovement = !menuOpened ? context.ReadValue<Vector2>() : default;
 		}
 		/// <summary>
 		/// Look.

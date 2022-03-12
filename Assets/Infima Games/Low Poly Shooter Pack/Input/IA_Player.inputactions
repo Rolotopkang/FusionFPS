@@ -175,6 +175,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ScopeChanger",
+                    "type": "Button",
+                    "id": "56566112-9f49-46f4-bf8d-6fab3e7234b6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -335,7 +344,7 @@
                 {
                     "name": "",
                     "id": "6ab3c0c1-413c-4596-93a8-b92c2eb0157b",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/v",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -379,7 +388,7 @@
                 {
                     "name": "",
                     "id": "73bd4a0a-ac64-41bf-8aca-a24b63708590",
-                    "path": "<Keyboard>/t",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -637,6 +646,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bc9461f6-c3e7-460f-995d-40aa167e9e64",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScopeChanger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

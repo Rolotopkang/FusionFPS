@@ -82,6 +82,10 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public abstract bool IsCursorLocked();
 
+        public abstract bool IsMenuOpened();
+
+        public abstract bool IsScopeChanging();
+
         /// <summary>
         /// Returns true if the tutorial text should be visible on the screen.
         /// </summary>
