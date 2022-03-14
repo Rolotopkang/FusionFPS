@@ -202,6 +202,10 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public abstract void EjectCasing();
 
+        public abstract void RefreshAttachment();
+
+        public abstract void ChangeAttachment(ScopeChangerBTN.AttachmentKind attachmentKind , int id);
+
         #endregion
     }
 }

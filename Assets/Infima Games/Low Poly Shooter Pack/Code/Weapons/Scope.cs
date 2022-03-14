@@ -10,7 +10,11 @@ namespace InfimaGames.LowPolyShooterPack
     public class Scope : ScopeBehaviour
     {
         #region FIELDS SERIALIZED
-    
+
+        [Header("ID")]
+        [SerializeField]
+        private int ScopeID;
+
         [Header("Multipliers")]
         
         [Tooltip("Amount to multiply the mouse sensitivity by while aiming through this scope.")]
@@ -26,6 +30,14 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("Interface Sprite.")]
         [SerializeField]
         private Sprite sprite;
+        
+        [Tooltip("Sprite. Displayed on the player's interface.")]
+        [SerializeField]
+        private Sprite BTNspriteB;
+        
+        [Tooltip("Sprite. Displayed on the player's interface.")]
+        [SerializeField]
+        private Sprite BTNspriteD;
         
         [Header("Sway")]
         
@@ -104,6 +116,8 @@ namespace InfimaGames.LowPolyShooterPack
 
         #region GETTERS
 
+        public override int GetID() => ScopeID;
+
         public override float GetMultiplierMouseSensitivity() => multiplierMouseSensitivity;
 
         public override float GetMultiplierSpread() => multiplierSpread;
@@ -116,6 +130,9 @@ namespace InfimaGames.LowPolyShooterPack
         public override float GetFieldOfViewMultiplierAimWeapon() => fieldOfViewMultiplierAimWeapon;
         
         public override Sprite GetSprite() => sprite;
+
+        public override Sprite GetBTNSpriteB() => BTNspriteB;
+        public override Sprite GetBTNSpriteD() => BTNspriteD;
 
         /// <summary>
         /// Returns true if the Scope's Mesh Renderer could have this Material index.

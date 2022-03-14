@@ -980,9 +980,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262a90da45c94c348be144e6130ec77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScopeID: 0
   multiplierMouseSensitivity: 0.8
   multiplierSpread: 0.1
   sprite: {fileID: 21300000, guid: 2e6060b48f189a94b8b4a006f9b4cb49, type: 3}
+  BTNspriteB: {fileID: 0}
+  BTNspriteD: {fileID: 0}
   aimingSway:
     look:
       location:
@@ -1743,9 +1746,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262a90da45c94c348be144e6130ec77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScopeID: 0
   multiplierMouseSensitivity: 0.8
   multiplierSpread: 0.1
   sprite: {fileID: 21300000, guid: 618f2df6e6f623847a52da2e3eadf2d7, type: 3}
+  BTNspriteB: {fileID: 0}
+  BTNspriteD: {fileID: 0}
   aimingSway:
     look:
       location:

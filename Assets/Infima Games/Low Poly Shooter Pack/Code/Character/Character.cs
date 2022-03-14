@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Collections;
 using System.Numerics;
 using UnityEngine.InputSystem;
+using UnityTemplateProjects.MultiplayerScripts;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -699,11 +700,12 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Leaning. Affects how much the character should apply of the leaning additive animation.
 			float leaningValue = Mathf.Clamp01(axisMovement.y);
-			characterAnimator.SetFloat(HashLeaning, leaningValue, 0.5f, Time.deltaTime);
+
+			characterAnimator.SetFloat(HashLeaning,leaningValue, 0.5f, Time.deltaTime);
 
 			//Movement Value. This value affects absolute movement. Aiming movement uses this, as opposed to per-axis movement.
 			float movementValue = Mathf.Clamp01(Mathf.Abs(axisMovement.x) + Mathf.Abs(axisMovement.y));
-			characterAnimator.SetFloat(HashMovement, movementValue, dampTimeLocomotion, Time.deltaTime);
+			characterAnimator.SetFloat(HashMovement,movementValue, dampTimeLocomotion, Time.deltaTime);
 			
 			//Aiming Speed Multiplier.
 			characterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier);
@@ -712,9 +714,9 @@ namespace InfimaGames.LowPolyShooterPack
 			characterAnimator.SetFloat(HashTurning, Mathf.Abs(axisLook.x), dampTimeTurning, Time.deltaTime);
 
 			//Horizontal Movement Float.
-			characterAnimator.SetFloat(HashHorizontal, axisMovementSmooth.x, dampTimeLocomotion, Time.deltaTime);
+			characterAnimator.SetFloat(HashHorizontal, scopeChanging ?axisMovementSmooth.x*0.5f: axisMovementSmooth.x, dampTimeLocomotion, Time.deltaTime);
 			//Vertical Movement Float.
-			characterAnimator.SetFloat(HashVertical, axisMovementSmooth.y, dampTimeLocomotion, Time.deltaTime);
+			characterAnimator.SetFloat(HashVertical,  scopeChanging ?axisMovementSmooth.y*0.5f:axisMovementSmooth.y, dampTimeLocomotion, Time.deltaTime);
 			
 			//Update the aiming value, but use interpolation. This makes sure that things like firing can transition properly.
 			characterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming, Time.deltaTime);
@@ -899,6 +901,19 @@ namespace InfimaGames.LowPolyShooterPack
 			weaponAttachmentManager = equippedWeapon.GetAttachmentManager();
 			if (weaponAttachmentManager == null) 
 				return;
+			
+			//Get equipped scope. We need this one for its settings!
+			equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
+			//Get equipped magazine. We need this one for its settings!
+			equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
+		}
+
+		public override void ChangeAttachment(ScopeChangerBTN.AttachmentKind attachmentKind, int ID)
+		{
+			equippedWeapon.ChangeAttachment(attachmentKind,ID);
+			
+			//更新配件
+			//TODO
 			
 			//Get equipped scope. We need this one for its settings!
 			equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();

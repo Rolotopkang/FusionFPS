@@ -126,6 +126,13 @@ namespace InfimaGames.LowPolyShooterPack
         /// Throws a grenade.
         /// </summary>
         public abstract void Grenade();
+        
+        /// <summary>
+        /// 换配件
+        /// </summary>
+        /// <param name="attachmentKind">配件类型</param>
+        /// <param name="ID">配件ID</param>
+        public abstract void ChangeAttachment(ScopeChangerBTN.AttachmentKind attachmentKind, int ID);
         /// <summary>
         /// Sets the equipped weapon's magazine to be active or inactive!
         /// </summary>
@@ -164,6 +171,8 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract void SetSlideBack(int back);
 
         public abstract void SetActiveKnife(int active);
+
+
 
         #endregion
     }

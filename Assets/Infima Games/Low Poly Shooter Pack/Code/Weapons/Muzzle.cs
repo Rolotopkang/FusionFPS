@@ -12,6 +12,10 @@ namespace InfimaGames.LowPolyShooterPack
     {
         #region FIELDS SERIALIZED
 
+        [Header("ID")]
+        [SerializeField]
+        private int MuzzleID;
+        
         [Header("Settings")]
         
         [Tooltip("Socket at the tip of the Muzzle. Commonly used as a firing point.")]
@@ -21,6 +25,15 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("Sprite. Displayed on the player's interface.")]
         [SerializeField]
         private Sprite sprite;
+        
+        [Tooltip("Sprite. Displayed on the player's interface.")]
+        [SerializeField]
+        private Sprite BTNspriteB;
+        
+        [Tooltip("Sprite. Displayed on the player's interface.")]
+        [SerializeField]
+        private Sprite BTNspriteD;
+        
 
         [Tooltip("Audio clip played when firing through this muzzle.")]
         [SerializeField]
@@ -107,6 +120,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         #region GETTERS
 
+        
         public override void Effect()
         {
             //Try to play the fire particles from the muzzle!
@@ -123,9 +137,12 @@ namespace InfimaGames.LowPolyShooterPack
             }
         }
 
+        public override int GetID() => MuzzleID;
         public override Transform GetSocket() => socket;
-
         public override Sprite GetSprite() => sprite;
+        public override Sprite GetBTNSpriteB() => BTNspriteB;
+        public override Sprite GetBTNSpriteD() => BTNspriteD;
+        
         public override AudioClip GetAudioClipFire() => audioClipFire;
         
         public override ParticleSystem GetParticlesFire() => particles;

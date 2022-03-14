@@ -32,6 +32,15 @@ namespace InfimaGames.LowPolyShooterPack
         protected virtual void LateUpdate(){}
 
         #endregion
+
+        #region Funtions
+
+        public abstract void ScopeChangeTo(int id);
+        public abstract void MuzzleChangeTo(int id);
+        public abstract void LazerChangeTo(int id);
+        public abstract void GripChangeTo(int id);
+
+        #endregion
         
         #region GETTERS
 

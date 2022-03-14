@@ -12,6 +12,11 @@ namespace InfimaGames.LowPolyShooterPack
         #region GETTERS
 
         /// <summary>
+        /// 获取ID
+        /// </summary>
+        /// <returns></returns>
+        public abstract int GetID();
+        /// <summary>
         /// Returns the value of multiplierMouseSensitivity.
         /// </summary>
         /// <returns></returns>
@@ -45,6 +50,16 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the Sprite used on the Character's Interface.
         /// </summary>
         public abstract Sprite GetSprite();
+        
+        /// <summary>
+        /// Returns the BTNSprite used on the Character's Interface.
+        /// </summary>
+        public abstract Sprite GetBTNSpriteB();
+        
+        /// <summary>
+        /// Returns the BTNSprite used on the Character's Interface.
+        /// </summary>
+        public abstract Sprite GetBTNSpriteD();
 
         #endregion
 

@@ -168,8 +168,80 @@ namespace InfimaGames.LowPolyShooterPack
 
         #endregion
 
+        #region Funtions
+
+        public override void ScopeChangeTo(int id)
+        {
+            int tmp_index = 0;
+            foreach (ScopeBehaviour scope in scopeArray)
+            {
+                if (scope.GetID().Equals(id))
+                {
+                    scopeBehaviour = scope;
+                    break;
+                }
+                tmp_index++;
+            }
+            scopeArray.SelectAndSetActive(tmp_index);
+            
+        }
+
+        public override void MuzzleChangeTo(int id)
+        {
+            int tmp_index = 0;
+            foreach (MuzzleBehaviour muzzle in muzzleArray)
+            {
+                if (muzzle.GetID().Equals(id))
+                {
+                    muzzleBehaviour = muzzle;
+                    break;
+                }
+                tmp_index++;
+            }
+            muzzleArray.SelectAndSetActive(tmp_index);
+        }
+
+        public override void LazerChangeTo(int id)
+        {
+            int tmp_index = 0;
+            foreach (LaserBehaviour laser in laserArray)
+            {
+                if (laser.GetID().Equals(id))
+                {
+                    laserBehaviour = laser;
+                    break;
+                }
+                tmp_index++;
+            }
+            laserArray.SelectAndSetActive(tmp_index);
+        }
+
+        public override void GripChangeTo(int id)
+        {
+            int tmp_index = 0;
+            foreach (GripBehaviour grip in gripArray)
+            {
+                if (grip.GetID().Equals(id))
+                {
+                    gripBehaviour = grip;
+                    break;
+                }
+                tmp_index++;
+            }
+            gripArray.SelectAndSetActive(tmp_index);
+        }
+
+        #endregion
+        
         #region GETTERS
 
+        public ScopeBehaviour[] GetScopeBehaviours() => scopeArray;
+
+        public MuzzleBehaviour[] GetMuzzleBehaviours() => muzzleArray;
+
+        public LaserBehaviour[] GetLaserBehaviours() => laserArray;
+
+        public GripBehaviour[] GetGripBehaviours() => gripArray;
         public override ScopeBehaviour GetEquippedScope() => scopeBehaviour;
         public override ScopeBehaviour GetEquippedScopeDefault() => scopeDefaultBehaviour;
 

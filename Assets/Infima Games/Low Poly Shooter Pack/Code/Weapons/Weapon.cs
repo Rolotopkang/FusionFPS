@@ -411,6 +411,45 @@ namespace InfimaGames.LowPolyShooterPack
                 Instantiate(prefabCasing, socketEjection.position, socketEjection.rotation);
         }
 
+        public override void ChangeAttachment(ScopeChangerBTN.AttachmentKind attachmentKind , int id)
+        {
+            switch (attachmentKind)
+            {
+                case ScopeChangerBTN.AttachmentKind.Scope:
+                    attachmentManager.ScopeChangeTo(id);
+                    RefreshAttachment();
+                    break;
+                case ScopeChangerBTN.AttachmentKind.Muzzle:
+                    attachmentManager.MuzzleChangeTo(id);
+                    RefreshAttachment();
+                    break;
+                case ScopeChangerBTN.AttachmentKind.Laser:
+                    attachmentManager.LazerChangeTo(id);
+                    RefreshAttachment();
+                    break;
+                case ScopeChangerBTN.AttachmentKind.Grip:
+                    attachmentManager.GripChangeTo(id);
+                    RefreshAttachment();
+                    break;
+            }
+        }
+
+        public override void RefreshAttachment()
+        {
+            //Get Scope.
+            scopeBehaviour = attachmentManager.GetEquippedScope();
+            
+            //Get Magazine.
+            magazineBehaviour = attachmentManager.GetEquippedMagazine();
+            //Get Muzzle.
+            muzzleBehaviour = attachmentManager.GetEquippedMuzzle();
+
+            //Get Laser.
+            laserBehaviour = attachmentManager.GetEquippedLaser();
+            //Get Grip.
+            gripBehaviour = attachmentManager.GetEquippedGrip();
+        }
+
         #endregion
     }
 }

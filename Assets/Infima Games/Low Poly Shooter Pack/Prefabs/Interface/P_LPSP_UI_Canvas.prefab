@@ -190,7 +190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8659805075728532252
 RectTransform:
   m_ObjectHideFlags: 0
@@ -385,73 +385,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Controls
-
-
-
-    Movement:
-
-    - Mouse to look around.
-
-    - WASD keys
-    to walk.
-
-    - Left shift (hold) to run.
-
-    - Left Ctrl/C to crouch.
-
-    -
-    Spacebar to jump.
-
-
-    Weapon:
-
-    - Left click to shoot.
-
-    - Right click
-    (hold) to aim.
-
-    - R key to reload.
-
-    - T key to inspect weapon.
-
-    -
-    H key to holster, and H again to take out weapon.
-
-    - Q/scrollwheel key to
-    cycle equipped weapons.
-
-
-
-    Melee:
-
-    - F key to use knife attack.
-
-
-
-    Grenade:
-
-    -
-    G key to throw a grenade.
-
-
-    Timescale:
-
-    - 5 key to freeze/unfreeze time.
-
-    -
-    8 key to decrease timescale.
-
-    - 9 key to increase timescale.
-
-
-    Quality
-    Settings:
-
-    - P key to open quality settings menu.'
+  m_text: "Controls\n\n\nT \u66F4\u6362\u914D\u4EF6\n\nF \u68C0\u89C6\n\nSHIFT \u75BE\u8DD1\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 52822dc6e80b18c4b84fa37fb0a9018f, type: 2}
-  m_sharedMaterial: {fileID: -5066701443530399222, guid: 52822dc6e80b18c4b84fa37fb0a9018f,
+  m_fontAsset: {fileID: 11400000, guid: 4c97cc9d775646347a845dd3c6469dbc, type: 2}
+  m_sharedMaterial: {fileID: 21832533780058910, guid: 4c97cc9d775646347a845dd3c6469dbc,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1644,7 +1581,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5393623836115087791
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2234,7 +2171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8286752730204775537
 RectTransform:
   m_ObjectHideFlags: 0

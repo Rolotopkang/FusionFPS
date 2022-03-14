@@ -1329,6 +1329,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 885a3c54-aad8-4b06-8b4d-8a026bbb94f1
     m_ActionName: Player/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 56566112-9f49-46f4-bf8d-6fab3e7234b6
+    m_ActionName: Player/ScopeChanger[/Keyboard/t]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -9014,6 +9018,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174372834435582359, guid: 9482e0a2ae6a92742bbe72e00f29f763,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8174372834435582361, guid: 9482e0a2ae6a92742bbe72e00f29f763,
         type: 3}
