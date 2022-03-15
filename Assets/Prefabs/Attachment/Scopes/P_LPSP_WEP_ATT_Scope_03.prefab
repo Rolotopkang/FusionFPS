@@ -193,8 +193,8 @@ MonoBehaviour:
   multiplierMouseSensitivity: 0.7
   multiplierSpread: 0.6
   sprite: {fileID: 21300000, guid: 95d5e13eee8ef0a46bc48f6b4ab7b765, type: 3}
-  BTNspriteB: {fileID: 0}
-  BTNspriteD: {fileID: 0}
+  BTNspriteB: {fileID: 21300000, guid: 7bf3818413a66c741a086e3be2f17757, type: 3}
+  BTNspriteD: {fileID: 21300000, guid: 95f2a1f05995c2f4780a673888ca89f2, type: 3}
   aimingSway:
     look:
       location:

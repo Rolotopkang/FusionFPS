@@ -77,8 +77,8 @@ MonoBehaviour:
   MuzzleID: 0
   socket: {fileID: 3883664629094013655}
   sprite: {fileID: 0}
-  BTNspriteB: {fileID: 21300000, guid: 71b61f07447b6d44fb1ebe91ac915ce5, type: 3}
-  BTNspriteD: {fileID: 21300000, guid: 48e0745f61640244a98a4b48bfa373ab, type: 3}
+  BTNspriteB: {fileID: 21300000, guid: b555af8e6680e974e82e91b3fd663562, type: 3}
+  BTNspriteD: {fileID: 21300000, guid: ab356d6eb94914e48ba02ea5d54247c8, type: 3}
   audioClipFire: {fileID: 8300000, guid: 0addcc409a57b4a43b86a3d2310ac5b4, type: 3}
   prefabFlashParticles: {fileID: 4834526503407549940, guid: 2735bebe54c1f5a4096f5134a96f7e77,
     type: 3}
