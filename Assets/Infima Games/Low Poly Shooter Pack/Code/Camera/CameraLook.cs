@@ -30,7 +30,24 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("The speed at which the look rotation is interpolated.")]
         [SerializeField]
         private float interpolationSpeed = 25.0f;
+
+        [Header("后坐力部分")]
+        [Tooltip("是否显示后坐力")] 
+        [SerializeField]
+        private bool isRecoilCurve;
         
+        [Tooltip("后坐力曲线")]
+        [SerializeField]
+        private AnimationCurve RecoilCurve;
+        
+        // [Tooltip("后坐力大小")]
+        // [SerializeField]
+        // private Vector2 RecoilRange;
+
+        [Tooltip("后坐力淡出时间")]
+        [SerializeField]
+        private float RecoilFadeOutTime = 0.3f;
+
         #endregion
         
         #region FIELDS
@@ -53,6 +70,14 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private Quaternion rotationCamera;
 
+        private float currentRecoilTime;
+        
+        private Vector2 currentRecoil;
+        
+        private CameraSpring cameraSpring;
+
+        private Vector3 CameraRotation = Vector3.zero;
+        
         #endregion
         
         #region UNITY
@@ -66,14 +91,27 @@ namespace InfimaGames.LowPolyShooterPack
             rotationCharacter = playerCharacter.transform.localRotation;
             //Cache the camera's initial rotation.
             rotationCamera = transform.localRotation;
+            //获取震相机组件
+            cameraSpring = GetComponent<CameraSpring>();
         }
         private void LateUpdate()
         {
             //Frame Input. The Input to add this frame!
             Vector2 frameInput = playerCharacter.IsCursorLocked() ? playerCharacter.GetInputLook() : default;
+            
             //Sensitivity.
             frameInput *= sensitivity;
+            
+            
+            #region ADD
+            CalculateRecoilOffset();
+            
+            frameInput.y += currentRecoil.y;
+            frameInput.x -= currentRecoil.x;
 
+            #endregion
+            
+            
             //Yaw.
             Quaternion rotationYaw = Quaternion.Euler(0.0f, frameInput.x, 0.0f);
             //Pitch.
@@ -104,7 +142,7 @@ namespace InfimaGames.LowPolyShooterPack
                 localRotation *= rotationPitch;
                 //Clamp.
                 localRotation = Clamp(localRotation);
-
+            
                 //Rotate character.
                 playerCharacter.transform.rotation *= rotationYaw;
             }
@@ -138,6 +176,26 @@ namespace InfimaGames.LowPolyShooterPack
             return rotation;
         }
 
+        private void CalculateRecoilOffset()
+        {
+            currentRecoilTime += Time.deltaTime;
+            float tmp_RecoilFraction = currentRecoilTime / RecoilFadeOutTime;
+            float tmp_RecoilValue = RecoilCurve.Evaluate(tmp_RecoilFraction);
+            currentRecoil = Vector2.Lerp(Vector2.zero, currentRecoil, tmp_RecoilValue);
+        }
+        
+        public void StartRecoil(Vector2 RecoilRange, bool isSpring)
+        {
+            if (isRecoilCurve)
+            {
+                currentRecoil += RecoilRange;
+                if (isSpring)
+                {
+                    cameraSpring.StartCameraSpring();
+                }
+                currentRecoilTime = 0;
+            }
+        }
         #endregion
     }
 }

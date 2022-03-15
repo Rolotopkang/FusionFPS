@@ -2,7 +2,7 @@
 
 public class CameraRecoil : MonoBehaviour
 {
-    public AnimationCurve RecoilTimeCurve;
+    public AnimationCurve RecoilCurve;
 
     public Vector2 RecoilRange;
     public float RecoilFadeOutTime;
@@ -20,7 +20,15 @@ public class CameraRecoil : MonoBehaviour
 
     private void Update()
     {
-       
-//        mouseLook.LookAtRotation(tmp_RecoilOffset.x, tmp_RecoilOffset.y);
+        //计算抖动
+        CalculateRecoilOffset();
+    }
+    
+    private void CalculateRecoilOffset()
+    {
+        currentRecoilTime += Time.deltaTime;
+        float tmp_RecoilFraction = currentRecoilTime / RecoilFadeOutTime;
+        float tmp_RecoilValue = RecoilCurve.Evaluate(tmp_RecoilFraction);
+        currentRecoil = Vector2.Lerp(Vector2.zero, currentRecoil, tmp_RecoilValue);
     }
 }

@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GripID: 2
+  RecoilCoefficient: 0.4
   sprite: {fileID: 21300000, guid: c1afa798815e0284794aeb69442dc435, type: 3}
   BTNspriteB: {fileID: 21300000, guid: b76084d048b8cfe4d819dd23f6abf5d9, type: 3}
   BTNspriteD: {fileID: 21300000, guid: b82f8b735a3e94540b2e4a50b34eb5e3, type: 3}

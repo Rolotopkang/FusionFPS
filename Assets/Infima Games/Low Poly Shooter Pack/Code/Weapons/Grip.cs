@@ -14,6 +14,11 @@ namespace InfimaGames.LowPolyShooterPack
         [Header("ID")]
         [SerializeField]
         private int GripID;
+
+        [Header("后坐力减小系数")] 
+        [SerializeField]
+        [Range(0, 1)]
+        private float RecoilCoefficient = 1;
         
         [Header("Settings")]
 
@@ -35,7 +40,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override Sprite GetSprite() => sprite;
         public override int GetID() => GripID;
-        
+        public override float GetRecoilCoefficient() => RecoilCoefficient;
         public override Sprite GetBTNSpriteB() => BTNspriteB;
         public override Sprite GetBTNSpriteD() => BTNspriteD;
 

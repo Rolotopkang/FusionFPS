@@ -16,6 +16,12 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         /// <returns></returns>
         public abstract int GetID();
+
+        /// <summary>
+        /// 获取后坐力减小系数
+        /// </summary>
+        /// <returns></returns>
+        public abstract float GetRecoilCoefficient();
         /// <summary>
         /// Returns the Sprite used on the Character's Interface.
         /// </summary>
@@ -30,6 +36,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the BTNSprite used on the Character's Interface.
         /// </summary>
         public abstract Sprite GetBTNSpriteD();
+        
+
 
         #endregion
     }

@@ -38,7 +38,18 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("How far the weapon can fire from the center of the screen.")]
         [SerializeField]
         private float spread = 0.25f;
+
+        [Header("后坐力")]
+        [Tooltip("后坐力系数")] 
+        [SerializeField]
+        private Vector2 Recoil = new Vector2(-0.2f, 0.2f);
         
+        [Tooltip("后坐力随机百分比抖动")] 
+        [SerializeField]
+        [Range(0, 1)]
+        private float RecoilOffset = 1;
+        
+        [Header("枪械属性")]
         [Tooltip("How fast the projectiles are.")]
         [SerializeField]
         private float projectileImpulse = 400.0f;
@@ -211,7 +222,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// The player character's camera.
         /// </summary>
         private Transform playerCamera;
-        
+
+        private CameraLook CameraLook;
         #endregion
 
         #region UNITY
@@ -229,6 +241,8 @@ namespace InfimaGames.LowPolyShooterPack
             characterBehaviour = gameModeService.GetPlayerCharacter();
             //Cache the world camera. We use this in line traces.
             playerCamera = characterBehaviour.GetCameraWorld().transform;
+            //获取后坐力组件
+            CameraLook = GetComponentInParent<CameraLook>();
         }
         protected override void Start()
         {
@@ -366,6 +380,10 @@ namespace InfimaGames.LowPolyShooterPack
             //Play all muzzle effects.
             muzzleBehaviour.Effect();
 
+            //后坐力和震屏幕
+            CameraLook.StartRecoil((Recoil+GetRandomRecoil(Recoil))*
+                                   gripBehaviour.GetRecoilCoefficient(),false);
+
             //Spawn as many projectiles as we need.
             for (var i = 0; i < shotCount; i++)
             {
@@ -450,6 +468,13 @@ namespace InfimaGames.LowPolyShooterPack
             gripBehaviour = attachmentManager.GetEquippedGrip();
         }
 
+        private Vector2 GetRandomRecoil(Vector2 original)
+        {
+           float tmp_X = Random.Range(-original.x, original.x) * RecoilOffset;
+           float tmp_Y = Random.Range(-original.y, original.y) * RecoilOffset;
+           return new Vector2(tmp_X, tmp_Y);
+        }
+        
         #endregion
     }
 }
