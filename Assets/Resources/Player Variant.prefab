@@ -38745,7 +38745,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponName: handgun_01
-  BulletPrefab: {fileID: 4792577774353629631, guid: 17fdda320ea4e064b8b3738f0ff479d0, type: 3}
+  BulletPrefab: {fileID: 4792577774353629631, guid: 17fdda320ea4e064b8b3738f0ff479d0,
+    type: 3}
   WeaponManager: {fileID: 8992816843103014413}
   PlayerNumericalController: {fileID: 4326737094824526706}
   EyeCamera: {fileID: 154979847360496648}
@@ -38776,7 +38777,8 @@ MonoBehaviour:
     EyeFov: 55
     GunFov: 40
     GunCameraPosition: {x: 0, y: 0.08557582, z: -0.17866266}
-  _ImpactPrefab: {fileID: 1879272669879180, guid: 75b24d93631c6b949bca94153bdb3f89, type: 3}
+  _ImpactPrefab: {fileID: 1879272669879180, guid: 75b24d93631c6b949bca94153bdb3f89,
+    type: 3}
   BulletLifeTime: 5
 --- !u!82 &3428769090102064485
 AudioSource:
@@ -46071,7 +46073,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponName: assault_rifle_02
-  BulletPrefab: {fileID: 4792577774353629631, guid: 17fdda320ea4e064b8b3738f0ff479d0, type: 3}
+  BulletPrefab: {fileID: 4792577774353629631, guid: 17fdda320ea4e064b8b3738f0ff479d0,
+    type: 3}
   WeaponManager: {fileID: 8992816843103014413}
   PlayerNumericalController: {fileID: 4326737094824526706}
   EyeCamera: {fileID: 154979847360496648}
@@ -46107,7 +46110,8 @@ MonoBehaviour:
     EyeFov: 55
     GunFov: 40
     GunCameraPosition: {x: 0, y: 0.08557582, z: -0.17866266}
-  _ImpactPrefab: {fileID: 1879272669879180, guid: 5fd7358f1eb7dac40af026937fddb75a, type: 3}
+  _ImpactPrefab: {fileID: 1879272669879180, guid: 5fd7358f1eb7dac40af026937fddb75a,
+    type: 3}
   BulletLifeTime: 5
 --- !u!82 &8451209169982334101
 AudioSource:
@@ -59560,11 +59564,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'neck'\n\tTransform 'hand_R'\n\tTransform 'spine'\n\tTransform
-    'chest'\n\tTransform 'head'\n\tTransform 'upper_arm_R'\n\tTransform 'lower_arm_L'\n\tTransform
-    'hand_L'\n\tTransform 'shoulder_L'\n\tTransform 'lower_arm_R'\n\tand more ..."
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0

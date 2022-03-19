@@ -289,6 +289,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public override bool IsGrounded() => controller.isGrounded;
 
+        public override bool IsJumping() => jumping;
+
         #endregion
     }
 }

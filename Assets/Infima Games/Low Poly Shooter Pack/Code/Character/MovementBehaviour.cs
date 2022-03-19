@@ -64,7 +64,11 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns true if the character is grounded.
         /// </summary>
         public abstract bool IsGrounded();
-
+        /// <summary>
+        /// Returns true if the character is Jumping.
+        /// </summary>
+        public abstract bool IsJumping();
+        
         #endregion
 
         #region METHODS
