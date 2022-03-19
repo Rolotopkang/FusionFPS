@@ -26,6 +26,10 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private float interpolationSpeed = 12.0f;
 
+        [SerializeField]
+        [Range(0,1)]
+        private float HeightPercent = 0.9f;
+
         #endregion
         
         #region FIELDS
@@ -58,7 +62,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Calculate the height from the top of the character controller at which to place the camera.
             //We do this in a somewhat lazy way, by just using the default height at which cameras are usually
             //placed.
-            float heightTarget = characterController.height * 0.9f;
+            float heightTarget = characterController.height * HeightPercent;
             //Interpolate the current height to the target height.
             height = Mathf.Lerp(height, heightTarget, interpolationSpeed * Time.deltaTime);
 

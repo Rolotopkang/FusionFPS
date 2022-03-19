@@ -73,8 +73,6 @@ namespace InfimaGames.LowPolyShooterPack
         private float currentRecoilTime;
         
         private Vector2 currentRecoil;
-        
-        private CameraSpring cameraSpring;
 
         private Vector3 CameraRotation = Vector3.zero;
         
@@ -91,8 +89,6 @@ namespace InfimaGames.LowPolyShooterPack
             rotationCharacter = playerCharacter.transform.localRotation;
             //Cache the camera's initial rotation.
             rotationCamera = transform.localRotation;
-            //获取震相机组件
-            cameraSpring = GetComponent<CameraSpring>();
         }
         private void LateUpdate()
         {
@@ -189,10 +185,6 @@ namespace InfimaGames.LowPolyShooterPack
             if (isRecoilCurve)
             {
                 currentRecoil += RecoilRange;
-                if (isSpring)
-                {
-                    cameraSpring.StartCameraSpring();
-                }
                 currentRecoilTime = 0;
             }
         }

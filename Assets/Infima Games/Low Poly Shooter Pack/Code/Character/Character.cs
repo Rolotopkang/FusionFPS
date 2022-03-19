@@ -1602,6 +1602,9 @@ namespace InfimaGames.LowPolyShooterPack
 			if (menuOpened)
 				return;
 
+			if(crouching)
+				return;
+			
 			//Switch.
 			switch (context.phase)
 			{
