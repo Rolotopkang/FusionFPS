@@ -17,6 +17,12 @@ TagManager:
   - Dirt (Static)
   - Wood
   - GunCM
+  - GlobalCamera
+  - FX
+  - PlayerLeg
+  - PlayerHand
+  - PlayerHead
+  - PlayerChest
   layers:
   - Default
   - TransparentFX
@@ -25,8 +31,8 @@ TagManager:
   - Water
   - UI
   - 
-  - 
   - Wall
+  - Third Person View
   - First Person View
   - Character
   - Post Processing

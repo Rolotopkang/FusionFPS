@@ -308,7 +308,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c6a07839e533e248ab562b9414a3c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextMeshPro: {fileID: 1520848236}
 --- !u!114 &115309464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,25 +414,9 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 56566112-9f49-46f4-bf8d-6fab3e7234b6
     m_ActionName: Player/ScopeChanger[/Keyboard/t]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 115309463}
-        m_TargetAssemblyTypeName: HintUIController, Assembly-CSharp
-        m_MethodName: onTrySpace
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 5d8c71ad-8e9e-427a-8259-6073b013fc3f
-    m_ActionName: Menu/Space[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Menu
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &211034058
@@ -759,7 +742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db80b17202cf73146a020ef8934e0721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPlaceholderHideOnSelect: 1
 --- !u!114 &248081719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2323,7 +2305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db80b17202cf73146a020ef8934e0721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPlaceholderHideOnSelect: 1
 --- !u!114 &621029154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2834,7 +2815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db80b17202cf73146a020ef8934e0721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPlaceholderHideOnSelect: 1
 --- !u!1 &881122847
 GameObject:
   m_ObjectHideFlags: 0
@@ -3344,9 +3324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d730e86ea9a26df4bb1a79ee76ded78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animation: {fileID: 881122848}
-  UIshow: {fileID: 7400000, guid: 9fb6ea74a26a0e240b06702882bdf1be, type: 2}
-  UIHide: {fileID: 7400000, guid: 8b8ff9da74b20434aa71e9556f0f836c, type: 2}
 --- !u!222 &1109186518
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3742,7 +3719,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db80b17202cf73146a020ef8934e0721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPlaceholderHideOnSelect: 1
 --- !u!114 &1498953398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4928,29 +4904,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1819200894}
-  - component: {fileID: 1819200892}
   m_Layer: 0
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1819200892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819200891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d730e86ea9a26df4bb1a79ee76ded78e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animation: {fileID: 881122848}
-  UIshow: {fileID: 7400000, guid: 84255b9849edd5846a873b625d2bd27b, type: 2}
-  UIHide: {fileID: 7400000, guid: f6e363531825b524bb4ebe57620743ef, type: 2}
+  m_IsActive: 1
 --- !u!4 &1819200894
 Transform:
   m_ObjectHideFlags: 0
@@ -5067,7 +5027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db80b17202cf73146a020ef8934e0721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPlaceholderHideOnSelect: 1
 --- !u!114 &1917931182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5311,7 +5270,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1819200892}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
         m_MethodName: BTNTEST
         m_Mode: 1
@@ -6464,11 +6423,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8ea212dc628a74a942922f228cae10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Username: {fileID: 834616131}
-  Password: {fileID: 1498953398}
+  Username: {fileID: 0}
+  Password: {fileID: 0}
   WrongHint: {fileID: 6748158723398025054}
   DebugName: debug
   DebugPassword: debug
+  ConnectServerManager: {fileID: 0}
 --- !u!224 &6748158724347618437
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6560,11 +6520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cdf02f32627498449f1504a1a55d40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animation: {fileID: 8670796213372695218}
-  UIHide: {fileID: 7400000, guid: 8b8ff9da74b20434aa71e9556f0f836c, type: 2}
-  Meum: {fileID: 1819200891}
-  LoginUI: {fileID: 8670796213098946178}
-  waitTime: 1
 --- !u!222 &6748158724550781124
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6858,9 +6813,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5e6df1cfff9fe4aa622f80913616f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Username: {fileID: 248081719}
-  Password: {fileID: 1917931182}
-  VefiryPassword: {fileID: 621029154}
+  Username: {fileID: 0}
+  Password: {fileID: 0}
+  VefiryPassword: {fileID: 0}
   WrongHint: {fileID: 6748158725151383363}
 --- !u!224 &6748158725151383360
 RectTransform:
@@ -7448,9 +7403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b811ab78d1b039049a426e6906a39c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animation: {fileID: 8670796213372695218}
-  UIshow: {fileID: 7400000, guid: 9fb6ea74a26a0e240b06702882bdf1be, type: 2}
-  UIHide: {fileID: 7400000, guid: 8b8ff9da74b20434aa71e9556f0f836c, type: 2}
 --- !u!114 &8670796213098946180
 MonoBehaviour:
   m_ObjectHideFlags: 0
