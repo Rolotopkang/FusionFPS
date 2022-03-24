@@ -1,14 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RegisterManager : MonoBehaviour
 {
-    public InputField Username;
-    public InputField Password;
-    public InputField VefiryPassword;
+    public TMP_InputField Username;
+    public TMP_InputField Password;
+    public TMP_InputField VefiryPassword;
     public Text WrongHint;
     private LoginUIManager loginUIManager;
     private bool registerable = false;
