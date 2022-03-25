@@ -10,6 +10,18 @@ public class ConnectServerManager : MonoBehaviourPunCallbacks
     private bool connectToMaster = false;
     private String MyNickName="error";
 
+
+
+    [SerializeField]
+    private LoginUIAnimation LoginUIAnimation;
+
+    [SerializeField]
+    private MenuController MenuController;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
     public void ConnectToServer()
     {
         if (!connectToMaster)
@@ -33,7 +45,9 @@ public class ConnectServerManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-        loginUIManager.ChangeToUI(3);
+        LoginUIAnimation.UIFade();
+        MenuController.gameObject.SetActive(true);
+        MenuController.onUIshow();
     }
 
     public void SetMyNickName(String set)

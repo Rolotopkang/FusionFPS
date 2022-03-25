@@ -603,7 +603,16 @@ namespace InfimaGames.LowPolyShooterPack
 				characterKinematics.Compute(alphaLeft, alphaRight);
 			}
 		}
-		
+
+		private void OnDestroy()
+		{
+			if (cursorLocked)
+			{
+				cursorLocked = !cursorLocked;
+			}
+			UpdateCursorState();
+		}
+
 		#endregion
 
 		#region GETTERS

@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class DatabaseConnector : MonoBehaviour
 {
-    private void Awake()
-    {
-        MysqlManager mysqlManager = new MysqlManager();
-        mysqlManager.SetInstance(mysqlManager);
-        MysqlManager.Init();
-    }
 
     public EnumTools.LoginState Login(String username,String password)
     {

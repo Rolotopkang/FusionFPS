@@ -14,8 +14,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
     public GameObject RoomNameButtonPrefab;
     public Transform gridLayout;
-    public string PlayerPrefabName;
-    public GameObject PlayerLocation;
     private LoginUIManager loginUIManager;
     
 
@@ -64,7 +62,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log("Join Room!");
-        PhotonNetwork.Instantiate(PlayerPrefabName,PlayerLocation.transform.position, quaternion.identity);
-        loginUIManager.CloseUI();
+        // PhotonNetwork.Instantiate(PlayerPrefabName,PlayerLocation.transform.position, quaternion.identity);
+        // loginUIManager.CloseUI();
     }
 }
