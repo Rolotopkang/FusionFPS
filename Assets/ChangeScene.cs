@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using TMPro;
-using UnityEditor.SceneManagement;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityTemplateProjects.Tools;
 
-public class ChangeScene : MonoBehaviour
+public class ChangeScene : Singleton<ChangeScene>
 {
        #region FIELDS SERIALIZED
 
@@ -14,7 +17,7 @@ public class ChangeScene : MonoBehaviour
         [Tooltip("Display name of the scene.")]
         [SerializeField]
         private string displayName;
-        
+
         [Tooltip("Name of the scene to load.")]
         [SerializeField]
         private string sceneToLoad;
@@ -35,6 +38,17 @@ public class ChangeScene : MonoBehaviour
         [SerializeField]
         public float fadeDuration = 1.0f;
         
+        
+        private int mapIndex = -1;
+        
+        private MapTools.GameMode gameMode;
+
+        private bool isNetWork =false;
+
+        private bool isNetWorkClient = false;
+
+        private int NetWorkSceneIndex;
+
         #endregion
         
         #region UNITY
@@ -62,8 +76,16 @@ public class ChangeScene : MonoBehaviour
         {
             //Activate the UI object.
             loadingScreen.SetActive(true);
-            
-            //Display Name.
+
+            if (mapIndex != -1)
+            {
+                MapTools.Map tmp_map = MapTools.IndexToMap(mapIndex,gameMode);
+                displayName = tmp_map.MapDiscripName;
+                sceneToLoad = tmp_map.MapName;
+                NetWorkSceneIndex = tmp_map.SceneIndex;
+            }
+
+                //Display Name.
             sceneText.text = displayName;
 
             //Fade in loading screen.
@@ -72,22 +94,31 @@ public class ChangeScene : MonoBehaviour
             //Operation.
             AsyncOperation operation = default;
 
-            #if UNITY_EDITOR
-            //Load the scene.
-            operation = EditorSceneManager.LoadSceneAsyncInPlayMode(sceneToLoad, new LoadSceneParameters(LoadSceneMode.Single));
-            #else
-            //Load the scene.
-            operation = SceneManager.LoadSceneAsync(sceneToLoad, new LoadSceneParameters(LoadSceneMode.Single));
-            #endif
+
+            if (isNetWork)
+            {
+                PhotonNetwork.LoadLevel(sceneToLoad);
+            }
+            else if (isNetWorkClient)
+            {
+                PhotonNetwork.LoadLevel(NetWorkSceneIndex);
+            }
+            else
+            {
+                //Load the scene.
+                operation = SceneManager.LoadSceneAsync(sceneToLoad, new LoadSceneParameters(LoadSceneMode.Single));
+            }
+            
+
             
             //Yield.
-            yield return new WaitWhile(() => !operation.isDone);
+            yield return new WaitWhile(() =>isNetWork?PhotonNetwork.LevelLoadingProgress.Equals(1): !operation.isDone);
 
             //Fade out loading screen once loading is completed.
-            yield return StartCoroutine(FadeLoadingScreen(0, fadeDuration));
-
-            //Disable the game object so it doesn't show up in the loaded scene.
-            // gameObject.SetActive(false);
+            if (!isNetWork && !isNetWorkClient)
+            {
+                yield return StartCoroutine(FadeLoadingScreen(0, fadeDuration));
+            }
         }
 
         /// <summary>
@@ -108,5 +139,17 @@ public class ChangeScene : MonoBehaviour
             canvasGroup.alpha = targetValue;
         }
 
+        public void SetMapToChange(int index ,MapTools.GameMode GameMode)
+        {
+            mapIndex = index;
+            gameMode = GameMode;
+            isNetWork = true;
+        }
+
+        public void SetMapToChange(int index)
+        {
+            NetWorkSceneIndex = index;
+            isNetWorkClient = true;
+        }
         #endregion
 }

@@ -3018,7 +3018,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 66999
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -6251,7 +6251,7 @@ GameObject:
   - component: {fileID: 1710269785485461730}
   - component: {fileID: 1710269785485461741}
   m_Layer: 0
-  m_Name: WeaponHolder_1
+  m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

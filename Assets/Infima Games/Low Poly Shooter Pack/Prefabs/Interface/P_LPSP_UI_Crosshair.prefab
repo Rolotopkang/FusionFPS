@@ -643,6 +643,12 @@ MonoBehaviour:
   movementScaleAddition: 15
   runningVisibility: 0.6
   runningScaleAddition: 25
+  Images:
+  - {fileID: 3688473504305631251}
+  - {fileID: 8000977679713574830}
+  - {fileID: 7967835386096682664}
+  - {fileID: 4157387906283753423}
+  - {fileID: 6761739253340294449}
 --- !u!1 &8174732254214158213
 GameObject:
   m_ObjectHideFlags: 0

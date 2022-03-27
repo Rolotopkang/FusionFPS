@@ -1,6 +1,11 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+
+using System;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityTemplateProjects.Tools;
+using UnityTemplateProjects.UI;
 
 namespace InfimaGames.LowPolyShooterPack.Interface
 {
@@ -8,7 +13,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
     /// Crosshair UI Element. This class makes sure to change the Crosshair at runtime to make sure that it
     /// looks as intended, and functions with the rest of the gameplay elements.
     /// </summary>
-    public class Crosshair : Element
+    public class Crosshair : Element ,ISettingChangeObserver
     {
         #region FIELDS SERIALIZED
 
@@ -70,6 +75,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         [SerializeField]
         private float runningScaleAddition = 15.0f;
 
+        [SerializeField]
+        private Image[] Images;
+        
         #endregion
 
         #region FIELDS
@@ -93,8 +101,38 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private float dotVisibility;
 
         #endregion
+
+        #region Unity
+
+        protected override void Awake()
+        {
+            base.Awake();
+            if (PlayerPrefs.HasKey("CrosshairColor"))
+            {
+                foreach (Image image in Images)
+                {
+                    Color tmp_color;
+                    ColorUtility.TryParseHtmlString(PlayerPrefs.GetString("CrosshairColor"),out tmp_color);
+                    image.color = tmp_color;
+                }
+            }
+        }
+
+        private void OnEnable()
+        {
+            SettingManager.GetInstance().AddSettingChangeObserver(this);
+        }
+
+        private void OnDisable()
+        {
+            SettingManager.GetInstance().RemoveSettingChangeObserver(this);
+        }
+
+        #endregion
         
         #region METHODS
+        
+        
         
         protected override void Tick()
         {
@@ -190,6 +228,18 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             dotCanvasGroup.alpha = dotVisibility;
         }
         
+        public void OnSettingChange()
+        {
+            if (PlayerPrefs.HasKey("CrosshairColor"))
+            {
+                foreach (Image image in Images)
+                {
+                    Color tmp_color;
+                    ColorUtility.TryParseHtmlString(PlayerPrefs.GetString("CrosshairColor"),out tmp_color);
+                    image.color = tmp_color;
+                }
+            }
+        }
         #endregion
     }
 }

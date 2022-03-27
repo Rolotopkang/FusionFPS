@@ -1,13 +1,15 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System;
 using UnityEngine;
+using UnityTemplateProjects.Tools;
 
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
     /// Camera Look. Handles the rotation of the camera.
     /// </summary>
-    public class CameraLook : MonoBehaviour
+    public class CameraLook : MonoBehaviour,ISettingChangeObserver
     {
         #region FIELDS SERIALIZED
         
@@ -79,7 +81,15 @@ namespace InfimaGames.LowPolyShooterPack
         #endregion
         
         #region UNITY
-        
+
+        private void Awake()
+        {
+            if (PlayerPrefs.HasKey("MouseSensitivity"))
+            {
+                sensitivity = sensitivity * PlayerPrefs.GetFloat("MouseSensitivity");
+            }
+        }
+
         private void Start()
         {
             //Get Player Character.
@@ -188,6 +198,13 @@ namespace InfimaGames.LowPolyShooterPack
                 currentRecoilTime = 0;
             }
         }
+        
+        public void OnSettingChange()
+        {
+            sensitivity = sensitivity * PlayerPrefs.GetFloat("MouseSensitivity");
+        }
         #endregion
+
+
     }
 }

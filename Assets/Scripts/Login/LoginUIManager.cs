@@ -26,9 +26,9 @@ public class LoginUIManager : MonoBehaviour
                 UI.SetActive(true);
             }
 
-            SettingManager tmp_SettingManager = gameObject.transform.parent.GetComponent<SettingManager>();
-            tmp_SettingManager.AudioSettings(false);
-            tmp_SettingManager.GameSettings(false);
+            SettingUI tmpSettingUI = gameObject.transform.parent.GetComponent<SettingUI>();
+            tmpSettingUI.AudioSettings(false);
+            tmpSettingUI.GameSettings(false);
             foreach (GameObject UI in UIList)
             {
                 UI.SetActive(false);

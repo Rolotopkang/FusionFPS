@@ -10,6 +10,7 @@ public class JoinRoomBTN : MonoBehaviourPunCallbacks
     public int min;
     public int max;
     private String roomName;
+    
     private void Start()
     {
         roomName = GetComponentsInChildren<Text>()[0].text;
