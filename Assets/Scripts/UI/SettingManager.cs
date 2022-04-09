@@ -17,6 +17,12 @@ namespace UnityTemplateProjects.UI
     {
         private List<ISettingChangeObserver> ISettingChangeObserverList = new List<ISettingChangeObserver>();
 
+        protected override void Awake()
+        {
+            base.Awake();
+            DontDestroyOnLoad(this);
+        }
+
         public void AddSettingChangeObserver(ISettingChangeObserver settingChangeObserver)
         {
             ISettingChangeObserverList.Add(settingChangeObserver);

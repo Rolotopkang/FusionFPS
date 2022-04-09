@@ -1,5 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System;
+using Photon.Pun;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -7,25 +9,24 @@ namespace InfimaGames.LowPolyShooterPack
     /// <summary>
     /// Abstract Inventory Class. Helpful so you can implement your own inventory system!
     /// </summary>
-    public abstract class InventoryBehaviour : MonoBehaviour
+    public abstract class InventoryBehaviour : MonoBehaviourPun
     {
         #region GETTERS
 
         /// <summary>
-        /// Returns the index that is before the current index. Very helpful in order to figure out
-        /// what the next weapon to equip is.
+        /// 切换主副手武器
         /// </summary>
         /// <returns></returns>
-        public abstract int GetLastIndex();
-        /// <summary>
-        /// Returns the next index after the currently equipped one. Very helpful in order to figure out
-        /// what the next weapon to equip is.
-        /// </summary>
-        public abstract int GetNextIndex();
+        public abstract int ChangeWeapon();
+        
         /// <summary>
         /// Returns the currently equipped WeaponBehaviour.
         /// </summary>
         public abstract WeaponBehaviour GetEquipped();
+
+        public abstract WeaponBehaviour GetMainWeapon();
+        
+        public abstract WeaponBehaviour GetSecWeapon();
 
         /// <summary>
         /// Returns the currently equipped index. Meaning the index in the weapon array of the equipped weapon.
@@ -41,7 +42,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// PlayerCharacter component to run this with the index it wants to equip!
         /// </summary>
         /// <param name="equippedAtStart">Inventory index of the weapon we want to equip when the game starts.</param>
-        public abstract void Init(int equippedAtStart = 0);
+        public abstract void Init(String DepolyMainWeapon ,String DepolySecWeapon);
         
         /// <summary>
         /// Equips a Weapon.

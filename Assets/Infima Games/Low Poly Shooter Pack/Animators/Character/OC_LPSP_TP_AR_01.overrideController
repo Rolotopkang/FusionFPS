@@ -7,5 +7,5 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OC_LPSP_TP_AR_01
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f32d200bc6a012d49a7f8514fa932dea, type: 2}
   m_Clips: []

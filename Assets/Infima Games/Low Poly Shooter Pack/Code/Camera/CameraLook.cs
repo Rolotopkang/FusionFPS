@@ -1,6 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using System;
+using Photon.Pun;
 using UnityEngine;
 using UnityTemplateProjects.Tools;
 
@@ -14,6 +15,10 @@ namespace InfimaGames.LowPolyShooterPack
         #region FIELDS SERIALIZED
         
         [Header("Settings")]
+        
+        [SerializeField]
+        private CharacterBehaviour playerCharacter;
+        
         
         [Tooltip("Sensitivity when looking around.")]
         [SerializeField]
@@ -57,7 +62,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Player Character.
         /// </summary>
-        private CharacterBehaviour playerCharacter;
+
         /// <summary>
         /// The player character's rigidbody component.
         /// </summary>
@@ -92,9 +97,6 @@ namespace InfimaGames.LowPolyShooterPack
 
         private void Start()
         {
-            //Get Player Character.
-            playerCharacter = ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter();       
-            
             //Cache the character's initial rotation.
             rotationCharacter = playerCharacter.transform.localRotation;
             //Cache the camera's initial rotation.

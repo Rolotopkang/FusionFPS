@@ -1,5 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System;
+using Photon.Pun;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack.Interface
@@ -10,7 +12,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
     public abstract class Element : MonoBehaviour
     {
         #region FIELDS
-        
+
+
+        protected GameObject playerGameObject;
         /// <summary>
         /// Game Mode Service.
         /// </summary>
@@ -29,6 +33,12 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         /// Equipped Weapon.
         /// </summary>
         protected WeaponBehaviour equippedWeapon;
+
+
+        protected Battle Battle;
+
+        protected EventManager playerEventManager;
+        
         
         #endregion
 
@@ -39,15 +49,27 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         /// </summary>
         protected virtual void Awake()
         {
+            
+        }
+
+        protected virtual void Start()
+        {
             //Get Game Mode Service. Very useful to get Game Mode references.
             gameModeService = ServiceLocator.Current.Get<IGameModeService>();
+            playerGameObject ??=gameModeService.GetPlayerGameObject(PhotonNetwork.LocalPlayer);
+            
+            //获取角色战斗数据
+            Battle ??= playerGameObject.GetComponent<Battle>();
+            
+            //获取角色事件管理器
+            playerEventManager ??= playerGameObject.GetComponent<EventManager>();
             
             //Get Player Character.
-            playerCharacter = gameModeService.GetPlayerCharacter();
+            playerCharacter ??= gameModeService.GetPlayerCharacter(PhotonNetwork.LocalPlayer);
             //Get Player Character Inventory.
             playerCharacterInventory = playerCharacter.GetInventory();
         }
-        
+
         /// <summary>
         /// Update.
         /// </summary>
@@ -59,7 +81,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
             //Get Equipped Weapon.
             equippedWeapon = playerCharacterInventory.GetEquipped();
-            
+
             //Tick.
             Tick();
         }

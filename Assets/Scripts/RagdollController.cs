@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using UnityEditor;
 using UnityEngine;
 
-public class RagdollController : MonoBehaviour
+public class RagdollController : MonoBehaviourPun
 {
     public bool testDeath;
     private Animator Animator;
@@ -18,6 +20,7 @@ public class RagdollController : MonoBehaviour
         Rigidbodies= GetComponentsInChildren<Rigidbody>();
         Animator = GetComponent<Animator>();
         SetCollidersEnable(false);
+
     }
 
     private void Update()
@@ -27,6 +30,11 @@ public class RagdollController : MonoBehaviour
             SetCollidersEnable(true);
             
             Animator.enabled = false;
+        }
+        else
+        {
+            Animator.enabled = true;
+            SetCollidersEnable(false);
         }
     }
 
@@ -41,10 +49,14 @@ public class RagdollController : MonoBehaviour
     /// <param name="set"></param>
     public void SetCollidersEnable(bool set)
     {
-        foreach (Collider collider in Colliders)
-        { 
-            collider.enabled = set;
+        if (photonView.IsMine)
+        {
+            foreach (Collider collider in Colliders)
+            {
+                collider.enabled = set;
+            }
         }
+
 
         foreach (Rigidbody rigidbody in Rigidbodies)
         {

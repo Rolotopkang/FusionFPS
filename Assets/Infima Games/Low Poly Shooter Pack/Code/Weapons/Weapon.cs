@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using Photon.Pun;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -16,6 +17,9 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("Weapon Name. Currently not used for anything, but in the future, we will use this for pickups!")]
         [SerializeField] 
         private string weaponName;
+        
+        [SerializeField]
+        private string weaponShowName;
 
         [Tooltip("How much the character's movement speed is multiplied by when wielding this weapon.")]
         [SerializeField]
@@ -54,6 +58,10 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private float projectileImpulse = 400.0f;
 
+        [Tooltip("枪械伤害")]
+        [SerializeField]
+        private float DMG = 10f;
+        
         [Tooltip("Amount of shots this weapon can shoot in a minute. It determines how fast the weapon shoots.")]
         [SerializeField] 
         private int roundsPerMinutes = 200;
@@ -115,6 +123,8 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("The AnimatorController a player character needs to use while wielding this weapon.")]
         [SerializeField] 
         public RuntimeAnimatorController controller;
+
+        private TP_Synchronization tpSynchronization;
 
         [Tooltip("Weapon Body Texture.")]
         [SerializeField]
@@ -234,11 +244,11 @@ namespace InfimaGames.LowPolyShooterPack
             animator = GetComponent<Animator>();
             //Get Attachment Manager.
             attachmentManager = GetComponent<WeaponAttachmentManagerBehaviour>();
-
+            tpSynchronization = GetComponentInParent<TP_Synchronization>();
             //Cache the game mode service. We only need this right here, but we'll cache it in case we ever need it again.
             gameModeService = ServiceLocator.Current.Get<IGameModeService>();
             //Cache the player character.
-            characterBehaviour = gameModeService.GetPlayerCharacter();
+            characterBehaviour = GetComponentInParent<CharacterBehaviour>();
             //Cache the world camera. We use this in line traces.
             playerCamera = characterBehaviour.GetCameraWorld().transform;
             //获取后坐力组件
@@ -271,6 +281,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         #region GETTERS
 
+        
         public override Offsets GetWeaponOffsets() => weaponOffsets;
         
         public override float GetFieldOfViewMultiplierAim()
@@ -341,6 +352,12 @@ namespace InfimaGames.LowPolyShooterPack
         public override Sway GetSway() => sway;
         public override float GetSwaySmoothValue() => swaySmoothValue;
 
+        public override string GetWeaponName() => weaponName;
+
+        public override string GetWeaponShowName() => weaponShowName;
+
+        public override MagazineBehaviour GetMagazineBehaviour() => magazineBehaviour;
+
         #endregion
 
         #region METHODS
@@ -353,6 +370,18 @@ namespace InfimaGames.LowPolyShooterPack
             
             //Play Reload Animation.
             animator.Play(cycledReload ? "Reload Open" : (HasAmmunition() ? "Reload" : "Reload Empty"), 0, 0.0f);
+            
+            //远程第三人称同步
+            if (cycledReload)
+            {
+                tpSynchronization.ReloadOpen();
+            }else if (HasAmmunition())
+            {
+                tpSynchronization.Reload();
+            }else
+            {
+                tpSynchronization.ReloadOutOf();
+            }
         }
         public override void Fire(float spreadMultiplier = 1.0f)
         {
@@ -384,6 +413,9 @@ namespace InfimaGames.LowPolyShooterPack
             CameraLook.StartRecoil((Recoil+GetRandomRecoil(Recoil))*
                                    gripBehaviour.GetRecoilCoefficient(),false);
 
+            //远程第三人称同步
+            tpSynchronization.Shoot();
+            
             //Spawn as many projectiles as we need.
             for (var i = 0; i < shotCount; i++)
             {
@@ -398,14 +430,18 @@ namespace InfimaGames.LowPolyShooterPack
                 Quaternion rotation = Quaternion.LookRotation(playerCamera.forward * 1000.0f + spreadValue - muzzleSocket.position);
             
                 //If there's something blocking, then we can aim directly at that thing, which will result in more accurate shooting.
-                if (Physics.Raycast(new Ray(playerCamera.position, playerCamera.forward),
-                    out RaycastHit hit, maximumDistance, mask))
-                    rotation = Quaternion.LookRotation(hit.point + spreadValue - muzzleSocket.position);
+                // if (Physics.Raycast(new Ray(playerCamera.position, playerCamera.forward),
+                //     out RaycastHit hit, maximumDistance, mask))
+                //     rotation = Quaternion.LookRotation(hit.point + spreadValue - muzzleSocket.position);
                 
                 //Spawn projectile from the projectile spawn point.
                 GameObject projectile = Instantiate(prefabProjectile, muzzleSocket.position, rotation);
+                tpSynchronization.InstantiateProjectile(muzzleSocket.position,rotation,projectileImpulse);
                 //Add velocity to the projectile.
-                projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;   
+                projectile.GetComponent<Legacy.Projectile>().SetOwner(photonView.Owner);
+                projectile.GetComponent<Legacy.Projectile>().SetWeaponDMG(DMG);
+                projectile.GetComponent<Legacy.Projectile>().SetweaponName(weaponName);
+                projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;
             }
         }
 

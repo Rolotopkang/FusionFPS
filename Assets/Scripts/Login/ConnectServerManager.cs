@@ -20,8 +20,7 @@ public class ConnectServerManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
-        DontDestroyOnLoad(this);
+        // DontDestroyOnLoad(this);
     }
     public void ConnectToServer()
     {
@@ -43,6 +42,7 @@ public class ConnectServerManager : MonoBehaviourPunCallbacks
         LoginUIAnimation.UIFade();
         MenuController.gameObject.SetActive(true);
         MenuController.onUIshow();
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public void SetMyNickName(String set)

@@ -1,5 +1,8 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using Photon.Realtime;
+using UnityEngine;
+
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
@@ -10,6 +13,10 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Returns the Player Character.
         /// </summary>
-        CharacterBehaviour GetPlayerCharacter();
+        CharacterBehaviour GetPlayerCharacter(Player player);
+
+        GameObject GetPlayerGameObject(Player player);
+
+        public void AddPlayerIntoList(GameObject player);
     }
 }

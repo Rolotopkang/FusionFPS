@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using Photon.Pun;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -23,7 +24,7 @@ namespace InfimaGames.LowPolyShooterPack
 		private void Awake()
 		{
 			//Grab a reference to the character component.
-			playerCharacter = ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter();
+			playerCharacter = ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter(PhotonNetwork.LocalPlayer);
 		}
 
 		#endregion

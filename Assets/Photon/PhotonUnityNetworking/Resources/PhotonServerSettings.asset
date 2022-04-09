@@ -46,6 +46,8 @@ MonoBehaviour:
   - RPC_Shoot
   - RPC_Reload
   - RPC_ReloadOutOf
+  - RPC_InstantiateProjectile
+  - RPC_ReloadOpen
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

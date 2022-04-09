@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         #region FIELDS SERIALIZED
 
         [Header("Settings")]
+        
+        [SerializeField] private bool isMainWeapon;
         
         [Tooltip("Weapon Body Image.")]
         [SerializeField]
@@ -42,6 +45,15 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         [SerializeField]
         private Image imageWeaponScopeDefault;
 
+        [SerializeField]
+        private TextMeshProUGUI bulletNum;
+
+        [SerializeField]
+        private TextMeshProUGUI GunName;
+
+        [SerializeField]
+        private CanvasGroup[] CanvasGroups;
+
         #endregion
 
         #region FIELDS
@@ -51,21 +63,57 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         /// </summary>
         private WeaponAttachmentManagerBehaviour attachmentManagerBehaviour;
 
+        private WeaponBehaviour MainWeapon;
+
+        private WeaponBehaviour SecWeapon;
+        
+        private WeaponBehaviour CurrentWeapon;
+        
+        
         #endregion
 
         #region METHODS
 
         protected override void Tick()
         {
-            //Get Attachment Manager.
-            attachmentManagerBehaviour = equippedWeapon.GetAttachmentManager();
-            //Update the weapon's body sprite!
-            imageWeaponBody.sprite = equippedWeapon.GetSpriteBody();
+            MainWeapon = playerCharacterInventory.GetMainWeapon();
+            SecWeapon = playerCharacterInventory.GetSecWeapon();
+            CurrentWeapon = playerCharacterInventory.GetEquipped();
+            if (CurrentWeapon.Equals(MainWeapon))
+            {
+                SetCurrentItem(0);
+            }
 
+            if (CurrentWeapon.Equals(SecWeapon))
+            {
+                SetCurrentItem(1);
+            }
+
+            //Get Attachment Manager.
+            attachmentManagerBehaviour = isMainWeapon? MainWeapon.GetAttachmentManager(): SecWeapon.GetAttachmentManager();
+            //Update the weapon's body sprite!
+            imageWeaponBody.sprite = isMainWeapon? MainWeapon.GetSpriteBody(): SecWeapon.GetSpriteBody();
+
+            bulletNum.text = MainWeapon ?
+                MainWeapon.GetMagazineBehaviour().GetAmmunitionTotal().ToString() :
+                SecWeapon.GetMagazineBehaviour().GetAmmunitionTotal().ToString();
+            
+            if (isMainWeapon && CurrentWeapon.Equals(MainWeapon))
+            {
+                UpdateSprite();
+            }
+            else if(CurrentWeapon.Equals(SecWeapon))
+            {
+                UpdateSprite();
+            }
+        }
+
+        private void UpdateSprite()
+        {
+            GunName.text = CurrentWeapon.GetWeaponName();
             //Sprite.
             Sprite sprite = default;
-
-            //Scope Default.
+                            //Scope Default.
             ScopeBehaviour scopeDefaultBehaviour = attachmentManagerBehaviour.GetEquippedScopeDefault();
             //Get Sprite.
             if (scopeDefaultBehaviour != null)
@@ -112,8 +160,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
                 sprite = muzzleBehaviour.GetSprite();
             //Assign Sprite!
             AssignSprite(imageWeaponMuzzle, sprite, muzzleBehaviour == null);
+            
         }
-
+        
         /// <summary>
         /// Assigns a sprite to an image.
         /// </summary>
@@ -125,6 +174,15 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             image.enabled = sprite != null && !forceHide;
         }
 
+        private void SetCurrentItem(int index)
+        {
+            foreach (CanvasGroup canvasGroup in CanvasGroups)
+            {
+                canvasGroup.alpha = 0.4f;
+            }
+
+            CanvasGroups[index].alpha = 0.8f;
+        }
         #endregion
     }
 }

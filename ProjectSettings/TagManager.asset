@@ -20,9 +20,8 @@ TagManager:
   - GlobalCamera
   - FX
   - PlayerLeg
-  - PlayerHand
-  - PlayerHead
   - PlayerChest
+  - PlayerHead
   layers:
   - Default
   - TransparentFX

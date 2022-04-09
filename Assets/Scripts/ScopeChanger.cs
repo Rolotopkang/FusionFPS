@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using InfimaGames.LowPolyShooterPack;
 using InfimaGames.LowPolyShooterPack.Interface;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
@@ -73,7 +74,7 @@ public class ScopeChanger : MonoBehaviour
     {
         gameModeService = ServiceLocator.Current.Get<IGameModeService>();
         //Get Player Character.
-        playerCharacter = gameModeService.GetPlayerCharacter();
+        playerCharacter = gameModeService.GetPlayerCharacter(PhotonNetwork.LocalPlayer);
     }
 
     // private void OnEnable()

@@ -134,7 +134,7 @@ namespace InfimaGames.LowPolyShooterPack
         protected override void Awake()
         {
             //Get Player Character.
-            playerCharacter = ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter();
+            playerCharacter = GetComponent<CharacterBehaviour>();
         }
 
         /// Initializes the FpsController on start.

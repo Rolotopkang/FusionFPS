@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Numerics;
+using Photon.Pun;
 using UnityEngine.InputSystem;
 using UnityTemplateProjects.MultiplayerScripts;
 using Vector2 = UnityEngine.Vector2;
@@ -210,6 +211,13 @@ namespace InfimaGames.LowPolyShooterPack
 		/// The magazine equipped on the character's weapon.
 		/// </summary>
 		private MagazineBehaviour equippedWeaponMagazine;
+
+		/// <summary>
+		/// PhotonView of Character
+		/// </summary>
+		private PhotonView PhotonView;
+
+		private PlayerManager PlayerManager;
 		
 		/// <summary>
 		/// True if the character is reloading.
@@ -321,6 +329,7 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private bool menuOpened;
 
+		private bool isMine;
 		#endregion
 
 		#region CONSTANTS
@@ -397,14 +406,21 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		protected override void Awake()
 		{
+			ServiceLocator.Current.Get<IGameModeService>().AddPlayerIntoList(gameObject);
+			PhotonView = GetComponent<PhotonView>();
+			PlayerManager = PhotonView.Find((int)PhotonView.InstantiationData[0]).GetComponent<PlayerManager>(); 
+			isMine = PhotonView.IsMine;
 			#region Lock Cursor
 
-			//Always make sure that our cursor is locked when the game starts!
-			cursorLocked = true;
-			menuOpened = false;
-			//Update the cursor's state.
-			UpdateCursorState();
-
+			if (isMine)
+			{
+				//Always make sure that our cursor is locked when the game starts!
+				cursorLocked = true;
+				menuOpened = false;
+				//Update the cursor's state.
+				UpdateCursorState();
+			}
+			
 			#endregion
 
 			//Cache the movement behaviour.
@@ -413,8 +429,7 @@ namespace InfimaGames.LowPolyShooterPack
 			characterKinematics = GetComponent<CharacterKinematics>();
 
 			//Initialize Inventory.
-			inventory.Init(weaponIndexEquippedAtStart);
-
+			inventory.Init(PlayerManager.GetDeployMainWeapon(),PlayerManager.GetDeploySecWeapon());
 			//Refresh!
 			RefreshWeaponSetup();
 		}
@@ -689,7 +704,9 @@ namespace InfimaGames.LowPolyShooterPack
 		public override bool IsScopeChanging() => scopeChanging;
 
 		public override bool IsTutorialTextVisible() => tutorialTextVisible;
-		
+
+		public override bool IsMine() => isMine;
+
 		public override Vector2 GetInputMovement() => axisMovement;
 		public override Vector2 GetInputLook() => axisLook;
 
@@ -716,6 +733,7 @@ namespace InfimaGames.LowPolyShooterPack
 				{
 					//Update the character animator.
 					FPCharacterAnimator.SetBool(boolNameReloading, false);
+					TPCharacterAnimator.SetBool(boolNameReloading, false);
 					//Update the weapon animator.
 					equippedWeapon.GetAnimator().SetBool(boolNameReloading, false);
 				}	
@@ -1359,6 +1377,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryFire(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1404,6 +1424,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryPlayReload(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1428,6 +1450,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryInspect(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1451,6 +1475,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryAiming(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1474,6 +1500,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryScopeChanger(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Switch.
 			switch (context.phase)
 			{
@@ -1493,6 +1521,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryHolster(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1518,6 +1548,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryThrowGrenade(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1539,6 +1571,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryMelee(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1559,6 +1593,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryRun(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1584,6 +1620,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryCrouch(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1607,6 +1645,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryJump(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1625,10 +1665,12 @@ namespace InfimaGames.LowPolyShooterPack
 			}
 		}
 		/// <summary>
-		/// Next Inventory Weapon.
+		/// Change Weapon.
 		/// </summary>
 		public void OnTryInventoryNext(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Block while the cursor is unlocked.
 			if (menuOpened)
 				return;
@@ -1647,10 +1689,10 @@ namespace InfimaGames.LowPolyShooterPack
 					float scrollValue = context.valueType.IsEquivalentTo(typeof(Vector2)) ? Mathf.Sign(context.ReadValue<Vector2>().y) : 1.0f;
 					
 					//Get the next index to switch to.
-					int indexNext = scrollValue > 0 ? inventory.GetNextIndex() : inventory.GetLastIndex();
+					int indexNext = inventory.ChangeWeapon();
 					//Get the current weapon's index.
 					int indexCurrent = inventory.GetEquippedIndex();
-					
+
 					//Make sure we're allowed to change, and also that we're not using the same index, otherwise weird things happen!
 					if (CanChangeWeapon() && (indexCurrent != indexNext))
 						StartCoroutine(nameof(Equip), indexNext);
@@ -1660,6 +1702,8 @@ namespace InfimaGames.LowPolyShooterPack
 		
 		public void OnLockCursor(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Switch.
 			switch (context)
 			{
@@ -1681,6 +1725,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnMove(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Read.
 			axisMovement = !menuOpened ? context.ReadValue<Vector2>() : default;
 		}
@@ -1689,6 +1735,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnLook(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Read.
 			 axisLook = cursorLocked ? context.ReadValue<Vector2>() : default;
 
@@ -1709,6 +1757,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnUpdateTutorial(InputAction.CallbackContext context)
 		{
+			if(!isMine)
+				return;
 			//Switch.
 			tutorialTextVisible = context switch
 			{

@@ -10,31 +10,28 @@ public class RenderController : MonoBehaviour
     [Header("是否只渲染阴影")]
     [SerializeField]
     [Tooltip("是否开启网格渲染")]
-    private bool isShadowOnly = true;
     private Renderer[] Renderers;
     private RigBuilder RigBuilder;
-    private void Start()
+
+    private void Awake()
     {
         Renderers = GetComponentsInChildren<Renderer>();
         RigBuilder = GetComponent<RigBuilder>();
-        SetRenderers(isShadowOnly);
     }
 
-    public void SetRenderers(bool isShadowOnly)
+    public void SetRenderers(ShadowCastingMode shadowCastingMode)
     {
-        if (isShadowOnly)
+        foreach (Renderer renderer in Renderers)
         {
-            foreach (Renderer renderer in Renderers)
-            {
-                renderer.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
-            }
+            renderer.shadowCastingMode = shadowCastingMode;
         }
-        else
+    }
+
+    public void SetRenderersDisable(bool set)
+    {
+        foreach (Renderer renderer in Renderers)
         {
-            foreach (Renderer renderer in Renderers)
-            {
-                renderer.shadowCastingMode = ShadowCastingMode.On;
-            }
+            renderer.enabled = set;
         }
     }
 }

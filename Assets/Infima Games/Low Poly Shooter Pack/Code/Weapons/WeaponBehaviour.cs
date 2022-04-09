@@ -1,10 +1,12 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System;
+using Photon.Pun;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
 {
-    public abstract class WeaponBehaviour : MonoBehaviour
+    public abstract class WeaponBehaviour : MonoBehaviourPun
     {
         #region UNITY
 
@@ -164,6 +166,14 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the weapon's attachment manager component.
         /// </summary>
         public abstract WeaponAttachmentManagerBehaviour GetAttachmentManager();
+        
+        /// <summary>
+        /// 返回武器唯一名
+        /// </summary>
+        /// <returns></returns>
+        public abstract String GetWeaponName();
+
+        public abstract String GetWeaponShowName();
 
         /// <summary>
         /// Returns the weapon's sway values.
@@ -173,6 +183,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns a value that determines how smooth the sway should be.
         /// </summary>
         public abstract float GetSwaySmoothValue();
+
+        public abstract MagazineBehaviour GetMagazineBehaviour();
         
         #endregion
 
@@ -205,6 +217,11 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract void RefreshAttachment();
 
         public abstract void ChangeAttachment(ScopeChangerBTN.AttachmentKind attachmentKind , int id);
+
+
+        
+ 
+        
 
         #endregion
     }

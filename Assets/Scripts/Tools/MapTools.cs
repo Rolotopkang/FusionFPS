@@ -64,7 +64,7 @@ namespace UnityTemplateProjects.Tools
         public static Map de_nukeTown = new Map(
             2,
             "Assets/Scenes/Nuketown.unity",
-            "Connecting NukeTown",
+            "NukeTown",
             new Dictionary<GameMode, int>()
             {
                 { GameMode.DeathMatch ,0},
@@ -75,7 +75,7 @@ namespace UnityTemplateProjects.Tools
         public static Map de_dust2 = new Map(
             3,
             "Assets/Scenes/de_dust2.unity",
-            "Connecting Dust2",
+            "Dust2",
             new Dictionary<GameMode, int>()
             {
                 { GameMode.DeathMatch ,1},

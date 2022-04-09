@@ -33,7 +33,8 @@ public class CreateRoomManager : MonoBehaviourPunCallbacks
         CustomRoomInfo.Add("host",PhotonNetwork.NickName);
         CustomRoomInfo.Add("GameMode",_gameMode.ToString());
         MapTools.Map tmp_map = MapTools.IndexToMap(mapDropdown.value, _gameMode);
-        CustomRoomInfo.Add("mapIndex",tmp_map.MapDiscripName);
+        CustomRoomInfo.Add("mapIndex",tmp_map.SceneIndex);
+        CustomRoomInfo.Add("mapDiscripName",tmp_map.MapDiscripName);
 
 
         RoomOptions roomOptions = new RoomOptions
@@ -43,7 +44,7 @@ public class CreateRoomManager : MonoBehaviourPunCallbacks
             IsVisible = true,
             IsOpen = true,
         };
-        roomOptions.CustomRoomPropertiesForLobby = new string[] {"pvp","host","GameMode","mapIndex"};
+        roomOptions.CustomRoomPropertiesForLobby = new string[] {"pvp","host","GameMode","mapIndex","mapDiscripName"};
         
         PhotonNetwork.JoinOrCreateRoom(roomName.text, roomOptions,TypedLobby.Default);
     }

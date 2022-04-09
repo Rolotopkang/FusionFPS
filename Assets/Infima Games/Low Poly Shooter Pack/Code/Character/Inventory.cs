@@ -1,5 +1,9 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System;
+using System.Collections.Generic;
+using ExitGames.Client.Photon;
+using Photon.Pun;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -22,21 +26,51 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private int equippedIndex = -1;
 
+
+        /// <summary>
+        /// 主武器
+        /// </summary>
+        private WeaponBehaviour MainWeapon;
+        /// <summary>
+        /// 副手武器
+        /// </summary>
+        private WeaponBehaviour SecWeapon;
+
+        [SerializeField]
+        private InventoryState inventoryState;
+        enum InventoryState
+        {
+            MainWeapon,
+            SecWeapon
+        }
+        
         #endregion
         
         #region METHODS
         
-        public override void Init(int equippedAtStart = 0)
+        public override void Init(String DepolyMainWeapon ,String DepolySecWeapon)
         {
-            //Cache all weapons. Beware that weapons need to be parented to the object this component is on!
             weapons = GetComponentsInChildren<WeaponBehaviour>(true);
-            
-            //Disable all weapons. This makes it easier for us to only activate the one we need.
             foreach (WeaponBehaviour weapon in weapons)
                 weapon.gameObject.SetActive(false);
+            if (photonView.IsMine)
+            {
+                //设置初始主武器和副武器
+                foreach (WeaponBehaviour weapon in weapons)
+                {
+                    if (weapon.GetWeaponName().Equals(DepolyMainWeapon))
+                    {
+                        MainWeapon = weapon;
+                        equipped = MainWeapon;
+                    }else if (weapon.GetWeaponName().Equals(DepolySecWeapon))
+                    {
+                        SecWeapon = weapon;
+                    }
+                }
 
-            //Equip.
-            Equip(equippedAtStart);
+                inventoryState = InventoryState.MainWeapon;
+                Equip(GetIndexByWeaponBehaviour(MainWeapon));
+            }
         }
 
         public override WeaponBehaviour Equip(int index)
@@ -44,6 +78,13 @@ namespace InfimaGames.LowPolyShooterPack
             //If we have no weapons, we can't really equip anything.
             if (weapons == null)
                 return equipped;
+
+            //index工具查找不到对应武器
+            if (index.Equals(-1))
+            {
+                Debug.Log("武器不存在");
+                return equipped;
+            }
             
             //The index needs to be within the array's bounds.
             if (index > weapons.Length - 1)
@@ -59,6 +100,7 @@ namespace InfimaGames.LowPolyShooterPack
 
             //Update index.
             equippedIndex = index;
+            UpdatePlayerProperties(index);
             //Update equipped.
             equipped = weapons[equippedIndex];
             //Activate the newly-equipped weapon.
@@ -72,30 +114,52 @@ namespace InfimaGames.LowPolyShooterPack
 
         #region Getters
 
-        public override int GetLastIndex()
+        
+        public override int ChangeWeapon()
         {
-            //Get last index with wrap around.
-            int newIndex = equippedIndex - 1;
-            if (newIndex < 0)
-                newIndex = weapons.Length - 1;
-
-            //Return.
-            return newIndex;
-        }
-
-        public override int GetNextIndex()
-        {
-            //Get next index with wrap around.
-            int newIndex = equippedIndex + 1;
-            if (newIndex > weapons.Length - 1)
-                newIndex = 0;
-
-            //Return.
-            return newIndex;
+            if (equippedIndex.Equals(GetIndexByWeaponBehaviour(MainWeapon)))
+            {
+                return GetIndexByWeaponBehaviour(SecWeapon);
+            }
+            
+            return GetIndexByWeaponBehaviour(MainWeapon);
         }
 
         public override WeaponBehaviour GetEquipped() => equipped;
+        public override WeaponBehaviour GetMainWeapon() => MainWeapon;
+        public override WeaponBehaviour GetSecWeapon() => SecWeapon;
+
         public override int GetEquippedIndex() => equippedIndex;
+
+        #endregion
+
+        #region Tools
+
+        private void UpdatePlayerProperties(int index)
+        {
+            if (photonView.IsMine)
+            {
+                Hashtable hash = new Hashtable();
+                hash.Add("EquipWeaponIndex",index);
+                PhotonNetwork.SetPlayerCustomProperties(hash);
+            }
+        }
+        
+        private int GetIndexByWeaponBehaviour(WeaponBehaviour weaponBehaviour)
+        {
+            int i = 0;
+            foreach (WeaponBehaviour weapon in weapons)
+            {
+                if (weapon.GetWeaponName().Equals(weaponBehaviour.GetWeaponName()))
+                {
+                    return i;
+                }
+
+                i++;
+            }
+
+            return -1;
+        }
 
         #endregion
     }
