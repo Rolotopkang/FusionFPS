@@ -73,6 +73,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         #endregion
 
         #region METHODS
+        
 
         protected override void Tick()
         {
@@ -94,17 +95,17 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             //Update the weapon's body sprite!
             imageWeaponBody.sprite = isMainWeapon? MainWeapon.GetSpriteBody(): SecWeapon.GetSpriteBody();
 
-            bulletNum.text = MainWeapon ?
-                MainWeapon.GetMagazineBehaviour().GetAmmunitionTotal().ToString() :
-                SecWeapon.GetMagazineBehaviour().GetAmmunitionTotal().ToString();
+            
             
             if (isMainWeapon && CurrentWeapon.Equals(MainWeapon))
             {
                 UpdateSprite();
+                bulletNum.text = MainWeapon.GetMagazineBehaviour().GetAmmunitionTotal().ToString();
             }
-            else if(CurrentWeapon.Equals(SecWeapon))
+            else if(!isMainWeapon && CurrentWeapon.Equals(SecWeapon))
             {
                 UpdateSprite();
+                bulletNum.text = SecWeapon.GetMagazineBehaviour().GetAmmunitionTotal().ToString();
             }
         }
 

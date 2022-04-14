@@ -41,7 +41,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             float total = equippedWeapon.GetAmmunitionTotal();
             
             //Update Text.
-            textMesh.text = current.ToString(CultureInfo.InvariantCulture);
+            textMesh.text = current.ToString("000");
 
             //Determine if we should update the text's color.
             if (updateColor)

@@ -2733,7 +2733,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '9999
+  m_text: '999
 
 '
   m_isRightToLeft: 0
@@ -3554,8 +3554,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291362560
-  m_fontColor: {r: 0, g: 1, b: 0.78456664, a: 1}
+    rgba: 4291362048
+  m_fontColor: {r: 0, g: 0.9921569, b: 0.7843138, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3764,7 +3764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updateColor: 1
   emptySpeed: 1.5
-  emptyColor: {r: 1, g: 0, b: 0, a: 1}
+  emptyColor: {r: 0, g: 0.07958171, b: 0.8679245, a: 1}
 --- !u!1 &6567684970127840535
 GameObject:
   m_ObjectHideFlags: 0

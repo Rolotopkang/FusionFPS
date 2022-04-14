@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
+using InfimaGames.LowPolyShooterPack;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
     private bool hitHint;
 
     private EnumTools.HitKinds HitKind;
+    
+    protected IGameModeService gameModeService;
 
 
     #region Unity
@@ -31,6 +34,11 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
     private void Awake()
     {
         Battle = GetComponent<Battle>();
+    }
+
+    private void Start()
+    {
+        gameModeService = ServiceLocator.Current.Get<IGameModeService>();
     }
 
     #endregion
@@ -104,7 +112,8 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
             //TODO
             if (tmp_hitPlayer.Equals(PhotonNetwork.LocalPlayer))
             {
-                
+                UIDamageIndecatorManager.CreateIndicator(gameModeService.GetPlayerGameObject(tmp_DMGFrom).transform);
+                Debug.Log("显示伤害来源！");
             }
         }
     }
