@@ -438,10 +438,10 @@ namespace InfimaGames.LowPolyShooterPack
                 GameObject projectile = Instantiate(prefabProjectile, muzzleSocket.position, rotation);
                 tpSynchronization.InstantiateProjectile(muzzleSocket.position,rotation,projectileImpulse);
                 //Add velocity to the projectile.
+                projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;
                 projectile.GetComponent<Legacy.Projectile>().SetOwner(photonView.Owner);
                 projectile.GetComponent<Legacy.Projectile>().SetWeaponDMG(DMG);
                 projectile.GetComponent<Legacy.Projectile>().SetweaponName(weaponName);
-                projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;
             }
         }
 
