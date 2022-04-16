@@ -228,12 +228,17 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private CharacterBehaviour characterBehaviour;
 
+        private RagdollController RagdollController;
+
         /// <summary>
         /// The player character's camera.
         /// </summary>
         private Transform playerCamera;
 
         private CameraLook CameraLook;
+        
+        private Collider[] Colliders;
+        
         #endregion
 
         #region UNITY
@@ -275,6 +280,8 @@ namespace InfimaGames.LowPolyShooterPack
 
             //Max Out Ammo.
             ammunitionCurrent = magazineBehaviour.GetAmmunitionTotal();
+
+            Colliders = characterBehaviour.gameObject.GetComponentInChildren<RagdollController>().GetColliders;
         }
 
         #endregion
@@ -425,18 +432,17 @@ namespace InfimaGames.LowPolyShooterPack
                 spreadValue.z = 0;
                 //Convert to world space.
                 spreadValue = muzzleSocket.TransformDirection(spreadValue);
-            
-                //Determine the rotation that we want to shoot our projectile in.
-                Quaternion rotation = Quaternion.LookRotation(playerCamera.forward * 1000.0f + spreadValue - muzzleSocket.position);
-            
-                //If there's something blocking, then we can aim directly at that thing, which will result in more accurate shooting.
-                // if (Physics.Raycast(new Ray(playerCamera.position, playerCamera.forward),
-                //     out RaycastHit hit, maximumDistance, mask))
-                //     rotation = Quaternion.LookRotation(hit.point + spreadValue - muzzleSocket.position);
+
+                Quaternion rotation = Quaternion.Euler(playerCamera.eulerAngles + spreadValue);
+                GameObject projectile = Instantiate(prefabProjectile, playerCamera.position, rotation);
+                tpSynchronization.InstantiateProjectile(playerCamera.position,rotation,projectileImpulse);
                 
-                //Spawn projectile from the projectile spawn point.
-                GameObject projectile = Instantiate(prefabProjectile, muzzleSocket.position, rotation);
-                tpSynchronization.InstantiateProjectile(muzzleSocket.position,rotation,projectileImpulse);
+                //忽略自身碰撞
+
+                foreach (Collider collider in Colliders)
+                {
+                    Physics.IgnoreCollision(projectile.GetComponent<Collider>(),collider);
+                }
                 //Add velocity to the projectile.
                 projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;
                 projectile.GetComponent<Legacy.Projectile>().SetOwner(photonView.Owner);

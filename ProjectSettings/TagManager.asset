@@ -22,6 +22,7 @@ TagManager:
   - PlayerLeg
   - PlayerChest
   - PlayerHead
+  - PlayerHand
   layers:
   - Default
   - TransparentFX

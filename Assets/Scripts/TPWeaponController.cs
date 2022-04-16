@@ -36,6 +36,7 @@ public class TPWeaponController : MonoBehaviourPun
     private Transform socketEjection;
     private Animator GunAnimator;
     private AnimatorStateInfo TPAnimatorStateInfo;
+    private RagdollController _ragdollController;
     private bool IsReloading = false;
     private IEnumerator reloadAmmoCheckerCoroutine;
 
@@ -43,6 +44,8 @@ public class TPWeaponController : MonoBehaviourPun
     private int layerOverlay;
     private int layerAction;
     private int layerBase;
+
+    private Collider[] Colliders;
     
     private void Awake()
     {
@@ -50,6 +53,12 @@ public class TPWeaponController : MonoBehaviourPun
         layerOverlay = TPAnimator.GetLayerIndex("Layer Overlay");
         layerAction = TPAnimator.GetLayerIndex("Layer Actions");
         layerBase = GunAnimator.GetLayerIndex("Layer Base");
+    }
+
+    private void Start()
+    {
+        _ragdollController = GetComponentInParent<RagdollController>();
+        Colliders = _ragdollController.GetColliders;
     }
 
     public void Shoot()
@@ -79,6 +88,13 @@ public class TPWeaponController : MonoBehaviourPun
     {
         GameObject projectile =Instantiate(ProjectilePrefab, transform, rotation);
         //Add velocity to the projectile.
+        //忽略自身碰撞
+
+        foreach (Collider collider in Colliders)
+        {
+            Physics.IgnoreCollision(projectile.GetComponent<Collider>(),collider);
+        }
+        
         projectile.GetComponent<InfimaGames.LowPolyShooterPack.Legacy.Projectile>().SetOwner(photonView.Owner);
         projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;  
     }

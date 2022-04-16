@@ -10,29 +10,56 @@ public class TestTrack : MonoBehaviour
     public GameObject camerto;//另一个点的位置
     private float speed =0.5f;//缓冲的时间  时间越大缓冲速度越慢
     private Vector3 velocity;//如果是3D场景就用Vector3,2D用Vector2
+
+    private PlayerManager PlayerManager;
+
+    public bool isLocated = false;
     
+
+    public void Dochange(GameObject target,PlayerManager playerManager)
+    {
+        camerto = target;
+        isLocated = false;
+        PlayerManager = playerManager;
+        // StartCoroutine(EXChange());
+    }
 
     public void Dochange(GameObject target)
     {
         camerto = target;
-        StartCoroutine(EXChange().GetEnumerator());
+        // StartCoroutine(EXChange());
     }
 
-    private IEnumerable EXChange()
+    private void Update()
     {
-        while (Mathf.Abs(cameraon.transform.position.z-camerto.transform.position.z)>0.01)
+        isLocated = Mathf.Abs(cameraon.transform.position.z - camerto.transform.position.z) < 0.1;
+
+        if (!isLocated)
         {
-            Debug.Log("执行！");
-            cameraon.transform.position = new Vector3(Mathf.SmoothDamp(cameraon.transform.position.x, camerto.transform.position.x,
+            cameraon.transform.position = new Vector3(Mathf.SmoothDamp(cameraon.transform.position.x, camerto.transform.position.x, 
                 ref velocity.x, speed), Mathf.SmoothDamp(cameraon.transform.position.y, camerto.transform.position.y,
                 ref velocity.y, speed),Mathf.SmoothDamp (cameraon.transform.position.z,camerto.transform.position.z ,ref velocity.z , speed));
             
             cameraon.transform.localRotation =
                 Quaternion.Slerp(cameraon.transform.rotation, camerto.transform.rotation, Time.deltaTime*speed*4);
         }
+    }
+    
+
+    private IEnumerator EXChange()
+    {
+        cameraon.transform.position = new Vector3(Mathf.SmoothDamp(
+                cameraon.transform.position.x, camerto.transform.position.x, ref velocity.x, speed),
+            Mathf.SmoothDamp(cameraon.transform.position.y, camerto.transform.position.y, ref velocity.y, speed),
+            Mathf.SmoothDamp (cameraon.transform.position.z,camerto.transform.position.z ,ref velocity.z , speed));
+            
+            cameraon.transform.localRotation = Quaternion.Slerp(
+                cameraon.transform.rotation,
+                camerto.transform.rotation,
+                Time.deltaTime*speed*4);
 
         // cameraon.SetActive(false);
-        yield return null;
+        yield return new WaitUntil(()=> Mathf.Abs(cameraon.transform.position.z-camerto.transform.position.z)<0.01);
     }
 
 }

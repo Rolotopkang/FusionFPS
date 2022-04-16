@@ -70,7 +70,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		private void Start()
 		{
-			//Start destroy timer
+			//Start destroy timera
 			StartCoroutine(DestroyAfter());
 		}
 
@@ -83,19 +83,21 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		{
 			Player tmp_hitOwner = hitPlayer.gameObject.GetComponentInParent<PhotonView>().Owner;
 
+			// Debug.Log("hit!"+hitPlayer.gameObject.name);
 			if (tmp_hitOwner.Equals(projectileOwner))
 			{
-				Physics.IgnoreCollision(projectileCollider,hitPlayer.collider);
-
+				// Physics.IgnoreCollision(projectileCollider,hitPlayer.collider);
+				// Debug.Log(tmp_hitOwner+"忽略！"+projectileOwner+"的");
 				return false;
 			}
 			
 			//溅血特效
 			if (!tmp_hitOwner.Equals(PhotonNetwork.LocalPlayer))
 			{
-				Instantiate(bloodImpactPrefabs[Random.Range(0, bloodImpactPrefabs.Length)],
+				GameObject tmp_Impact =Instantiate(bloodImpactPrefabs[Random.Range(0, bloodImpactPrefabs.Length)],
 					transform.position,
-					Quaternion.LookRotation(hitPlayer.contacts[0].normal));
+					Quaternion.LookRotation(hitPlayer.contacts[0].normal)).gameObject;
+				tmp_Impact.transform.parent = hitPlayer.transform;
 			}
 			
 			//TODO 队友伤害关闭
@@ -132,10 +134,14 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		}
 
 		#endregion
-		
-		
-		
-		
+
+		// private void OnTriggerEnter(Collider other)
+		// {
+		// 	
+		// 	Debug.Log("Enter!!!"+other.name);
+		// }
+
+
 		//If the bullet collides with anything
 		private void OnCollisionEnter(Collision collision)
 		{

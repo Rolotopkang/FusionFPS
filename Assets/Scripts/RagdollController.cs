@@ -14,13 +14,17 @@ public class RagdollController : MonoBehaviourPun
     private Rigidbody[] Rigidbodies;
     
     #region Unity
-    private void Start()
+
+    private void Awake()
     {
         Colliders = GetComponentsInChildren<Collider>();
         Rigidbodies= GetComponentsInChildren<Rigidbody>();
         Animator = GetComponent<Animator>();
-        SetCollidersEnable(false);
+    }
 
+    private void Start()
+    {
+        SetCollidersEnable(false);
     }
 
     private void Update()
@@ -49,13 +53,13 @@ public class RagdollController : MonoBehaviourPun
     /// <param name="set"></param>
     public void SetCollidersEnable(bool set)
     {
-        if (photonView.IsMine)
-        {
-            foreach (Collider collider in Colliders)
-            {
-                collider.enabled = set;
-            }
-        }
+        // if (photonView.IsMine)
+        // {
+        //     foreach (Collider collider in Colliders)
+        //     {
+        //         collider.enabled = set;
+        //     }
+        // }
 
 
         foreach (Rigidbody rigidbody in Rigidbodies)
@@ -63,6 +67,8 @@ public class RagdollController : MonoBehaviourPun
             rigidbody.isKinematic = !set;
         }
     }
-    
+
+    public Collider[] GetColliders => Colliders;
+
     #endregion
 }
