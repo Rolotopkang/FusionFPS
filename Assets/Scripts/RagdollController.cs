@@ -44,6 +44,8 @@ public class RagdollController : MonoBehaviourPun
 
     #endregion
 
+    
+    
 
     #region Methods
 
@@ -68,6 +70,15 @@ public class RagdollController : MonoBehaviourPun
         }
     }
 
+    public void Death(bool death)
+    {
+        if (death)
+        {
+            SetCollidersEnable(true);
+            Animator.enabled = false;
+        }
+    }
+    
     public Collider[] GetColliders => Colliders;
 
     #endregion

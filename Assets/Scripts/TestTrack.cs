@@ -21,19 +21,21 @@ public class TestTrack : MonoBehaviour
         camerto = target;
         isLocated = false;
         PlayerManager = playerManager;
-        // StartCoroutine(EXChange());
     }
 
     public void Dochange(GameObject target)
     {
         camerto = target;
-        // StartCoroutine(EXChange());
+        isLocated = false;
     }
 
     private void Update()
     {
-        isLocated = Mathf.Abs(cameraon.transform.position.z - camerto.transform.position.z) < 0.1;
+        // isLocated = (Mathf.Abs(cameraon.transform.position.x - camerto.transform.position.x) < 0.1) &&
+        //             (Mathf.Abs(cameraon.transform.position.y - camerto.transform.position.y) < 0.1) &&
+        //             (Mathf.Abs(cameraon.transform.position.z - camerto.transform.position.z) < 0.1);
 
+        
         if (!isLocated)
         {
             cameraon.transform.position = new Vector3(Mathf.SmoothDamp(cameraon.transform.position.x, camerto.transform.position.x, 
@@ -43,23 +45,12 @@ public class TestTrack : MonoBehaviour
             cameraon.transform.localRotation =
                 Quaternion.Slerp(cameraon.transform.rotation, camerto.transform.rotation, Time.deltaTime*speed*4);
         }
-    }
-    
 
-    private IEnumerator EXChange()
-    {
-        cameraon.transform.position = new Vector3(Mathf.SmoothDamp(
-                cameraon.transform.position.x, camerto.transform.position.x, ref velocity.x, speed),
-            Mathf.SmoothDamp(cameraon.transform.position.y, camerto.transform.position.y, ref velocity.y, speed),
-            Mathf.SmoothDamp (cameraon.transform.position.z,camerto.transform.position.z ,ref velocity.z , speed));
-            
-            cameraon.transform.localRotation = Quaternion.Slerp(
-                cameraon.transform.rotation,
-                camerto.transform.rotation,
-                Time.deltaTime*speed*4);
-
-        // cameraon.SetActive(false);
-        yield return new WaitUntil(()=> Mathf.Abs(cameraon.transform.position.z-camerto.transform.position.z)<0.01);
+        Debug.Log(cameraon.transform.position+"目前" +  camerto.transform.position+"目标");
+        if (camerto)
+        {
+            isLocated = Mathf.Abs(cameraon.transform.position.z - camerto.transform.position.z) < 0.1;
+        }
     }
 
 }

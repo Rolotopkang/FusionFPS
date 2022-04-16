@@ -82,6 +82,7 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
             //扣血
             if (Battle.Damage(tmp_DMG))
             {
+                Debug.Log("death！");
                 //致死伤害准星提示
                 HitKind = EnumTools.HitKinds.killShot;
                 //如果造成伤害致死的情况下且击中人为自己

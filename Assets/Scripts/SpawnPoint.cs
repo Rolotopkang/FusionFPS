@@ -13,7 +13,10 @@ public class SpawnPoint : MonoBehaviour
 
     private void Awake()
     {
-        graphics.SetActive(false);
+        foreach (var mesh in graphics.GetComponentsInChildren<MeshRenderer>())
+        {
+            mesh.enabled = false;
+        }
     }
     
 

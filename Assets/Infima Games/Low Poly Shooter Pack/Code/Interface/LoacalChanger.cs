@@ -99,6 +99,12 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             }
         }
 
+        public void LocalDeath()
+        {
+            TpRender.SetRenderers(ShadowCastingMode.On);
+            TpRender.SetRenderersDisable(true);
+            FP.SetActive(false);
+        }
         #endregion
     }
 }
