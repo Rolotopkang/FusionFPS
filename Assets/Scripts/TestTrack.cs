@@ -36,7 +36,7 @@ public class TestTrack : MonoBehaviour
         //             (Mathf.Abs(cameraon.transform.position.z - camerto.transform.position.z) < 0.1);
 
         
-        if (!isLocated)
+        if (!isLocated&&camerto)
         {
             cameraon.transform.position = new Vector3(Mathf.SmoothDamp(cameraon.transform.position.x, camerto.transform.position.x, 
                 ref velocity.x, speed), Mathf.SmoothDamp(cameraon.transform.position.y, camerto.transform.position.y,
@@ -46,7 +46,7 @@ public class TestTrack : MonoBehaviour
                 Quaternion.Slerp(cameraon.transform.rotation, camerto.transform.rotation, Time.deltaTime*speed*4);
         }
 
-        Debug.Log(cameraon.transform.position+"目前" +  camerto.transform.position+"目标");
+        // Debug.Log(cameraon.transform.position+"目前" +  camerto.transform.position+"目标");
         if (camerto)
         {
             isLocated = Mathf.Abs(cameraon.transform.position.z - camerto.transform.position.z) < 0.1;

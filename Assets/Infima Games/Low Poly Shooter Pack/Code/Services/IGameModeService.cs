@@ -18,5 +18,7 @@ namespace InfimaGames.LowPolyShooterPack
         GameObject GetPlayerGameObject(Player player);
 
         public void AddPlayerIntoList(GameObject player);
+        
+        public void RemovePlayerFromList(GameObject player);
     }
 }

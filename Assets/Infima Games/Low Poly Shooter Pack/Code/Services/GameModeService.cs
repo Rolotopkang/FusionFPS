@@ -28,6 +28,12 @@ namespace InfimaGames.LowPolyShooterPack
             playerlist.Add(player);
             Debug.Log("RoomPlayerNum:"+playerlist.Count);
         }
+
+        public void RemovePlayerFromList(GameObject player)
+        {
+            playerlist.Remove(player);
+            Debug.Log("RoomPlayerNum:"+playerlist.Count);
+        }
         
         public CharacterBehaviour GetPlayerCharacter(Player player)
         {

@@ -64,6 +64,15 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
+        // if (photonView.IsMine)
+        // {
+        //     Debug.Log("测试生成！");
+        //     tmp_Player =PhotonNetwork.Instantiate(
+        //         Path.Combine("PhotonNetwork", "P_LPSP_FP_CH"), Vector3.zero
+        //         , Quaternion.identity);
+        //     PhotonNetwork.Destroy(tmp_Player.GetPhotonView());
+        //     Debug.Log("测试摧毁完毕");
+        // }
     }
 
     private void OnDisable()
@@ -158,7 +167,6 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     private IEnumerator InstantiatePlayer()
     {
-        yield return new WaitForSeconds(0.1f);
         Debug.Log("开始生成角色");
         tmp_Player =PhotonNetwork.Instantiate(
             Path.Combine("PhotonNetwork", "P_LPSP_FP_CH"), tmp_Spawnpoint.position
@@ -166,6 +174,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         tmp_Player.SetActive(false);
         InstantiateDown = true;
         Debug.Log("生成完毕");
+        yield return null;
     }
     
     async void DepolyAsync()

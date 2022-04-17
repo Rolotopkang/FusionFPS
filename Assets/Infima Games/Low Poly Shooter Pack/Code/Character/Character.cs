@@ -433,6 +433,8 @@ namespace InfimaGames.LowPolyShooterPack
 			//Refresh!
 			RefreshWeaponSetup();
 		}
+		
+		
 		/// <summary>
 		/// Start.
 		/// </summary>
@@ -626,6 +628,9 @@ namespace InfimaGames.LowPolyShooterPack
 				cursorLocked = !cursorLocked;
 			}
 			UpdateCursorState();
+			
+			//从表中移除自己
+			ServiceLocator.Current.Get<IGameModeService>().RemovePlayerFromList(gameObject);
 		}
 
 		#endregion

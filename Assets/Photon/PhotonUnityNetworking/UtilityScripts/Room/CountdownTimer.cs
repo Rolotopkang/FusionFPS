@@ -13,6 +13,7 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.IO;
 using ExitGames.Client.Photon;
 using Photon.Realtime;
 using UnityEngine;
@@ -43,6 +44,9 @@ namespace Photon.Pun.UtilityScripts
 
         [Header("Countdown time in seconds")] 
         public float Countdown = 5.0f;
+
+        public GameObject player;
+
 
         private bool isTimerRunning;
 
@@ -103,6 +107,13 @@ namespace Photon.Pun.UtilityScripts
             this.isTimerRunning = false;
             this.enabled = false;
 
+            Debug.Log("开始生成角色");
+            PhotonNetwork.Instantiate(
+                Path.Combine("PhotonNetwork", "P_LPSP_FP_CH"), Vector3.zero
+                , Quaternion.identity);
+            Debug.Log("生成完毕");
+            
+            
             Debug.Log("Emptying info text.", this.Text);
             this.Text.text = string.Empty;
 
