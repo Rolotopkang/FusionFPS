@@ -99,7 +99,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 					Quaternion.LookRotation(hitPlayer.contacts[0].normal)).gameObject;
 				tmp_Impact.transform.parent = hitPlayer.transform;
 			}
-			
+			 
+
 			//TODO 队友伤害关闭
 
 			//向photon网络发送击中事件

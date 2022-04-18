@@ -14,6 +14,8 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
 
     private bool hitHint;
 
+
+
     private EnumTools.HitKinds HitKind;
     
     protected IGameModeService gameModeService;
@@ -65,7 +67,11 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
         Vector3 tmp_contactPoint = (Vector3)tmp_HitData[5];
         long tmp_time = (long)tmp_HitData[6];
 
+        //死亡后不造成伤害和显示击中UI
+        if (gameModeService.GetPlayerGameObject(tmp_hitPlayer).GetComponent<Battle>().GetIsDeath()) {return;}
+        
         Debug.Log(tmp_DMGFrom.NickName+"用"+tmp_DMGWeapon+"击中了"+tmp_hitPlayer.NickName+"造成了"+tmp_DMG+"伤害——————是否爆头？："+tmp_headShot);
+
 
         //仅在伤害来源方执行
         //造成伤害UI提示
@@ -103,7 +109,7 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
                 SendOptions tmp_SendOptions = SendOptions.SendReliable;
                 PhotonNetwork.RaiseEvent(
                     (byte)EventCode.KillPlayer,
-                    tmp_HitData,
+                    tmp_DeathData,
                     tmp_RaiseEventOptions,
                     tmp_SendOptions);
                 Debug.Log("发送死亡事件！");

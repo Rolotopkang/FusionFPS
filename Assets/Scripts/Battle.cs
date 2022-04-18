@@ -9,6 +9,8 @@ public class Battle : MonoBehaviourPun,IPunObservable
 {
     [SerializeField]
     private float MaxHealth;
+    
+    private bool isDeath = false;
 
 
     private float health;
@@ -26,6 +28,7 @@ public class Battle : MonoBehaviourPun,IPunObservable
         
         if (health <= 0)
         {
+            isDeath = true;
             return true;
         }
 
@@ -36,6 +39,8 @@ public class Battle : MonoBehaviourPun,IPunObservable
 
     public float GetCurrentHealth() => health;
     public float GetMaxHealth() => MaxHealth;
+
+    public bool GetIsDeath() => isDeath;
     
     #endregion
 
@@ -48,6 +53,7 @@ public class Battle : MonoBehaviourPun,IPunObservable
             if (PhotonNetwork.LocalPlayer.Equals(photonView.Owner))
             {
                 stream.SendNext(health);
+                stream.SendNext(isDeath);
             }
         }
         else
@@ -55,6 +61,7 @@ public class Battle : MonoBehaviourPun,IPunObservable
             if (!PhotonNetwork.LocalPlayer.Equals(photonView.Owner))
             {
                 health = (float)stream.ReceiveNext();
+                isDeath = (bool)stream.ReceiveNext();
             }
         }
     }

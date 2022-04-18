@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class RagdollController : MonoBehaviourPun
 {
-    public bool testDeath;
     private Animator Animator;
     
     private Collider[] Colliders;
@@ -29,17 +28,6 @@ public class RagdollController : MonoBehaviourPun
 
     private void Update()
     {
-        if (testDeath)
-        {
-            SetCollidersEnable(true);
-            
-            Animator.enabled = false;
-        }
-        else
-        {
-            Animator.enabled = true;
-            SetCollidersEnable(false);
-        }
     }
 
     #endregion
@@ -55,15 +43,6 @@ public class RagdollController : MonoBehaviourPun
     /// <param name="set"></param>
     public void SetCollidersEnable(bool set)
     {
-        // if (photonView.IsMine)
-        // {
-        //     foreach (Collider collider in Colliders)
-        //     {
-        //         collider.enabled = set;
-        //     }
-        // }
-
-
         foreach (Rigidbody rigidbody in Rigidbodies)
         {
             rigidbody.isKinematic = !set;

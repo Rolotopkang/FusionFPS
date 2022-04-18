@@ -51,7 +51,7 @@ public class TextFeedBack : Element
                 crosshairFeedBack.clip = HitFeedBackAnim;
                 break;
             case EnumTools.HitKinds.headShot:
-                crosshairFeedBack.clip = HitFeedBackKillAnim;
+                crosshairFeedBack.clip = HitFeedBackHeadShotAnim;
                 break;
             case EnumTools.HitKinds.killShot:
                 crosshairFeedBack.clip = HitFeedBackKillAnim;

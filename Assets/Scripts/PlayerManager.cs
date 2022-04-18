@@ -35,12 +35,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject tmp_Player;
 
     private CinemachineVirtualCamera CinemachineVirtualCamera;
-    
+    private CinemachineComponentBase ComponentBase;
+
     protected IGameModeService gameModeService;
 
-
-
-    private bool InstantiateDown = false;
+    
     #region Unity
     private void Awake()
     {
@@ -50,6 +49,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         DeployManager = DeployUI.GetComponent<DeployManager>();
         MainCM = GameObject.FindWithTag("MainCamera");
         CinemachineVirtualCamera = MainCM.GetComponent<CinemachineVirtualCamera>();
+        ComponentBase = CinemachineVirtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
     }
 
     private void Start()
@@ -98,10 +98,13 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         Dictionary<byte, object> tmp_KillData = (Dictionary<byte, object>)eventData.CustomData;
         Player tmp_deathPlayer =(Player)tmp_KillData[0];
         Player tmp_KillFrom =(Player)tmp_KillData[1];
-        String tmp_KillWeapon = (string)tmp_KillData[2];
+        String tmp_KillWeapon = (String)tmp_KillData[2];
         bool tmp_headShot = (bool)tmp_KillData[3];
         long tmp_time = (long)tmp_KillData[4];
-
+        
+        Debug.Log("角色死亡"+"死亡者"+tmp_deathPlayer+"被"+tmp_KillFrom+"用"+tmp_KillWeapon+"是否爆头"+tmp_headShot+"击杀");
+        
+        
         //如果死亡的是这个manager控制的玩家
         if (tmp_deathPlayer.Equals(photonView.Owner))
         {
@@ -109,16 +112,31 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             if (tmp_deathPlayer.Equals(PhotonNetwork.LocalPlayer))
             {
                 Debug.Log("本地死亡！！！");
+
+                
                 //转换相机+
+                // MainCM.transform.position = gameModeService.GetPlayerGameObject(tmp_deathPlayer).transform.position +new Vector3(0,4,0);
+                GameObject tmp_TP = gameModeService.GetPlayerGameObject(tmp_deathPlayer).GetComponent<LoacalChanger>().TPBody;
+                GameObject tmp_KillerTP = gameModeService.GetPlayerGameObject(tmp_KillFrom).GetComponent<LoacalChanger>().TPBody;
+                CinemachineVirtualCamera.LookAt = tmp_TP.transform;
+                StartCoroutine(LookAt(3, tmp_KillerTP.transform));
+                
                 //关闭第一人称脚本,第三人称开启
                 gameModeService.GetPlayerGameObject(tmp_deathPlayer).GetComponent<LoacalChanger>().LocalDeath();
+
+
                 
-                
+
+
                 //击杀者透视
                 
                 //显示死亡UI
                 DeathUI.SetActive(true);
                 //更新后处理效果
+                
+                //10秒后重新部署
+                //TODO
+                Invoke("OnBTNReborn",10);
             }
         
             //双端执行:
@@ -130,6 +148,14 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             //玩家列表删除玩家
         }
         
+    }
+
+    
+    private IEnumerator LookAt(int waitTime, Transform target)
+    {
+        yield return new WaitForSeconds(waitTime);
+        CinemachineVirtualCamera.Follow = null;
+        CinemachineVirtualCamera.LookAt = target.transform;
     }
     
     public void OnBTNDeploy()
@@ -143,51 +169,61 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
         // CinemachineVirtualCamera.Follow = tmp_Spawnpoint;
         // CinemachineVirtualCamera.LookAt = tmp_Spawnpoint.transform.GetChild(0);
-
         
-        MainCM.GetComponent<TestTrack>().Dochange(tmp_Spawnpoint.gameObject);//tmp_Spawnpoint.gameObject
-        StartCoroutine(InstantiatePlayer());
+        MainCM.GetComponent<MainCameraController>().Dochange(tmp_Spawnpoint.gameObject);//tmp_Spawnpoint.gameObject
         StartCoroutine(Deploy());
-
-
     }
 
-
+    public void OnBTNReborn()
+    {
+        CinemachineVirtualCamera.Follow = null;
+        CinemachineVirtualCamera.LookAt = null;
+        if (ComponentBase is Cinemachine3rdPersonFollow)
+        {
+            (ComponentBase as Cinemachine3rdPersonFollow).CameraDistance = 0; // your value
+            (ComponentBase as Cinemachine3rdPersonFollow).ShoulderOffset.y = 0;
+        }
+        //网络删除角色
+        Debug.Log("网络删除角色!");
+        PhotonNetwork.Destroy(tmp_Player.GetPhotonView());
+        MainCM.GetComponent<MainCameraController>().Dochange();
+        StartCoroutine(ReturnDeploy());
+    }
     
+    
+    
+    
+    private IEnumerator ReturnDeploy()
+    {
+        DeathUI.SetActive(false);
+        Debug.Log("等待相机");
+        yield return new WaitUntil(() => MainCM.GetComponent<MainCameraController>().isLocated);
+        Debug.Log("相机到位");
+        
+        DeployUI.SetActive(true);
+    }
+
     private IEnumerator Deploy()
     {
         Debug.Log("等待相机");
         //等待相机到位
-        yield return new WaitUntil(() => MainCM.GetComponent<TestTrack>().isLocated);
+        yield return new WaitUntil(() => MainCM.GetComponent<MainCameraController>().isLocated);
         Debug.Log("相机到位");
-        yield return new WaitUntil(() => InstantiateDown);
-        InstantiateDown = false;
-        tmp_Player.SetActive(true);
+        Debug.Log("开始生成角色");
+        tmp_Player =PhotonNetwork.Instantiate(
+            Path.Combine("PhotonNetwork", "P_LPSP_FP_CH"), tmp_Spawnpoint.position
+            , tmp_Spawnpoint.rotation,0,new object []{photonView.ViewID});
+        Debug.Log("生成完毕");
+        
+        if (ComponentBase is Cinemachine3rdPersonFollow)
+        {
+            (ComponentBase as Cinemachine3rdPersonFollow).CameraDistance = 5; // your value
+            (ComponentBase as Cinemachine3rdPersonFollow).ShoulderOffset.y = 3;
+        }
+        CinemachineVirtualCamera.Follow = tmp_Player.transform;
+        CinemachineVirtualCamera.LookAt = tmp_Player.transform;
     }
 
-    private IEnumerator InstantiatePlayer()
-    {
-        Debug.Log("开始生成角色");
-        tmp_Player =PhotonNetwork.Instantiate(
-            Path.Combine("PhotonNetwork", "P_LPSP_FP_CH"), tmp_Spawnpoint.position
-            , tmp_Spawnpoint.rotation,0,new object []{photonView.ViewID});
-        tmp_Player.SetActive(false);
-        InstantiateDown = true;
-        Debug.Log("生成完毕");
-        yield return null;
-    }
-    
-    async void DepolyAsync()
-    {
-        await Task.Delay(1);
-        Debug.Log("开始生成角色");
-        tmp_Player =PhotonNetwork.Instantiate(
-            Path.Combine("PhotonNetwork", "P_LPSP_FP_CH"), tmp_Spawnpoint.position
-            , tmp_Spawnpoint.rotation,0,new object []{photonView.ViewID});
-        tmp_Player.SetActive(false);
-        Debug.Log("生成完毕");
-    }
- 
     public String GetDeployMainWeapon() => DeployMainWeapon;
     public String GetDeploySecWeapon() => DeploySecWeapon;
 }
