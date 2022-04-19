@@ -14,8 +14,15 @@ public class MysqlManager : Singleton<MysqlManager>
     
     protected static string m_connectionString;                 // 数据库连接字符串
     public static MySqlConnection connection;
-    
-	/// <summary>
+
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Init();
+    }
+
+    /// <summary>
 	/// 初始化数据库，利用字符串组拼方式来编写数据库的连接
 	/// </summary>
 	public static void Init()

@@ -69,34 +69,6 @@ public class PlayerNumericalController : MonoBehaviourPun, IDamager,IPunObservab
 
     private void ChangeTPWeapon()
     {
-        newWeaponName = (String)photonView.Owner.CustomProperties["Weapon"];
-
-        if (newWeaponName == null) { return; }
-
-        if(newWeaponName.Equals(currentWeaponName) || newWeaponName.Equals(String.Empty)){return;}
-
-        foreach (var weapon in MultiplayerWeaponList)
-        {
-            if (weapon.WeaponName.Equals(newWeaponName))
-            {
-                newWeapon = weapon;
-            }
-
-            if (weapon.WeaponName.Equals(currentWeaponName))
-            {
-                currentWeapon = weapon;
-            }
-        }
-        
-        currentWeapon.HideSelf(true,photonView.IsMine);
-        currentWeapon.gameObject.SetActive(false);
-        
-        newWeapon.gameObject.SetActive(true);
-        newWeapon.HideSelf(false,photonView.IsMine);
-        
-        currentWeaponName = newWeaponName;
-        //草我是傻逼
-        currentWeapon = newWeapon;
     }
     
     public void TakeDamage(int _damage)

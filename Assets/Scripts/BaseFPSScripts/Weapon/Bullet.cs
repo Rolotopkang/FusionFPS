@@ -18,9 +18,9 @@ namespace Scripts.Weapon
         public GameObject ImpactPrefab;
         private Transform bulletTransform;
         private Vector3 prevPosition;
-        
 
-        
+
+
 
         private void Start()
         {

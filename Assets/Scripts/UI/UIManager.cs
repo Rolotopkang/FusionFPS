@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.Assertions;

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
  
@@ -9,22 +10,29 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
         return instance;
     }
- 
-    public void SetInstance(T t)
+
+    protected virtual void Awake()
     {
-        if(instance ==null )
+        if(instance !=null )
         {
-            instance = t;
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = (T)this;
         }
     }
- 
-    public virtual void Init()
+
+    public static bool IsInitialized
     {
-        return;
+        get { return instance != null; }
     }
- 
-    public virtual void Release()
+
+    protected void OnDestroy()
     {
-        return;
+        if (instance == this)
+        {
+            instance = null;
+        }
     }
 }

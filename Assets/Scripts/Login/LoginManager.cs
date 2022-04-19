@@ -1,14 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class LoginManager : MonoBehaviour
 {
-    public InputField Username;
-    public InputField Password;
+    public TMP_InputField Username;
+    public TMP_InputField Password;
     public Text WrongHint;
     public String DebugName;
     public String DebugPassword;

@@ -62,6 +62,8 @@ public class FPMouseLook : MonoBehaviourPun
     public void FiringForTest()
     {
         if (!photonView.IsMine) { return; }
+        
+        
         currentRecoil += RecoilRange;
         cameraSpring.StartCameraSpring();
         currentRecoilTime = 0;

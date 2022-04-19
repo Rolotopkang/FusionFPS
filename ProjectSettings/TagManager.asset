@@ -4,15 +4,25 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - FX
+  - Wall
   - Metal
+  - Blood
+  - Dirt
+  - Concrete
+  - ExplosiveBarrel
+  - Target
+  - GasTank
+  - Metal (Static)
+  - Wood (Static)
+  - Dirt (Static)
   - Wood
-  - Stone
-  - PlayerHead
+  - GunCM
   - GlobalCamera
-  - PlayerHand
+  - FX
   - PlayerLeg
   - PlayerChest
+  - PlayerHead
+  - PlayerHand
   layers:
   - Default
   - TransparentFX
@@ -21,16 +31,16 @@ TagManager:
   - Water
   - UI
   - 
-  - 
-  - FP_View
-  - Gun
-  - DropItem
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Third Person View
+  - First Person View
+  - Character
+  - Post Processing
+  - Post Processing Weapon
+  - Post Processing Scope
+  - Invisible Wall
+  - Projectile
+  - TP_CH
   - 
   - 
   - 
@@ -49,4 +59,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 3200028849
     locked: 0

@@ -19,4 +19,11 @@ public class EnumTools
         RepeatName,
         Error
     }
+    
+    public enum HitKinds
+    {
+        normal,
+        headShot,
+        killShot
+    }
 }
