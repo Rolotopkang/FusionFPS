@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Battlehouse.unity
     guid: dd3a46c42edba654c9d7252c1cefef46
   - enabled: 1
-    path: Assets/Scenes/Nuketown.unity
-    guid: fa4d0389ed0c27e44a450f78038a950b
+    path: Assets/Scenes/De_Nuke_Town.unity
+    guid: d30f4d2536f36db44b2959806bbf4a10
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9eb07e2d669e9c94e9d7d3c782a916f7,
       type: 2}

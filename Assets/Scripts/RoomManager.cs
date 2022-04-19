@@ -44,11 +44,14 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
             Debug.Log("不在房间内");
             return;
         }
-        
+
+
+        Debug.Log("筛选游戏类型！");
         if (scene.buildIndex.Equals(int.Parse(PhotonNetwork.CurrentRoom.CustomProperties["mapIndex"].ToString())))
         {
             //预载
             PhotonNetwork.PrefabPool = new MyPhotonNetwrokPool(Path.Combine("PhotonNetwork", "P_LPSP_FP_CH"));
+            
             switch (PhotonNetwork.CurrentRoom.CustomProperties["GameMode"])
             {
                 case "Conquest":

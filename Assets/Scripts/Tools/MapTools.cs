@@ -63,7 +63,7 @@ namespace UnityTemplateProjects.Tools
         
         public static Map de_nukeTown = new Map(
             2,
-            "Assets/Scenes/Nuketown.unity",
+            "Assets/Scenes/De_Nuke_Town.unity",
             "NukeTown",
             new Dictionary<GameMode, int>()
             {
@@ -81,6 +81,9 @@ namespace UnityTemplateProjects.Tools
                 { GameMode.DeathMatch ,1},
                 { GameMode.TeamDeathMatch ,1}
             });
+        
+        
+        
 
         #endregion
 
