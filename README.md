@@ -1,12 +1,12 @@
 # Fusion Multi FPS
- 基于Unity3D + Photon pun2开发的多人fps游戏
- 目前版本只支持死斗模式（2022.4.20）
-游戏素材，模型，贴图来自商店或者自制，均拥有商用授权。
++ 基于Unity3D + Photon pun2开发的多人fps游戏
++ 目前版本只支持死斗模式（2022.4.20）
++ 游戏素材，模型，贴图来自商店或者自制，均拥有商用授权。
 
 
 # 开发环境
-客户端 unity 2020.3.26 + pun2 4.1.6.11
-服务器 linux + mysql   + photonserver
++ 客户端 unity 2020.3.26 + pun2 4.1.6.11
++ 服务器 linux + mysql   + photonserver
 
 # 游玩demo
 ## demo游玩注意事项
