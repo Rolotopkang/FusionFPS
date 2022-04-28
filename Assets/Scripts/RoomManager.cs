@@ -12,6 +12,9 @@ using UnityTemplateProjects.Tools;
 
 public class RoomManager : SingletonPunCallbacks<RoomManager>
 {
+    
+    
+    
     protected override void Awake()
     {
         base.Awake();
@@ -72,7 +75,7 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                 case "DeathMatch":
                 {
                     Debug.Log("死斗模式！");
-                    PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"), 
+                    PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
                         Vector3.zero, quaternion.identity);
                     break;
                 }

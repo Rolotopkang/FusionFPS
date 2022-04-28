@@ -26,4 +26,11 @@ public class EnumTools
         headShot,
         killShot
     }
+    
+    public enum KillKind
+    {
+        player,
+        playerHeadshot,
+        vehicle
+    }
 }

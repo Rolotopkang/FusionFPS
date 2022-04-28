@@ -73,7 +73,7 @@ namespace UnityTemplateProjects.Tools
             );
         
         public static Map de_dust2 = new Map(
-            3,
+            4,
             "Assets/Scenes/de_dust2.unity",
             "Dust2",
             new Dictionary<GameMode, int>()
@@ -81,6 +81,17 @@ namespace UnityTemplateProjects.Tools
                 { GameMode.DeathMatch ,1},
                 { GameMode.TeamDeathMatch ,1}
             });
+
+        public static Map old_nukeTown = new Map(
+            3,
+            "Assets/Scenes/Nuketown.unity",
+            "OLD_NukeTown",
+            new Dictionary<GameMode, int>()
+            {
+                { GameMode.DeathMatch, 2 },
+                { GameMode.TeamDeathMatch, 2 }
+            }
+        );
         
         
         
@@ -92,7 +103,7 @@ namespace UnityTemplateProjects.Tools
 
         public static Map IndexToMap(int index , GameMode gameMode)
         {
-            Map[] Maps = {wrong, de_nukeTown, de_dust2};
+            Map[] Maps = {wrong, de_nukeTown, de_dust2,old_nukeTown};
             foreach (Map map in Maps)
             {
                 foreach (GameMode key in map.GameModeIndex.Keys)

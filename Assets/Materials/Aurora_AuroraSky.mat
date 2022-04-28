@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Aurora_AuroraSky
+  m_Shader: {fileID: 4800000, guid: c91446d6e1a2367428167c261a01ad87, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - _AuroraIntensity: 0.5
+    - _AuroraSpeed: 0.5
+    - _CloudIntensity: 0.5
+    - _CloudSpeed: 0.5
+    - _Exponent1: 1
+    - _Exponent2: 1
+    - _Intensity: 1
+    - _MountainFactor: 0.5
+    - _MountainHeight: 0.8
+    - _StarIntensity: 0.5
+    - _StarSpeed: 0.5
+    - _SurAuroraColFactor: 0.5
+    m_Colors:
+    - _AuroraColor: {r: 0.09301424, g: 0, b: 1, a: 0}
+    - _CloudColor: {r: 1, g: 0, b: 0.9107642, a: 0}
+    - _Color1: {r: 0.1579641, g: 0, b: 0.8490566, a: 1}
+    - _Color2: {r: 0.06402409, g: 0.008677468, b: 0.14150941, a: 0}
+    - _Color3: {r: 0, g: 0.14894573, b: 0.31132078, a: 0}
+    - _MountainColor: {r: 0.03903603, g: 0.036845844, b: 0.11320752, a: 0}
+    - _StarColor: {r: 0, g: 1, b: 0.003921509, a: 0}
+  m_BuildTextureStacks: []

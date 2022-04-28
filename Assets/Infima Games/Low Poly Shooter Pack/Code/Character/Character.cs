@@ -623,11 +623,12 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private void OnDestroy()
 		{
-			if (cursorLocked)
+			//如果是自己则解锁鼠标
+			if (cursorLocked && isMine)
 			{
 				cursorLocked = !cursorLocked;
+				UpdateCursorState();
 			}
-			UpdateCursorState();
 			//从表中移除自己
 			ServiceLocator.Current.Get<IGameModeService>().RemovePlayerFromList(gameObject);
 		}
