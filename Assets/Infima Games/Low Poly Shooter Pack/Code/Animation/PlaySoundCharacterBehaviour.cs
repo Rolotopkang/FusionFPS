@@ -45,7 +45,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         [Tooltip("Audio Settings.")]
         [SerializeField]
-        private AudioSettings audioSettings = new AudioSettings(1.0f, 0.0f, true);
+        private AudioSettings audioSettings = new AudioSettings(1.0f, 0.0f, true ,false, Vector3.zero);
 
         #endregion
 

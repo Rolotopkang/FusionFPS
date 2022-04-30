@@ -23,6 +23,10 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public float SpatialBlend => spatialBlend;
 
+        public Vector3 AudioPos => audioPos;
+
+        public bool Is3D => is3D;
+
         [Header("Settings")]
         
         [Tooltip("If true, any AudioSource created will be removed after it has finished playing its clip.")]
@@ -38,11 +42,15 @@ namespace InfimaGames.LowPolyShooterPack
         [Range(0.0f, 1.0f)]
         [SerializeField]
         private float spatialBlend;
+        
+        private Vector3 audioPos;
+
+        private bool is3D;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public AudioSettings(float volume = 1.0f, float spatialBlend = 0.0f, bool automaticCleanup = true)
+        public AudioSettings(float volume, float spatialBlend , bool automaticCleanup ,bool is3D, Vector3 pos)
         {
             //Volume.
             this.volume = volume;
@@ -50,6 +58,12 @@ namespace InfimaGames.LowPolyShooterPack
             this.spatialBlend = spatialBlend;
             //Automatic Cleanup.
             this.automaticCleanup = automaticCleanup;
+            
+            
+            //是否是空间音源
+            this.is3D = is3D;
+            //声音方位
+            this.audioPos = pos;
         }
     }
 }
