@@ -10,6 +10,21 @@ public class DeathMatchManager : GameModeManagerBehaviour
     protected override void OnPlayerDeath(EventData eventData)
     {
         base.OnPlayerDeath(eventData);
-        Debug.Log("");
+        Debug.Log("死斗模式人物死亡");
+    }
+
+    protected override void TickSec()
+    {
+        base.TickSec();
+    }
+
+    protected override void TickAll()
+    {
+        base.TickAll();
+    }
+
+    protected override void TickMaster()
+    {
+        base.TickMaster();
     }
 }

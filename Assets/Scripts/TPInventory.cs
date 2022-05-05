@@ -88,7 +88,7 @@ public class TPInventory : MonoBehaviourPunCallbacks
     
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
-        if (targetPlayer.Equals(PhotonView.Owner))
+        if (targetPlayer.Equals(PhotonView.Owner)&& changedProps.ContainsKey("EquipWeaponIndex"))
         {
             Equip((int)PhotonView.Owner.CustomProperties["EquipWeaponIndex"]);
         }

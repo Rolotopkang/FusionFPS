@@ -33,4 +33,13 @@ public class EnumTools
         playerHeadshot,
         vehicle
     }
+    
+    public enum PlayerProperties
+    {
+        IsDeath,
+        Data_kill,
+        Data_Death,
+        Data_Ping
+    }
+    
 }

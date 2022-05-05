@@ -24,6 +24,9 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject DeathUIPrefab;
     [SerializeField]
     private GameObject KillFeedBackRoomPrefab;
+    [SerializeField]
+    private GameObject ScordBoardPrefab;
+    
 
     private PhotonView photonView;
     private GameObject DeployUI;
@@ -67,6 +70,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             DeathUI = Instantiate(DeathUIPrefab, transform);
             KillhintUI = Instantiate(KillhintUIPrefab, transform);
             KillFeedBackRoom = Instantiate(KillFeedBackRoomPrefab, transform);
+            Instantiate(ScordBoardPrefab, transform);
         }
         gameModeService = ServiceLocator.Current.Get<IGameModeService>();
     }
@@ -144,7 +148,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                 
                 //10秒后重新部署
                 //TODO
-                Invoke("OnBTNReborn",10);
+                Invoke("OnBTNReborn",5);
             }
         
             //双端执行:
@@ -237,6 +241,12 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             , tmp_Spawnpoint.rotation,0,new object []{photonView.ViewID});
         Debug.Log("生成完毕");
         
+        //设置死亡状态
+        Hashtable hash = new Hashtable();
+        hash.Add(EnumTools.PlayerProperties.IsDeath.ToString(),false);
+        photonView.Owner.SetCustomProperties(hash);
+        
+        
         if (ComponentBase is Cinemachine3rdPersonFollow)
         {
             (ComponentBase as Cinemachine3rdPersonFollow).CameraDistance = 5; // your value
@@ -248,4 +258,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     public String GetDeployMainWeapon() => DeployMainWeapon;
     public String GetDeploySecWeapon() => DeploySecWeapon;
+
+
+    #region Events
+
+
+
+    #endregion
 }

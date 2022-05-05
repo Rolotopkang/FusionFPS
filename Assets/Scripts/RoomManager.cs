@@ -12,9 +12,12 @@ using UnityTemplateProjects.Tools;
 
 public class RoomManager : SingletonPunCallbacks<RoomManager>
 {
-    
-    
-    
+    [Header("游戏模式")] 
+    [SerializeField] private GameObject DeathMatchModePrefab;
+
+
+    private GameModeManagerBehaviour currentGamemode = null;
+
     protected override void Awake()
     {
         base.Awake();
@@ -39,6 +42,11 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
         CheckScene(scene);
     }
 
+    public override void OnLeftRoom()
+    {
+        Destroy(currentGamemode.transform.gameObject);
+        currentGamemode = null;
+    }
 
     private void CheckScene(Scene scene)
     {
@@ -77,6 +85,8 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                     Debug.Log("死斗模式！");
                     PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
                         Vector3.zero, quaternion.identity);
+                    currentGamemode = Instantiate(DeathMatchModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
+                    Debug.Log("生成死斗模式游戏逻辑控制脚本");
                     break;
                 }
                 case "TeamDeathMatch":

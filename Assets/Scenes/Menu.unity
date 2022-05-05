@@ -24309,6 +24309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604c36d984962174f8d801de4ddd1fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeathMatchModePrefab: {fileID: 5526374922559252215, guid: 11f87315f7919ff4ea9bb8721c8a8585,
+    type: 3}
 --- !u!114 &8003713119855615458
 MonoBehaviour:
   m_ObjectHideFlags: 0
