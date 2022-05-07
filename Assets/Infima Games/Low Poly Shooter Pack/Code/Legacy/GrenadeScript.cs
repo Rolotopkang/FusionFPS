@@ -2,10 +2,11 @@
 
 using UnityEngine;
 using System.Collections;
+using Photon.Pun;
 
 namespace InfimaGames.LowPolyShooterPack.Legacy
 {
-	public class GrenadeScript : MonoBehaviour
+	public class GrenadeScript : MonoBehaviourPun
 	{
 
 		[Header("Timer")]
@@ -79,9 +80,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			{
 				//Instantiate metal explosion prefab on ground
 				Instantiate(explosionPrefab, checkGround.point,
-					Quaternion.FromToRotation(Vector3.forward, checkGround.normal));
-			}
-
+					Quaternion.FromToRotation(Vector3.up, checkGround.normal));
+			} 
 			//Explosion force
 			Vector3 explosionPos = transform.position;
 			//Use overlapshere to check for nearby colliders
@@ -120,6 +120,11 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 					hit.gameObject.GetComponent<GasTankScript>().isHit = true;
 					//Reduce explosion timer on gas tank object to make it explode faster
 					hit.gameObject.GetComponent<GasTankScript>().explosionTimer = 0.05f;
+				}
+
+				if (hit.GetComponent<Collider>().tag == "Fracture")
+				{
+					hit.gameObject.GetComponent<MeshFracture>().HitMesh(power * 5, explosionPos, radius);
 				}
 			}
 

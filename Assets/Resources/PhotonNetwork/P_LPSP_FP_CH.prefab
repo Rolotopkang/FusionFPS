@@ -284,7 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponIndexEquippedAtStart: 0
   inventory: {fileID: 6181232706914167374}
-  grenadesUnlimited: 0
+  grenadesUnlimited: 1
   grenadeTotal: 2
   grenadeSpawnOffset: 1
   grenadePrefab: {fileID: 1948591290861370, guid: 7b04fe350ed10a741a1e245447860d9e,

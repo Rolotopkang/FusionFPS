@@ -131,7 +131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &224318283968238498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &224149451075644274
 RectTransform:
   m_ObjectHideFlags: 0
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -362,7 +362,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948591290861370}
   serializedVersion: 2
-  m_Mass: 5
+  m_Mass: 10
   m_Drag: 0.01
   m_AngularDrag: 0.01
   m_UseGravity: 1
@@ -492,10 +492,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grenadeTimer: 1.2
-  explosionPrefab: {fileID: 4811645123968692, guid: 301583a5af63a494298d60cd9f296909,
+  explosionPrefab: {fileID: 4461216839316108, guid: d8628f56ce986894a9be0c0fc92627bd,
     type: 3}
   radius: 5
-  power: 850
-  minimumForce: 2500
-  maximumForce: 3000
+  power: 100
+  minimumForce: 5000
+  maximumForce: 10000
   impactSound: {fileID: 82305533685823640}
