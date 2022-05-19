@@ -32,6 +32,7 @@ public class JoinRoomBTN : MonoBehaviourPunCallbacks
         }
         else
         {
+            transform.parent.parent.parent.parent.Find("WrongHint").GetComponent<Text>().text = "Already In A Room";
             Debug.Log("IS IN A Room");
         }
     }

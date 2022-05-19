@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3951588254816686010
 Transform:
   m_ObjectHideFlags: 0
@@ -112,7 +112,6 @@ GameObject:
   - component: {fileID: 5771014365389702969}
   - component: {fileID: 8185862574877967350}
   - component: {fileID: 3211394896927071262}
-  - component: {fileID: 5747038479205267480}
   m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
@@ -161,7 +160,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d81977305dd67234a91b56c8f35e0ebd, type: 2}
+  - {fileID: 2100000, guid: 994de91998a1786458179362ddd1767a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -183,22 +182,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5747038479205267480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4247467632502479190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58873ce210bd5fd4380700bb511b5fb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CamTransform: {fileID: 0}
-  size: 0.3
-  xScale: 1
-  mat: {fileID: 2100000, guid: d81977305dd67234a91b56c8f35e0ebd, type: 2}
 --- !u!1 &5510507124876731484
 GameObject:
   m_ObjectHideFlags: 0

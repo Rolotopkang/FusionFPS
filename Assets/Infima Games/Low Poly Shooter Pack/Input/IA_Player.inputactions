@@ -159,7 +159,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Tutorial",
+                    "name": "ScordBoard",
                     "type": "Button",
                     "id": "207fb2a2-8add-4ddb-bda7-c1887aeb313a",
                     "expectedControlType": "Button",
@@ -601,7 +601,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tutorial",
+                    "action": "ScordBoard",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -612,7 +612,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tutorial",
+                    "action": "ScordBoard",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -674,6 +674,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MouseRight",
+                    "type": "Button",
+                    "id": "18395ee3-79c0-4b60-a98b-3eb4b25239d0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseLeft",
+                    "type": "Button",
+                    "id": "9ed848ca-e2bb-469c-973d-6c147aed4aa5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseMove",
+                    "type": "Value",
+                    "id": "c27a3594-ab9a-4a3d-83d0-b0d255828834",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -685,6 +712,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Space",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b93b7052-abdb-4fcb-83e9-62907ed05a60",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3dca3d22-ed77-4de6-b5b9-b0290c87bde9",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "29f5e7a8-891e-422c-90c2-c866dd8f23cd",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "ScaleVector2(x=0.05,y=0.05)",
+                    "groups": "",
+                    "action": "MouseMove",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -23,6 +23,7 @@ TagManager:
   - PlayerChest
   - PlayerHead
   - PlayerHand
+  - Fracture
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,7 @@ using ExitGames.Client.Photon;
 using InfimaGames.LowPolyShooterPack;
 using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using Unity.Mathematics;
 using UnityEngine;
@@ -17,11 +18,21 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerManager : MonoBehaviour,IOnEventCallback
 {
+    [SerializeField]
+    private GameObject KillhintUIPrefab;
+    [SerializeField]
+    private GameObject DeathUIPrefab;
+    [SerializeField]
+    private GameObject KillFeedBackRoomPrefab;
+    [SerializeField]
+    private GameObject ScordBoardPrefab;
     
+
     private PhotonView photonView;
     private GameObject DeployUI;
     private GameObject DeathUI;
-    
+    private GameObject KillhintUI;
+    private GameObject KillFeedBackRoom;
     
     private DeployManager DeployManager;
 
@@ -33,6 +44,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private Transform tmp_Spawnpoint;
 
     private GameObject tmp_Player;
+    private Outline playerFrom_outline = null;
 
     private CinemachineVirtualCamera CinemachineVirtualCamera;
     private CinemachineComponentBase ComponentBase;
@@ -45,7 +57,6 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     {
         photonView = GetComponent<PhotonView>();
         DeployUI = transform.GetChild(0).gameObject;
-        DeathUI = transform.GetChild(1).gameObject;
         DeployManager = DeployUI.GetComponent<DeployManager>();
         MainCM = GameObject.FindWithTag("MainCamera");
         CinemachineVirtualCamera = MainCM.GetComponent<CinemachineVirtualCamera>();
@@ -57,6 +68,10 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         if (photonView.IsMine)
         {
             DeployUI.SetActive(true);
+            DeathUI = Instantiate(DeathUIPrefab, transform);
+            KillhintUI = Instantiate(KillhintUIPrefab, transform);
+            KillFeedBackRoom = Instantiate(KillFeedBackRoomPrefab, transform);
+            Instantiate(ScordBoardPrefab, transform);
         }
         gameModeService = ServiceLocator.Current.Get<IGameModeService>();
     }
@@ -103,8 +118,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         long tmp_time = (long)tmp_KillData[4];
         
         Debug.Log("角色死亡"+"死亡者"+tmp_deathPlayer+"被"+tmp_KillFrom+"用"+tmp_KillWeapon+"是否爆头"+tmp_headShot+"击杀");
-        
-        
+
         //如果死亡的是这个manager控制的玩家
         if (tmp_deathPlayer.Equals(photonView.Owner))
         {
@@ -112,12 +126,12 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             if (tmp_deathPlayer.Equals(PhotonNetwork.LocalPlayer))
             {
                 Debug.Log("本地死亡！！！");
-
                 
                 //转换相机+
                 // MainCM.transform.position = gameModeService.GetPlayerGameObject(tmp_deathPlayer).transform.position +new Vector3(0,4,0);
                 GameObject tmp_TP = gameModeService.GetPlayerGameObject(tmp_deathPlayer).GetComponent<LoacalChanger>().TPBody;
                 GameObject tmp_KillerTP = gameModeService.GetPlayerGameObject(tmp_KillFrom).GetComponent<LoacalChanger>().TPBody;
+                playerFrom_outline = gameModeService.GetPlayerGameObject(tmp_KillFrom).GetComponent<LoacalChanger>().OutlineScript;
                 CinemachineVirtualCamera.LookAt = tmp_TP.transform;
                 StartCoroutine(LookAt(3, tmp_KillerTP.transform));
                 
@@ -128,7 +142,6 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                 
 
 
-                //击杀者透视
                 
                 //显示死亡UI
                 DeathUI.SetActive(true);
@@ -143,11 +156,25 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             
             //开启布娃娃系统
             gameModeService.GetPlayerGameObject(tmp_deathPlayer).GetComponentInChildren<RagdollController>().Death(true);
+            gameModeService.GetPlayerGameObject(tmp_deathPlayer).GetComponent<CharacterController>().enabled = false;
             //枪械掉落
             //尸体消失倒计时
             //玩家列表删除玩家
         }
         
+        //仅在本地执行
+        if (photonView.Owner.Equals(PhotonNetwork.LocalPlayer))
+        {
+            Debug.Log("显示房间死亡讯息");
+            UIKillFeedBackRoomManager.CreateKillFeedbackRoom(
+                new UIKillFeedBackRoom.RoomKillMes(
+                    tmp_deathPlayer.NickName,
+                    tmp_deathPlayer.Equals(PhotonNetwork.LocalPlayer)? Color.green : Color.red,
+                    tmp_KillWeapon,
+                    tmp_headShot,
+                    tmp_KillFrom.NickName,
+                    tmp_KillFrom.Equals(PhotonNetwork.LocalPlayer)? Color.green : Color.red));
+        }
     }
 
     
@@ -156,6 +183,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         yield return new WaitForSeconds(waitTime);
         CinemachineVirtualCamera.Follow = null;
         CinemachineVirtualCamera.LookAt = target.transform;
+        //击杀者透视
+        if (playerFrom_outline)
+        {
+            playerFrom_outline.enabled = true;
+        }
     }
     
     public void OnBTNDeploy()
@@ -176,6 +208,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     public void OnBTNReborn()
     {
+        if (playerFrom_outline)
+        {
+            playerFrom_outline.enabled = false;
+        }
+        playerFrom_outline = null;
         CinemachineVirtualCamera.Follow = null;
         CinemachineVirtualCamera.LookAt = null;
         if (ComponentBase is Cinemachine3rdPersonFollow)
@@ -215,6 +252,12 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             , tmp_Spawnpoint.rotation,0,new object []{photonView.ViewID});
         Debug.Log("生成完毕");
         
+        //设置死亡状态
+        Hashtable hash = new Hashtable();
+        hash.Add(EnumTools.PlayerProperties.IsDeath.ToString(),false);
+        photonView.Owner.SetCustomProperties(hash);
+        
+        
         if (ComponentBase is Cinemachine3rdPersonFollow)
         {
             (ComponentBase as Cinemachine3rdPersonFollow).CameraDistance = 5; // your value
@@ -226,4 +269,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     public String GetDeployMainWeapon() => DeployMainWeapon;
     public String GetDeploySecWeapon() => DeploySecWeapon;
+
+
+    #region Events
+
+
+
+    #endregion
 }

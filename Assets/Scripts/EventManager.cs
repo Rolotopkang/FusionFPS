@@ -6,6 +6,7 @@ using InfimaGames.LowPolyShooterPack;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityTemplateProjects.Tools;
 using EventCode = Scripts.Weapon.EventCode;
 
 public class EventManager : MonoBehaviourPun,IOnEventCallback
@@ -52,6 +53,9 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
         {
             case EventCode.HitPlayer:
                 hitPlayer(photonEvent);
+                break;
+            case EventCode.KillPlayer:
+                killPlayer(photonEvent);
                 break;
         }
     }
@@ -124,6 +128,34 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
         }
     }
 
+    private void killPlayer(EventData eventData)
+    {
+        Dictionary<byte, object> tmp_KillData = (Dictionary<byte, object>)eventData.CustomData;
+        Player tmp_deathPlayer =(Player)tmp_KillData[0];
+        Player tmp_KillFrom =(Player)tmp_KillData[1];
+        String tmp_KillWeapon = (String)tmp_KillData[2];
+        bool tmp_headShot = (bool)tmp_KillData[3];
+        long tmp_time = (long)tmp_KillData[4];
+        
+        //如果是本地玩家造成了角色死亡
+        if(tmp_KillFrom.Equals(PhotonNetwork.LocalPlayer))
+        {
+            EnumTools.KillKind tmp_killkind;
+            if (tmp_headShot)
+            {
+                tmp_killkind = EnumTools.KillKind.playerHeadshot;
+            }
+            else
+            {
+                tmp_killkind = EnumTools.KillKind.player;
+            }
+            //击杀提示
+            UIKillFeedBackIconManager.CreateKillFeedbackIcon(tmp_killkind);
+            //显示击杀提示
+            //TODO score
+            UIKillFeedBackTextManager.CreateKillFeedbackText(tmp_KillWeapon, tmp_deathPlayer.NickName, 100);
+        }
+    }
     #region Getter
 
     public bool GethitHint => hitHint;
