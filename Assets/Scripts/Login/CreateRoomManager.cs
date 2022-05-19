@@ -46,11 +46,13 @@ public class CreateRoomManager : MonoBehaviourPunCallbacks
         };
         roomOptions.CustomRoomPropertiesForLobby = new string[] {"pvp","host","GameMode","mapIndex","mapDiscripName"};
         
-        PhotonNetwork.JoinOrCreateRoom(roomName.text, roomOptions,TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(roomName.text.Equals(String.Empty)? PhotonNetwork.LocalPlayer.NickName + "'s room" : roomName.text, roomOptions,TypedLobby.Default);
     }
 
     public void BTNCreateRoom()
     {
+        if (PhotonNetwork.InRoom) {return;}
+        
         CreateRoom();
     }
     

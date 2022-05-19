@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4197743305792663375}
   - component: {fileID: 491149265497121138}
   - component: {fileID: 1000594647158139454}
+  - component: {fileID: 5339820791103499512}
   m_Layer: 0
   m_Name: KillFeedbackCanvas
   m_TagString: Untagged
@@ -101,6 +102,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &5339820791103499512
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748226732947954120}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1308544722035737875
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +220,7 @@ GameObject:
   - component: {fileID: 1308544722035742623}
   - component: {fileID: 1308544722035740850}
   - component: {fileID: 1198737595007739473}
+  - component: {fileID: 9060362352127308510}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -317,6 +331,18 @@ MonoBehaviour:
   killFeedBackTextPrefab: {fileID: 7379230574035892459, guid: a0ed429dbef310b40b7329b3e09205fa,
     type: 3}
   holder: {fileID: 1308544722035739656}
+--- !u!225 &9060362352127308510
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308544722035738188}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1308544722035738217
 GameObject:
   m_ObjectHideFlags: 0

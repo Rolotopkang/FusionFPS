@@ -44,6 +44,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private Transform tmp_Spawnpoint;
 
     private GameObject tmp_Player;
+    private Outline playerFrom_outline = null;
 
     private CinemachineVirtualCamera CinemachineVirtualCamera;
     private CinemachineComponentBase ComponentBase;
@@ -130,6 +131,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                 // MainCM.transform.position = gameModeService.GetPlayerGameObject(tmp_deathPlayer).transform.position +new Vector3(0,4,0);
                 GameObject tmp_TP = gameModeService.GetPlayerGameObject(tmp_deathPlayer).GetComponent<LoacalChanger>().TPBody;
                 GameObject tmp_KillerTP = gameModeService.GetPlayerGameObject(tmp_KillFrom).GetComponent<LoacalChanger>().TPBody;
+                playerFrom_outline = gameModeService.GetPlayerGameObject(tmp_KillFrom).GetComponent<LoacalChanger>().OutlineScript;
                 CinemachineVirtualCamera.LookAt = tmp_TP.transform;
                 StartCoroutine(LookAt(3, tmp_KillerTP.transform));
                 
@@ -140,7 +142,6 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                 
 
 
-                //击杀者透视
                 
                 //显示死亡UI
                 DeathUI.SetActive(true);
@@ -148,7 +149,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                 
                 //10秒后重新部署
                 //TODO
-                Invoke("OnBTNReborn",5);
+                Invoke("OnBTNReborn",10);
             }
         
             //双端执行:
@@ -182,6 +183,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         yield return new WaitForSeconds(waitTime);
         CinemachineVirtualCamera.Follow = null;
         CinemachineVirtualCamera.LookAt = target.transform;
+        //击杀者透视
+        if (playerFrom_outline)
+        {
+            playerFrom_outline.enabled = true;
+        }
     }
     
     public void OnBTNDeploy()
@@ -202,6 +208,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     public void OnBTNReborn()
     {
+        if (playerFrom_outline)
+        {
+            playerFrom_outline.enabled = false;
+        }
+        playerFrom_outline = null;
         CinemachineVirtualCamera.Follow = null;
         CinemachineVirtualCamera.LookAt = null;
         if (ComponentBase is Cinemachine3rdPersonFollow)

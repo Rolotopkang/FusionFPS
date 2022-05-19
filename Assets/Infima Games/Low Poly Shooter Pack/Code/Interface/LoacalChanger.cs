@@ -47,6 +47,8 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         public GameObject FP;
         
         public GameObject TPBody;
+
+        public Outline OutlineScript;
         
         #endregion
 

@@ -974,7 +974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -412, y: 0.00094456924}
+  m_AnchoredPosition: {x: -412, y: 0.00096795557}
   m_SizeDelta: {x: 824, y: 360}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &52028997028527569
@@ -1465,6 +1465,7 @@ GameObject:
   - component: {fileID: 6758871459993645886}
   - component: {fileID: 2327895986551654929}
   - component: {fileID: 8901380517950961454}
+  - component: {fileID: 5515394504689561693}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1554,6 +1555,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &5515394504689561693
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2694202483438326978}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2818761472256213211
 GameObject:
   m_ObjectHideFlags: 0
@@ -3522,7 +3535,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3593530433118647330}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999714
+  m_Size: 0.94614166
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

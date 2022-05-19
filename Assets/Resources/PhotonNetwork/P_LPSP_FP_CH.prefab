@@ -352,6 +352,7 @@ MonoBehaviour:
   FpRender: {fileID: 6527298989626007987}
   FP: {fileID: 6527298989626007985}
   TPBody: {fileID: 3352235458732972247}
+  OutlineScript: {fileID: 7304774366221333860}
 --- !u!114 &2187281841864037857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13308,6 +13309,7 @@ GameObject:
   - component: {fileID: 6357743543653298064}
   - component: {fileID: 4159962878303336912}
   - component: {fileID: 8559863212117377630}
+  - component: {fileID: 7304774366221333860}
   m_Layer: 0
   m_Name: SK_TP_CH_Default_Root
   m_TagString: Untagged
@@ -13632,6 +13634,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e495f73079b1706409baa0462ba79637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7304774366221333860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3352235458732972339}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 4
+  outlineColor: {r: 0.8207547, g: 0.0038714937, b: 0.0038714937, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &3352235458732972341
 GameObject:
   m_ObjectHideFlags: 0

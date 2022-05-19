@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3882897039539922478}
   - component: {fileID: 61010866185810480}
   - component: {fileID: 7379230574035892459}
+  - component: {fileID: -6854023478365522165}
   m_Layer: 5
   m_Name: UIKillFeedBackText
   m_TagString: Untagged
@@ -148,3 +149,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116616510aa81f74db16fee72926194f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &-6854023478365522165
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6849607853208001824}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
