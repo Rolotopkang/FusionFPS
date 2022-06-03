@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using InfimaGames.LowPolyShooterPack.Interface;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -100,6 +101,9 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private WeaponBehaviour equippedWeapon;
 
+
+        private LoacalChanger _loacalChanger;
+        
         /// <summary>
         /// Default height of the character.
         /// </summary>
@@ -135,6 +139,7 @@ namespace InfimaGames.LowPolyShooterPack
         {
             //Get Player Character.
             playerCharacter = GetComponent<CharacterBehaviour>();
+            _loacalChanger = GetComponent<LoacalChanger>();
         }
 
         /// Initializes the FpsController on start.
@@ -150,15 +155,13 @@ namespace InfimaGames.LowPolyShooterPack
         /// Moves the camera to the character, processes jumping and plays sounds every frame.
         protected override void Update()
         {
-            //Get the equipped weapon!
-            equippedWeapon = playerCharacter.GetInventory().GetEquipped();
-
             //Get this frame's grounded value.
             isGrounded = IsGrounded();
             //Check if it has changed from last frame.
             if (isGrounded && !wasGrounded)
                 jumping = false;
-            
+            //Get the equipped weapon!
+            equippedWeapon = playerCharacter.GetInventory().GetEquipped();
             //Move.
             MoveCharacter();
             //Save the grounded value to check for difference next frame.

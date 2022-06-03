@@ -79,6 +79,13 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
         String tmp_KillWeapon = (String)tmp_KillData[2];
         bool tmp_headShot = (bool)tmp_KillData[3];
         long tmp_time = (long)tmp_KillData[4];
+
+        if (tmp_deathPlayer.Equals(tmp_KillFrom))
+        {
+            SetPlayerIntProperties(tmp_deathPlayer,EnumTools.PlayerProperties.Data_Death,1,true);
+            SetPlayerBoolProperties(tmp_deathPlayer,EnumTools.PlayerProperties.IsDeath,true);
+            return;
+        }
         
         //死亡角色死亡数加一
         SetPlayerIntProperties(tmp_deathPlayer,EnumTools.PlayerProperties.Data_Death,1,true);

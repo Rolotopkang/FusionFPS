@@ -35,6 +35,7 @@ public class TextFeedBack : Element
     {
         if (playerEventManager.GethitHint)
         {
+            Debug.Log("击中！"+playerEventManager.GetHitKind.ToString());
             HitFeedBack(playerEventManager.GetHitKind);
         }
     }

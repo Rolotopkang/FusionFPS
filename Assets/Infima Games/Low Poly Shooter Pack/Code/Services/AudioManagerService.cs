@@ -98,7 +98,12 @@ namespace InfimaGames.LowPolyShooterPack
             newAudioSource.volume = settings.Volume;
             //Set spatial blend.
             newAudioSource.spatialBlend = settings.SpatialBlend;
-            
+
+            newAudioSource.maxDistance = settings.MaxDistance;
+            newAudioSource.minDistance = 0;
+            newAudioSource.rolloffMode = AudioRolloffMode.Linear;
+            newAudioSource.transform.position = settings.AudioPos;
+            newAudioSource.transform.parent = settings.Parent;
             //Play the clip!
             newAudioSource.PlayOneShot(clip);
             

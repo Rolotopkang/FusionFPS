@@ -1,5 +1,7 @@
 //Copyright 2022, Infima Games. All Rights Reserved.
 
+using InfimaGames.LowPolyShooterPack.Interface;
+using Photon.Pun;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -9,15 +11,14 @@ namespace InfimaGames.LowPolyShooterPack
     /// We have this a separate component so as to make sure that it can be super easily removed, and replaced
     /// for a more custom implementation, as our setup is quite basic at the moment.
     /// </summary>
-    public class FootstepPlayer : MonoBehaviour
+    public class FootstepPlayer : MonoBehaviourPun
     {
         #region FIELDS SERIALIZED
-        
-        [Header("References")]
 
-        [Tooltip("The character's Movement Behaviour component.")]
+        [Header("References")]
+        [Tooltip("The character's Movement Behaviour component.")] 
         [SerializeField]
-        private MovementBehaviour movementBehaviour;
+        private CharacterController characterController;
 
         [Tooltip("The character's Animator component.")]
         [SerializeField]
@@ -42,7 +43,8 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("The audio clip that is played while running.")]
         [SerializeField]
         private AudioClip audioClipRunning;
-        
+
+        private LoacalChanger _loacalChanger;
         #endregion
         
         #region UNITY
@@ -59,6 +61,10 @@ namespace InfimaGames.LowPolyShooterPack
                 audioSource.clip = audioClipWalking;
                 audioSource.loop = true;   
             }
+
+            _loacalChanger = GetComponent<LoacalChanger>();
+            
+            
         }
 
         /// <summary>
@@ -67,27 +73,57 @@ namespace InfimaGames.LowPolyShooterPack
         private void Update()
         {
             //Check for missing references.
-            if (characterAnimator == null || movementBehaviour == null || audioSource == null)
+            if (characterAnimator == null || characterController == null || audioSource == null)
             {
                 //Reference Error.
                 Log.ReferenceError(this, gameObject);
-                
                 //Return.
                 return;
             }
             
-            //Check if we're moving on the ground. We don't need footsteps in the air.
-            if (movementBehaviour.IsGrounded() && movementBehaviour.GetVelocity().sqrMagnitude > minVelocityMagnitude)
+            if (_loacalChanger.isMine)
             {
-                //Select the correct audio clip to play.
-                audioSource.clip = characterAnimator.GetBool(AHashes.Running) ? audioClipRunning : audioClipWalking;
-                //Play it!
-                if (!audioSource.isPlaying)
-                    audioSource.Play();
+                audioSource.spatialBlend = 0f;
+            }
+            else
+            {
+                audioSource.spatialBlend = 1f;
+            }
+
+            if (!_loacalChanger.isMine)
+            {
+                return;
+            }
+            
+            //Check if we're moving on the ground. We don't need footsteps in the air.
+            if (characterController.isGrounded && characterController.velocity.sqrMagnitude > minVelocityMagnitude)
+            {
+                playSound();
+                photonView.RPC(nameof(playSound),RpcTarget.Others);
             }
             //Pause it if we're doing something like flying, or not moving!
             else if (audioSource.isPlaying)
+            {
                 audioSource.Pause();
+                photonView.RPC(nameof(PauseSound),RpcTarget.Others);
+            }
+               
+        }
+
+        [PunRPC]
+        private void playSound()
+        {
+            //Select the correct audio clip to play.
+            audioSource.clip = characterAnimator.GetBool(AHashes.Running) ? audioClipRunning : audioClipWalking;
+            //Play it!
+            if (!audioSource.isPlaying)
+                audioSource.Play();
+        }
+
+        [PunRPC]
+        private void PauseSound()
+        {
+            audioSource.Pause();
         }
         
         #endregion

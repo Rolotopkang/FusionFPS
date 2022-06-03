@@ -10,8 +10,10 @@ using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using SickscoreGames.HUDNavigationSystem;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityTemplateProjects.Tools;
 using EventCode = Scripts.Weapon.EventCode;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -26,6 +28,8 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject KillFeedBackRoomPrefab;
     [SerializeField]
     private GameObject ScordBoardPrefab;
+    [SerializeField]
+    private GameObject HUDNavigationCanvasPrefab;
     
 
     private PhotonView photonView;
@@ -33,6 +37,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject DeathUI;
     private GameObject KillhintUI;
     private GameObject KillFeedBackRoom;
+
     
     private DeployManager DeployManager;
 
@@ -40,6 +45,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private String DeploySecWeapon;
 
     private GameObject MainCM;
+    private GameObject CMBrain;
 
     private Transform tmp_Spawnpoint;
 
@@ -48,46 +54,46 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     private CinemachineVirtualCamera CinemachineVirtualCamera;
     private CinemachineComponentBase ComponentBase;
-
+    private HUDNavigationSystem _HUDNavigationSystem;
+    private HUDNavigationCanvas HUDNavigationCanvas;
     protected IGameModeService gameModeService;
+    protected IWeaponInfoService weaponInfoService;
 
     
     #region Unity
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
-        DeployUI = transform.GetChild(0).gameObject;
-        DeployManager = DeployUI.GetComponent<DeployManager>();
-        MainCM = GameObject.FindWithTag("MainCamera");
-        CinemachineVirtualCamera = MainCM.GetComponent<CinemachineVirtualCamera>();
-        ComponentBase = CinemachineVirtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
     }
 
     private void Start()
     {
         if (photonView.IsMine)
         {
+            DeployUI = transform.GetChild(0).gameObject;
+            DeployManager = DeployUI.GetComponent<DeployManager>();
+            MainCM = GameObject.FindWithTag("DeployCM");
+            CMBrain = GameObject.FindWithTag("CMBrain");
+            CinemachineVirtualCamera = MainCM.GetComponent<CinemachineVirtualCamera>();
+            ComponentBase = CinemachineVirtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
+            
             DeployUI.SetActive(true);
             DeathUI = Instantiate(DeathUIPrefab, transform);
+            DeathUI.SetActive(false);
             KillhintUI = Instantiate(KillhintUIPrefab, transform);
             KillFeedBackRoom = Instantiate(KillFeedBackRoomPrefab, transform);
             Instantiate(ScordBoardPrefab, transform);
         }
         gameModeService = ServiceLocator.Current.Get<IGameModeService>();
+        weaponInfoService = ServiceLocator.Current.Get<IWeaponInfoService>();
+        _HUDNavigationSystem = HUDNavigationSystem.Instance;
+        HUDNavigationCanvas = HUDNavigationCanvas.Instance;
+        HUDNavigationCanvas.EnableCanvas(false);
     }
     
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
-        // if (photonView.IsMine)
-        // {
-        //     Debug.Log("测试生成！");
-        //     tmp_Player =PhotonNetwork.Instantiate(
-        //         Path.Combine("PhotonNetwork", "P_LPSP_FP_CH"), Vector3.zero
-        //         , Quaternion.identity);
-        //     PhotonNetwork.Destroy(tmp_Player.GetPhotonView());
-        //     Debug.Log("测试摧毁完毕");
-        // }
     }
 
     private void OnDisable()
@@ -132,6 +138,14 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                 GameObject tmp_TP = gameModeService.GetPlayerGameObject(tmp_deathPlayer).GetComponent<LoacalChanger>().TPBody;
                 GameObject tmp_KillerTP = gameModeService.GetPlayerGameObject(tmp_KillFrom).GetComponent<LoacalChanger>().TPBody;
                 playerFrom_outline = gameModeService.GetPlayerGameObject(tmp_KillFrom).GetComponent<LoacalChanger>().OutlineScript;
+                
+                //关闭导航
+                _HUDNavigationSystem.PlayerCamera = null;
+                _HUDNavigationSystem.PlayerController = null;
+                HUDNavigationCanvas.EnableCanvas(false);
+
+                CMBrain.SetActive(true);
+                MainCM.SetActive(true);
                 CinemachineVirtualCamera.LookAt = tmp_TP.transform;
                 StartCoroutine(LookAt(3, tmp_KillerTP.transform));
                 
@@ -140,10 +154,19 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
 
                 
-
-
                 
+                //如果是自杀
+                if (tmp_deathPlayer.Equals(tmp_KillFrom))
+                {
+                    tmp_KillWeapon = "suicide";
+                }
                 //显示死亡UI
+                DeathUI.GetComponent<DeathUIManager>().Set(
+                    tmp_KillFrom.NickName,
+                    weaponInfoService.GetWeaponInfoFromName(tmp_KillWeapon).KillPannel ,
+                    tmp_KillWeapon,
+                    gameModeService.GetPlayerGameObject(tmp_KillFrom).GetComponent<Battle>().GetCurrentHealth()
+                );
                 DeathUI.SetActive(true);
                 //更新后处理效果
                 
@@ -257,6 +280,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         hash.Add(EnumTools.PlayerProperties.IsDeath.ToString(),false);
         photonView.Owner.SetCustomProperties(hash);
         
+        //导航系统开启
+        _HUDNavigationSystem.PlayerCamera = Camera.main;
+        _HUDNavigationSystem.PlayerController = tmp_Player.transform;
+        HUDNavigationCanvas.EnableCanvas(true);
+
         
         if (ComponentBase is Cinemachine3rdPersonFollow)
         {
@@ -265,6 +293,8 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         }
         CinemachineVirtualCamera.Follow = tmp_Player.transform;
         CinemachineVirtualCamera.LookAt = tmp_Player.transform;
+        MainCM.SetActive(false);
+        CMBrain.SetActive(false);
     }
 
     public String GetDeployMainWeapon() => DeployMainWeapon;

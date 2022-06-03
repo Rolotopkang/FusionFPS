@@ -2,6 +2,7 @@
 
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -36,16 +37,20 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("Delay at which the audio is played.")]
         [SerializeField]
         private float delay;
-        
+
         [Tooltip("Type of weapon sound to play.")]
         [SerializeField]
         private SoundType soundType;
-        
+
+        [Tooltip("是否跟随父类")]
+        [SerializeField]
+        private bool attachToParent;
+
         [Header("Audio Settings")]
 
         [Tooltip("Audio Settings.")]
         [SerializeField]
-        private AudioSettings audioSettings = new AudioSettings(1.0f, 0.0f, true ,false, Vector3.zero);
+        private AudioSettings audioSettings = new AudioSettings(1.0f, 0.0f, true ,false, Vector3.zero, null,100);
 
         #endregion
 
@@ -75,11 +80,17 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            PhotonView tmpPhotonView = animator.transform.GetComponent<PhotonView>();
+
             //We need to get the character component.
             playerCharacter ??= ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter(PhotonNetwork.LocalPlayer);
-
+            
             //Get Inventory.
             playerInventory ??= playerCharacter.GetInventory();
+            if (playerInventory == null)
+            {
+                return;
+            }
 
             //Try to get the equipped weapon's Weapon component.
             if (!(playerInventory.GetEquipped() is { } weaponBehaviour))
@@ -127,12 +138,47 @@ namespace InfimaGames.LowPolyShooterPack
                 _ => default
             };
 
+            audioSettings.SetMaxDistance(soundType switch
+            {
+                //Melee.
+                SoundType.Melee => 5,
+
+                //Reload.
+                SoundType.Reload => 8,
+                //Reload Empty.
+                SoundType.ReloadEmpty => 8,
+
+                //Reload Open.
+                SoundType.ReloadOpen => 8,
+                //Reload Insert.
+                SoundType.ReloadInsert => 8,
+                //Reload Close.
+                SoundType.ReloadClose => 8,
+
+                //Fire.
+                SoundType.Fire => 40,
+
+                //Default.
+                _ => 0,
+            });
+                
+            
             #endregion
 
-            //Play with some delay. Granted, if the delay is set to zero, this will just straight-up play!
+            if (audioSettings.SpatialBlend > 0)
+            {
+                //更改设置
+                audioSettings.SetPosition(animator.transform.position+Vector3.up*1);
+            }
+
+            if (attachToParent)
+            {
+                audioSettings.SetParent(animator.transform.parent);
+            }
+            
             audioManagerService.PlayOneShotDelayed(clip, audioSettings, delay);
+
         }
-        
         #endregion
     }
 }

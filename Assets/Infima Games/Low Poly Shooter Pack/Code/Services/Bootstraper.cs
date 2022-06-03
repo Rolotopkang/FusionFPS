@@ -32,7 +32,13 @@ namespace InfimaGames.LowPolyShooterPack
             
             //Register the sound manager service!
             ServiceLocator.Current.Register<IAudioManagerService>(soundManagerService);
-
+            
+            
+            //注册武器类
+            var weaponInfoObject = new GameObject("WeaponInfo");
+            var weaponInfoService = weaponInfoObject.AddComponent<WeaponInfoService>();
+            Object.DontDestroyOnLoad(weaponInfoObject);
+            ServiceLocator.Current.Register<IWeaponInfoService>(weaponInfoService);
             #endregion
         }
     }

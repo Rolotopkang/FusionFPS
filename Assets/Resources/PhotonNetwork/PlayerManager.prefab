@@ -75,6 +75,8 @@ MonoBehaviour:
     type: 3}
   ScordBoardPrefab: {fileID: 7156292280753054423, guid: 23e3f9cb713821f46a7cae43970509bd,
     type: 3}
+  HUDNavigationCanvasPrefab: {fileID: 9156171909008508716, guid: 4a62336da4f1df64bbf93c7677d9c944,
+    type: 3}
 --- !u!1001 &226282062777786021
 PrefabInstance:
   m_ObjectHideFlags: 0

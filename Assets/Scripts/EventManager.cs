@@ -7,10 +7,15 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityTemplateProjects.Tools;
+using AudioSettings = InfimaGames.LowPolyShooterPack.AudioSettings;
 using EventCode = Scripts.Weapon.EventCode;
 
 public class EventManager : MonoBehaviourPun,IOnEventCallback
 {
+    [SerializeField]
+    private AudioClip ac_normalKill;
+    [SerializeField]
+    private AudioClip ac_headShotKill;
     private Battle Battle;
 
     private bool hitHint;
@@ -20,7 +25,7 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
     private EnumTools.HitKinds HitKind;
     
     protected IGameModeService gameModeService;
-
+    private IAudioManagerService audioManagerService;
 
     #region Unity
 
@@ -37,6 +42,7 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
     private void Awake()
     {
         Battle = GetComponent<Battle>();
+        audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
     }
 
     private void Start()
@@ -71,24 +77,34 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
         Vector3 tmp_contactPoint = (Vector3)tmp_HitData[5];
         long tmp_time = (long)tmp_HitData[6];
 
-        //死亡后不造成伤害和显示击中UI
-        if (gameModeService.GetPlayerGameObject(tmp_hitPlayer).GetComponent<Battle>().GetIsDeath()) {return;}
+        bool tmp_IsSuicide = tmp_hitPlayer.Equals(tmp_DMGFrom);
         
+        //死亡后不造成伤害和显示击中UI
+        if (gameModeService.GetPlayerGameObject(tmp_hitPlayer).TryGetComponent(out Battle battle))
+        {
+            if (battle.GetIsDeath())
+            {
+                return;
+            }
+        }
+
         Debug.Log(tmp_DMGFrom.NickName+"用"+tmp_DMGWeapon+"击中了"+tmp_hitPlayer.NickName+"造成了"+tmp_DMG+"伤害——————是否爆头？："+tmp_headShot);
-
-
+        
         //仅在伤害来源方执行
         //造成伤害UI提示
         if (tmp_DMGFrom.Equals(PhotonNetwork.LocalPlayer))
         {
+            Debug.Log("准备播放击中");
             hitHint = true;
             HitKind = tmp_headShot ? EnumTools.HitKinds.headShot : EnumTools.HitKinds.normal;
         }
-
+        
         //仅在被击中方执行
         //扣血
         if (tmp_hitPlayer.Equals(PhotonNetwork.LocalPlayer))
         {
+            UIDamageIndecatorManager.CreateIndicator(gameModeService.GetPlayerGameObject(tmp_DMGFrom).transform);
+            Debug.Log("显示伤害来源！");
             //扣血
             if (Battle.Damage(tmp_DMG))
             {
@@ -118,13 +134,6 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
                     tmp_SendOptions);
                 Debug.Log("发送死亡事件！");
             }
-            
-            //屏幕伤害来源显示
-            if (tmp_hitPlayer.Equals(PhotonNetwork.LocalPlayer))
-            {
-                UIDamageIndecatorManager.CreateIndicator(gameModeService.GetPlayerGameObject(tmp_DMGFrom).transform);
-                Debug.Log("显示伤害来源！");
-            }
         }
     }
 
@@ -136,6 +145,10 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
         String tmp_KillWeapon = (String)tmp_KillData[2];
         bool tmp_headShot = (bool)tmp_KillData[3];
         long tmp_time = (long)tmp_KillData[4];
+        
+        //自杀不执行
+        if(tmp_KillFrom.Equals(tmp_deathPlayer))
+            return;
         
         //如果是本地玩家造成了角色死亡
         if(tmp_KillFrom.Equals(PhotonNetwork.LocalPlayer))
@@ -154,6 +167,9 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
             //显示击杀提示
             //TODO score
             UIKillFeedBackTextManager.CreateKillFeedbackText(tmp_KillWeapon, tmp_deathPlayer.NickName, 100);
+            //击杀音效
+            AudioSettings settings = new AudioSettings(1.0f, 0.0f, true,false,Vector3.zero,null,100);
+            audioManagerService?.PlayOneShot(tmp_headShot? ac_headShotKill: ac_normalKill, settings);
         }
     }
     #region Getter
