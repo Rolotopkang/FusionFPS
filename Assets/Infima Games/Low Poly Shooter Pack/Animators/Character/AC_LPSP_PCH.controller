@@ -76,6 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 10
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -174,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 2
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -185,13 +187,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faf6976bc602496998955afbbf01060c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 5
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -249,9 +252,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 11
+  attachToParent: 1
   audioSettings:
     automaticCleanup: 1
-    volume: 0.3
+    volume: 1
     spatialBlend: 0
 --- !u!1101 &-5155458262845540234
 AnimatorStateTransition:
@@ -477,6 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 1
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -488,13 +493,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faf6976bc602496998955afbbf01060c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 4
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -542,6 +548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 0
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -605,13 +612,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faf6976bc602496998955afbbf01060c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 7
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -954,13 +962,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faf6976bc602496998955afbbf01060c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 6
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -1492,13 +1501,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faf6976bc602496998955afbbf01060c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 7
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -3545,7 +3555,7 @@ AnimatorStateMachine:
     m_Position: {x: 264, y: 132, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102109490268708542}
-    m_Position: {x: 264, y: 204, z: 0}
+    m_Position: {x: 270, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102619756415077026}
     m_Position: {x: 530, y: 200, z: 0}
@@ -4054,13 +4064,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faf6976bc602496998955afbbf01060c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 9
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -4258,6 +4269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 3
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2
@@ -4613,13 +4625,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faf6976bc602496998955afbbf01060c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 8
+  attachToParent: 0
   audioSettings:
     automaticCleanup: 1
     volume: 0.2

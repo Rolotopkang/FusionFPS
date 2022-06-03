@@ -413,10 +413,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 5
+  attachToParent: 1
+  beSyn: 0
   audioSettings:
     automaticCleanup: 1
-    volume: 0.2
-    spatialBlend: 0
+    volume: 1
+    spatialBlend: 1
 --- !u!206 &-6023439873391992230
 BlendTree:
   m_ObjectHideFlags: 1
@@ -530,10 +532,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 11
+  attachToParent: 1
+  beSyn: 0
   audioSettings:
     automaticCleanup: 1
-    volume: 0.3
-    spatialBlend: 0
+    volume: 1
+    spatialBlend: 1
 --- !u!206 &-5290495953435383312
 BlendTree:
   m_ObjectHideFlags: 1
@@ -950,10 +954,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 4
+  attachToParent: 1
+  beSyn: 0
   audioSettings:
     automaticCleanup: 1
-    volume: 0.2
-    spatialBlend: 0
+    volume: 1
+    spatialBlend: 1
 --- !u!1107 &-1445164302115568073
 AnimatorStateMachine:
   serializedVersion: 6
@@ -1172,10 +1178,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 7
+  attachToParent: 1
+  beSyn: 0
   audioSettings:
     automaticCleanup: 1
-    volume: 0.2
-    spatialBlend: 0
+    volume: 1
+    spatialBlend: 1
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -1434,10 +1442,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 6
+  attachToParent: 1
+  beSyn: 0
   audioSettings:
     automaticCleanup: 1
-    volume: 0.2
-    spatialBlend: 0
+    volume: 1
+    spatialBlend: 1
 --- !u!114 &114200418828767186
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1941,10 +1951,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 7
+  attachToParent: 1
+  beSyn: 0
   audioSettings:
     automaticCleanup: 1
-    volume: 0.2
-    spatialBlend: 0
+    volume: 1
+    spatialBlend: 1
 --- !u!206 &1011959862996736996
 BlendTree:
   m_ObjectHideFlags: 1
@@ -3715,10 +3727,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 9
+  attachToParent: 1
+  beSyn: 0
   audioSettings:
     automaticCleanup: 1
-    volume: 0.2
-    spatialBlend: 0
+    volume: 1
+    spatialBlend: 1
 --- !u!1102 &2299584036859293306
 AnimatorState:
   serializedVersion: 6
@@ -4656,10 +4670,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   soundType: 8
+  attachToParent: 1
+  beSyn: 0
   audioSettings:
     automaticCleanup: 1
-    volume: 0.2
-    spatialBlend: 0
+    volume: 1
+    spatialBlend: 1
 --- !u!206 &8744381187014192872
 BlendTree:
   m_ObjectHideFlags: 1

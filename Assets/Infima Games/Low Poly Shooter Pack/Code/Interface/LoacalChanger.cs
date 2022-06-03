@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Photon.Pun;
+using SickscoreGames.HUDNavigationSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityTemplateProjects.Tools;
@@ -49,11 +50,12 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         public GameObject TPBody;
 
         public Outline OutlineScript;
-        
+
+        public bool isMine;
         #endregion
 
         #region SpawnObjects
-
+        
         private GameObject Settings;
         private GameObject Canvas;
         
@@ -85,13 +87,14 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             {
                 if (PhotonView.IsMine)
                 {
+                    isMine = true;
                     //Spawn Interface.
                     //Spawn Quality Settings Menu.
                     Settings = Instantiate(qualitySettingsPrefab);
                 
                     Canvas = Instantiate(canvasPrefab);
                     Canvas.GetComponent<Canvas>().worldCamera = MainCM.GetComponentsInChildren<Camera>()[2];
-                    
+
 
                     MainCM.AddComponent<AudioListener>();
                     TpRender.SetRenderers(ShadowCastingMode.ShadowsOnly);
@@ -101,6 +104,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
                 }
                 else
                 {
+                    isMine = false;
                     MainCM.SetActive(false);
                     TpRender.SetRenderers(ShadowCastingMode.On);
                     TpRender.SetRenderersDisable(true);

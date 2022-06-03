@@ -184,6 +184,15 @@
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Minimap",
+                    "type": "Button",
+                    "id": "7c29d613-c29d-44cd-a46a-868d75dc361f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -657,6 +666,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ScopeChanger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b856e2b-0817-4074-9d8d-51480e80c8bf",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Minimap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

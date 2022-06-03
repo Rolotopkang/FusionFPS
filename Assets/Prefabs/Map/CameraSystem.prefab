@@ -139,9 +139,11 @@ GameObject:
   - component: {fileID: 5189010118425773609}
   - component: {fileID: 5189010118425773615}
   - component: {fileID: 5189010118425773612}
+  - component: {fileID: 5189010119145203172}
+  - component: {fileID: 2603082945826930226}
   m_Layer: 0
   m_Name: CMBrain
-  m_TagString: Untagged
+  m_TagString: CMBrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -270,6 +272,26 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5189010119145203172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5189010118425773611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b600b67bb20cb47946eabe54f0ad44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!81 &2603082945826930226
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5189010118425773611}
+  m_Enabled: 1
 --- !u!1 &5189010118844746717
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +335,7 @@ GameObject:
   - component: {fileID: 5189010119013526186}
   m_Layer: 0
   m_Name: MainCM
-  m_TagString: MainCamera
+  m_TagString: DeployCM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

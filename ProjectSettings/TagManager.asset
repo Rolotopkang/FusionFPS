@@ -24,6 +24,8 @@ TagManager:
   - PlayerHead
   - PlayerHand
   - Fracture
+  - DeployCM
+  - CMBrain
   layers:
   - Default
   - TransparentFX

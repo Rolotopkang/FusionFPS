@@ -49,6 +49,9 @@ MonoBehaviour:
   - RPC_InstantiateProjectile
   - RPC_ReloadOpen
   - hit
+  - playSound
+  - PauseSound
+  - SynSound
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
