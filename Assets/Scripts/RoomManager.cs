@@ -67,7 +67,11 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
             {
                 case "Conquest":
                 {
-                    Debug.Log("游戏模式未实装");
+                    Debug.Log("死斗模式！");
+                    PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
+                        Vector3.zero, quaternion.identity);
+                    currentGamemode = Instantiate(DeathMatchModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
+                    Debug.Log("生成死斗模式游戏逻辑控制脚本");
                     break;
                 }
                 case "BombScenario":
