@@ -48,8 +48,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		public Transform[] metalImpactPrefabs;
 		public Transform[] dirtImpactPrefabs;
 		public Transform[] concreteImpactPrefabs;
-		public Transform[] woodImoactPrefabs;
-
+		public Transform[] woodImpactPrefabs;
+		public Transform[] waterImpactPrefabs;
 		#region Static
 		
 		private float WeaponDMG;
@@ -157,6 +157,19 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				//  Debug.Log("碰撞销毁了！");
 				//  Destroy(gameObject);
 			 // }
+			 
+			 
+			 
+			 //默认
+			 if (collision.transform.tag.Equals("Untagged"))
+			 {
+				 //Instantiate random impact prefab from array
+				 Instantiate(woodImpactPrefabs[Random.Range
+						 (0, woodImpactPrefabs.Length)], transform.position,
+					 Quaternion.LookRotation(collision.contacts[0].normal));
+				 //Destroy bullet object
+				 Destroy(gameObject);
+			 }
 		
 			//If bullet collides with "Metal" tag
 			if (collision.transform.tag.Equals("Metal"))
@@ -187,8 +200,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			{
 
 				//Instantiate random impact prefab from array
-				Instantiate(woodImoactPrefabs[Random.Range
-						(0, woodImoactPrefabs.Length)], transform.position,
+				Instantiate(woodImpactPrefabs[Random.Range
+						(0, woodImpactPrefabs.Length)], transform.position,
 					Quaternion.LookRotation(collision.contacts[0].normal));
 				//Destroy bullet object
 				Destroy(gameObject);
@@ -202,6 +215,16 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				Instantiate(concreteImpactPrefabs[Random.Range
 						(0, concreteImpactPrefabs.Length)], transform.position,
 					Quaternion.LookRotation(collision.contacts[0].normal));
+				//Destroy bullet object
+				Destroy(gameObject);
+			}
+			
+			//If bullet collides with "Concrete" tag
+			if (collision.transform.tag.Equals("Water"))
+			{
+				//Instantiate random impact prefab from array
+				Instantiate(waterImpactPrefabs[Random.Range
+						(0, waterImpactPrefabs.Length)], collision.contacts[0].point + Vector3.up.normalized*0.01f, Quaternion.Euler(Vector3.up));
 				//Destroy bullet object
 				Destroy(gameObject);
 			}

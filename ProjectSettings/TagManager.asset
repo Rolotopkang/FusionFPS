@@ -26,6 +26,7 @@ TagManager:
   - Fracture
   - DeployCM
   - CMBrain
+  - Water
   layers:
   - Default
   - TransparentFX

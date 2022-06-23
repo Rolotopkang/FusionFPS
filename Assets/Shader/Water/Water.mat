@@ -81,7 +81,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Smoothness: 0.9
+    - Smoothness: 0.8
     - Vector1_0264cdc245e84f1c8e752f57b4a37881: 0.1
     - Vector1_1de32a7a1b6f403dbcc84bbfa381f4e3: 2.5
     - Vector1_1f225d32ef334e428c97336d6c49b26e: 1
@@ -121,9 +121,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_ba55ad009bd74ef69bbb35148e851113: {r: 0.1509434, g: 0.08760878, b: 0,
-        a: 0.39215687}
-    - Color_be1eeb659a5b4e18b9e380616d557972: {r: 1, g: 0.832211, b: 0.5058824, a: 0.19607843}
+    - Color_ba55ad009bd74ef69bbb35148e851113: {r: 0, g: 0.7128816, b: 0.7264151, a: 0.39215687}
+    - Color_be1eeb659a5b4e18b9e380616d557972: {r: 0.5458793, g: 0.8207547, b: 0.8138794,
+        a: 0.19607843}
     - Color_e2115af4ec754702bff6db51d4c7f3fc: {r: 1, g: 1, b: 1, a: 0.39215687}
     - RefractionScale: {r: 3, g: 3, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

@@ -38,8 +38,9 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
 
     private void Update()
     {
-        //所有都执行
+        //没帧执行
         TickAll();
+        //每秒执行
         TickSec();
         //伪权威执行
         if(!isMaster) return;
@@ -136,6 +137,7 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
         hash.Add(playerProperties.ToString(),set);
         player.SetCustomProperties(hash);
     }
+    
     
     #endregion
     
