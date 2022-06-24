@@ -29,6 +29,7 @@ public class M_KillZone : MonoBehaviour
                     if (DeathTimerCoroutine!=null)
                     {
                         StopCoroutine(DeathTimerCoroutine);
+                        OutOfBoundWarningUIManager.StopCountDown();
                         DeathTimerCoroutine = null;
                     }
                 }
@@ -53,6 +54,7 @@ public class M_KillZone : MonoBehaviour
                     if (DeathTimerCoroutine!=null)
                     {
                         StopCoroutine(DeathTimerCoroutine);
+                        OutOfBoundWarningUIManager.StopCountDown();
                         DeathTimerCoroutine = null;
                     }
                 }
@@ -69,7 +71,11 @@ public class M_KillZone : MonoBehaviour
     private IEnumerator DeathTimer()
     {
         //TODO
+        //通知后处理
+        
+        
         //通知UI
+        OutOfBoundWarningUIManager.StartCountDown(DeathTime);
         Debug.Log("死亡倒数！");
         
         yield return new WaitForSeconds(DeathTime);

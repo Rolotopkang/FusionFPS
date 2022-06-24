@@ -30,6 +30,8 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject ScordBoardPrefab;
     [SerializeField]
     private GameObject HUDNavigationCanvasPrefab;
+    [SerializeField]
+    private GameObject OutOfBoundWarningUIManagerPrefab;
     
 
     private PhotonView photonView;
@@ -38,7 +40,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject KillhintUI;
     private GameObject KillFeedBackRoom;
 
-    
+
     private DeployManager DeployManager;
 
     private String DeployMainWeapon;
@@ -82,6 +84,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             DeathUI.SetActive(false);
             KillhintUI = Instantiate(KillhintUIPrefab, transform);
             KillFeedBackRoom = Instantiate(KillFeedBackRoomPrefab, transform);
+            Instantiate(OutOfBoundWarningUIManagerPrefab, transform);
             Instantiate(ScordBoardPrefab, transform);
         }
         gameModeService = ServiceLocator.Current.Get<IGameModeService>();

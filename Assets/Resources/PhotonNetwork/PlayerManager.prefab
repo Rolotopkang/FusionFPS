@@ -77,6 +77,8 @@ MonoBehaviour:
     type: 3}
   HUDNavigationCanvasPrefab: {fileID: 9156171909008508716, guid: 4a62336da4f1df64bbf93c7677d9c944,
     type: 3}
+  OutOfBoundWarningUIManagerPrefab: {fileID: 592006431467583086, guid: f388141edac592d4fa20d28586855451,
+    type: 3}
 --- !u!1001 &226282062777786021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -89,6 +91,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1575567950543069357}
+    - target: {fileID: 4210862613371932647, guid: e9359be154e548b439ea28a0a293bfd6,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4210862613496716604, guid: e9359be154e548b439ea28a0a293bfd6,
         type: 3}
       propertyPath: m_RootOrder
