@@ -82,12 +82,9 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		private bool HitPlayer(float DMGtime, Collision hitPlayer)
 		{
 			Player tmp_hitOwner = hitPlayer.gameObject.GetComponentInParent<PhotonView>().Owner;
-
-			// Debug.Log("hit!"+hitPlayer.gameObject.name);
+			//忽略自身
 			if (tmp_hitOwner.Equals(projectileOwner))
 			{
-				// Physics.IgnoreCollision(projectileCollider,hitPlayer.collider);
-				// Debug.Log(tmp_hitOwner+"忽略！"+projectileOwner+"的");
 				return false;
 			}
 			

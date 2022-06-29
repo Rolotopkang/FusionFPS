@@ -9159,7 +9159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 550}
+  m_AnchoredPosition: {x: 0, y: 434}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &703394559
@@ -26081,10 +26081,10 @@ RectTransform:
   m_Father: {fileID: 1298177078}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 505, y: -16}
-  m_SizeDelta: {x: 796.0297, y: 960.016}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 505, y: -30.6697}
+  m_SizeDelta: {x: 796.0297, y: 593.0267}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2557678396744203917
 MonoBehaviour:
@@ -27940,6 +27940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeathMatchModePrefab: {fileID: 5526374922559252215, guid: 11f87315f7919ff4ea9bb8721c8a8585,
+    type: 3}
+  ConquestModePrefab: {fileID: 424991481286895056, guid: abdba52e31e101141b76ff69ed829f9a,
     type: 3}
 --- !u!114 &8003713119855615458
 MonoBehaviour:

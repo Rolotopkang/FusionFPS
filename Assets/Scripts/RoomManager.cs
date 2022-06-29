@@ -14,6 +14,7 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
 {
     [Header("游戏模式")] 
     [SerializeField] private GameObject DeathMatchModePrefab;
+    [SerializeField] private GameObject ConquestModePrefab;
 
 
     private GameModeManagerBehaviour currentGamemode = null;
@@ -67,10 +68,10 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
             {
                 case "Conquest":
                 {
-                    Debug.Log("死斗模式！");
+                    Debug.Log("征服模式！");
                     PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
                         Vector3.zero, quaternion.identity);
-                    currentGamemode = Instantiate(DeathMatchModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
+                    currentGamemode = Instantiate(ConquestModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
                     Debug.Log("生成死斗模式游戏逻辑控制脚本");
                     break;
                 }

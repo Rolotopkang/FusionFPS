@@ -42,4 +42,12 @@ public class EnumTools
         Data_Ping
     }
     
+    public enum PostProcessing
+    {
+        Globle,
+        Weapon,
+        Scope,
+        UI,
+        DeathZone
+    }
 }
