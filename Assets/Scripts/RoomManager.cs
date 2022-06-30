@@ -17,7 +17,8 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
     [SerializeField] private GameObject ConquestModePrefab;
 
 
-    private GameModeManagerBehaviour currentGamemode = null;
+    private GameModeManagerBehaviour currentGamemodeManager = null;
+    public MapTools.GameMode currentGamemode;
 
     protected override void Awake()
     {
@@ -45,8 +46,8 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
 
     public override void OnLeftRoom()
     {
-        Destroy(currentGamemode.transform.gameObject);
-        currentGamemode = null;
+        Destroy(currentGamemodeManager.transform.gameObject);
+        currentGamemodeManager = null;
     }
 
     private void CheckScene(Scene scene)
@@ -71,8 +72,9 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                     Debug.Log("征服模式！");
                     PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
                         Vector3.zero, quaternion.identity);
-                    currentGamemode = Instantiate(ConquestModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
+                    currentGamemodeManager = Instantiate(ConquestModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
                     Debug.Log("生成死斗模式游戏逻辑控制脚本");
+                    currentGamemode = MapTools.GameMode.Conquest;
                     break;
                 }
                 case "BombScenario":
@@ -90,8 +92,9 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                     Debug.Log("死斗模式！");
                     PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
                         Vector3.zero, quaternion.identity);
-                    currentGamemode = Instantiate(DeathMatchModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
+                    currentGamemodeManager = Instantiate(DeathMatchModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
                     Debug.Log("生成死斗模式游戏逻辑控制脚本");
+                    currentGamemode = MapTools.GameMode.DeathMatch;
                     break;
                 }
                 case "TeamDeathMatch":
@@ -99,6 +102,7 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                     Debug.Log("团队死斗！");
                     PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"), 
                         Vector3.zero, quaternion.identity);
+                    currentGamemode = MapTools.GameMode.TeamDeathMatch;
                     break;
                 }
                 default:
@@ -110,5 +114,23 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
         }
         
     }
-    
+
+
+    public bool isFriendlyFire()
+    {
+        //TODO 如果房间允许队伤则返回true
+        
+        switch (currentGamemode)
+        {
+            case MapTools.GameMode.Conquest:
+            case MapTools.GameMode.TeamDeathMatch: 
+            case MapTools.GameMode.BombScenario:
+            case MapTools.GameMode.TeamAdversarial:
+                return false;
+            case MapTools.GameMode.DeathMatch:
+                return true;
+        }
+
+        return true;
+    }
 }

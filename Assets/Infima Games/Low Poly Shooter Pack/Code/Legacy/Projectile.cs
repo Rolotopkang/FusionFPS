@@ -8,8 +8,10 @@ using System.Security.Cryptography;
 using ExitGames.Client.Photon;
 using InfimaGames.LowPolyShooterPack;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine.Assertions.Comparers;
+using UnityTemplateProjects.Tools;
 using EventCode = Scripts.Weapon.EventCode;
 using Random = UnityEngine.Random;
 
@@ -82,12 +84,13 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		private bool HitPlayer(float DMGtime, Collision hitPlayer)
 		{
 			Player tmp_hitOwner = hitPlayer.gameObject.GetComponentInParent<PhotonView>().Owner;
+			
 			//忽略自身
 			if (tmp_hitOwner.Equals(projectileOwner))
 			{
 				return false;
 			}
-			
+
 			//溅血特效
 			if (!tmp_hitOwner.Equals(PhotonNetwork.LocalPlayer))
 			{
@@ -96,10 +99,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 					Quaternion.LookRotation(hitPlayer.contacts[0].normal)).gameObject;
 				tmp_Impact.transform.parent = hitPlayer.transform;
 			}
-			 
-
-			//TODO 队友伤害关闭
-
+			
 			//向photon网络发送击中事件
 			if (PhotonNetwork.LocalPlayer.Equals(projectileOwner))
 			{
