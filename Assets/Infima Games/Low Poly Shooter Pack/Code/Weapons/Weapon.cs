@@ -452,8 +452,12 @@ namespace InfimaGames.LowPolyShooterPack
                     PhotonTeamsManager.Instance.TryGetTeamMembers(photonView.Owner.GetPhotonTeam(), out Player[] tmp_players);
                     foreach (Player player in tmp_players)
                     {
+                        if (player.Equals(PhotonNetwork.LocalPlayer))
+                        {
+                            continue;
+                        }
                         //如果死亡不忽略
-                        if ((bool) player.CustomProperties[EnumTools.PlayerProperties.IsDeath])
+                        if ((bool) player.CustomProperties[EnumTools.PlayerProperties.IsDeath.ToString()])
                         {
                             continue;
                         }

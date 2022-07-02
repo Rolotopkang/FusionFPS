@@ -10891,10 +10891,20 @@ PrefabInstance:
       propertyPath: RecoilOffset
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3125540441121810334, guid: f74aca7fe48489a4799606021e06ad5e,
+        type: 3}
+      propertyPath: field of view
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 3824799067356451572, guid: f74aca7fe48489a4799606021e06ad5e,
         type: 3}
       propertyPath: multiplierSpread
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832841271885223835, guid: f74aca7fe48489a4799606021e06ad5e,
+        type: 3}
+      propertyPath: field of view
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4896095704416779161, guid: f74aca7fe48489a4799606021e06ad5e,
         type: 3}
@@ -10946,6 +10956,11 @@ PrefabInstance:
       propertyPath: multiplierSpread
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8413170395283869150, guid: f74aca7fe48489a4799606021e06ad5e,
+        type: 3}
+      propertyPath: field of view
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 8499512411445614140, guid: f74aca7fe48489a4799606021e06ad5e,
         type: 3}
       propertyPath: multiplierSpread
@@ -10959,12 +10974,12 @@ PrefabInstance:
     - target: {fileID: 8953728575075974132, guid: f74aca7fe48489a4799606021e06ad5e,
         type: 3}
       propertyPath: field of view
-      value: 22
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8953728575075974132, guid: f74aca7fe48489a4799606021e06ad5e,
         type: 3}
       propertyPath: m_FOVAxisMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74aca7fe48489a4799606021e06ad5e, type: 3}

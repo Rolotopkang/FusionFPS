@@ -2395,7 +2395,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 4.25
+  field of view: 10
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -2751,13 +2751,13 @@ MonoBehaviour:
   - {fileID: 2554488223782230660}
   - {fileID: 1796827400538790323}
   - {fileID: 2812013162482759042}
-  laserIndex: 1
+  laserIndex: 0
   laserIndexRandom: 0
   laserArray:
   - {fileID: 948723590802109106}
   - {fileID: 124929100435840008}
   - {fileID: 6549006700415068072}
-  gripIndex: 1
+  gripIndex: 0
   gripIndexRandom: 0
   gripArray:
   - {fileID: 1140636260150447114}
@@ -6315,7 +6315,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 4.25
+  field of view: 10
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -6990,7 +6990,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 4.25
+  field of view: 10
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -14995,7 +14995,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 4.25
+  field of view: 10
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
