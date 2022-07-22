@@ -190,6 +190,7 @@ namespace SickscoreGames.HUDNavigationSystem
 			// create minimap image gameobject
 			GameObject imageGO = new GameObject (profile.MapTexture.name);
 			imageGO.transform.SetParent (Minimap.MapContainer, false);
+			imageGO.transform.SetAsFirstSibling();
 
 			// setup minimap image component
 			Image image = imageGO.AddComponent<Image> ();

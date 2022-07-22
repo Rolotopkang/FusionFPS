@@ -35,7 +35,7 @@ public class TextFeedBack : Element
     {
         if (playerEventManager.GethitHint)
         {
-            Debug.Log("击中！"+playerEventManager.GetHitKind.ToString());
+            // Debug.Log("击中！"+playerEventManager.GetHitKind.ToString());
             HitFeedBack(playerEventManager.GetHitKind);
         }
     }
@@ -61,7 +61,7 @@ public class TextFeedBack : Element
                 break;
         }
         crosshairFeedBack.Play();
-        Debug.Log("播放击中提示！播放的片段为"+hitKind);
+        // Debug.Log("播放击中提示！播放的片段为"+hitKind);
         playerEventManager.SethitHint(false);
     }
 

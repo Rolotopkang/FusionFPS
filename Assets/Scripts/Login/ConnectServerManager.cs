@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class ConnectServerManager : MonoBehaviourPunCallbacks
@@ -28,7 +30,6 @@ public class ConnectServerManager : MonoBehaviourPunCallbacks
         if (!connectToMaster)
         {
             PhotonNetwork.ConnectUsingSettings();
-            Debug.Log("connected to server");
             connectToMaster = true;
         }
         else
@@ -39,6 +40,26 @@ public class ConnectServerManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
+        Debug.Log("ConnectedToMaster");
+        // foreach (Player player in PhotonNetwork.PlayerList)
+        // {
+        //     Debug.Log(player.NickName);
+        //     Debug.Log(MyNickName);
+        //     Debug.Log("&&&&&&&&&&&&&");
+        //     if (player.NickName.Equals(MyNickName))
+        //     {
+        //         UI_Error.GetInstance().OpenUI_AccountWarning();
+        //         PhotonNetwork.Disconnect();
+        //         return;
+        //     }
+        // }
+        if (PhotonNetwork.CountOfPlayers >= 40)
+        {
+            UI_Error.GetInstance().OpenUI_ServerFullWarning();
+            PhotonNetwork.Disconnect();
+            connectToMaster = false;
+            return;
+        }
         PhotonNetwork.NickName = MyNickName;
         LoginUIAnimation.UIFade();
         MenuController.gameObject.SetActive(true);

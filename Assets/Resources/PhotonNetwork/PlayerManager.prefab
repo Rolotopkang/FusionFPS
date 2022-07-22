@@ -75,6 +75,8 @@ MonoBehaviour:
     type: 3}
   ScordBoardPrefab: {fileID: 7156292280753054423, guid: 23e3f9cb713821f46a7cae43970509bd,
     type: 3}
+  ScordBoardTeamPrefab: {fileID: 7156292280753054423, guid: e1d85fcd5f1eed940ac06fd038e57bef,
+    type: 3}
   HUDNavigationCanvasPrefab: {fileID: 9156171909008508716, guid: 4a62336da4f1df64bbf93c7677d9c944,
     type: 3}
   OutOfBoundWarningUIManagerPrefab: {fileID: 592006431467583086, guid: f388141edac592d4fa20d28586855451,

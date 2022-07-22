@@ -10746,11 +10746,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3928143913747436148}
     m_Modifications:
-    - target: {fileID: 76993054914599779, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 379571133237932631, guid: f74aca7fe48489a4799606021e06ad5e,
         type: 3}
       propertyPath: m_Camera
@@ -10771,31 +10766,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 8972031304953816062}
-    - target: {fileID: 584410511109373730, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: DMG
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 584410511109373730, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: spread
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 584410511109373730, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: RecoilOffset
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1216637443924775910, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1216637445152089484, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 1583202327145144684, guid: f74aca7fe48489a4799606021e06ad5e,
         type: 3}
       propertyPath: m_RootOrder
@@ -10855,131 +10825,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_LPSP_Inventory
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202824051850649813, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2375403762702049018, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: m_VolumeLayerMask.m_Bits
-      value: 2048
-      objectReference: {fileID: 0}
-    - target: {fileID: 3035315586589157072, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3080897795290413010, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: spread
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3080897795290413010, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: Recoil.x
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3080897795290413010, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: Recoil.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3080897795290413010, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: RecoilOffset
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3125540441121810334, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: field of view
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3824799067356451572, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4832841271885223835, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: field of view
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896095704416779161, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: DMG
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896095704416779161, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: spread
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4997100183151486151, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5818888137699137014, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6922153754512279363, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: DMG
-      value: 33
-      objectReference: {fileID: 0}
-    - target: {fileID: 6922153754512279363, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: spread
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6922153754512279363, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: Recoil.x
-      value: -0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6922153754512279363, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: Recoil.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8284392839982860142, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8284392840239372668, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8413170395283869150, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: field of view
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8499512411445614140, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8499512413393645950, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: multiplierSpread
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8953728575075974132, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: field of view
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8953728575075974132, guid: f74aca7fe48489a4799606021e06ad5e,
-        type: 3}
-      propertyPath: m_FOVAxisMode
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74aca7fe48489a4799606021e06ad5e, type: 3}

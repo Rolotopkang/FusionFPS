@@ -1536,7 +1536,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4210862614723059008}
         m_TargetAssemblyTypeName: LoginUIManager, Assembly-CSharp
-        m_MethodName: ChangeToUI
+        m_MethodName: ChangeToUIAndClose
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1959,7 +1959,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4210862614723059008}
         m_TargetAssemblyTypeName: LoginUIManager, Assembly-CSharp
-        m_MethodName: ChangeToUI
+        m_MethodName: ChangeToUIAndClose
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

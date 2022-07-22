@@ -17,7 +17,7 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
     [SerializeField] private GameObject ConquestModePrefab;
 
 
-    private GameModeManagerBehaviour currentGamemodeManager = null;
+    public GameModeManagerBehaviour currentGamemodeManager = null;
     public MapTools.GameMode currentGamemode;
 
     protected override void Awake()
@@ -73,7 +73,7 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                     PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
                         Vector3.zero, quaternion.identity);
                     currentGamemodeManager = Instantiate(ConquestModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
-                    Debug.Log("生成死斗模式游戏逻辑控制脚本");
+                    Debug.Log("生成征服模式游戏逻辑控制脚本");
                     currentGamemode = MapTools.GameMode.Conquest;
                     break;
                 }
@@ -132,5 +132,21 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
         }
 
         return true;
+    }
+
+    public bool isTeamMatch()
+    {
+        switch (currentGamemode)
+        {
+            case MapTools.GameMode.Conquest:
+            case MapTools.GameMode.TeamDeathMatch: 
+            case MapTools.GameMode.BombScenario:
+            case MapTools.GameMode.TeamAdversarial:
+                return true;
+            case MapTools.GameMode.DeathMatch:
+                return false;
+        }
+
+        return false;
     }
 }

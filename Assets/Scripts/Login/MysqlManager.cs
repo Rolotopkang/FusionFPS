@@ -25,7 +25,7 @@ public class MysqlManager : Singleton<MysqlManager>
     /// <summary>
 	/// 初始化数据库，利用字符串组拼方式来编写数据库的连接
 	/// </summary>
-	public static void Init()
+	public void Init()
 	{
         m_connectionString = string.Format("Server = {0};" +
                                            " port = {1};" +
@@ -42,13 +42,13 @@ public class MysqlManager : Singleton<MysqlManager>
 			{
 				//打开连接通道
 				connection.Open();
-				Debug.Log("数据库打开成功");
+                Debug.Log("数据库打开成功");
 			}
 			catch (MySqlException E)
 			{
                 //如果有异常 则连接失败
-                Debug.Log("连接失败");
-                throw new Exception(E.Message);
+                Debug.Log("数据库连接失败");
+                UI_Error.GetInstance().OpenUI_NetWorkWarning();
 			}
 			finally
 			{

@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScopeID: 3
   multiplierMouseSensitivity: 0.7
-  multiplierSpread: 0.6
+  multiplierSpread: 0.1
   sprite: {fileID: 21300000, guid: 95d5e13eee8ef0a46bc48f6b4ab7b765, type: 3}
   BTNspriteB: {fileID: 21300000, guid: 7bf3818413a66c741a086e3be2f17757, type: 3}
   BTNspriteD: {fileID: 21300000, guid: 95f2a1f05995c2f4780a673888ca89f2, type: 3}
@@ -1225,7 +1225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScopeID: 3
   multiplierMouseSensitivity: 0.7
-  multiplierSpread: 0.6
+  multiplierSpread: 0.1
   sprite: {fileID: 21300000, guid: 95d5e13eee8ef0a46bc48f6b4ab7b765, type: 3}
   BTNspriteB: {fileID: 21300000, guid: 7bf3818413a66c741a086e3be2f17757, type: 3}
   BTNspriteD: {fileID: 21300000, guid: 95f2a1f05995c2f4780a673888ca89f2, type: 3}
@@ -2395,7 +2395,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 10
+  field of view: 12
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -2662,9 +2662,9 @@ MonoBehaviour:
   automatic: 0
   boltAction: 1
   shotCount: 1
-  spread: 0.1
-  Recoil: {x: -0.1, y: 0.1}
-  RecoilOffset: 1
+  spread: 5
+  Recoil: {x: -0.5, y: 0.5}
+  RecoilOffset: 0
   projectileImpulse: 400
   DMG: 100
   roundsPerMinutes: 125
@@ -6315,7 +6315,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 10
+  field of view: 12
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -6353,7 +6353,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 2048
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -6527,7 +6527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScopeID: 1
   multiplierMouseSensitivity: 0.7
-  multiplierSpread: 0.8
+  multiplierSpread: 0.5
   sprite: {fileID: 21300000, guid: 33fe56516310cdc49977e2b9ff065a3e, type: 3}
   BTNspriteB: {fileID: 21300000, guid: 8e8b35e5d54c633469d1127ae2560265, type: 3}
   BTNspriteD: {fileID: 21300000, guid: 121c5187a1810fb4096a61c4fb82678e, type: 3}
@@ -6990,7 +6990,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 10
+  field of view: 12
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -9240,7 +9240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScopeID: 8
   multiplierMouseSensitivity: 0.7
-  multiplierSpread: 0.1
+  multiplierSpread: 0
   sprite: {fileID: 21300000, guid: 6acd80d8fdff45641ab23e3be2489ba5, type: 3}
   BTNspriteB: {fileID: 21300000, guid: e3806fd8d930a3645ac645c532218006, type: 3}
   BTNspriteD: {fileID: 21300000, guid: 59ed9c27b752f574fa2e8f6e2a9e62d0, type: 3}
@@ -10189,11 +10189,11 @@ MonoBehaviour:
   automatic: 1
   boltAction: 0
   shotCount: 1
-  spread: 0.3
+  spread: 1
   Recoil: {x: -0.1, y: 0.1}
-  RecoilOffset: 1
+  RecoilOffset: 0.5
   projectileImpulse: 400
-  DMG: 15
+  DMG: 20
   roundsPerMinutes: 750
   mask:
     serializedVersion: 2
@@ -10729,7 +10729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScopeID: 4
   multiplierMouseSensitivity: 0.7
-  multiplierSpread: 0.2
+  multiplierSpread: 0.1
   sprite: {fileID: 21300000, guid: 3dcb9a493e0eeea4d96285a3de572bb6, type: 3}
   BTNspriteB: {fileID: 21300000, guid: f7f16fadd91bd13418b4286f51134e56, type: 3}
   BTNspriteD: {fileID: 21300000, guid: 8d10a886f1f148840a8c1097e3baae60, type: 3}
@@ -11137,11 +11137,11 @@ MonoBehaviour:
   automatic: 1
   boltAction: 0
   shotCount: 1
-  spread: 0.15
-  Recoil: {x: -0.5, y: 0.5}
+  spread: 3
+  Recoil: {x: -0.2, y: 0.2}
   RecoilOffset: 1
   projectileImpulse: 400
-  DMG: 25
+  DMG: 33
   roundsPerMinutes: 610
   mask:
     serializedVersion: 2
@@ -12982,7 +12982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScopeID: 2
   multiplierMouseSensitivity: 0.7
-  multiplierSpread: 0.7
+  multiplierSpread: 0.2
   sprite: {fileID: 21300000, guid: 0e7f7770865ee0344a6742ba4edf8466, type: 3}
   BTNspriteB: {fileID: 21300000, guid: 4115b12467bd1af439f84c6d66666be3, type: 3}
   BTNspriteD: {fileID: 21300000, guid: ddfc78e2df29f50419720ceac9303352, type: 3}
@@ -14181,7 +14181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScopeID: 2
   multiplierMouseSensitivity: 0.7
-  multiplierSpread: 0.7
+  multiplierSpread: 0.2
   sprite: {fileID: 21300000, guid: 0e7f7770865ee0344a6742ba4edf8466, type: 3}
   BTNspriteB: {fileID: 21300000, guid: 4115b12467bd1af439f84c6d66666be3, type: 3}
   BTNspriteD: {fileID: 21300000, guid: ddfc78e2df29f50419720ceac9303352, type: 3}
@@ -14252,7 +14252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScopeID: 2
   multiplierMouseSensitivity: 0.7
-  multiplierSpread: 0.7
+  multiplierSpread: 0.2
   sprite: {fileID: 21300000, guid: 0e7f7770865ee0344a6742ba4edf8466, type: 3}
   BTNspriteB: {fileID: 21300000, guid: 4115b12467bd1af439f84c6d66666be3, type: 3}
   BTNspriteD: {fileID: 21300000, guid: ddfc78e2df29f50419720ceac9303352, type: 3}
@@ -14797,11 +14797,11 @@ MonoBehaviour:
   automatic: 0
   boltAction: 0
   shotCount: 1
-  spread: 0
+  spread: 5
   Recoil: {x: 0, y: 0}
   RecoilOffset: 0
   projectileImpulse: 400
-  DMG: 20
+  DMG: 15
   roundsPerMinutes: 500
   mask:
     serializedVersion: 2
@@ -14815,7 +14815,7 @@ MonoBehaviour:
   weaponOffsets:
     standingLocation: {x: 0, y: 0, z: 0}
     standingRotation: {x: 0, y: -2.5, z: 0}
-    aimingLocation: {x: 0, y: 0.01, z: 0}
+    aimingLocation: {x: 0, y: 0.2, z: 0}
     aimingRotation: {x: 0, y: 0, z: 0}
     runningLocation: {x: 0.08, y: 0.05, z: -0.02}
     runningRotation: {x: 0, y: 0, z: 0}
@@ -14995,7 +14995,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 10
+  field of view: 12
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -16214,7 +16214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScopeID: 5
   multiplierMouseSensitivity: 0.6
-  multiplierSpread: 0.1
+  multiplierSpread: 0
   sprite: {fileID: 21300000, guid: e30f4ec24e659bf4a84c1d2a08354116, type: 3}
   BTNspriteB: {fileID: 21300000, guid: e3806fd8d930a3645ac645c532218006, type: 3}
   BTNspriteD: {fileID: 21300000, guid: 59ed9c27b752f574fa2e8f6e2a9e62d0, type: 3}
@@ -16531,7 +16531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScopeID: 3
   multiplierMouseSensitivity: 0.7
-  multiplierSpread: 0.4
+  multiplierSpread: 0.1
   sprite: {fileID: 21300000, guid: 95d5e13eee8ef0a46bc48f6b4ab7b765, type: 3}
   BTNspriteB: {fileID: 21300000, guid: 7bf3818413a66c741a086e3be2f17757, type: 3}
   BTNspriteD: {fileID: 21300000, guid: 95f2a1f05995c2f4780a673888ca89f2, type: 3}

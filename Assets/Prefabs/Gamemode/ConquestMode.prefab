@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dcff413486f3240afacfc8c04ff5c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  descriptions: "\u5360\u9886\u636E\u70B9\uFF01"
   score_NormalKill: 50
   score_HeadShotKill: 100
+  occupySpeed: 0.1
 --- !u!114 &5281072618179877457
 MonoBehaviour:
   m_ObjectHideFlags: 0

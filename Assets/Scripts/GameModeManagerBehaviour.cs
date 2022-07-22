@@ -15,6 +15,9 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 /// </summary>
 public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,IInRoomCallbacks
 {
+    [Header("游戏模式描述设置选项")] 
+    [TextArea]
+    [SerializeField] private String descriptions;
     [Header("游戏模式数据设置选项")]
     [Tooltip("普通击杀得分")] 
     [SerializeField] private int score_NormalKill;
@@ -185,12 +188,22 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
 
     public virtual void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
-        Debug.Log("房间属性变化！");
+            Debug.Log("房间属性变化！");
     }
 
     public virtual void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
     }
+
+    #endregion
+
+    #region GetterSetter
+
+    public string GetGameModeDiscription => descriptions;
+
+    public int GetScore_NormalKill => score_NormalKill;
+
+    public int GetScore_HeadShotKill => score_HeadShotKill;
 
     #endregion
 }

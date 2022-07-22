@@ -126,7 +126,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 					tmp_HitData,
 					tmp_RaiseEventOptions,
 					tmp_SendOptions);
-				Debug.Log("发送击中事件！");
 			}
 			return true;
 		}
