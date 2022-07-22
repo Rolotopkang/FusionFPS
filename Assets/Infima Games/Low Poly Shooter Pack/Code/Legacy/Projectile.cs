@@ -8,8 +8,10 @@ using System.Security.Cryptography;
 using ExitGames.Client.Photon;
 using InfimaGames.LowPolyShooterPack;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine.Assertions.Comparers;
+using UnityTemplateProjects.Tools;
 using EventCode = Scripts.Weapon.EventCode;
 using Random = UnityEngine.Random;
 
@@ -48,8 +50,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		public Transform[] metalImpactPrefabs;
 		public Transform[] dirtImpactPrefabs;
 		public Transform[] concreteImpactPrefabs;
-		public Transform[] woodImoactPrefabs;
-
+		public Transform[] woodImpactPrefabs;
+		public Transform[] waterImpactPrefabs;
 		#region Static
 		
 		private float WeaponDMG;
@@ -82,15 +84,13 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		private bool HitPlayer(float DMGtime, Collision hitPlayer)
 		{
 			Player tmp_hitOwner = hitPlayer.gameObject.GetComponentInParent<PhotonView>().Owner;
-
-			// Debug.Log("hit!"+hitPlayer.gameObject.name);
+			
+			//忽略自身
 			if (tmp_hitOwner.Equals(projectileOwner))
 			{
-				// Physics.IgnoreCollision(projectileCollider,hitPlayer.collider);
-				// Debug.Log(tmp_hitOwner+"忽略！"+projectileOwner+"的");
 				return false;
 			}
-			
+
 			//溅血特效
 			if (!tmp_hitOwner.Equals(PhotonNetwork.LocalPlayer))
 			{
@@ -99,10 +99,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 					Quaternion.LookRotation(hitPlayer.contacts[0].normal)).gameObject;
 				tmp_Impact.transform.parent = hitPlayer.transform;
 			}
-			 
-
-			//TODO 队友伤害关闭
-
+			
 			//向photon网络发送击中事件
 			if (PhotonNetwork.LocalPlayer.Equals(projectileOwner))
 			{
@@ -129,7 +126,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 					tmp_HitData,
 					tmp_RaiseEventOptions,
 					tmp_SendOptions);
-				Debug.Log("发送击中事件！");
 			}
 			return true;
 		}
@@ -157,6 +153,19 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				//  Debug.Log("碰撞销毁了！");
 				//  Destroy(gameObject);
 			 // }
+			 
+			 
+			 
+			 //默认
+			 if (collision.transform.tag.Equals("Untagged"))
+			 {
+				 //Instantiate random impact prefab from array
+				 Instantiate(woodImpactPrefabs[Random.Range
+						 (0, woodImpactPrefabs.Length)], transform.position,
+					 Quaternion.LookRotation(collision.contacts[0].normal));
+				 //Destroy bullet object
+				 Destroy(gameObject);
+			 }
 		
 			//If bullet collides with "Metal" tag
 			if (collision.transform.tag.Equals("Metal"))
@@ -187,8 +196,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			{
 
 				//Instantiate random impact prefab from array
-				Instantiate(woodImoactPrefabs[Random.Range
-						(0, woodImoactPrefabs.Length)], transform.position,
+				Instantiate(woodImpactPrefabs[Random.Range
+						(0, woodImpactPrefabs.Length)], transform.position,
 					Quaternion.LookRotation(collision.contacts[0].normal));
 				//Destroy bullet object
 				Destroy(gameObject);
@@ -202,6 +211,16 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				Instantiate(concreteImpactPrefabs[Random.Range
 						(0, concreteImpactPrefabs.Length)], transform.position,
 					Quaternion.LookRotation(collision.contacts[0].normal));
+				//Destroy bullet object
+				Destroy(gameObject);
+			}
+			
+			//If bullet collides with "Concrete" tag
+			if (collision.transform.tag.Equals("Water"))
+			{
+				//Instantiate random impact prefab from array
+				Instantiate(waterImpactPrefabs[Random.Range
+						(0, waterImpactPrefabs.Length)], collision.contacts[0].point + Vector3.up.normalized*0.01f, Quaternion.Euler(Vector3.up));
 				//Destroy bullet object
 				Destroy(gameObject);
 			}

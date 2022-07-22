@@ -1,5 +1,8 @@
 //Copyright 2022, Infima Games. All Rights Reserved.
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
 using UnityEngine;
@@ -44,7 +47,26 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private AudioClip audioClipRunning;
 
+        [Header("脚步特效")]
+        [SerializeField] private Transform waterRipples;
+
+        [SerializeField] private float waterRipplesTime;
+
+        [SerializeField] private float waterRipplesLastTime;
+
+
+        private Coroutine coroutine_aterRipples;
+        
         private LoacalChanger _loacalChanger;
+
+        private Ray checkRay;
+        
+        private RaycastHit[] rayInfo;
+
+        private bool touchWater;
+
+        private Vector3 touchPoint; 
+        
         #endregion
         
         #region UNITY
@@ -61,7 +83,7 @@ namespace InfimaGames.LowPolyShooterPack
                 audioSource.clip = audioClipWalking;
                 audioSource.loop = true;   
             }
-
+            
             _loacalChanger = GetComponent<LoacalChanger>();
             
             
@@ -107,9 +129,64 @@ namespace InfimaGames.LowPolyShooterPack
                 audioSource.Pause();
                 photonView.RPC(nameof(PauseSound),RpcTarget.Others);
             }
-               
+
+            //检测脚下材质
+            GroundMaterialCheck();
+
+            MaterialProformance();
         }
 
+        private void GroundMaterialCheck()
+        {
+            touchWater = false;
+            touchPoint = new Vector3();
+            
+            checkRay = new Ray(gameObject.transform.position + Vector3.up.normalized*1.5f, Vector3.down*1.5f);
+            Debug.DrawRay(gameObject.transform.position + Vector3.up.normalized*1.5f, Vector3.down*1.5f,Color.red,1);
+            rayInfo = Physics.RaycastAll(checkRay, 1.5f,  1<<LayerMask.NameToLayer("Water"));
+            foreach (RaycastHit hit in rayInfo)
+            {
+                if (hit.transform.tag.Equals("Water"))
+                {
+                    touchWater = true;
+                    touchPoint = hit.collider.transform.position;
+                }
+            }
+        }
+
+        private void MaterialProformance()
+        {
+            if (touchWater)
+            {
+                if (coroutine_aterRipples == null)
+                {
+                    coroutine_aterRipples = StartCoroutine(WaterProformance());
+                }
+            }
+        }
+
+        private IEnumerator WaterProformance()
+        {
+            Instantiate(waterRipples,
+                new Vector3(transform.position.x, touchPoint.y+0.01f,transform.position.z),
+                Quaternion.Euler(Vector3.up)).gameObject.AddComponent<destroyMe>().deathtimer = waterRipplesLastTime;
+            while (true)
+            {
+                yield return new WaitForSeconds(waterRipplesTime);
+                Transform tmp_vx = Instantiate(waterRipples,
+                            new Vector3(transform.position.x, touchPoint.y+0.01f,transform.position.z),
+                            Quaternion.Euler(Vector3.up));
+                tmp_vx.gameObject.AddComponent<destroyMe>().deathtimer = waterRipplesLastTime;
+                
+                if (!touchWater)
+                {
+                    coroutine_aterRipples = null;
+                    yield break;
+                }
+            }
+            
+        }
+        
         [PunRPC]
         private void playSound()
         {

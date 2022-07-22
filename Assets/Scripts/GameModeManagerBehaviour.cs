@@ -10,36 +10,43 @@ using Photon.Realtime;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
+/// <summary>
+/// 游戏模式基类
+/// </summary>
 public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,IInRoomCallbacks
 {
+    [Header("游戏模式描述设置选项")] 
+    [TextArea]
+    [SerializeField] private String descriptions;
     [Header("游戏模式数据设置选项")]
     [Tooltip("普通击杀得分")] 
     [SerializeField] private int score_NormalKill;
     [Tooltip("爆头击杀分数")]
     [SerializeField] private int score_HeadShotKill;
 
-    private bool isMaster = false;
-    private float time;
+    protected bool isMaster = false;
+    protected float time;
 
-    private void OnEnable()
+    protected void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         PhotonNetwork.RemoveCallbackTarget(this);
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         isMaster = PhotonNetwork.LocalPlayer.IsMasterClient;
     }
 
     private void Update()
     {
-        //所有都执行
+        //没帧执行
         TickAll();
+        //每秒执行
         TickSec();
         //伪权威执行
         if(!isMaster) return;
@@ -103,7 +110,7 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
     /// <param name="playerProperties">更改的类型</param>
     /// <param name="set">设置值（int）</param>
     /// <param name="isAdd">是否是在原属性上修改</param>
-    private void SetPlayerIntProperties(Player player, EnumTools.PlayerProperties playerProperties ,int set ,bool isAdd)
+    protected void SetPlayerIntProperties(Player player, EnumTools.PlayerProperties playerProperties ,int set ,bool isAdd)
     {
         int oldSet;
         
@@ -130,12 +137,13 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
         // Debug.Log(player.NickName+"角色的"+playerProperties+"设置为"+set);
     }
     
-    private void SetPlayerBoolProperties(Player player, EnumTools.PlayerProperties playerProperties ,bool set)
+    protected void SetPlayerBoolProperties(Player player, EnumTools.PlayerProperties playerProperties ,bool set)
     {
         Hashtable hash = new Hashtable();
         hash.Add(playerProperties.ToString(),set);
         player.SetCustomProperties(hash);
     }
+    
     
     #endregion
     
@@ -153,34 +161,49 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
                 break;
         }
     }
-    public void OnMasterClientSwitched(Player newMasterClient)
+    public virtual void OnMasterClientSwitched(Player newMasterClient)
     {
         if (PhotonNetwork.LocalPlayer.IsMasterClient) { isMaster = true; }
     }
 
-    public void OnPlayerEnteredRoom(Player newPlayer)
+    public virtual void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log(newPlayer.NickName+"加入了房间");
-        //初始化玩家属性
-        SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_kill,0,true);
-        SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_Death,0,true);
-        SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_Ping,999,false);
-        newPlayer.SetScore(0);
+        //伪权威执行
+        if (isMaster)
+        {
+            //初始化玩家属性
+            SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_kill,0,true);
+            SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_Death,0,true);
+            SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_Ping,999,false);
+            newPlayer.SetScore(0);
+        }
     }
 
-    public void OnPlayerLeftRoom(Player otherPlayer)
+
+    public virtual void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log(otherPlayer.NickName+"退出了房间");
     }
 
-    public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    public virtual void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
-        Debug.Log("房间属性变化！");
+            Debug.Log("房间属性变化！");
     }
 
-    public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    public virtual void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
     }
+
+    #endregion
+
+    #region GetterSetter
+
+    public string GetGameModeDiscription => descriptions;
+
+    public int GetScore_NormalKill => score_NormalKill;
+
+    public int GetScore_HeadShotKill => score_HeadShotKill;
 
     #endregion
 }

@@ -146,7 +146,7 @@ public class ExampleInteractions : MonoBehaviour
 					ChangePrismColor (element, randomColor);
 				}
 			}
-		} else {
+		} else if(!(Physics.Raycast (transform.position, transform.TransformDirection (Vector3.forward), out hit, interactionDistance, layerMask) && hit.collider.name.Contains ("Prism"))){
 			// reset interaction text
 			if (interactionText != null) {
 				interactionText.gameObject.SetActive (false);

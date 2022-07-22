@@ -26,6 +26,7 @@ TagManager:
   - Fracture
   - DeployCM
   - CMBrain
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Invisible UI
   - Wall
   - Third Person View
   - First Person View

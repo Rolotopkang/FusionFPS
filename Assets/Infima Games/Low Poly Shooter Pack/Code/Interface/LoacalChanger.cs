@@ -23,6 +23,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         [Tooltip("Canvas prefab spawned at start. Displays the player's user interface.")]
         [SerializeField]
         private GameObject canvasPrefab;
+
+        [SerializeField]
+        private AudioSource _audioSource;
         
         [SerializeField]
         private List<MonoBehaviour> LocalScripts;
@@ -131,11 +134,13 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
             // Destroy(Settings);
             FP.SetActive(false);
-
+            
             foreach (MonoBehaviour behaviour in DeathScripts)
             {
                 behaviour.enabled = false;
             }
+
+            _audioSource.enabled = false;
         }
         #endregion
     }

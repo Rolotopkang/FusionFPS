@@ -1,7 +1,10 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 using UnityEngine;
+using UnityTemplateProjects.Tools;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -438,10 +441,32 @@ namespace InfimaGames.LowPolyShooterPack
                 tpSynchronization.InstantiateProjectile(playerCamera.position,rotation,projectileImpulse);
                 
                 //忽略自身碰撞
-
                 foreach (Collider collider in Colliders)
                 {
                     Physics.IgnoreCollision(projectile.GetComponent<Collider>(),collider);
+                }
+                
+                //忽略队友
+                if (!RoomManager.GetInstance().isFriendlyFire())
+                {
+                    PhotonTeamsManager.Instance.TryGetTeamMembers(photonView.Owner.GetPhotonTeam(), out Player[] tmp_players);
+                    foreach (Player player in tmp_players)
+                    {
+                        if (player.Equals(PhotonNetwork.LocalPlayer))
+                        {
+                            continue;
+                        }
+                        //如果死亡不忽略
+                        if ((bool) player.CustomProperties[EnumTools.PlayerProperties.IsDeath.ToString()])
+                        {
+                            continue;
+                        }
+                        Collider[] tmp_colliders = ServiceLocator.Current.Get<IGameModeService>().GetPlayerGameObject(player).GetComponentInChildren<RagdollController>().GetColliders;
+                        foreach (Collider collider in tmp_colliders)
+                        {
+                            Physics.IgnoreCollision(projectile.GetComponent<Collider>(),collider);
+                        }
+                    }
                 }
                 //Add velocity to the projectile.
                 projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;

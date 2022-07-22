@@ -1244,7 +1244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4210862613496716605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 549.0345, y: 781.1383, z: -828.7642}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4210862613371932642}
@@ -1536,7 +1536,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4210862614723059008}
         m_TargetAssemblyTypeName: LoginUIManager, Assembly-CSharp
-        m_MethodName: ChangeToUI
+        m_MethodName: ChangeToUIAndClose
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1959,7 +1959,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4210862614723059008}
         m_TargetAssemblyTypeName: LoginUIManager, Assembly-CSharp
-        m_MethodName: ChangeToUI
+        m_MethodName: ChangeToUIAndClose
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

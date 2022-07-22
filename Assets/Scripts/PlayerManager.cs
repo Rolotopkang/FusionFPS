@@ -29,7 +29,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     [SerializeField]
     private GameObject ScordBoardPrefab;
     [SerializeField]
+    private GameObject ScordBoardTeamPrefab;
+    [SerializeField]
     private GameObject HUDNavigationCanvasPrefab;
+    [SerializeField]
+    private GameObject OutOfBoundWarningUIManagerPrefab;
     
 
     private PhotonView photonView;
@@ -38,7 +42,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject KillhintUI;
     private GameObject KillFeedBackRoom;
 
-    
+
     private DeployManager DeployManager;
 
     private String DeployMainWeapon;
@@ -82,7 +86,17 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             DeathUI.SetActive(false);
             KillhintUI = Instantiate(KillhintUIPrefab, transform);
             KillFeedBackRoom = Instantiate(KillFeedBackRoomPrefab, transform);
-            Instantiate(ScordBoardPrefab, transform);
+            Instantiate(OutOfBoundWarningUIManagerPrefab, transform);
+
+            if (RoomManager.GetInstance().isTeamMatch())
+            {
+                Instantiate(ScordBoardTeamPrefab, transform);
+            }
+            else
+            {
+                Instantiate(ScordBoardPrefab, transform);
+            }
+            
         }
         gameModeService = ServiceLocator.Current.Get<IGameModeService>();
         weaponInfoService = ServiceLocator.Current.Get<IWeaponInfoService>();
@@ -188,7 +202,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         //仅在本地执行
         if (photonView.Owner.Equals(PhotonNetwork.LocalPlayer))
         {
-            Debug.Log("显示房间死亡讯息");
+            // Debug.Log("显示房间死亡讯息");
             UIKillFeedBackRoomManager.CreateKillFeedbackRoom(
                 new UIKillFeedBackRoom.RoomKillMes(
                     tmp_deathPlayer.NickName,

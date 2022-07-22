@@ -94,7 +94,6 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
         //造成伤害UI提示
         if (tmp_DMGFrom.Equals(PhotonNetwork.LocalPlayer))
         {
-            Debug.Log("准备播放击中");
             hitHint = true;
             HitKind = tmp_headShot ? EnumTools.HitKinds.headShot : EnumTools.HitKinds.normal;
         }
@@ -104,7 +103,6 @@ public class EventManager : MonoBehaviourPun,IOnEventCallback
         if (tmp_hitPlayer.Equals(PhotonNetwork.LocalPlayer))
         {
             UIDamageIndecatorManager.CreateIndicator(gameModeService.GetPlayerGameObject(tmp_DMGFrom).transform);
-            Debug.Log("显示伤害来源！");
             //扣血
             if (Battle.Damage(tmp_DMG))
             {

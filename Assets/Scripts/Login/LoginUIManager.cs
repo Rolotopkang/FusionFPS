@@ -12,7 +12,7 @@ public class LoginUIManager : MonoBehaviour
 
     public bool IsSetting = false;
 
-    private void Awake()
+    protected void Awake()
     {
         UIList[currentUI].SetActive(true);
     }
@@ -43,9 +43,25 @@ public class LoginUIManager : MonoBehaviour
         {
             return;
         }
-        UIList[currentUI].SetActive(false);
+        if (currentUI != -1)
+        {
+            UIList[currentUI].SetActive(false);
+        }
         currentUI = set;
         UIList[currentUI].SetActive(true);
+    }
+
+    public void ChangeToUIAndClose(int set)
+    {
+        if (set.Equals(currentUI))
+        {
+            UIList[currentUI].SetActive(false);
+            currentUI = -1;
+        }
+        else
+        {
+            ChangeToUI(set);
+        }
     }
 
     public void CloseUI()

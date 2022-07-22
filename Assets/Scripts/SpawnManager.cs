@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityTemplateProjects.Tools;
 
 public class SpawnManager : Singleton<SpawnManager>
 {
+    private MapTools.GameMode spawnMode = MapTools.GameMode.DeathMatch;
     
     private SpawnPoint[] SpawnPoints;
     
+
     protected override void Awake()
     {
         base.Awake();
@@ -33,4 +36,13 @@ public class SpawnManager : Singleton<SpawnManager>
         
         return tmp_spawnPoints[Random.Range(0,tmp_spawnPoints.Count)].transform;
     }
+
+
+    #region Setter
+
+    public void SetSpawnMode(MapTools.GameMode set)
+    {
+        this.spawnMode = set;
+    }
+    #endregion
 }
