@@ -13,11 +13,13 @@ public class HUDInputSystem : MonoBehaviour
     #region Minimap
 
     [SerializeField]
+    [Header("地图缩放设置")]
     [Tooltip("地图最大尺寸")]
     private float MaxScale = 0.2f;
     private float CurrentScale = 0f;
-    
-    
+    private float CurrentRadius = 0f;
+
+
     private Animation minimapAnimation;
     private bool isMiniMapOpen =false;
 
@@ -29,6 +31,7 @@ public class HUDInputSystem : MonoBehaviour
         _HUDNavigationSystem = HUDNavigationSystem.Instance;
         _HUDNavigationCanvas = HUDNavigationCanvas.Instance;
         minimapAnimation = _HUDNavigationCanvas.Minimap.Panel.GetComponent<Animation>();
+        CurrentRadius = _HUDNavigationSystem.minimapRadius;
     }
 
     public void OnTryMinimap(InputAction.CallbackContext context)
@@ -52,7 +55,11 @@ public class HUDInputSystem : MonoBehaviour
     private IEnumerator MinimapOpen()
     {
         if (!isMiniMapOpen)
+        {
             CurrentScale = _HUDNavigationSystem.minimapScale;
+        }
+
+        _HUDNavigationSystem.minimapRadius =isMiniMapOpen? CurrentRadius :500f;
         while (minimapAnimation.isPlaying)
         {
             _HUDNavigationSystem.minimapScale = !isMiniMapOpen?

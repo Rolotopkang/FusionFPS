@@ -47,7 +47,7 @@ MonoBehaviour:
   minimapProfile: {fileID: 11400000, guid: 4a861488701674247b006357d0b37dd8, type: 2}
   minimapMode: 1
   minimapScale: 0.3
-  minimapRadius: 75
+  minimapRadius: 35
   useMinimapScaling: 1
   minimapScaleDistance: 15
   minimapMinScale: 0.8
