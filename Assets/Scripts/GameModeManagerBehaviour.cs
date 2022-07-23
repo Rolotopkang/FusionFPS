@@ -24,17 +24,28 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
     [Tooltip("爆头击杀分数")]
     [SerializeField] private int score_HeadShotKill;
 
+
+    public static Action<PlayerManager> AddPlayerManager = delegate{  };
+    private List<PlayerManager> _playerManagers;
     protected bool isMaster = false;
     protected float time;
+
+
+    private void Awake()
+    {
+        _playerManagers = new List<PlayerManager>();
+    }
 
     protected void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
+        AddPlayerManager += AddPlayerManagerMethod;
     }
 
     protected void OnDisable()
     {
         PhotonNetwork.RemoveCallbackTarget(this);
+        AddPlayerManager -= AddPlayerManagerMethod;
     }
 
     protected virtual void Start()
@@ -74,7 +85,7 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
 
     protected virtual void TickMaster()
     {
-        
+       
     }
     
 
@@ -143,7 +154,24 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
         hash.Add(playerProperties.ToString(),set);
         player.SetCustomProperties(hash);
     }
-    
+
+    public void AddPlayerManagerMethod(PlayerManager playerManager)
+    {
+        _playerManagers.Add(playerManager);
+    }
+
+    public PlayerManager GetPlayerManager(Player player)
+    {
+        foreach (PlayerManager playerManager in _playerManagers)
+        {
+            if (playerManager.Owner.Equals(player))
+            {
+                return playerManager;
+            }
+        }
+
+        return null;
+    }
     
     #endregion
     

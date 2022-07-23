@@ -70,11 +70,11 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                 case "Conquest":
                 {
                     Debug.Log("征服模式！");
-                    PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
-                        Vector3.zero, quaternion.identity);
                     currentGamemodeManager = Instantiate(ConquestModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
                     Debug.Log("生成征服模式游戏逻辑控制脚本");
                     currentGamemode = MapTools.GameMode.Conquest;
+                    PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
+                        Vector3.zero, quaternion.identity);
                     break;
                 }
                 case "BombScenario":
@@ -90,11 +90,11 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                 case "DeathMatch":
                 {
                     Debug.Log("死斗模式！");
-                    PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
-                        Vector3.zero, quaternion.identity);
                     currentGamemodeManager = Instantiate(DeathMatchModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
                     Debug.Log("生成死斗模式游戏逻辑控制脚本");
                     currentGamemode = MapTools.GameMode.DeathMatch;
+                    PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
+                        Vector3.zero, quaternion.identity);
                     break;
                 }
                 case "TeamDeathMatch":

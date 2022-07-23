@@ -84,6 +84,11 @@ public class M_KillZone : MonoBehaviour
         Sentenced();
     }
 
+    public void DEBUGSentenced()
+    {
+        Sentenced();
+    }
+    
     private void Sentenced()
     {
         if (PhotonNetwork.LocalPlayer.CustomProperties[EnumTools.PlayerProperties.IsDeath.ToString()].Equals(true))
