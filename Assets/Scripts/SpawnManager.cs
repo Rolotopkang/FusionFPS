@@ -8,6 +8,7 @@ public class SpawnManager : Singleton<SpawnManager>
 {
     private MapTools.GameMode spawnMode = MapTools.GameMode.DeathMatch;
     
+    
     private SpawnPoint[] SpawnPoints;
     
 
@@ -19,6 +20,15 @@ public class SpawnManager : Singleton<SpawnManager>
 
     public Transform GetSpawnPoint()
     {
+        //如果是
+        if (RoomManager.GetInstance().currentGamemode.Equals(MapTools.GameMode.Conquest))
+        {
+            return
+                ConquestPointManager.GetInstance()
+                    .GetConquestPointBirthTransform(DeployChoiceManager.GetInstance().GetSelectedPoint().ToString());
+        }
+        
+        
         List<SpawnPoint> tmp_spawnPoints = new List<SpawnPoint>();
         foreach (SpawnPoint spawnPoint in SpawnPoints)
         {
@@ -36,7 +46,7 @@ public class SpawnManager : Singleton<SpawnManager>
         
         return tmp_spawnPoints[Random.Range(0,tmp_spawnPoints.Count)].transform;
     }
-
+    
 
     #region Setter
 

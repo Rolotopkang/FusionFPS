@@ -37,7 +37,6 @@ public class DeathUIManager : MonoBehaviour
     private void OnEnable()
     {
         maskImgNum = UnityEngine.Random.Range(1, MaskIMG.transform.childCount);
-        Debug.Log(MaskIMG.transform.childCount);
         maskImgList[maskImgNum].gameObject.SetActive(true);
     }
 

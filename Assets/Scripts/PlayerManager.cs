@@ -34,13 +34,15 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject HUDNavigationCanvasPrefab;
     [SerializeField]
     private GameObject OutOfBoundWarningUIManagerPrefab;
-    
 
+
+    public Player Owner;
     private PhotonView photonView;
     private GameObject DeployUI;
     private GameObject DeathUI;
     private GameObject KillhintUI;
     private GameObject KillFeedBackRoom;
+    private bool canDeploy = true;
 
 
     private DeployManager DeployManager;
@@ -68,10 +70,12 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
+        Owner = photonView.Owner;
     }
 
     private void Start()
     {
+        RoomManager.GetInstance().currentGamemodeManager.AddPlayerManagerMethod(this);
         if (photonView.IsMine)
         {
             DeployUI = transform.GetChild(0).gameObject;
@@ -96,13 +100,12 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             {
                 Instantiate(ScordBoardPrefab, transform);
             }
-            
+            _HUDNavigationSystem = HUDNavigationSystem.Instance;
+            HUDNavigationCanvas = HUDNavigationCanvas.Instance;
+            HUDNavigationCanvas.EnableCanvas(false);
         }
         gameModeService = ServiceLocator.Current.Get<IGameModeService>();
         weaponInfoService = ServiceLocator.Current.Get<IWeaponInfoService>();
-        _HUDNavigationSystem = HUDNavigationSystem.Instance;
-        HUDNavigationCanvas = HUDNavigationCanvas.Instance;
-        HUDNavigationCanvas.EnableCanvas(false);
     }
     
     private void OnEnable()
@@ -184,9 +187,9 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                 DeathUI.SetActive(true);
                 //更新后处理效果
                 
-                //10秒后重新部署
+                //5秒后重新部署
                 //TODO
-                Invoke("OnBTNReborn",10);
+                Invoke("OnBTNReborn",5);
             }
         
             //双端执行:
@@ -229,10 +232,29 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     
     public void OnBTNDeploy()
     {
-        DeployUI.SetActive(false);
+        if(!canDeploy)
+            return;
+        
         tmp_Spawnpoint = SpawnManager.GetInstance().GetSpawnPoint();
+        if (tmp_Spawnpoint == null)
+        {
+            Debug.LogWarning("没有选择点位！");
+            return;
+        }
+        
+        //部署锁打开
+        canDeploy = false;
         
         
+        //关闭UI
+        DeployUI.SetActive(false);
+        //如果是征服模式
+        if (RoomManager.GetInstance().currentGamemode.Equals(MapTools.GameMode.Conquest))
+        {
+            DeployChoiceManager.GetInstance().Canvas.gameObject.SetActive(false);
+        }
+
+        //获取部署武器
         DeployMainWeapon = DeployManager.getChosedMainWeapon();
         DeploySecWeapon = DeployManager.getChosedSecWeapon();
 
@@ -273,8 +295,13 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         Debug.Log("等待相机");
         yield return new WaitUntil(() => MainCM.GetComponent<MainCameraController>().isLocated);
         Debug.Log("相机到位");
-        
         DeployUI.SetActive(true);
+        //如果是征服模式
+        if (RoomManager.GetInstance().currentGamemode.Equals(MapTools.GameMode.Conquest))
+        {
+            DeployChoiceManager.GetInstance().Canvas.gameObject.SetActive(true);
+        }
+        canDeploy = true;
     }
 
     private IEnumerator Deploy()

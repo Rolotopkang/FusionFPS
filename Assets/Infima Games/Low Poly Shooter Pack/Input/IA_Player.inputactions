@@ -193,6 +193,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DEBUG_DEATH",
+                    "type": "Button",
+                    "id": "be56e20a-bae5-4254-9957-cd61137e6af7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -677,6 +686,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Minimap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "01084757-1c8f-4008-afd6-a7457d013707",
+                    "path": "<Keyboard>/numpad4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DEBUG_DEATH",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

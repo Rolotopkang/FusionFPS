@@ -7,6 +7,11 @@ using UnityTemplateProjects.Tools;
 
 public class ConquestPointManager : SingletonPunCallbacks<ConquestPointManager>
 {
+    [SerializeField]
+    private ConquestPoint_Birth blueConquestPointBirth;
+    [SerializeField]
+    private ConquestPoint_Birth redConquestPointBirth;
+    
     private List<ConquestPoint> ConquestPoints;
     public float occupySpeed;
 
@@ -35,11 +40,11 @@ public class ConquestPointManager : SingletonPunCallbacks<ConquestPointManager>
     
     #region Funtions
 
-    public ConquestPoint GetConquestPointThroughName(string name)
+    public ConquestPoint GetConquestPointThroughName(string pointName)
     {
         foreach (ConquestPoint conquestPoint in ConquestPoints)
         {
-            if (conquestPoint.pointName.ToString().Equals(name))
+            if (conquestPoint.pointName.ToString().Equals(pointName))
             {
                 return conquestPoint;
             }
@@ -47,6 +52,26 @@ public class ConquestPointManager : SingletonPunCallbacks<ConquestPointManager>
         return null;
     }
 
+    public Transform GetConquestPointBirthTransform(string pointName)
+    {
+        if (pointName.Equals(EnumTools.ConquestPoints.BlueBirth.ToString()))
+        {
+            return blueConquestPointBirth.GetBirthPoint();
+        }
+        if (pointName.Equals(EnumTools.ConquestPoints.RedBirth.ToString()))
+        {
+            return redConquestPointBirth.GetBirthPoint();
+        }
+        foreach (ConquestPoint conquestPoint in ConquestPoints)
+        {
+            if (conquestPoint.pointName.ToString().Equals(pointName))
+            {
+                return conquestPoint.GetBirthPoint();
+            }
+        }
+        return null;
+    }
+    
     public void InitConquestPoints()
     {
         foreach (ConquestPoint conquestPoint in ConquestPoints)

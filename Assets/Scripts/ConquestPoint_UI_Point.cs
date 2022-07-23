@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using Unity.Profiling.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +25,9 @@ public class ConquestPoint_UI_Point : MonoBehaviour
     private Text pointNameText;
 
     private GameObject selectedAble;
-    
+    private bool canDeploy =false;
+    public bool GetCanDeploy => canDeploy;
+
     private void Start()
     {
         if(!isBirthPoint)
@@ -39,6 +42,27 @@ public class ConquestPoint_UI_Point : MonoBehaviour
         {
             return;
         }
+        if (isBirthPoint && isDeployUI)
+        {
+            if (pointName == EnumTools.ConquestPoints.BlueBirth && PhotonNetwork.LocalPlayer.GetPhotonTeam()
+                .Name.Equals("Blue"))
+            {
+                canDeploy = true;
+            }else if (pointName == EnumTools.ConquestPoints.RedBirth && PhotonNetwork.LocalPlayer.GetPhotonTeam()
+                .Name.Equals("Red"))
+            {
+                canDeploy = true;
+            }
+            else
+            {
+                canDeploy = false;
+            }
+        }else if(isDeployUI)
+        {
+            canDeploy = PhotonNetwork.LocalPlayer.GetPhotonTeam().Name
+                .Equals(_conquestPoint.pointOwnerTeam.ToString());
+        }
+        
         if (isBirthPoint)
         {
             fill_image.color = GetPointColor();
@@ -69,7 +93,6 @@ public class ConquestPoint_UI_Point : MonoBehaviour
             selectedAble.SetActive(PhotonNetwork.LocalPlayer.GetPhotonTeam().Name
                 .Equals(_conquestPoint.pointOwnerTeam.ToString()));
         }
-            
     }
 
     /// <summary>
@@ -128,5 +151,5 @@ public class ConquestPoint_UI_Point : MonoBehaviour
 
         return EnumTools.GetTeamColor(EnumTools.TeamColor.None);
     }
-
+    
 }
