@@ -17,6 +17,11 @@ public class DebugInfoController : MonoBehaviourPun
     private int m_FrameCount = 0;
     private float m_FPS = 0.0f;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     private void Update()
     {
         ContingFPS();

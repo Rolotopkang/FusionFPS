@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Timers;
+using InfimaGames.LowPolyShooterPack;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityTemplateProjects.Tools;
 
-public class DeployManager : MonoBehaviour
+public class DeployManager : Singleton<DeployManager>
 {
     [SerializeField]
     private ItemButton currMainWeapon;
@@ -40,28 +44,58 @@ public class DeployManager : MonoBehaviour
     private GameObject CountDownBTN;
     [SerializeField]
     private GameObject DepolyBTN;
-    
 
+    [SerializeField] 
+    private DeployUI_Top[] DeployUITops;
+    
     [Header("部署倒计时时长")]
     [SerializeField]
     private float DePloyTimer;
 
-    private float timer;
     
-    private PlayerManager PlayerManager;
 
+
+
+    public CanvasFader canvasFader;
+    
+    
+    private float timer;
+    private float showTimer = 0;
+    public float GetShowTimer => showTimer;
+    private float maxTimer;
+    public float GetMaxDePloyTimer => maxTimer;
+    
     private void Awake()
     {
+        base.Awake();
+        canvasFader = GetComponent<CanvasFader>();
         mainWeaponBTNlist = MainWeaponPanel.GetComponentsInChildren<ItemButton>();
         secWeaponBTNlist = SecWeaponPanel.GetComponentsInChildren<ItemButton>();
-        PlayerManager = GetComponentInParent<PlayerManager>();
+        DePloyTimer = RoomManager.GetInstance().currentGamemodeManager.GetdeployWaitTime;
     }
 
-    private void OnEnable()
+    private void Start()
+    {
+        DeployUITops[ RoomManager.GetInstance().currentGamemode switch
+        {
+            MapTools.GameMode.DeathMatch => 0,
+            MapTools.GameMode.TeamDeathMatch => 1,
+            MapTools.GameMode.Conquest => 2,
+            MapTools.GameMode.TeamAdversarial => 3,
+            MapTools.GameMode.BombScenario => 4,
+
+        }].gameObject.SetActive(true);
+    }
+
+    public void OnEnable()
     {
         DepolyBTN.SetActive(false);
         CountDownBTN.SetActive(true);
+
+        //TODO 如果能部署再计时
         timer = DePloyTimer;
+        maxTimer = timer;
+        showTimer = timer;
         StartCoroutine(Time());
     }
 
@@ -77,6 +111,15 @@ public class DeployManager : MonoBehaviour
         {
             CountDownBTN.SetActive(false);
             DepolyBTN.SetActive(true);
+            RoomManager.GetInstance().currentGamemodeManager.GetPlayerManager(PhotonNetwork.LocalPlayer).SetCanDeploy(true);
+        }
+        if (showTimer > 0)
+        {
+            showTimer -= UnityEngine.Time.deltaTime;
+            if (showTimer < 0)
+            {
+                showTimer = 0;
+            }
         }
     }
 
@@ -110,12 +153,10 @@ public class DeployManager : MonoBehaviour
         }
     }
 
-
-    #region DataUpdate
-
-    
-
-    #endregion
+    public void OnDeployButton()
+    {
+        RoomManager.GetInstance().currentGamemodeManager.GetPlayerManager(PhotonNetwork.LocalPlayer).OnBTNDeploy();
+    }
 
 
     #region Tools

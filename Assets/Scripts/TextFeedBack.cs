@@ -33,10 +33,10 @@ public class TextFeedBack : Element
 
     protected override void Tick()
     {
-        if (playerEventManager.GethitHint)
+        if (PlayerPlayerEventManager.GethitHint)
         {
-            // Debug.Log("击中！"+playerEventManager.GetHitKind.ToString());
-            HitFeedBack(playerEventManager.GetHitKind);
+            // Debug.Log("击中！"+PlayerPlayerEventManager.GetHitKind.ToString());
+            HitFeedBack(PlayerPlayerEventManager.GetHitKind);
         }
     }
 
@@ -62,7 +62,7 @@ public class TextFeedBack : Element
         }
         crosshairFeedBack.Play();
         // Debug.Log("播放击中提示！播放的片段为"+hitKind);
-        playerEventManager.SethitHint(false);
+        PlayerPlayerEventManager.SethitHint(false);
     }
 
     #endregion

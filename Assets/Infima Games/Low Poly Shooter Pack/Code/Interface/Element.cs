@@ -37,7 +37,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
         protected Battle Battle;
 
-        protected EventManager playerEventManager;
+        protected PlayerEventManager PlayerPlayerEventManager;
         
         
         #endregion
@@ -62,7 +62,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             Battle ??= playerGameObject.GetComponent<Battle>();
             
             //获取角色事件管理器
-            playerEventManager ??= playerGameObject.GetComponent<EventManager>();
+            PlayerPlayerEventManager ??= playerGameObject.GetComponent<PlayerEventManager>();
             
             //Get Player Character.
             playerCharacter ??= gameModeService.GetPlayerCharacter(PhotonNetwork.LocalPlayer);

@@ -14,12 +14,15 @@ using SickscoreGames.HUDNavigationSystem;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.UI;
 using UnityTemplateProjects.Tools;
 using EventCode = Scripts.Weapon.EventCode;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerManager : MonoBehaviour,IOnEventCallback
 {
+    [SerializeField] 
+    private GameObject DeployUIPrefab;
     [SerializeField]
     private GameObject KillhintUIPrefab;
     [SerializeField]
@@ -43,6 +46,8 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject KillhintUI;
     private GameObject KillFeedBackRoom;
     private bool canDeploy = true;
+
+
 
 
     private DeployManager DeployManager;
@@ -78,16 +83,18 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         RoomManager.GetInstance().currentGamemodeManager.AddPlayerManagerMethod(this);
         if (photonView.IsMine)
         {
-            DeployUI = transform.GetChild(0).gameObject;
-            DeployManager = DeployUI.GetComponent<DeployManager>();
             MainCM = GameObject.FindWithTag("DeployCM");
             CMBrain = GameObject.FindWithTag("CMBrain");
             CinemachineVirtualCamera = MainCM.GetComponent<CinemachineVirtualCamera>();
             ComponentBase = CinemachineVirtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
             
+            DeployUI = Instantiate(DeployUIPrefab);
+            DeployManager = DeployUI.GetComponent<DeployManager>();
             DeployUI.SetActive(true);
+            
             DeathUI = Instantiate(DeathUIPrefab, transform);
             DeathUI.SetActive(false);
+            
             KillhintUI = Instantiate(KillhintUIPrefab, transform);
             KillFeedBackRoom = Instantiate(KillFeedBackRoomPrefab, transform);
             Instantiate(OutOfBoundWarningUIManagerPrefab, transform);
@@ -100,6 +107,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             {
                 Instantiate(ScordBoardPrefab, transform);
             }
+            
             _HUDNavigationSystem = HUDNavigationSystem.Instance;
             HUDNavigationCanvas = HUDNavigationCanvas.Instance;
             HUDNavigationCanvas.EnableCanvas(false);
@@ -247,11 +255,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         
         
         //关闭UI
-        DeployUI.SetActive(false);
+        DeployManager.canvasFader.FadeOut(1f);
         //如果是征服模式
         if (RoomManager.GetInstance().currentGamemode.Equals(MapTools.GameMode.Conquest))
         {
-            DeployChoiceManager.GetInstance().Canvas.gameObject.SetActive(false);
+            DeployChoiceManager.GetInstance().CanvasFader.FadeOut(1f);
         }
 
         //获取部署武器
@@ -295,13 +303,12 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         Debug.Log("等待相机");
         yield return new WaitUntil(() => MainCM.GetComponent<MainCameraController>().isLocated);
         Debug.Log("相机到位");
-        DeployUI.SetActive(true);
+        DeployManager.canvasFader.FadeIn(0.5f);
         //如果是征服模式
         if (RoomManager.GetInstance().currentGamemode.Equals(MapTools.GameMode.Conquest))
         {
-            DeployChoiceManager.GetInstance().Canvas.gameObject.SetActive(true);
+            DeployChoiceManager.GetInstance().CanvasFader.FadeIn(0.5f,DeployManager.GetInstance().OnEnable);
         }
-        canDeploy = true;
     }
 
     private IEnumerator Deploy()
@@ -341,6 +348,10 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     public String GetDeployMainWeapon() => DeployMainWeapon;
     public String GetDeploySecWeapon() => DeploySecWeapon;
 
+    public void SetCanDeploy(bool set)
+    {
+        canDeploy = set;
+    } 
 
     #region Events
 

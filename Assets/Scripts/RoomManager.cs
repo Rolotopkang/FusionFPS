@@ -17,14 +17,12 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
     [SerializeField] private GameObject ConquestModePrefab;
 
 
+    private bool isLogin = false;
     public GameModeManagerBehaviour currentGamemodeManager = null;
     public MapTools.GameMode currentGamemode;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        DontDestroyOnLoad(this);
-    }
+
+    #region Unity
 
     public override void OnEnable()
     {
@@ -37,12 +35,16 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
     //     base.OnDisable();
     //     SceneManager.sceneLoaded -= OnSceneLoaded;
     // }
-
+    
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
         Debug.Log("SceneLoaded!");
         CheckScene(scene);
     }
+    
+    #endregion
+
+    #region Photon
 
     public override void OnLeftRoom()
     {
@@ -50,8 +52,17 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
         currentGamemodeManager = null;
     }
 
+    #endregion
+
+    #region Functions
+
     private void CheckScene(Scene scene)
     {
+        if (scene.buildIndex.Equals(0))
+        {
+            Debug.Log("跳转至主页");
+            
+        }
         if (!PhotonNetwork.InRoom)
         {
             Debug.Log("不在房间内");
@@ -115,7 +126,10 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
         
     }
 
+    #endregion
 
+    #region Attributes
+    
     public bool isFriendlyFire()
     {
         //TODO 如果房间允许队伤则返回true
@@ -149,4 +163,6 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
 
         return false;
     }
+
+    #endregion
 }

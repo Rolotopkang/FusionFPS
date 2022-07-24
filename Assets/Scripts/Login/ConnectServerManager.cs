@@ -5,26 +5,20 @@ using System.IO;
 using System.Linq;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine;
+using UnityEngine;using UnityTemplateProjects.Tools;
 
-public class ConnectServerManager : MonoBehaviourPunCallbacks
+public class ConnectServerManager : SingletonPunCallbacks<ConnectServerManager>
 {
     public LoginUIManager loginUIManager;
     private bool connectToMaster = false;
     private String MyNickName="error";
-
-
 
     [SerializeField]
     private LoginUIAnimation LoginUIAnimation;
 
     [SerializeField]
     private MenuController MenuController;
-
-    private void Awake()
-    {
-        // DontDestroyOnLoad(this);
-    }
+    
     public void ConnectToServer()
     {
         if (!connectToMaster)

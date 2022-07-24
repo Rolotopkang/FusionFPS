@@ -414,7 +414,6 @@ MonoBehaviour:
   delay: 0
   soundType: 5
   attachToParent: 1
-  beSyn: 0
   audioSettings:
     automaticCleanup: 1
     volume: 1
@@ -533,7 +532,6 @@ MonoBehaviour:
   delay: 0
   soundType: 11
   attachToParent: 1
-  beSyn: 0
   audioSettings:
     automaticCleanup: 1
     volume: 1
@@ -955,7 +953,6 @@ MonoBehaviour:
   delay: 0
   soundType: 4
   attachToParent: 1
-  beSyn: 0
   audioSettings:
     automaticCleanup: 1
     volume: 1
@@ -1179,7 +1176,6 @@ MonoBehaviour:
   delay: 0
   soundType: 7
   attachToParent: 1
-  beSyn: 0
   audioSettings:
     automaticCleanup: 1
     volume: 1
@@ -1443,7 +1439,6 @@ MonoBehaviour:
   delay: 0
   soundType: 6
   attachToParent: 1
-  beSyn: 0
   audioSettings:
     automaticCleanup: 1
     volume: 1
@@ -1952,7 +1947,6 @@ MonoBehaviour:
   delay: 0
   soundType: 7
   attachToParent: 1
-  beSyn: 0
   audioSettings:
     automaticCleanup: 1
     volume: 1
@@ -2687,7 +2681,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Reload
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101599710554910814}
@@ -3436,7 +3430,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Reload Empty
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5599498643489839087}
@@ -3728,7 +3722,6 @@ MonoBehaviour:
   delay: 0
   soundType: 9
   attachToParent: 1
-  beSyn: 0
   audioSettings:
     automaticCleanup: 1
     volume: 1
@@ -4671,7 +4664,6 @@ MonoBehaviour:
   delay: 0
   soundType: 8
   attachToParent: 1
-  beSyn: 0
   audioSettings:
     automaticCleanup: 1
     volume: 1

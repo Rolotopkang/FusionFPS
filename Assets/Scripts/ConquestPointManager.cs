@@ -82,6 +82,24 @@ public class ConquestPointManager : SingletonPunCallbacks<ConquestPointManager>
             conquestPoint.isScrambling = false;
         }
     }
+
+    public int ReturnTeamDifferenceCount()
+    {
+        int tmp_BlueCount = 0;
+        int tmp_RedCount = 0;
+        foreach (ConquestPoint conquestPoint in ConquestPoints)
+        {
+            if (conquestPoint.pointOwnerTeam == EnumTools.Teams.Blue)
+            {
+                tmp_BlueCount++;
+            }else if (conquestPoint.pointOwnerTeam == EnumTools.Teams.Red)
+            {
+                tmp_RedCount++;
+            }
+        }
+
+        return tmp_BlueCount - tmp_RedCount;
+    }
     #endregion
     
 }

@@ -577,6 +577,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7c29d613-c29d-44cd-a46a-868d75dc361f
     m_ActionName: Player/Minimap[/Keyboard/m]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: be56e20a-bae5-4254-9957-cd61137e6af7
+    m_ActionName: Player/DEBUG_DEATH[/Keyboard/numpad4]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

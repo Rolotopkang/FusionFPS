@@ -4,6 +4,17 @@ namespace Scripts.Weapon
     {
         HitObject = 1,
         HitPlayer = 2,
-        KillPlayer = 3
+        KillPlayer = 3,
+        
+        
+        
+        //ConquestEvent
+        ConquestPointOccupied = 101,
+        
+        
+        //GameLoop
+        GameBegin,
+        GameRestart,
+        GameEnd,
     }
 }
