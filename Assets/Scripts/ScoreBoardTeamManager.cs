@@ -242,6 +242,7 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
 
     public void OnScoreBoard(InputAction.CallbackContext context)
     {
+        updatePlayerList();
         scoreBoardVisible = context switch
         {
             //Started. Show the tutorial.
@@ -251,7 +252,6 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
             //Default.
             _ => scoreBoardVisible
         };
-        ScoreBoardSort();
     }
 
     #endregion

@@ -81,7 +81,8 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                 case "Conquest":
                 {
                     Debug.Log("征服模式！");
-                    currentGamemodeManager = Instantiate(ConquestModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
+                    // currentGamemodeManager = Instantiate(ConquestModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
+                    currentGamemodeManager = GameModeManagerBehaviour.GetInstance();
                     Debug.Log("生成征服模式游戏逻辑控制脚本");
                     currentGamemode = MapTools.GameMode.Conquest;
                     PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
@@ -101,7 +102,8 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                 case "DeathMatch":
                 {
                     Debug.Log("死斗模式！");
-                    currentGamemodeManager = Instantiate(DeathMatchModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
+                    // currentGamemodeManager = Instantiate(DeathMatchModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
+                    currentGamemodeManager = GameModeManagerBehaviour.GetInstance();
                     Debug.Log("生成死斗模式游戏逻辑控制脚本");
                     currentGamemode = MapTools.GameMode.DeathMatch;
                     PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),

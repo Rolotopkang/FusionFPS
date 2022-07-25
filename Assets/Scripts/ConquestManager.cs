@@ -178,7 +178,7 @@ public class ConquestManager : GameModeManagerBehaviour
             if (isMaster)
             {
                 stream.SendNext(teamBlueRebornCount);
-                stream.SendNext(teamBlueRebornCount);
+                stream.SendNext(teamRedRebornCount);
             }
         }
         else
@@ -259,12 +259,24 @@ public class ConquestManager : GameModeManagerBehaviour
     {
         if (player.GetPhotonTeam() == null)
             return 0;
-        if (player.GetPhotonTeam().Name.Equals(EnumTools.Teams.Blue.ToString()) && isMineTeam)
+        if (isMineTeam)
         {
+            if (player.GetPhotonTeam().Name.Equals(EnumTools.Teams.Blue.ToString()))
+            {
+                return teamBlueRebornCount;
+            }
+            //else
+            return teamRedRebornCount;
+        }
+        else
+        {
+            if (player.GetPhotonTeam().Name.Equals(EnumTools.Teams.Blue.ToString()))
+            {
+                return teamRedRebornCount;
+            }
+            //else
             return teamBlueRebornCount;
         }
-        //else
-        return teamRedRebornCount;
     }
     
 

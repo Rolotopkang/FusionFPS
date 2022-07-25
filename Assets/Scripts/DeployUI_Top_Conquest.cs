@@ -31,6 +31,7 @@ public class DeployUI_Top_Conquest : DeployUI_Top
         base.Update();
         mineFill.fillAmount = (float)ConquestManager.GetRebornCount(PhotonNetwork.LocalPlayer,true)/
                               ConquestManager.maxRebornCount;
+        
         enemyFill.fillAmount =(float)ConquestManager.GetRebornCount(PhotonNetwork.LocalPlayer,false)/
                               ConquestManager.maxRebornCount;
         mineText.text = ConquestManager.GetRebornCount(PhotonNetwork.LocalPlayer, true).ToString();

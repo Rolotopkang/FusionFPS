@@ -169,7 +169,7 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                         else
                         {
                             isOccupying = false;
-                            isScrambling = GetInPointRedTeamsNum() != 0;
+                            isScrambling = GetInPointBlueTeamsNum() != 0;
                         }
                     }
 
@@ -194,7 +194,7 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                         else
                         {
                             isOccupying = false;
-                            isScrambling = GetInPointBlueTeamsNum() != 0;
+                            isScrambling = GetInPointRedTeamsNum() != 0;
                         }
                     }
 
@@ -212,12 +212,6 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
         {
             PhotonView tmp_PhotonView = other.transform.GetComponent<PhotonView>();
             Player tmp_player = tmp_PhotonView.Owner;
-            //如果是本地进入
-            if (tmp_player.Equals(PhotonNetwork.LocalPlayer))
-            {
-                //TODO
-                //添加屏显UI
-            }
 
             //如果没死做加入
             if (!(bool) tmp_player.CustomProperties[EnumTools.PlayerProperties.IsDeath.ToString()])
@@ -241,8 +235,7 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
             //如果是本地进入
             if (tmp_player.Equals(PhotonNetwork.LocalPlayer))
             {
-                //TODO
-                //添加屏显UI
+                ConquestPoint_UI_HUD.GetInstance().OpenConquestPoint_UI_HUD(pointName);
             }
 
             //如果没死做加入
@@ -265,8 +258,7 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
             //如果是本地离开
             if (tmp_player.Equals(PhotonNetwork.LocalPlayer))
             {
-                //TODO
-                //关闭屏显UI
+                ConquestPoint_UI_HUD.GetInstance().CloseConquestPoint_UI_HUD();
             }
 
             RemovePlayer(tmp_player);

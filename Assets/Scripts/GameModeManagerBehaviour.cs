@@ -7,13 +7,13 @@ using InfimaGames.LowPolyShooterPack;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
-using UnityEngine;
+using UnityEngine;using UnityTemplateProjects.Tools;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 /// <summary>
 /// 游戏模式基类
 /// </summary>
-public abstract class GameModeManagerBehaviour : MonoBehaviourPun,IOnEventCallback,IInRoomCallbacks,IPunObservable
+public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeManagerBehaviour>,IOnEventCallback,IInRoomCallbacks,IPunObservable
 {
     [Header("游戏模式描述设置选项")] 
     [TextArea]
@@ -36,6 +36,7 @@ public abstract class GameModeManagerBehaviour : MonoBehaviourPun,IOnEventCallba
 
     private void Awake()
     {
+        base.Awake();
         _playerManagers = new List<PlayerManager>();
     }
 
