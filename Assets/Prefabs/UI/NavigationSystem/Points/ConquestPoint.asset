@@ -40,8 +40,8 @@ MonoBehaviour:
   indicatorOnscreenDistanceTextFormat: '{0}m'
   indicatorOffscreenDistanceTextFormat: '{0}m'
   hideInMinimap: 0
-  ignoreMinimapRadius: 1
-  ignoreMinimapScaling: 1
-  ignoreMinimapFading: 1
+  ignoreMinimapRadius: 0
+  ignoreMinimapScaling: 0
+  ignoreMinimapFading: 0
   rotateWithGameObjectMM: 1
   useMinimapHeightSystem: 1

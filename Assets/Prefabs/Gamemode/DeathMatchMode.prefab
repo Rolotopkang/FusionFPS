@@ -46,3 +46,4 @@ MonoBehaviour:
   descriptions: "\u7387\u5148\u51FB\u6740\u8FBE\u523030\u5373\u53EF\u83B7\u80DC"
   score_NormalKill: 50
   score_HeadShotKill: 100
+  deployWaitTime: 3

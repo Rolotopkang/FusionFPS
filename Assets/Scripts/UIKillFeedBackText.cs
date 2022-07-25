@@ -72,6 +72,28 @@ public class UIKillFeedBackText : MonoBehaviour
         IE_Countdown = Countdown();
         StartCoroutine(IE_Countdown);
     }
+
+    public void Register(String discription, int score)
+    {
+        StringBuilder tmp_stringBuilder = new StringBuilder();
+        tmp_stringBuilder.Append("<#00FFDC>");
+        tmp_stringBuilder.Append("[");
+        tmp_stringBuilder.Append(discription);
+        tmp_stringBuilder.Append("] ");
+        tmp_stringBuilder.Append("<#FF0100>");
+
+        tmp_stringBuilder.Append("<#01FF00>");
+        tmp_stringBuilder.Append("  +");
+        tmp_stringBuilder.Append(score);
+        tmp_stringBuilder.Append("<#01FF00>");
+        TextMeshProUGUI.text = tmp_stringBuilder.ToString();
+        if (IE_Countdown != null)
+        {
+            StopCoroutine(IE_Countdown);
+        }
+        IE_Countdown = Countdown();
+        StartCoroutine(IE_Countdown);
+    }
     
     private IEnumerator Countdown() 
     {

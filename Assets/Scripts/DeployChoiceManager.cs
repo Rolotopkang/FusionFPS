@@ -10,12 +10,12 @@ public class DeployChoiceManager : Singleton<DeployChoiceManager>
     private Transform PointsRoot;
     private ConquestPoint_Deploy[] ConquestPointDeploys;
 
-    public Transform Canvas;
+    public CanvasFader CanvasFader;
 
     private void Start()
     {
         ConquestPointDeploys = PointsRoot.GetComponentsInChildren<ConquestPoint_Deploy>();
-        Canvas = transform.GetChild(0);
+        CanvasFader = GetComponent<CanvasFader>();
     }
 
     public void SetSelectedPoint(ConquestPoint_Deploy set)

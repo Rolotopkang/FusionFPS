@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
@@ -10,6 +11,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
+using EventCode = Scripts.Weapon.EventCode;
 
 [RequireComponent(typeof(PhotonView))]
 public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
@@ -76,6 +78,44 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
             {
                 isOccupying = false;
                 isScrambling = false;
+                if (pointOwnerTeam == EnumTools.Teams.None)
+                {
+                    if (occupyProgress == 0)
+                    {
+                        return;
+                    }
+
+                    if (Mathf.Abs(occupyProgress) < ConquestPointManager.GetInstance().occupySpeed *
+                        Time.deltaTime)
+                    {
+                        occupyProgress = 0;
+                        return;
+                    }
+                    
+                    occupyProgress += 
+                        (occupyProgress > 0 ? -1 : 1) * 
+                        ConquestPointManager.GetInstance().occupySpeed *
+                        Time.deltaTime;
+            
+                    return;
+                }
+                
+                if (Mathf.Abs(occupyProgress) >= 1)
+                {
+                    return;
+                }
+                
+                if (1-Mathf.Abs(occupyProgress) < ConquestPointManager.GetInstance().occupySpeed *
+                    Time.deltaTime)
+                {
+                    occupyProgress = pointOwnerTeam == EnumTools.Teams.Blue? 1 : -1;
+                    return;
+                }
+                
+                occupyProgress += (pointOwnerTeam == EnumTools.Teams.Blue? 1: -1)* 
+                    ConquestPointManager.GetInstance().occupySpeed *
+                    Time.deltaTime;
+                
                 return;
             }
 
@@ -104,11 +144,10 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                             isOccupying = false;
                             //化整
                             occupyProgress = occupyProgress >= 1 ? 1 : -1;
-                            //加分
-                            //TODO
+                            //发送占领事件
+                            RaiseOccupiedEvent();
                         }
                     }
-
                     break;
                 }
                 case EnumTools.Teams.Red:
@@ -130,7 +169,7 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                         else
                         {
                             isOccupying = false;
-                            isScrambling = GetInPointRedTeamsNum() != 0;
+                            isScrambling = GetInPointBlueTeamsNum() != 0;
                         }
                     }
 
@@ -155,7 +194,7 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                         else
                         {
                             isOccupying = false;
-                            isScrambling = GetInPointBlueTeamsNum() != 0;
+                            isScrambling = GetInPointRedTeamsNum() != 0;
                         }
                     }
 
@@ -173,12 +212,6 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
         {
             PhotonView tmp_PhotonView = other.transform.GetComponent<PhotonView>();
             Player tmp_player = tmp_PhotonView.Owner;
-            //如果是本地进入
-            if (tmp_player.Equals(PhotonNetwork.LocalPlayer))
-            {
-                //TODO
-                //添加屏显UI
-            }
 
             //如果没死做加入
             if (!(bool) tmp_player.CustomProperties[EnumTools.PlayerProperties.IsDeath.ToString()])
@@ -202,8 +235,7 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
             //如果是本地进入
             if (tmp_player.Equals(PhotonNetwork.LocalPlayer))
             {
-                //TODO
-                //添加屏显UI
+                ConquestPoint_UI_HUD.GetInstance().OpenConquestPoint_UI_HUD(pointName);
             }
 
             //如果没死做加入
@@ -226,8 +258,7 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
             //如果是本地离开
             if (tmp_player.Equals(PhotonNetwork.LocalPlayer))
             {
-                //TODO
-                //关闭屏显UI
+                ConquestPoint_UI_HUD.GetInstance().CloseConquestPoint_UI_HUD();
             }
 
             RemovePlayer(tmp_player);
@@ -268,7 +299,7 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
         }
     }
 
-    private bool isPlayerIn(Player checkPlayer)
+    public bool isPlayerIn(Player checkPlayer)
     {
         foreach (Player player in blueTeamsInPointList)
         {
@@ -349,6 +380,26 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
         return tmp_spawnPoints[Random.Range(0, tmp_spawnPoints.Count)].transform;
     }
 
+    private void RaiseOccupiedEvent()
+    {
+        if (pointOwnerTeam == EnumTools.Teams.None)
+        {
+            return;
+        }
+        Dictionary<byte, object> tmp_OccupiedData = new Dictionary<byte, object>();
+        tmp_OccupiedData.Add(0,pointName.ToString());
+        tmp_OccupiedData.Add(1,pointOwnerTeam.ToString());
+
+        RaiseEventOptions tmp_RaiseEventOptions = new RaiseEventOptions() {Receivers = ReceiverGroup.All};
+        SendOptions tmp_SendOptions = SendOptions.SendReliable;
+        PhotonNetwork.RaiseEvent(
+            (byte)EventCode.ConquestPointOccupied,
+            tmp_OccupiedData,
+            tmp_RaiseEventOptions,
+            tmp_SendOptions);
+        Debug.Log("发送占领事件");
+    }
+    
     #endregion
 
     #region Photon
@@ -416,6 +467,13 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
 
     #region Getter
 
+    public List<Player> GetPlayerList(EnumTools.Teams teams)
+    {
+        if (teams == EnumTools.Teams.None)
+            return null;
+        return teams == EnumTools.Teams.Blue ? blueTeamsInPointList : redTeamsInPointList;
+    }
+    
     public int GetInPointRedTeamsNum() => redTeamsInPointList.Count;
 
     public int GetInPointBlueTeamsNum() => blueTeamsInPointList.Count;

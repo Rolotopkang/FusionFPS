@@ -11,23 +11,33 @@ public class UIKillFeedBackTextManager : MonoBehaviour
     private UIKillFeedBackText current;
     
     public static Action<string,string,int> CreateKillFeedbackText = delegate {};
+    public static Action<string,int> CreateGetScoreFeedbackText = delegate {};
     
     private void OnEnable()
     {
         CreateKillFeedbackText += Create;
+        CreateGetScoreFeedbackText += Create;
     }
 
     private void OnDisable()
     {
         CreateKillFeedbackText -= Create;
+        CreateGetScoreFeedbackText -= Create;
     }
     
     void Create(string weaponName,string killedName,int score)
     {
         current = killFeedBackTextPrefab;
-        
         UIKillFeedBackText tmpKillText = Instantiate(current,holder);
         tmpKillText.transform.SetSiblingIndex(0);
         tmpKillText.Register(weaponName, killedName, score);
+    }
+
+    void Create(String discription, int score)
+    {
+        current = killFeedBackTextPrefab;
+        UIKillFeedBackText tmpKillText = Instantiate(current,holder);
+        tmpKillText.transform.SetSiblingIndex(0);
+        tmpKillText.Register(discription,score);
     }
 }

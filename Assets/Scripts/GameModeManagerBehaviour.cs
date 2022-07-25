@@ -7,13 +7,13 @@ using InfimaGames.LowPolyShooterPack;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
-using UnityEngine;
+using UnityEngine;using UnityTemplateProjects.Tools;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 /// <summary>
 /// 游戏模式基类
 /// </summary>
-public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,IInRoomCallbacks
+public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeManagerBehaviour>,IOnEventCallback,IInRoomCallbacks,IPunObservable
 {
     [Header("游戏模式描述设置选项")] 
     [TextArea]
@@ -23,34 +23,40 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
     [SerializeField] private int score_NormalKill;
     [Tooltip("爆头击杀分数")]
     [SerializeField] private int score_HeadShotKill;
+    [Tooltip("部署CD")] 
+    [SerializeField] private float deployWaitTime = 3f;
+    [SerializeField] private int GameLoopSec = 1200;
 
-
-    public static Action<PlayerManager> AddPlayerManager = delegate{  };
     private List<PlayerManager> _playerManagers;
     protected bool isMaster = false;
-    protected float time;
+    private float _preSecTimer = 0f;
+    private int _gameLoopSec = 0;
+
 
 
     private void Awake()
     {
+        base.Awake();
         _playerManagers = new List<PlayerManager>();
     }
 
     protected void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
-        AddPlayerManager += AddPlayerManagerMethod;
     }
 
     protected void OnDisable()
     {
         PhotonNetwork.RemoveCallbackTarget(this);
-        AddPlayerManager -= AddPlayerManagerMethod;
     }
 
     protected virtual void Start()
     {
         isMaster = PhotonNetwork.LocalPlayer.IsMasterClient;
+        if (isMaster)
+        {
+            _gameLoopSec = GameLoopSec;
+        }
     }
 
     private void Update()
@@ -69,12 +75,20 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
 
     protected virtual void TickSec()
     {
-        time += Time.deltaTime;
-        if (time >= 1f)//一秒
+        _preSecTimer += Time.deltaTime;
+        if (_preSecTimer >= 1f)//一秒
         {
-            time = 0;
+            _preSecTimer = 0;
             //上传ping
             SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_Ping,PhotonNetwork.GetPing(),false);
+            if (isMaster)
+            {
+                _gameLoopSec--;
+                if (_gameLoopSec <= 0)
+                {
+                    RaiseGameEndEvent();
+                }
+            }
         }
     }
     
@@ -87,7 +101,7 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
     {
        
     }
-    
+
 
     protected virtual void OnPlayerDeath(EventData eventData)
     {
@@ -172,12 +186,21 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
 
         return null;
     }
+
+    /// <summary>
+    /// 主客户端发起游戏结束事件
+    /// TODO
+    /// </summary>
+    private void RaiseGameEndEvent()
+    {
+        
+    }
     
     #endregion
     
     #region Events
     
-    public void OnEvent(EventData photonEvent)
+    public virtual void OnEvent(EventData photonEvent)
     {
         switch ((Scripts.Weapon.EventCode) photonEvent.Code)
         {
@@ -188,6 +211,7 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
                 }
                 break;
         }
+        
     }
     public virtual void OnMasterClientSwitched(Player newMasterClient)
     {
@@ -223,6 +247,24 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
     {
     }
 
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            if (isMaster)
+            {
+                stream.SendNext(_gameLoopSec);
+            }
+        }
+        else
+        {
+            if (!isMaster)
+            {
+                _gameLoopSec =(int)stream.ReceiveNext();
+            }
+        }
+    }
+
     #endregion
 
     #region GetterSetter
@@ -233,5 +275,8 @@ public abstract class GameModeManagerBehaviour : MonoBehaviour,IOnEventCallback,
 
     public int GetScore_HeadShotKill => score_HeadShotKill;
 
+    public float GetdeployWaitTime => deployWaitTime;
+
+    public int GetGameLoopSec() => _gameLoopSec;
     #endregion
 }

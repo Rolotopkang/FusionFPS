@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DatabaseConnector : MonoBehaviour
+public class DatabaseConnector : Singleton<DatabaseConnector>
 {
-
+    
     public EnumTools.LoginState Login(String username,String password)
     {
         return MysqlManager.GetInstance().Login(username, password);
