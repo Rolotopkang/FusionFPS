@@ -1,5 +1,5 @@
 # Fusion Multi FPS
-+ 基于Unity3D + Photon pun2开发的多人fps游戏
++ 基于Unity3D + Photon pun2 + linux服务端开发的多人fps游戏
 + 目前版本只支持：
 + 死斗模式（2022.4.20）
 + 征服模式（2022.7.27）
