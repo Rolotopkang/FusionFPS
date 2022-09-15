@@ -50,13 +50,13 @@ MonoBehaviour:
   score_HeadShotKill: 100
   deployWaitTime: 3
   GameLoopSec: 1200
-  occupySpeed: 0.5
+  occupySpeed: 0.1
   conquestLogicRate: 5
-  maxRebornCount: 200
+  maxRebornCount: 500
   logicPrePointRebornCount: 1
   prePlayerDeathRebornCount: 1
   occupiedPrePointRebornCount: 10
-  occupiedPrePointPlayerScore: 50
+  occupiedPrePointPlayerScore: 200
 --- !u!114 &5281072618179877457
 MonoBehaviour:
   m_ObjectHideFlags: 0

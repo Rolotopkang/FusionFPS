@@ -12,6 +12,8 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class ConquestManager : GameModeManagerBehaviour
 {
+    #region SerializedField
+
     [Header("征服模式数据设置")] 
     [SerializeField] public float occupySpeed;
 
@@ -25,13 +27,19 @@ public class ConquestManager : GameModeManagerBehaviour
 
     [Header("分数设定")]
     [SerializeField] public int occupiedPrePointPlayerScore = 50;
-    
-    
+
+    #endregion
+
+    #region PrivateField
+
     private PhotonTeamsManager PhotonTeamsManager;
     private PhotonTeam[] teams;
     private float timer = 0f;
     private int teamBlueRebornCount;
     private int teamRedRebornCount;
+
+    #endregion
+    
 
     #region Unity
 
@@ -195,7 +203,7 @@ public class ConquestManager : GameModeManagerBehaviour
     #endregion
     
     #region Fuctions
-
+    
     private void RebornCountTeamUpdate()
     {
         if (ConquestPointManager.GetInstance().ReturnTeamDifferenceCount() == 0) { return; }

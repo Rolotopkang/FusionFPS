@@ -32,6 +32,7 @@ public class ConquestPoint_Deploy : MonoBehaviour
     private void Update()
     {
         deployPointButton.enabled = _conquestPointUIPoint.GetCanDeploy;
+        if (isSelected) { isSelected = _conquestPointUIPoint.GetCanDeploy; }
         selectedIMG.SetActive(isSelected);
     }
 
