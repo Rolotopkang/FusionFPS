@@ -1,5 +1,135 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &78173294420470799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6743357834296396317}
+  - component: {fileID: 7820775948605358133}
+  - component: {fileID: 8452525950066377306}
+  m_Layer: 10
+  m_Name: Indicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6743357834296396317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78173294420470799}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 168204136471076150}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7820775948605358133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78173294420470799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a5fc50cb592fe4f95457eb6d66e520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Settings: {fileID: 11400000, guid: 5cefa9c26ce71934b93158e563f4de3d, type: 2}
+  Prefabs:
+    RadarPrefab: {fileID: 0}
+    CompassBarPrefab: {fileID: 0}
+    IndicatorPrefab: {fileID: 0}
+    MinimapPrefab: {fileID: 0}
+  hideInRadar: 0
+  ignoreRadarRadius: 0
+  ignoreRadarScaling: 0
+  ignoreRadarFading: 0
+  rotateWithGameObject: 1
+  useRadarHeightSystem: 1
+  hideInCompassBar: 0
+  ignoreCompassBarRadius: 0
+  useCompassBarDistanceText: 1
+  compassBarDistanceTextFormat: '{0}m'
+  showIndicator: 1
+  showOffscreenIndicator: 1
+  ignoreIndicatorRadius: 1
+  ignoreIndicatorHideDistance: 0
+  ignoreIndicatorScaling: 0
+  ignoreIndicatorFading: 0
+  useIndicatorDistanceText: 1
+  showOffscreenIndicatorDistance: 0
+  indicatorOnscreenDistanceTextFormat: '{0}m'
+  indicatorOffscreenDistanceTextFormat: '{0}'
+  hideInMinimap: 0
+  ignoreMinimapRadius: 0
+  ignoreMinimapScaling: 0
+  ignoreMinimapFading: 0
+  rotateWithGameObjectMM: 1
+  useMinimapHeightSystem: 1
+  OnElementReady:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8452525950066377306}
+        m_TargetAssemblyTypeName: HUDSynSystem, Assembly-CSharp
+        m_MethodName: OnElementReady
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnElementUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAppear:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDisappear:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnterRadius:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLeaveRadius:
+    m_PersistentCalls:
+      m_Calls: []
+  IsActive: 1
+  Radar: {fileID: 0}
+  CompassBar: {fileID: 0}
+  Indicator: {fileID: 0}
+  Minimap: {fileID: 0}
+  IsInRadarRadius: 0
+  IsInCompassBarRadius: 0
+  IsInIndicatorRadius: 0
+  IsInMinimapRadius: 0
+--- !u!114 &8452525950066377306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78173294420470799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a875d06e506dddc44b421f5ca1bc3d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLocal: 0
+  PhotonView: {fileID: 5458643541292538786}
+  _hudNavigationElement: {fileID: 7820775948605358133}
 --- !u!1 &97527465538054638
 GameObject:
   m_ObjectHideFlags: 0
@@ -50,10 +180,8 @@ GameObject:
   - component: {fileID: 904057310944351063}
   - component: {fileID: 4344380826895270153}
   - component: {fileID: 2122137399840436080}
-  - component: {fileID: 1263547192000289030}
   - component: {fileID: 5458643541292538786}
   - component: {fileID: 4530996834211516048}
-  - component: {fileID: 8272602422603769977}
   - component: {fileID: 428552716704493812}
   m_Layer: 10
   m_Name: P_LPSP_FP_CH
@@ -78,6 +206,7 @@ Transform:
   - {fileID: 1710269784398210166}
   - {fileID: 7111280333347803044}
   - {fileID: 1168622172011897946}
+  - {fileID: 6743357834296396317}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -244,6 +373,7 @@ MonoBehaviour:
   MainCM: {fileID: 2644743537116470403}
   TpRender: {fileID: 3352235458732972348}
   FpRender: {fileID: 6527298989626007987}
+  IndicatorSystem: {fileID: 78173294420470799}
   FP: {fileID: 6527298989626007985}
   TPBody: {fileID: 3352235458732972247}
   OutlineScript: {fileID: 7304774366221333860}
@@ -654,77 +784,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
---- !u!114 &1263547192000289030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170591643975028372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67a5fc50cb592fe4f95457eb6d66e520, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Settings: {fileID: 11400000, guid: d0dbd9d0d49682d47ad365f5e348f0ac, type: 2}
-  Prefabs:
-    RadarPrefab: {fileID: 0}
-    CompassBarPrefab: {fileID: 0}
-    IndicatorPrefab: {fileID: 0}
-    MinimapPrefab: {fileID: 0}
-  hideInRadar: 0
-  ignoreRadarRadius: 0
-  ignoreRadarScaling: 0
-  ignoreRadarFading: 0
-  rotateWithGameObject: 1
-  useRadarHeightSystem: 1
-  hideInCompassBar: 0
-  ignoreCompassBarRadius: 0
-  useCompassBarDistanceText: 1
-  compassBarDistanceTextFormat: '{0}m'
-  showIndicator: 1
-  showOffscreenIndicator: 1
-  ignoreIndicatorRadius: 1
-  ignoreIndicatorHideDistance: 0
-  ignoreIndicatorScaling: 0
-  ignoreIndicatorFading: 0
-  useIndicatorDistanceText: 1
-  showOffscreenIndicatorDistance: 0
-  indicatorOnscreenDistanceTextFormat: '{0}m'
-  indicatorOffscreenDistanceTextFormat: '{0}'
-  hideInMinimap: 0
-  ignoreMinimapRadius: 0
-  ignoreMinimapScaling: 0
-  ignoreMinimapFading: 0
-  rotateWithGameObjectMM: 1
-  useMinimapHeightSystem: 1
-  OnElementReady:
-    m_PersistentCalls:
-      m_Calls: []
-  OnElementUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  OnAppear:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDisappear:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEnterRadius:
-    m_PersistentCalls:
-      m_Calls: []
-  OnLeaveRadius:
-    m_PersistentCalls:
-      m_Calls: []
-  IsActive: 1
-  Radar: {fileID: 0}
-  CompassBar: {fileID: 0}
-  Indicator: {fileID: 0}
-  Minimap: {fileID: 0}
-  IsInRadarRadius: 0
-  IsInCompassBarRadius: 0
-  IsInIndicatorRadius: 0
-  IsInMinimapRadius: 0
 --- !u!114 &5458643541292538786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,20 +824,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &8272602422603769977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170591643975028372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a875d06e506dddc44b421f5ca1bc3d03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isLocal: 0
-  _hudNavigationElement: {fileID: 0}
 --- !u!82 &428552716704493812
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1542,6 +1587,50 @@ Transform:
   m_Father: {fileID: 3354858414091247490}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.16444455, y: 0.22398993, z: 0.87237024}
+--- !u!1 &1639029024030378610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4016144583633864946}
+  - component: {fileID: 8902971520088835953}
+  m_Layer: 0
+  m_Name: Box
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4016144583633864946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639029024030378610}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9213160678828289526}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8902971520088835953
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639029024030378610}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4324553, y: 2.2119102, z: 0.6584693}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1661294338652006103
 GameObject:
   m_ObjectHideFlags: 0
@@ -4244,6 +4333,37 @@ Transform:
   m_Father: {fileID: 832711208442572950}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.07386219, y: 0.08912443, z: -74.06034}
+--- !u!1 &2259791359692921592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9213160678828289526}
+  m_Layer: 0
+  m_Name: Detect_Box
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9213160678828289526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2259791359692921592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4016144583633864946}
+  m_Father: {fileID: 3352235458732541139}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2303462033719937171
 GameObject:
   m_ObjectHideFlags: 0
@@ -7967,7 +8087,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3352235458732541137}
   - component: {fileID: 3352235458744538523}
-  - component: {fileID: 7702094968966290199}
   m_Layer: 0
   m_Name: SK_TP_CH_Default
   m_TagString: Untagged
@@ -8113,19 +8232,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00000011920929, y: 0.07179418, z: 0.9177645}
     m_Extent: {x: 0.7076159, y: 0.28116277, z: 0.9458659}
   m_DirtyAABB: 0
---- !u!114 &7702094968966290199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3352235458732972337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 417d3c3d3b50a7141af04f97865099a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxTimer: 0.3
 --- !u!1 &3352235458732972339
 GameObject:
   m_ObjectHideFlags: 0
@@ -8166,6 +8272,7 @@ Transform:
   - {fileID: 3352235458732541115}
   - {fileID: 3352235458732541137}
   - {fileID: 1710269785063703241}
+  - {fileID: 9213160678828289526}
   m_Father: {fileID: 168204136471076150}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8308,7 +8415,15 @@ MonoBehaviour:
   m_RigLayers:
   - m_Rig: {fileID: 1710269785063703246}
     m_Active: 1
-  m_Effectors: []
+  m_Effectors:
+  - m_Transform: {fileID: 9213160678828289526}
+    m_Style:
+      shape: {fileID: 4300000, guid: c6793350c150f456688e39a81f97364a, type: 2}
+      color: {r: 1, g: 0, b: 0, a: 0.5}
+      size: 0.1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+    m_Visible: 1
 --- !u!114 &3352235458732972344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10863,12 +10978,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74aca7fe48489a4799606021e06ad5e, type: 3}
---- !u!4 &6181232706914167373 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1583202327145144684, guid: f74aca7fe48489a4799606021e06ad5e,
-    type: 3}
-  m_PrefabInstance: {fileID: 4625351046979111713}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6181232706914167374 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1583202327145144687, guid: f74aca7fe48489a4799606021e06ad5e,
@@ -10881,3 +10990,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c368290cc3e914ab3a0cf540de2166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6181232706914167373 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1583202327145144684, guid: f74aca7fe48489a4799606021e06ad5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4625351046979111713}
+  m_PrefabAsset: {fileID: 0}

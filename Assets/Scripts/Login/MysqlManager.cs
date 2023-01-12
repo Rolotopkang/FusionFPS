@@ -11,16 +11,10 @@ public class MysqlManager : Singleton<MysqlManager>
     public static string m_userID = "rgJ9eh6h5VK1fojJ";
     public static string m_password = "9sISdnHUbngg53eUYTMLimocvop4Peeh";
     public static string m_databaseName = "TOPFPS";
-    
+
+    protected bool MysqlConnected = false;
     protected static string m_connectionString;                 // 数据库连接字符串
     public static MySqlConnection connection;
-
-
-    protected override void Awake()
-    {
-        base.Awake();
-        Init();
-    }
 
     /// <summary>
 	/// 初始化数据库，利用字符串组拼方式来编写数据库的连接
@@ -43,12 +37,14 @@ public class MysqlManager : Singleton<MysqlManager>
 				//打开连接通道
 				connection.Open();
                 Debug.Log("数据库打开成功");
-			}
+                MysqlConnected = true;
+            }
 			catch (MySqlException E)
 			{
                 //如果有异常 则连接失败
                 Debug.Log("数据库连接失败");
                 UI_Error.GetInstance().OpenUI_NetWorkWarning();
+                MysqlConnected = false;
 			}
 			finally
 			{
@@ -67,6 +63,8 @@ public class MysqlManager : Singleton<MysqlManager>
     /// <param name="password">用户密码</param>
     public EnumTools.LoginState Login(string username, string password)
     {
+        if (!MysqlConnected) return EnumTools.LoginState.Error ;
+        
         try
         {
             connection.Open();
@@ -95,7 +93,7 @@ public class MysqlManager : Singleton<MysqlManager>
         }
         catch (System.Exception e)
         {
-
+            MysqlConnected = false;
             Debug.Log(e.Message);
         }
         finally
@@ -109,6 +107,8 @@ public class MysqlManager : Singleton<MysqlManager>
     //注册验证
     public EnumTools.RegisterState Register(string username, string password)
     {
+        if (!MysqlConnected) return EnumTools.RegisterState.Error;
+        
         if (!(username.Length > 0 && password.Length > 0))
         {
             Debug.Log("-----输入用户名和密码------");
@@ -139,7 +139,7 @@ public class MysqlManager : Singleton<MysqlManager>
         }
         catch (System.Exception e)
         {
-
+            MysqlConnected = false;
             Debug.Log(e.Message);
         }
         finally

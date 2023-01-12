@@ -46,6 +46,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         [SerializeField]
         private RenderController FpRender;
 
+        [SerializeField] 
+        private GameObject IndicatorSystem;
+
         private PhotonView PhotonView;
         
         public GameObject FP;
@@ -104,6 +107,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
                     FpRender.SetRenderersDisable(true);
                     FpRender.SetRenderers(ShadowCastingMode.Off);
+                    IndicatorSystem.SetActive(false);
                 }
                 else
                 {
@@ -111,6 +115,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
                     MainCM.SetActive(false);
                     TpRender.SetRenderers(ShadowCastingMode.On);
                     TpRender.SetRenderersDisable(true);
+                    IndicatorSystem.SetActive(true);
                     FP.SetActive(false);
                     foreach (MonoBehaviour behaviour in LocalScripts)
                     {
@@ -124,6 +129,12 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             }
         }
 
+        public void RemoteDeath()
+        {
+            //Destroy indicator
+            IndicatorSystem.SetActive(false);
+        }
+        
         public void LocalDeath()
         {
             TpRender.SetRenderers(ShadowCastingMode.On);
@@ -134,7 +145,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
             // Destroy(Settings);
             FP.SetActive(false);
-            
+
             foreach (MonoBehaviour behaviour in DeathScripts)
             {
                 behaviour.enabled = false;

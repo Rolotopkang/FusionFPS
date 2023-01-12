@@ -199,6 +199,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                 //TODO
                 Invoke("OnBTNReborn",5);
             }
+            //不是本地死亡
+            else
+            {
+                gameModeService.GetPlayerGameObject(tmp_deathPlayer).GetComponent<LoacalChanger>().RemoteDeath();
+            }
         
             //双端执行:
             

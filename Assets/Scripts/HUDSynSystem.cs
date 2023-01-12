@@ -8,15 +8,24 @@ using UnityEngine;
 public class HUDSynSystem : MonoBehaviour
 {
     public bool isLocal;
+    [SerializeField]
     private PhotonView PhotonView;
     public HUDNavigationElement _hudNavigationElement;
-    
 
-    private void Start()
+
+    //我是傻逼
+    private void Awake()
     {
-        PhotonView = GetComponent<PhotonView>();
         _hudNavigationElement = GetComponent<HUDNavigationElement>();
         isLocal = PhotonView.Owner.Equals(PhotonNetwork.LocalPlayer);
-        _hudNavigationElement.enabled = false;
     }
+
+    public void OnElementReady(HUDNavigationElement element)
+    {
+        element.Indicator.GetComponent<HNS_PlayerIcon_Indicator_Manager>().
+            Initialisation(StaticTools.IsEnemy
+                    (PhotonNetwork.LocalPlayer,PhotonView), PhotonView.Owner.NickName);
+    }
+    
+    
 }
