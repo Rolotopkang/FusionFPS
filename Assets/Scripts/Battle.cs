@@ -38,6 +38,8 @@ public class Battle : MonoBehaviourPun,IPunObservable
     #region Getter
 
     public float GetCurrentHealth() => health;
+
+    public float GetCurrentHealthP() => health / MaxHealth;
     public float GetMaxHealth() => MaxHealth;
 
     public bool GetIsDeath() => isDeath;
