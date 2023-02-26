@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Timers;
 using InfimaGames.LowPolyShooterPack;
+using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
@@ -92,9 +93,9 @@ public class DeployManager : Singleton<DeployManager>
 
     public void OnEnable()
     {
+        SettingsMenu.GetInstance().setCursorLocked(false);
         DepolyBTN.SetActive(false);
         CountDownBTN.SetActive(true);
-
         //TODO 如果能部署再计时
         timer = DePloyTimer;
         maxTimer = timer;

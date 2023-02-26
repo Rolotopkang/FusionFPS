@@ -1,6 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using System;
+using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
 using UnityEngine;
 using UnityTemplateProjects.Tools;
@@ -105,7 +106,7 @@ namespace InfimaGames.LowPolyShooterPack
         private void LateUpdate()
         {
             //Frame Input. The Input to add this frame!
-            Vector2 frameInput = playerCharacter.IsCursorLocked() ? playerCharacter.GetInputLook() : default;
+            Vector2 frameInput = SettingsMenu.GetInstance().GetCursorLocked() ? playerCharacter.GetInputLook() : default;
             
             //Sensitivity.
             frameInput *= sensitivity;

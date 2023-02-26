@@ -11,12 +11,12 @@ public class RegisterManager : MonoBehaviour
     public TMP_InputField Password;
     public TMP_InputField VefiryPassword;
     public Text WrongHint;
-    private LoginUIManager loginUIManager;
+    private UIBase _uiBase;
     private bool registerable = false;
 
     private void Awake()
     {
-        loginUIManager = GetComponentInParent<LoginUIManager>();
+        _uiBase = GetComponentInParent<UIBase>();
     }
 
     private void OnEnable()
@@ -82,6 +82,6 @@ public class RegisterManager : MonoBehaviour
 
     public void BTNReturnToLogin()
     {
-        loginUIManager.ChangeToUI(0);
+        _uiBase.ChangeToUI(0);
     }
 }

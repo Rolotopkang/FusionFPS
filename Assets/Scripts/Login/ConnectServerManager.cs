@@ -9,12 +9,14 @@ using UnityEngine;using UnityTemplateProjects.Tools;
 
 public class ConnectServerManager : SingletonPunCallbacks<ConnectServerManager>
 {
-    public LoginUIManager loginUIManager;
     private bool connectToMaster = false;
     private String MyNickName="error";
 
     [SerializeField]
     private LoginUIAnimation LoginUIAnimation;
+
+    [SerializeField]
+    private GameObject LoginUI;
 
     [SerializeField]
     private MenuController MenuController;
@@ -35,6 +37,12 @@ public class ConnectServerManager : SingletonPunCallbacks<ConnectServerManager>
     public override void OnConnectedToMaster()
     {
         Debug.Log("ConnectedToMaster");
+
+        if (AccountManager.GetInstance().GetIsConnected())
+        {
+            return;
+        }
+        
         // foreach (Player player in PhotonNetwork.PlayerList)
         // {
         //     Debug.Log(player.NickName);
@@ -55,11 +63,18 @@ public class ConnectServerManager : SingletonPunCallbacks<ConnectServerManager>
             return;
         }
         PhotonNetwork.NickName = MyNickName;
+        PhotonNetwork.AutomaticallySyncScene = true;
+        
+        
         LoginUIAnimation.UIFade();
         MenuController.gameObject.SetActive(true);
         MenuController.onUIshow();
-        PhotonNetwork.AutomaticallySyncScene = true;
+        
+        //转移
+        //TODO
+        AccountManager.GetInstance().setIsConnected(true);
     }
+    
 
     public void SetMyNickName(String set)
     {

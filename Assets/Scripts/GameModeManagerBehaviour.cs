@@ -61,6 +61,7 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
         if (isMaster)
         {
             _gameLoopSec = GameLoopSec;
+            SetPlayerBoolProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.IsDeath,true);
         }
         
         // 获取房间游戏状态信息
@@ -82,7 +83,10 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
     protected virtual void TickSec()
     {
         //上传ping
-        SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_Ping,PhotonNetwork.GetPing(),false);
+        if (PhotonNetwork.InRoom)
+        {
+            SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_Ping,PhotonNetwork.GetPing(),false);
+        }
         if (isMaster)
         {
             if (GameRunning)
@@ -327,15 +331,14 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
     public virtual void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log(otherPlayer.NickName+"退出了房间");
-        foreach (PlayerManager playerManager in _playerManagers)
+        for (int i = 0; i < _playerManagers.Count; i++)
         {
-            if (playerManager.Owner.Equals(otherPlayer))
+            if (_playerManagers[i].Owner.Equals(otherPlayer))
             {
-                _playerManagers.Remove(playerManager);
-                Debug.Log("删除玩家"+playerManager.Owner+"脚本");
+                Debug.Log("删除玩家"+_playerManagers[i].Owner+"脚本");
+                _playerManagers.Remove(_playerManagers[i]);
             }
         }
-        
     }
 
     public virtual void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)

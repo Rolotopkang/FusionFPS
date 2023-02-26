@@ -23,7 +23,7 @@ public class CreateRoomManager : MonoBehaviourPunCallbacks
     [SerializeField] private Slider maxPlayer;
     [SerializeField] private Text WrongHint;
     
-    [SerializeField] private LoginUIManager Menu_UI;
+    [SerializeField] private UIBase Menu_UI;
     
     private void CreateRoom()
     {

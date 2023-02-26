@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,7 @@ public class JoinRoomBTN : MonoBehaviourPunCallbacks
         {
             if (min < max)
             {
+                PhotonNetwork.AutomaticallySyncScene = true;
                 PhotonNetwork.JoinRoom(roomName);
             }
             else
