@@ -37,6 +37,9 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject HUDNavigationCanvasPrefab;
     [SerializeField]
     private GameObject OutOfBoundWarningUIManagerPrefab;
+    [Tooltip("Quality settings menu prefab spawned at start. Used for switching between different quality settings in-game.")]
+    [SerializeField]
+    private GameObject qualitySettingsPrefab;
 
 
     public Player Owner;

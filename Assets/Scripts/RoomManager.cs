@@ -61,6 +61,10 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
         if (scene.buildIndex.Equals(0))
         {
             Debug.Log("跳转至主页");
+            //TODO 
+            //登录验证
+            //验证成功跳转至记录页
+            
             
         }
         if (!PhotonNetwork.InRoom)
@@ -68,12 +72,6 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
             Debug.Log("不在房间内");
             return;
         }
-
-        // if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["State"])
-        // {
-        //     return;
-        // }
-
 
         Debug.Log("筛选游戏类型！");
         if (scene.buildIndex.Equals(int.Parse(PhotonNetwork.CurrentRoom.CustomProperties["mapIndex"].ToString())))
