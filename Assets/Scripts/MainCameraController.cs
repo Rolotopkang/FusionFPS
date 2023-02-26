@@ -85,4 +85,10 @@ public class MainCameraController : MonoBehaviour
         float tmp_Fraction = tmp_doneLenth / totalLeanth;
         return baseSpeed*animationCurve.Evaluate(tmp_Fraction);
     }
+
+    public void ResetPos()
+    {
+        cameraon.transform.position = SkyLook.transform.position;
+        cameraon.transform.rotation = SkyLook.transform.rotation;
+    }
 }

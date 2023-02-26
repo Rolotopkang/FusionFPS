@@ -55,6 +55,20 @@ public class LoginManager : MonoBehaviour
         
     }
 
+    public void BTNLoginOffline()
+    {
+        if (Username.text != "")
+        {
+            ConnectServerManager.SetMyNickName(Username.text);
+            ConnectServerManager.ConnectToServer();
+            loginUIManager.ChangeToUI(2);
+        }
+        else
+        {
+            WrongHint.text = "Wrong Name Formal";
+        }
+    }
+
     //BTN引用
     public void BTNToRegister()
     {

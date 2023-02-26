@@ -27,6 +27,7 @@ TagManager:
   - DeployCM
   - CMBrain
   - Water
+  - DetectTarget
   layers:
   - Default
   - TransparentFX

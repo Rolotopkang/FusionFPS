@@ -84,6 +84,12 @@ public class EnumTools
         UI,
         DeathZone
     }
+    
+    public enum DetectTargetKind
+    {
+        Around,
+        Gaze
+    }
 
     public static Color GetTeamColor(TeamColor team)
     {

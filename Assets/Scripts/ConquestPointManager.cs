@@ -80,6 +80,8 @@ public class ConquestPointManager : SingletonPunCallbacks<ConquestPointManager>
             conquestPoint.occupyProgress = 0;
             conquestPoint.isOccupying = false;
             conquestPoint.isScrambling = false;
+            conquestPoint.blueTeamsInPointList.Clear();
+            conquestPoint.redTeamsInPointList.Clear();
         }
     }
 

@@ -37,7 +37,7 @@ public class UIScordBoardPlayer : MonoBehaviour
         _player.CustomProperties.TryGetValue(EnumTools.PlayerProperties.Data_kill.ToString(), out tmp_killNum);
         _player.CustomProperties.TryGetValue(EnumTools.PlayerProperties.Data_Death.ToString(), out tmp_DeathNum);
         _player.CustomProperties.TryGetValue(EnumTools.PlayerProperties.Data_Ping.ToString(), out tmp_Ping);
-        _player.CustomProperties.TryGetValue(EnumTools.PlayerProperties.IsDeath, out isDeath);
+        _player.CustomProperties.TryGetValue(EnumTools.PlayerProperties.IsDeath.ToString(), out isDeath);
         
         
         Data_KillNum.text = tmp_killNum.ToString();

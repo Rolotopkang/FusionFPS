@@ -2662,9 +2662,9 @@ MonoBehaviour:
   automatic: 0
   boltAction: 1
   shotCount: 1
-  spread: 5
+  spread: 0.1
   Recoil: {x: -0.5, y: 0.5}
-  RecoilOffset: 0
+  RecoilOffset: 1
   projectileImpulse: 400
   DMG: 100
   roundsPerMinutes: 125
@@ -10189,7 +10189,7 @@ MonoBehaviour:
   automatic: 1
   boltAction: 0
   shotCount: 1
-  spread: 1
+  spread: 1.5
   Recoil: {x: -0.1, y: 0.1}
   RecoilOffset: 0.5
   projectileImpulse: 400
@@ -11137,7 +11137,7 @@ MonoBehaviour:
   automatic: 1
   boltAction: 0
   shotCount: 1
-  spread: 3
+  spread: 1
   Recoil: {x: -0.2, y: 0.2}
   RecoilOffset: 1
   projectileImpulse: 400
@@ -14797,7 +14797,7 @@ MonoBehaviour:
   automatic: 0
   boltAction: 0
   shotCount: 1
-  spread: 5
+  spread: 2
   Recoil: {x: 0, y: 0}
   RecoilOffset: 0
   projectileImpulse: 400

@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine;
+using EventCode = Scripts.Weapon.EventCode;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -12,7 +13,9 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class ConquestManager : GameModeManagerBehaviour
 {
-    [Header("征服模式数据设置")] 
+    #region SerializedField
+
+    [Header("征服模式数据设置")]
     [SerializeField] public float occupySpeed;
 
     [Tooltip("征服模式逻辑间隔")]
@@ -27,11 +30,20 @@ public class ConquestManager : GameModeManagerBehaviour
     [SerializeField] public int occupiedPrePointPlayerScore = 50;
     
     
+    #endregion
+
+    #region PrivateField
+
     private PhotonTeamsManager PhotonTeamsManager;
     private PhotonTeam[] teams;
     private float timer = 0f;
-    private int teamBlueRebornCount;
+    private int teamBlueRebornCount; 
     private int teamRedRebornCount;
+    private ConquestSettlementUIController _conquestSettlementUIController;
+
+
+    #endregion
+    
 
     #region Unity
 
@@ -39,6 +51,7 @@ public class ConquestManager : GameModeManagerBehaviour
     {
         base.Start();
         PhotonTeamsManager = GetComponent<PhotonTeamsManager>();
+        _conquestSettlementUIController = GetComponentInChildren<ConquestSettlementUIController>();
         teams = PhotonTeamsManager.GetAvailableTeams();
         teamBlueRebornCount = maxRebornCount;
         teamRedRebornCount = maxRebornCount;
@@ -68,6 +81,19 @@ public class ConquestManager : GameModeManagerBehaviour
         }
     }
 
+    protected override void TickMaster()
+    {
+        base.TickMaster();
+        
+
+        
+        //征服模式游戏结束（重生点数不足）判定
+        if ((teamBlueRebornCount<=0 || teamRedRebornCount<=0 ) && GameRunning) 
+        {
+            RaiseGameEndEvent();
+        }
+    }
+
     /// <summary>
     /// 游戏模式逻辑帧
     /// </summary>
@@ -89,6 +115,37 @@ public class ConquestManager : GameModeManagerBehaviour
         RebornCountTeamUpdate();
     }
 
+    protected override void RaiseGameEndEvent()
+    {
+        base.RaiseGameEndEvent();
+        //游戏结束事件
+        Dictionary<byte, object> tmp_GameEndData = new Dictionary<byte, object>();
+        //胜利队伍
+        if (teamBlueRebornCount == teamRedRebornCount)
+        {
+            tmp_GameEndData.Add(0,"");
+        }
+        else
+        {
+            tmp_GameEndData.Add(0,teamBlueRebornCount>teamRedRebornCount? "Blue" : "Red");
+        }
+        //剩余比分数B
+        tmp_GameEndData.Add(1,teamBlueRebornCount);
+        //剩余比分数R
+        tmp_GameEndData.Add(2,teamRedRebornCount);
+        //游戏结束时间戳
+        tmp_GameEndData.Add(3,DateTime.Now.ToUniversalTime().Ticks);
+        
+        RaiseEventOptions tmp_RaiseEventOptions = new RaiseEventOptions() {Receivers = ReceiverGroup.All};
+        SendOptions tmp_SendOptions = SendOptions.SendReliable;
+        PhotonNetwork.RaiseEvent(
+            (byte)EventCode.GameEnd,
+            tmp_GameEndData,
+            tmp_RaiseEventOptions,
+            tmp_SendOptions);
+        Debug.Log("发送游戏结束事件！");
+    }
+
     #endregion
     
     #region Photon
@@ -104,6 +161,15 @@ public class ConquestManager : GameModeManagerBehaviour
         }
     }
 
+    protected override void OnGameEnd(EventData eventData)
+    {
+        base.OnGameEnd(eventData);
+        _conquestSettlementUIController.Initialized(eventData);
+        
+        
+        
+    }
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
@@ -117,7 +183,7 @@ public class ConquestManager : GameModeManagerBehaviour
         }
         
     }
-    
+
     protected override void OnPlayerDeath(EventData eventData)
     {
         base.OnPlayerDeath(eventData);
@@ -195,9 +261,14 @@ public class ConquestManager : GameModeManagerBehaviour
     #endregion
     
     #region Fuctions
-
+    
     private void RebornCountTeamUpdate()
     {
+        if(!GameRunning)
+        {
+            return;
+        }
+        
         if (ConquestPointManager.GetInstance().ReturnTeamDifferenceCount() == 0) { return; }
 
         if (ConquestPointManager.GetInstance().ReturnTeamDifferenceCount()<0)
@@ -248,6 +319,19 @@ public class ConquestManager : GameModeManagerBehaviour
                     return "Red";
             }
             return "Blue";
+        }
+    }
+
+    public override void ResetGame()
+    {
+        base.ResetGame();
+        if (isMaster)
+        {
+            //重置占领点信息
+            ConquestPointManager.GetInstance().InitConquestPoints();
+            //重置双方重生次数
+            teamBlueRebornCount = maxRebornCount;
+            teamRedRebornCount = maxRebornCount;
         }
     }
 

@@ -14,9 +14,6 @@ public class DeployUI_Top : MonoBehaviour
     [SerializeField]
     protected Image deployImageLeft;
 
-    [SerializeField] 
-    private bool isDeploy = true;
-
     protected GameModeManagerBehaviour GameModeManagerBehaviour;
 
     protected virtual void Start()
@@ -27,10 +24,15 @@ public class DeployUI_Top : MonoBehaviour
     protected virtual void Update()
     {
         gameLoopTime.text = sec_to_hms(GameModeManagerBehaviour.GetGameLoopSec());
-        if (isDeploy)
+
+        if (deployImageLeft != null)
         {
             deployImageLeft.fillAmount =
                 DeployManager.GetInstance().GetShowTimer / DeployManager.GetInstance().GetMaxDePloyTimer;
+        }
+
+        if (deployImageRight != null)
+        {
             deployImageRight.fillAmount =
                 DeployManager.GetInstance().GetShowTimer / DeployManager.GetInstance().GetMaxDePloyTimer;
         }

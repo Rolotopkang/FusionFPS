@@ -37,6 +37,9 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private GameObject HUDNavigationCanvasPrefab;
     [SerializeField]
     private GameObject OutOfBoundWarningUIManagerPrefab;
+    [Tooltip("Quality settings menu prefab spawned at start. Used for switching between different quality settings in-game.")]
+    [SerializeField]
+    private GameObject qualitySettingsPrefab;
 
 
     public Player Owner;
@@ -62,11 +65,14 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     private GameObject tmp_Player;
     private Outline playerFrom_outline = null;
-
+    private GameObject Scoreboard;
+    
+    
     private CinemachineVirtualCamera CinemachineVirtualCamera;
     private CinemachineComponentBase ComponentBase;
     private HUDNavigationSystem _HUDNavigationSystem;
     private HUDNavigationCanvas HUDNavigationCanvas;
+
     protected IGameModeService gameModeService;
     protected IWeaponInfoService weaponInfoService;
 
@@ -101,11 +107,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
             if (RoomManager.GetInstance().isTeamMatch())
             {
-                Instantiate(ScordBoardTeamPrefab, transform);
+                Scoreboard = Instantiate(ScordBoardTeamPrefab, transform);
             }
             else
             {
-                Instantiate(ScordBoardPrefab, transform);
+                Scoreboard = Instantiate(ScordBoardPrefab, transform);
             }
             
             _HUDNavigationSystem = HUDNavigationSystem.Instance;
@@ -135,6 +141,13 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             case EventCode.KillPlayer:
                 OnPlayerDeath(photonEvent);
                 break;
+            case EventCode.GameEnd:
+                if (photonView.IsMine)
+                {
+                    StartCoroutine(GameEnd());
+                }
+                break;
+            
         }
     }
 
@@ -148,7 +161,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         bool tmp_headShot = (bool)tmp_KillData[3];
         long tmp_time = (long)tmp_KillData[4];
         
-        Debug.Log("角色死亡"+"死亡者"+tmp_deathPlayer+"被"+tmp_KillFrom+"用"+tmp_KillWeapon+"是否爆头"+tmp_headShot+"击杀");
+        Debug.Log("死亡者"+tmp_deathPlayer+"被"+tmp_KillFrom+"用"+tmp_KillWeapon+"是否爆头"+tmp_headShot+"击杀");
 
         //如果死亡的是这个manager控制的玩家
         if (tmp_deathPlayer.Equals(photonView.Owner))
@@ -199,6 +212,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                 //TODO
                 Invoke("OnBTNReborn",5);
             }
+            //不是本地死亡
+            else
+            {
+                gameModeService.GetPlayerGameObject(tmp_deathPlayer).GetComponent<LoacalChanger>().RemoteDeath();
+            }
         
             //双端执行:
             
@@ -240,6 +258,12 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     
     public void OnBTNDeploy()
     {
+        //游戏没开始不允许部署
+        if (!RoomManager.GetInstance().currentGamemodeManager.GetRoomState)
+        {
+            return;
+        }
+
         if(!canDeploy)
             return;
         
@@ -265,6 +289,10 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         //获取部署武器
         DeployMainWeapon = DeployManager.getChosedMainWeapon();
         DeploySecWeapon = DeployManager.getChosedSecWeapon();
+        
+        //TODO
+        //添加本局武器插槽记录
+
 
         // CinemachineVirtualCamera.Follow = tmp_Spawnpoint;
         // CinemachineVirtualCamera.LookAt = tmp_Spawnpoint.transform.GetChild(0);
@@ -290,6 +318,11 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         //网络删除角色
         Debug.Log("网络删除角色!");
         PhotonNetwork.Destroy(tmp_Player.GetPhotonView());
+        if (!RoomManager.GetInstance().currentGamemodeManager.GetRoomState)
+        {
+            MainCM.GetComponent<MainCameraController>().ResetPos();
+            return;
+        }
         MainCM.GetComponent<MainCameraController>().Dochange();
         StartCoroutine(ReturnDeploy());
     }
@@ -308,6 +341,33 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         if (RoomManager.GetInstance().currentGamemode.Equals(MapTools.GameMode.Conquest))
         {
             DeployChoiceManager.GetInstance().CanvasFader.FadeIn(0.5f,DeployManager.GetInstance().OnEnable);
+        }
+    }
+
+
+    private IEnumerator GameEnd()
+    {
+        //关闭导航
+        _HUDNavigationSystem.PlayerCamera = null;
+        _HUDNavigationSystem.PlayerController = null;
+        HUDNavigationCanvas.EnableCanvas(false);
+        DeployUI.SetActive(false);
+        DeathUI.SetActive(false);
+        Destroy(Scoreboard);
+
+        yield return new WaitForSeconds(0.75f);
+        
+        //重置相机位置
+        MainCM.GetComponent<MainCameraController>().ResetPos();
+        //没死的话删除角色
+        Debug.Log("网络删除角色!");
+        if (!(bool)PhotonNetwork.LocalPlayer.CustomProperties[EnumTools.PlayerProperties.IsDeath.ToString()])
+        {
+            gameModeService.GetPlayerGameObject(PhotonNetwork.LocalPlayer)?.GetComponent<LoacalChanger>().LocalDeath();
+            if (tmp_Player.GetPhotonView())
+            {
+                PhotonNetwork.Destroy(tmp_Player.GetPhotonView());
+            }
         }
     }
 
@@ -343,6 +403,28 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         CinemachineVirtualCamera.LookAt = tmp_Player.transform;
         MainCM.SetActive(false);
         CMBrain.SetActive(false);
+    }
+
+    public void GameReset()
+    {
+        CMBrain.SetActive(true);
+        MainCM.SetActive(true);
+        DeployUI.SetActive(true);
+        DeployManager.canvasFader.FadeIn(0.5f);
+        //如果是征服模式
+        if (RoomManager.GetInstance().currentGamemode.Equals(MapTools.GameMode.Conquest))
+        {
+            DeployChoiceManager.GetInstance().CanvasFader.FadeIn(0.5f,DeployManager.GetInstance().OnEnable);
+        }
+        
+        if (RoomManager.GetInstance().isTeamMatch())
+        {
+            Scoreboard= Instantiate(ScordBoardTeamPrefab, transform);
+        }
+        else
+        {
+            Scoreboard= Instantiate(ScordBoardPrefab, transform);
+        }
     }
 
     public String GetDeployMainWeapon() => DeployMainWeapon;

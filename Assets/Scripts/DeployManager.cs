@@ -47,6 +47,9 @@ public class DeployManager : Singleton<DeployManager>
 
     [SerializeField] 
     private DeployUI_Top[] DeployUITops;
+
+    [SerializeField] 
+    private TextMeshProUGUI Hint;
     
     [Header("部署倒计时时长")]
     [SerializeField]
@@ -101,18 +104,36 @@ public class DeployManager : Singleton<DeployManager>
 
     private void Update()
     {
+        //人数不足提示
+        if (RoomManager.GetInstance().currentGamemodeManager.GetRoomState)
+        {
+            Hint.gameObject.SetActive(false);
+        }
+        else
+        {
+            Hint.gameObject.SetActive(true);
+            if (RoomManager.GetInstance().currentGamemodeManager.GetRoomStateEnd)
+            {
+                Hint.text = "游戏人数不足";
+            }
+            else
+            {
+                Hint.text = "等待上一场游戏结算";
+            }
+        }
+        
+        
         currMainWeapon = CheckActive(mainWeaponBTNlist);
         currSecWeapon = CheckActive(secWeaponBTNlist);
         MainWeaponImage.sprite = currMainWeapon.BTDS;
         SecWeaponImage.sprite = currSecWeapon.BTDS;
         MainWeaponName.text = currMainWeapon.ShowName;
         SecWeaponName.text = currSecWeapon.ShowName;
-        if (timer<=0)
-        {
-            CountDownBTN.SetActive(false);
-            DepolyBTN.SetActive(true);
-            RoomManager.GetInstance().currentGamemodeManager.GetPlayerManager(PhotonNetwork.LocalPlayer).SetCanDeploy(true);
-        }
+        
+        CountDownBTN.SetActive(!(timer<=0));
+        DepolyBTN.SetActive(timer<=0);
+        RoomManager.GetInstance().currentGamemodeManager.GetPlayerManager(PhotonNetwork.LocalPlayer).SetCanDeploy(timer<=0);
+        
         if (showTimer > 0)
         {
             showTimer -= UnityEngine.Time.deltaTime;

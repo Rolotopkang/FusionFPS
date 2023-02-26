@@ -98,16 +98,19 @@ public class ChangeScene : Singleton<ChangeScene>
 
             if (isNetWork)
             {
-                PhotonNetwork.LoadLevel(sceneToLoad);
+                PhotonNetwork.LoadLevel(NetWorkSceneIndex);
+                Debug.Log("加载场景"+NetWorkSceneIndex);
             }
             else if (isNetWorkClient)
             {
                 PhotonNetwork.LoadLevel(NetWorkSceneIndex);
+                Debug.Log("加载场景"+NetWorkSceneIndex);
             }
             else
             {
                 //Load the scene.
                 operation = SceneManager.LoadSceneAsync(sceneToLoad, new LoadSceneParameters(LoadSceneMode.Single));
+                Debug.Log("加载场景"+sceneToLoad);
             }
             
 

@@ -32,10 +32,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
         [SerializeField]
         private List<MonoBehaviour> DeathScripts;
-
-        [Tooltip("Quality settings menu prefab spawned at start. Used for switching between different quality settings in-game.")]
-        [SerializeField]
-        private GameObject qualitySettingsPrefab;
+        
         [SerializeField]
         private GameObject MainCM;
 
@@ -45,6 +42,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private RenderController TpRender;
         [SerializeField]
         private RenderController FpRender;
+
+        [SerializeField] 
+        private GameObject IndicatorSystem;
 
         private PhotonView PhotonView;
         
@@ -58,8 +58,6 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         #endregion
 
         #region SpawnObjects
-        
-        private GameObject Settings;
         private GameObject Canvas;
         
 
@@ -72,16 +70,10 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             PhotonView = GetComponent<PhotonView>();
             if (singlePlay)
             {
-                //Spawn Interface.
-                //Spawn Quality Settings Menu.
-                Settings = Instantiate(qualitySettingsPrefab);
-                
                 Canvas = Instantiate(canvasPrefab);
                 Canvas.GetComponent<Canvas>().worldCamera = MainCM.GetComponentsInChildren<Camera>()[2];
-                
                 MainCM.AddComponent<AudioListener>();
                 TpRender.SetRenderers(ShadowCastingMode.ShadowsOnly);
-
                 FpRender.SetRenderersDisable(true);
                 FpRender.SetRenderers(ShadowCastingMode.Off);
                 return;
@@ -91,19 +83,13 @@ namespace InfimaGames.LowPolyShooterPack.Interface
                 if (PhotonView.IsMine)
                 {
                     isMine = true;
-                    //Spawn Interface.
-                    //Spawn Quality Settings Menu.
-                    Settings = Instantiate(qualitySettingsPrefab);
-                
                     Canvas = Instantiate(canvasPrefab);
                     Canvas.GetComponent<Canvas>().worldCamera = MainCM.GetComponentsInChildren<Camera>()[2];
-
-
                     MainCM.AddComponent<AudioListener>();
                     TpRender.SetRenderers(ShadowCastingMode.ShadowsOnly);
-
                     FpRender.SetRenderersDisable(true);
                     FpRender.SetRenderers(ShadowCastingMode.Off);
+                    IndicatorSystem.SetActive(false);
                 }
                 else
                 {
@@ -111,6 +97,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
                     MainCM.SetActive(false);
                     TpRender.SetRenderers(ShadowCastingMode.On);
                     TpRender.SetRenderersDisable(true);
+                    IndicatorSystem.SetActive(true);
                     FP.SetActive(false);
                     foreach (MonoBehaviour behaviour in LocalScripts)
                     {
@@ -124,17 +111,22 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             }
         }
 
+        public void RemoteDeath()
+        {
+            //Destroy indicator
+            IndicatorSystem.SetActive(false);
+        }
+        
         public void LocalDeath()
         {
             TpRender.SetRenderers(ShadowCastingMode.On);
             TpRender.SetRenderersDisable(true);
             
             Destroy(Canvas);
-            Destroy(Settings);
 
             // Destroy(Settings);
             FP.SetActive(false);
-            
+
             foreach (MonoBehaviour behaviour in DeathScripts)
             {
                 behaviour.enabled = false;
