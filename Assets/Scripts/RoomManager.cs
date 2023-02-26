@@ -46,11 +46,11 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
 
     #region Photon
 
-    public override void OnLeftRoom()
-    {
-        Destroy(currentGamemodeManager.transform.gameObject);
-        currentGamemodeManager = null;
-    }
+    // public override void OnLeftRoom()
+    // {
+    //     Destroy(currentGamemodeManager.transform.gameObject);
+    //     currentGamemodeManager = null;
+    // }
 
     #endregion
 
@@ -69,6 +69,11 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
             return;
         }
 
+        // if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["State"])
+        // {
+        //     return;
+        // }
+
 
         Debug.Log("筛选游戏类型！");
         if (scene.buildIndex.Equals(int.Parse(PhotonNetwork.CurrentRoom.CustomProperties["mapIndex"].ToString())))
@@ -83,10 +88,10 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                     Debug.Log("征服模式！");
                     // currentGamemodeManager = Instantiate(ConquestModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
                     currentGamemodeManager = GameModeManagerBehaviour.GetInstance();
-                    Debug.Log("生成征服模式游戏逻辑控制脚本");
                     currentGamemode = MapTools.GameMode.Conquest;
                     PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
                         Vector3.zero, quaternion.identity);
+                    Debug.Log("网络生成玩家控制脚本！！！！！！！！！！！！！！！！！！！！！！！！！！！");
                     break;
                 }
                 case "BombScenario":
@@ -104,7 +109,6 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
                     Debug.Log("死斗模式！");
                     // currentGamemodeManager = Instantiate(DeathMatchModePrefab, transform).GetComponent<GameModeManagerBehaviour>();
                     currentGamemodeManager = GameModeManagerBehaviour.GetInstance();
-                    Debug.Log("生成死斗模式游戏逻辑控制脚本");
                     currentGamemode = MapTools.GameMode.DeathMatch;
                     PhotonNetwork.Instantiate(Path.Combine("PhotonNetwork", "PlayerManager"),
                         Vector3.zero, quaternion.identity);

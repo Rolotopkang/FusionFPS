@@ -2478,6 +2478,9 @@ namespace Photon.Pun
                 return null;
             }
 
+            Debug.Log("生成！！！！！！！"+prefabName);
+            
+            
             Pun.InstantiateParameters netParams = new InstantiateParameters(prefabName, position, rotation, group, data, currentLevelPrefix, null, LocalPlayer, ServerTimestamp);
             return NetworkInstantiate(netParams, false);
         }

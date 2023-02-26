@@ -38,6 +38,8 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
     [Header("预制体")] 
     [SerializeField] private GameObject UI_ScoreBoardPlayerPrefab;
 
+    [SerializeField] private bool EndingMode = false;
+
     #endregion
 
     #region Private
@@ -56,10 +58,6 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
     {
         UI_ScoreBoardPlayerList_Red = new List<UIScordBoardPlayer>();
         UI_ScoreBoardPlayerList_Blue = new List<UIScordBoardPlayer>();
-    }
-
-    private void Start()
-    {
         LocalPlayer = PhotonNetwork.LocalPlayer;
         scoreboard.SetActive(false);
         // updatePlayerList();
@@ -86,9 +84,30 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
         PhotonNetwork.RemoveCallbackTarget(this);
     }
 
+    private void OnEnable()
+    {
+        if (EndingMode)
+        {
+            scoreboard.SetActive(true);
+            updatePlayerList();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (EndingMode)
+        {
+            scoreboard.SetActive(false);
+        }
+    }
+
     private void Update()
     {
-        scoreboard.SetActive(scoreBoardVisible);
+        if (!EndingMode)
+        {
+            scoreboard.SetActive(scoreBoardVisible);
+        }
+        
     }
     
     #endregion
@@ -104,9 +123,8 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
         ClearLists();
         Instantiate_UI_ScoreBoardPlayerList();
         ScoreBoardSort();
-        //更新自己信息
+        // //更新自己信息
         UpdateMineData();
-        Debug.Log("强制刷新完毕");
     }
 
     private void Instantiate_UI_ScoreBoardPlayerList()
@@ -140,7 +158,6 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
     /// </summary>
     private void ScoreBoardSort()
     {
-        Debug.Log("计分板重新排序！");
         UI_ScoreBoardPlayerList_Red.Sort((x,y) => -x.GetKillNum().CompareTo(y.GetKillNum()));
         foreach (UIScordBoardPlayer uiScordBoardPlayer in UI_ScoreBoardPlayerList_Red)
         {
@@ -260,11 +277,19 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
 
     public void OnPlayerEnteredRoom(Player newPlayer)
     {
+        if (EndingMode)
+        {
+            return;
+        }
         updatePlayerList();
     }
     
     public void OnPlayerLeftRoom(Player otherPlayer)
     {
+        if (EndingMode)
+        {
+            return;
+        }
         updatePlayerList();
     }
     
@@ -279,6 +304,10 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
         //如果是队伍信息改变强制刷新整个计分板
         if (changedProps.ContainsKey(PhotonTeamsManager.TeamPlayerProp))
         {
+            if (EndingMode)
+            {
+                return;
+            }
             updatePlayerList();
         }
     }
@@ -290,6 +319,10 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
 
     public void OnMasterClientSwitched(Player newMasterClient)
     {
+        if (EndingMode)
+        {
+            return;
+        }
         updatePlayerList();
     }
 

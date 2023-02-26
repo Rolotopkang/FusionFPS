@@ -13,7 +13,7 @@ namespace Scripts.Weapon
         
         
         //GameLoop
-        GameBegin,
+        GameStart,
         GameRestart,
         GameEnd,
     }

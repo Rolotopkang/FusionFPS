@@ -16,8 +16,11 @@ public class HUDSynSystem : MonoBehaviour
     
     private bool isElementReady = false;
     private HUDNavigationElement _element;
+    
     [SerializeField] private Battle _battle;
 
+
+    private bool isEnemy = false;
 
     //我是傻逼
     private void Awake()
@@ -28,14 +31,14 @@ public class HUDSynSystem : MonoBehaviour
 
     public void OnElementReady(HUDNavigationElement element)
     {
-        bool TMP_isEnemy = StaticTools.IsEnemy(PhotonNetwork.LocalPlayer, PhotonView);
+        isEnemy = StaticTools.IsEnemy(PhotonNetwork.LocalPlayer, PhotonView);
         
         
         //Indicator 初始化
         element.Indicator.GetComponent<HNS_PlayerIcon_Indicator_Manager>().
-            Initialisation(TMP_isEnemy, PhotonView.Owner.NickName);
+            Initialisation(isEnemy, PhotonView.Owner.NickName);
         //Minimap 初始化
-        element.Minimap.GetComponent<HNS_PlayerIcon_Minimap_Manager>().Initialisation(!TMP_isEnemy);
+        element.Minimap.GetComponent<HNS_PlayerIcon_Minimap_Manager>().Initialisation(!isEnemy);
         
         isElementReady = true;
         _element = element;
@@ -58,8 +61,8 @@ public class HUDSynSystem : MonoBehaviour
             
             
         }
-        
-            
+
+
     }
 
     public void OnClientGaze(bool set)

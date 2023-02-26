@@ -35,6 +35,7 @@ public class CreateRoomManager : MonoBehaviourPunCallbacks
         MapTools.Map tmp_map = MapTools.IndexToMap(mapDropdown.value, _gameMode);
         CustomRoomInfo.Add("mapIndex",tmp_map.SceneIndex);
         CustomRoomInfo.Add("mapDiscripName",tmp_map.MapDiscripName);
+        CustomRoomInfo.Add("State",false);
 
 
         RoomOptions roomOptions = new RoomOptions
@@ -44,7 +45,7 @@ public class CreateRoomManager : MonoBehaviourPunCallbacks
             IsVisible = true,
             IsOpen = true,
         };
-        roomOptions.CustomRoomPropertiesForLobby = new string[] {"pvp","host","GameMode","mapIndex","mapDiscripName"};
+        roomOptions.CustomRoomPropertiesForLobby = new string[] {"pvp","host","GameMode","mapIndex","mapDiscripName","State"};
         
         PhotonNetwork.JoinOrCreateRoom(roomName.text.Equals(String.Empty)? PhotonNetwork.LocalPlayer.NickName + "'s room" : roomName.text, roomOptions,TypedLobby.Default);
     }
