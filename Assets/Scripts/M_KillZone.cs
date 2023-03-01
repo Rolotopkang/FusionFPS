@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityTemplateProjects.Tools;
+using Debug = UnityEngine.Debug;
 using EventCode = Scripts.Weapon.EventCode;
 
 public class M_KillZone : MonoBehaviour
@@ -24,20 +27,35 @@ public class M_KillZone : MonoBehaviour
             PhotonView tmp_PhotonView = other.transform.GetComponent<PhotonView>();
             if (tmp_PhotonView.Owner.Equals(PhotonNetwork.LocalPlayer))
             {
-                if (reverse)
+                switch (RoomManager.GetInstance().currentGamemode)
                 {
-                    if (DeathTimerCoroutine!=null)
-                    {
-                        PostProcessingManager.GetInstance().PostProcessings.PP_DeathZone.SetActive(false);
-                        StopCoroutine(DeathTimerCoroutine);
-                        OutOfBoundWarningUIManager.StopCountDown();
-                        DeathTimerCoroutine = null;
-                    }
+                    case MapTools.GameMode.Conquest :
+                        if (reverse)
+                        {
+                            if (DeathTimerCoroutine!=null)
+                            {
+                                PostProcessingManager.GetInstance().PostProcessings.PP_DeathZone.SetActive(false);
+                                StopCoroutine(DeathTimerCoroutine);
+                                OutOfBoundWarningUIManager.StopCountDown();
+                                DeathTimerCoroutine = null;
+                            }
+                        }
+                        else
+                        {
+                            DeathTimerCoroutine = StartCoroutine(DeathTimer());
+                        }
+                        break;
+                    case MapTools.GameMode.DeathMatch:
+                        if (!reverse)
+                        {
+                            Sentenced();
+                        }
+                        break;
+                    default:
+                        break;
+                    
                 }
-                else
-                {
-                    DeathTimerCoroutine = StartCoroutine(DeathTimer());
-                }
+
             }
             
         }
@@ -50,20 +68,35 @@ public class M_KillZone : MonoBehaviour
             PhotonView tmp_PhotonView = other.transform.GetComponent<PhotonView>();
             if (tmp_PhotonView.Owner.Equals(PhotonNetwork.LocalPlayer))
             {
-                if (!reverse)
+                switch (RoomManager.GetInstance().currentGamemode)
                 {
-                    if (DeathTimerCoroutine!=null)
-                    {
-                        PostProcessingManager.GetInstance().PostProcessings.PP_DeathZone.SetActive(false);
-                        StopCoroutine(DeathTimerCoroutine);
-                        OutOfBoundWarningUIManager.StopCountDown();
-                        DeathTimerCoroutine = null;
-                    }
+                    case MapTools.GameMode.Conquest :
+                        if (!reverse)
+                        {
+                            if (DeathTimerCoroutine!=null)
+                            {
+                                PostProcessingManager.GetInstance().PostProcessings.PP_DeathZone.SetActive(false);
+                                StopCoroutine(DeathTimerCoroutine);
+                                OutOfBoundWarningUIManager.StopCountDown();
+                                DeathTimerCoroutine = null;
+                            }
+                        }
+                        else
+                        {
+                            DeathTimerCoroutine = StartCoroutine(DeathTimer());
+                        }
+                        break;
+                    case MapTools.GameMode.DeathMatch:
+                        if (reverse)
+                        {
+                            Sentenced();
+                        }
+                        break;
+                    default:
+                        break;
+                    
                 }
-                else
-                {
-                    DeathTimerCoroutine = StartCoroutine(DeathTimer());
-                }
+                
             }
             
         }

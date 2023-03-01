@@ -63,6 +63,10 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
         // updatePlayerList();
         // Instantiate_UI_ScoreBoardPlayerList();
         PhotonNetwork.AddCallbackTarget(this);
+    }
+
+    private void Start()
+    {
         Data_RoomMapName.text = RoomManager.GetInstance().currentGamemode switch
         {
             MapTools.GameMode.Conquest => "征服",
@@ -107,7 +111,6 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
         {
             scoreboard.SetActive(scoreBoardVisible);
         }
-        
     }
     
     #endregion

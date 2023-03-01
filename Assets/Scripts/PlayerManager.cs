@@ -248,6 +248,10 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private IEnumerator LookAt(int waitTime, Transform target)
     {
         yield return new WaitForSeconds(waitTime);
+        if (!RoomManager.GetInstance().currentGamemodeManager.GetRoomState)
+        {
+            yield break;
+        }
         CinemachineVirtualCamera.Follow = null;
         CinemachineVirtualCamera.LookAt = target.transform;
         //击杀者透视
@@ -304,6 +308,10 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     public void OnBTNReborn()
     {
+        if (!RoomManager.GetInstance().currentGamemodeManager.GetRoomState)
+        {
+            return;
+        }
         if (playerFrom_outline)
         {
             playerFrom_outline.enabled = false;
@@ -362,8 +370,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         MainCM.GetComponent<MainCameraController>().ResetPos();
         //没死的话删除角色
         Debug.Log("网络删除角色!");
-        // if (!(bool)PhotonNetwork.LocalPlayer.CustomProperties[EnumTools.PlayerProperties.IsDeath.ToString()])
-        if(tmp_Player)
+        if (tmp_Player!=null)
         {
             gameModeService.GetPlayerGameObject(PhotonNetwork.LocalPlayer)?.GetComponent<LoacalChanger>().LocalDeath();
             if (tmp_Player.GetPhotonView())

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using ExitGames.Client.Photon;
+using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using TMPro;
@@ -97,7 +98,7 @@ public class ConquestSettlementUIController : MonoBehaviour
 
     public void BTN_Quit()
     {
-        
+        SettingsMenu.GetInstance().Quit();
     }
     
     IEnumerator countingDownEnumerator()

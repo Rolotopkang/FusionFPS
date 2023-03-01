@@ -46,8 +46,11 @@ public class CreateRoomManager : MonoBehaviourPunCallbacks
             IsOpen = true,
         };
         roomOptions.CustomRoomPropertiesForLobby = new string[] {"pvp","host","GameMode","mapIndex","mapDiscripName","State"};
-        
-        PhotonNetwork.JoinOrCreateRoom(roomName.text.Equals(String.Empty)? PhotonNetwork.LocalPlayer.NickName + "'s room" : roomName.text, roomOptions,TypedLobby.Default);
+
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.CreateRoom(
+            roomName.text.Equals(String.Empty) ? PhotonNetwork.LocalPlayer.NickName + "'s room" : roomName.text,
+            roomOptions, TypedLobby.Default);
     }
 
     public void BTNCreateRoom()
@@ -65,5 +68,12 @@ public class CreateRoomManager : MonoBehaviourPunCallbacks
             ChangeScene.GetInstance().SetMapToChange(mapDropdown.value,_gameMode);
             ChangeScene.GetInstance().OnBTNChangeScene();
         }
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        base.OnCreateRoomFailed(returnCode, message);
+        WrongHint.text = "创建房间失败!"+returnCode;
+        Debug.Log(message+returnCode);
     }
 }

@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using SickscoreGames.HUDNavigationSystem;
 using UnityEngine;
+using UnityTemplateProjects.Tools;
+using EventCode = Scripts.Weapon.EventCode;
 
-public class HUDSynSystem : MonoBehaviour
+public class HUDSynSystem : MonoBehaviour,IOnEventCallback
 {
 
     public bool isLocal;
@@ -27,12 +31,23 @@ public class HUDSynSystem : MonoBehaviour
     {
         _hudNavigationElement = GetComponent<HUDNavigationElement>();
         isLocal = PhotonView.Owner.Equals(PhotonNetwork.LocalPlayer);
+        
     }
 
     public void OnElementReady(HUDNavigationElement element)
     {
-        isEnemy = StaticTools.IsEnemy(PhotonNetwork.LocalPlayer, PhotonView);
-        
+        switch (RoomManager.GetInstance().currentGamemode)
+        {
+            case MapTools.GameMode.Conquest:
+                isEnemy = StaticTools.IsEnemy(PhotonNetwork.LocalPlayer, PhotonView);
+                break;
+            case MapTools.GameMode.DeathMatch:
+                isEnemy = true;
+                break;
+            default:
+                return;
+                break;
+        }
         
         //Indicator 初始化
         element.Indicator.GetComponent<HNS_PlayerIcon_Indicator_Manager>().
@@ -61,10 +76,35 @@ public class HUDSynSystem : MonoBehaviour
             
             
         }
+        
 
 
     }
 
+    public void OnEvent(EventData photonEvent)
+    {
+        switch ((EventCode) photonEvent.Code)
+        {
+            case EventCode.KillPlayer: 
+                OnPlayerDeath(photonEvent); 
+                break;
+        }
+    }
+
+    private void OnPlayerDeath(EventData eventData)
+    {
+        Dictionary<byte, object> tmp_KillData = (Dictionary<byte, object>)eventData.CustomData;
+        Player tmp_deathPlayer =(Player)tmp_KillData[0];
+        if (tmp_deathPlayer.Equals(PhotonNetwork.LocalPlayer))
+        {
+            if (isEnemy)
+            {
+                OnClientGaze(false);
+                OnClientAround(false);
+            }
+        }
+    }
+    
     public void OnClientGaze(bool set)
     {
         if(_element.Indicator)
