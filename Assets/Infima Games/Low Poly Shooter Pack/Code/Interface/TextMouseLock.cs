@@ -13,7 +13,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         protected override void Tick()
         {
             //Update the text based on whether the cursor is locked or not.
-            textMesh.text = "Cursor " + (SettingsMenu.GetInstance().GetCursorLocked() ? "Locked" : "Unlocked");
+            textMesh.text = "Cursor " + (In_Game_SettingsMenu.GetInstance().GetCursorLocked() ? "Locked" : "Unlocked");
         }
 
         #endregion

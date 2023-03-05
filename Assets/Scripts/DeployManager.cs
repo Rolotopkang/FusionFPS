@@ -93,7 +93,7 @@ public class DeployManager : Singleton<DeployManager>
 
     public void OnEnable()
     {
-        SettingsMenu.GetInstance().setCursorLocked(false);
+        In_Game_SettingsMenu.GetInstance().setCursorLocked(false);
         DepolyBTN.SetActive(false);
         CountDownBTN.SetActive(true);
         //TODO 如果能部署再计时

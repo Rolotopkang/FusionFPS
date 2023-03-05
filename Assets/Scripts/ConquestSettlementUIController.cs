@@ -98,7 +98,7 @@ public class ConquestSettlementUIController : MonoBehaviour
 
     public void BTN_Quit()
     {
-        SettingsMenu.GetInstance().Quit();
+        In_Game_SettingsMenu.GetInstance().Quit();
     }
     
     IEnumerator countingDownEnumerator()

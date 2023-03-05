@@ -9,32 +9,11 @@ public class UIBase : MonoBehaviour
     public List<GameObject> UIList;
     private int currentUI = 0;
     private int commingUI;
-
-    public bool IsSetting = false;
+    public bool aotoShowFirstPage = true;
 
     protected void Awake()
     {
-        UIList[currentUI].SetActive(true);
-    }
-
-    private void OnEnable()
-    {
-        if (IsSetting)
-        {
-            foreach (GameObject UI in UIList)
-            {
-                UI.SetActive(true);
-            }
-
-            SettingUI tmpSettingUI = gameObject.transform.parent.GetComponent<SettingUI>();
-            tmpSettingUI.AudioSettings(false);
-            tmpSettingUI.GameSettings(false);
-            foreach (GameObject UI in UIList)
-            {
-                UI.SetActive(false);
-            }
-            UIList[currentUI].SetActive(true);
-        }
+        UIList[currentUI].SetActive(aotoShowFirstPage);
     }
 
     /// <summary>
@@ -45,6 +24,10 @@ public class UIBase : MonoBehaviour
     {
         if (set.Equals(currentUI))
         {
+            if (!aotoShowFirstPage)
+            {
+                UIList[currentUI].SetActive(true);
+            }
             return;
         }
         if (currentUI != -1)
@@ -76,5 +59,10 @@ public class UIBase : MonoBehaviour
     {
         UIList[currentUI].SetActive(false);
         gameObject.SetActive(false);
+    }
+
+    public void CloseCurrentUI()
+    {
+        UIList[currentUI].SetActive(false);
     }
 }

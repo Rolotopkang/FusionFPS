@@ -10054,7 +10054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 2626598216940496189}
-  sensitivity: {x: 1, y: 1}
+  sensitivityBase: {x: 1, y: 1}
   yClamp: {x: -89, y: 89}
   smooth: 1
   interpolationSpeed: 45

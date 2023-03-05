@@ -409,8 +409,8 @@ namespace InfimaGames.LowPolyShooterPack
 			if (isMine)
 			{
 				//Always make sure that our cursor is locked when the game starts!
-				SettingsMenu.GetInstance().setCursorLocked(true);
-				SettingsMenu.GetInstance().isLive = true;
+				In_Game_SettingsMenu.GetInstance().setCursorLocked(true);
+				In_Game_SettingsMenu.GetInstance().isLive = true;
 			}
 			
 			#endregion
@@ -475,7 +475,7 @@ namespace InfimaGames.LowPolyShooterPack
 					break;
 			}
 
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 			{
 				
 			}
@@ -484,15 +484,15 @@ namespace InfimaGames.LowPolyShooterPack
 			{
 				case true when !wasscopeChanging:
 					//Toggle the cursor locked value.
-					SettingsMenu.GetInstance().convertCursorLocked();
+					In_Game_SettingsMenu.GetInstance().convertCursorLocked();
 					wasscopeChanging = true;
-					SettingsMenu.GetInstance().scopeChanging = true;
+					In_Game_SettingsMenu.GetInstance().scopeChanging = true;
 					break;
 				case false when wasscopeChanging:
 					//Toggle the cursor locked value.
-					SettingsMenu.GetInstance().convertCursorLocked();
+					In_Game_SettingsMenu.GetInstance().convertCursorLocked();
 					wasscopeChanging = false;
-					SettingsMenu.GetInstance().scopeChanging = false;
+					In_Game_SettingsMenu.GetInstance().scopeChanging = false;
 					break;
 			}
 
@@ -618,18 +618,18 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private void OnDestroy()
 		{
-			if (SettingsMenu.GetInstance())
+			if (In_Game_SettingsMenu.GetInstance())
 			{
 				//如果是自己则解锁鼠标
-				if (SettingsMenu.GetInstance().GetCursorLocked() && isMine)
+				if (In_Game_SettingsMenu.GetInstance().GetCursorLocked() && isMine)
 				{
-					SettingsMenu.GetInstance().convertCursorLocked();
+					In_Game_SettingsMenu.GetInstance().convertCursorLocked();
 				}
 			}
 
 			if (isMine)
 			{
-				SettingsMenu.GetInstance().isLive = false;
+				In_Game_SettingsMenu.GetInstance().isLive = false;
 			}
 			
 			//从表中移除自己
@@ -1375,7 +1375,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 
 			//Switch.
@@ -1422,7 +1422,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Block.
@@ -1448,7 +1448,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Block.
@@ -1473,7 +1473,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 
 			//Switch.
@@ -1497,7 +1497,7 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			if(!isMine)
 				return;
-			if(SettingsMenu.GetInstance().GetMenuEnable())
+			if(In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Switch.
@@ -1522,7 +1522,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Switch.
@@ -1549,7 +1549,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Switch.
@@ -1572,7 +1572,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Switch.
@@ -1594,7 +1594,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Switch.
@@ -1621,7 +1621,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 
 			//Switch.
@@ -1646,7 +1646,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 
 			if(crouching)
@@ -1670,7 +1670,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (SettingsMenu.GetInstance().GetMenuEnable())
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Null Check.
@@ -1706,7 +1706,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Read.
-			axisMovement = !SettingsMenu.GetInstance().GetMenuEnable() ? context.ReadValue<Vector2>() : default;
+			axisMovement = !In_Game_SettingsMenu.GetInstance().GetMenuEnable() ? context.ReadValue<Vector2>() : default;
 		}
 		/// <summary>
 		/// Look.
@@ -1716,7 +1716,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Read.
-			axisLook = SettingsMenu.GetInstance().GetCursorLocked() ? context.ReadValue<Vector2>() : default;
+			axisLook = In_Game_SettingsMenu.GetInstance().GetCursorLocked() ? context.ReadValue<Vector2>() : default;
 
 			//Make sure that we have a weapon.
 			if (equippedWeapon == null)
