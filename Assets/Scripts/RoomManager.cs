@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using Unity.Mathematics;
 using UnityEditor;
@@ -10,7 +11,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityTemplateProjects.Tools;
 
-public class RoomManager : SingletonPunCallbacks<RoomManager>
+public class RoomManager : Singleton<RoomManager>
 {
     [Header("游戏模式")] 
     [SerializeField] private GameObject DeathMatchModePrefab;
@@ -24,17 +25,15 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
 
     #region Unity
 
-    public override void OnEnable()
+    public void OnEnable()
     {
-        base.OnEnable();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // public override void OnDisable()
-    // {
-    //     base.OnDisable();
-    //     SceneManager.sceneLoaded -= OnSceneLoaded;
-    // }
+    public void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
     
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
@@ -44,16 +43,6 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
     
     #endregion
 
-    #region Photon
-
-    // public override void OnLeftRoom()
-    // {
-    //     Destroy(currentGamemodeManager.transform.gameObject);
-    //     currentGamemodeManager = null;
-    // }
-
-    #endregion
-
     #region Functions
 
     private void CheckScene(Scene scene)
@@ -61,11 +50,17 @@ public class RoomManager : SingletonPunCallbacks<RoomManager>
         if (scene.buildIndex.Equals(0))
         {
             Debug.Log("跳转至主页");
-            //TODO 
+            
+            
             //登录验证
             //验证成功跳转至记录页
-            
-            
+            if (AccountManager.GetInstance().GetIsConnected())
+            {
+                Debug.Log("返回房间列表");
+                MenusJump menusJump = GameObject.Find("Menus").GetComponent<MenusJump>();
+                menusJump.JumpToUI(MenusJump.Page.Room);
+            }
+            return;
         }
         if (!PhotonNetwork.InRoom)
         {

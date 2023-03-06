@@ -93,7 +93,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             CMBrain = GameObject.FindWithTag("CMBrain");
             CinemachineVirtualCamera = MainCM.GetComponent<CinemachineVirtualCamera>();
             ComponentBase = CinemachineVirtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
-            
+            Instantiate(qualitySettingsPrefab,transform);
             DeployUI = Instantiate(DeployUIPrefab);
             DeployManager = DeployUI.GetComponent<DeployManager>();
             DeployUI.SetActive(true);
@@ -104,6 +104,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             KillhintUI = Instantiate(KillhintUIPrefab, transform);
             KillFeedBackRoom = Instantiate(KillFeedBackRoomPrefab, transform);
             Instantiate(OutOfBoundWarningUIManagerPrefab, transform);
+            
 
             if (RoomManager.GetInstance().isTeamMatch())
             {
@@ -113,7 +114,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             {
                 Scoreboard = Instantiate(ScordBoardPrefab, transform);
             }
-            
+
             _HUDNavigationSystem = HUDNavigationSystem.Instance;
             HUDNavigationCanvas = HUDNavigationCanvas.Instance;
             HUDNavigationCanvas.EnableCanvas(false);
@@ -247,6 +248,10 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
     private IEnumerator LookAt(int waitTime, Transform target)
     {
         yield return new WaitForSeconds(waitTime);
+        if (!RoomManager.GetInstance().currentGamemodeManager.GetRoomState)
+        {
+            yield break;
+        }
         CinemachineVirtualCamera.Follow = null;
         CinemachineVirtualCamera.LookAt = target.transform;
         //击杀者透视
@@ -303,6 +308,10 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     public void OnBTNReborn()
     {
+        if (!RoomManager.GetInstance().currentGamemodeManager.GetRoomState)
+        {
+            return;
+        }
         if (playerFrom_outline)
         {
             playerFrom_outline.enabled = false;
@@ -361,7 +370,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         MainCM.GetComponent<MainCameraController>().ResetPos();
         //没死的话删除角色
         Debug.Log("网络删除角色!");
-        if (!(bool)PhotonNetwork.LocalPlayer.CustomProperties[EnumTools.PlayerProperties.IsDeath.ToString()])
+        if (tmp_Player!=null)
         {
             gameModeService.GetPlayerGameObject(PhotonNetwork.LocalPlayer)?.GetComponent<LoacalChanger>().LocalDeath();
             if (tmp_Player.GetPhotonView())
@@ -429,6 +438,8 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     public String GetDeployMainWeapon() => DeployMainWeapon;
     public String GetDeploySecWeapon() => DeploySecWeapon;
+
+    public GameObject GetPlayerOBJ() => tmp_Player;
 
     public void SetCanDeploy(bool set)
     {

@@ -20,13 +20,20 @@ public class RoomListManager : MonoBehaviourPunCallbacks
     public override void OnEnable()
     {
         base.OnEnable();
-        PhotonNetwork.JoinLobby();
+        if (!PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.JoinLobby();
+        }
     }
 
     public override void OnDisable()
     {
         base.OnDisable();
-        PhotonNetwork.LeaveLobby();
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+        }
+        
     }
 
     public override void OnJoinedLobby()
@@ -88,5 +95,15 @@ public class RoomListManager : MonoBehaviourPunCallbacks
         //     PhotonNetwork.CurrentRoom.CustomProperties["mapDiscripName"].ToString());
         // ChangeScene.GetInstance().OnBTNChangeScene();
         base.OnJoinedRoom();
+    }
+
+
+    public void BTN_RoomInfoRefresh()
+    {
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+        }
+        PhotonNetwork.JoinLobby();
     }
 }

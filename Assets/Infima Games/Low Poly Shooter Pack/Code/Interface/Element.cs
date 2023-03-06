@@ -56,7 +56,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         {
             //Get Game Mode Service. Very useful to get Game Mode references.
             gameModeService = ServiceLocator.Current.Get<IGameModeService>();
-            playerGameObject ??=gameModeService.GetPlayerGameObject(PhotonNetwork.LocalPlayer);
+            playerGameObject ??= gameModeService.GetPlayerGameObject(PhotonNetwork.LocalPlayer);
             
             //获取角色战斗数据
             Battle ??= playerGameObject.GetComponent<Battle>();

@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DebugInfoController : MonoBehaviourPun
+public class DebugInfoController : Singleton<DebugInfoController>
 {
     public Text PingText;
     public Text FPSText;
@@ -19,6 +19,7 @@ public class DebugInfoController : MonoBehaviourPun
 
     private void Awake()
     {
+        base.Awake();
         DontDestroyOnLoad(this);
     }
 

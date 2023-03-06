@@ -6,7 +6,7 @@ using UnityEngine;
 public class UI_Error : Singleton<UI_Error>
 {
 
-    [SerializeField] private LoginUIManager LoginUIManager;
+    [SerializeField] private UIBase uiBase;
     
     [SerializeField] private GameObject UI_NetWorkWarning;
     [SerializeField] private GameObject UI_AccountWarning;
@@ -30,7 +30,7 @@ public class UI_Error : Singleton<UI_Error>
     {
         UI_AccountWarning.SetActive(false);
         UI_ServerFullWarning.SetActive(false);
-        LoginUIManager.ChangeToUI(0);
+        uiBase.ChangeToUI(0);
     }
     public void OpenUI_NetWorkWarning()
     {

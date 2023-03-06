@@ -4,43 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoginUIManager : MonoBehaviour
+public class UIBase : MonoBehaviour
 {
     public List<GameObject> UIList;
     private int currentUI = 0;
     private int commingUI;
-
-    public bool IsSetting = false;
+    public bool aotoShowFirstPage = true;
 
     protected void Awake()
     {
-        UIList[currentUI].SetActive(true);
+        UIList[currentUI].SetActive(aotoShowFirstPage);
     }
 
-    private void OnEnable()
-    {
-        if (IsSetting)
-        {
-            foreach (GameObject UI in UIList)
-            {
-                UI.SetActive(true);
-            }
-
-            SettingUI tmpSettingUI = gameObject.transform.parent.GetComponent<SettingUI>();
-            tmpSettingUI.AudioSettings(false);
-            tmpSettingUI.GameSettings(false);
-            foreach (GameObject UI in UIList)
-            {
-                UI.SetActive(false);
-            }
-            UIList[currentUI].SetActive(true);
-        }
-    }
-
+    /// <summary>
+    /// 切换到index层UI
+    /// </summary>
+    /// <param name="set">目标UI层级</param>
     public void ChangeToUI(int set)
     {
         if (set.Equals(currentUI))
         {
+            if (!aotoShowFirstPage)
+            {
+                UIList[currentUI].SetActive(true);
+            }
             return;
         }
         if (currentUI != -1)
@@ -51,6 +38,10 @@ public class LoginUIManager : MonoBehaviour
         UIList[currentUI].SetActive(true);
     }
 
+    /// <summary>
+    /// 切换到index层UI，如果传入UI显示则关闭
+    /// </summary>
+    /// <param name="set">目标UI层级</param>
     public void ChangeToUIAndClose(int set)
     {
         if (set.Equals(currentUI))
@@ -68,5 +59,10 @@ public class LoginUIManager : MonoBehaviour
     {
         UIList[currentUI].SetActive(false);
         gameObject.SetActive(false);
+    }
+
+    public void CloseCurrentUI()
+    {
+        UIList[currentUI].SetActive(false);
     }
 }

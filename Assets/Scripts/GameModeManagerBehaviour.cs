@@ -31,7 +31,7 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
     [SerializeField] private float deployWaitTime = 3f;
     [SerializeField] private int GameLoopSec = 1200;
 
-    private List<PlayerManager> _playerManagers;
+    protected List<PlayerManager> _playerManagers;
     protected bool isMaster = false;
     private float _preSecTimer = 0f;
     private int _gameLoopSec = 0;
@@ -61,10 +61,16 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
         if (isMaster)
         {
             _gameLoopSec = GameLoopSec;
+            SetPlayerBoolProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.IsDeath,false);
+            SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_kill,0,false);
+            SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_Death,0,false);
+            SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_Ping,999,false);
+            PhotonNetwork.LocalPlayer.SetScore(0);
         }
         
         // 获取房间游戏状态信息
         PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("State", out GameRunning);
+        
     }
 
     private void Update()
@@ -82,7 +88,10 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
     protected virtual void TickSec()
     {
         //上传ping
-        SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_Ping,PhotonNetwork.GetPing(),false);
+        if (PhotonNetwork.InRoom)
+        {
+            SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_Ping,PhotonNetwork.GetPing(),false);
+        }
         if (isMaster)
         {
             if (GameRunning)
@@ -157,10 +166,14 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
             }
             //重置游戏时间
             _gameLoopSec = GameLoopSec;
-            CanGameStart = true;
+            Invoke("ResetGameInvoke" ,1f);
         }
     }
 
+    public void ResetGameInvoke()
+    {
+        CanGameStart = true;
+    }
 
     
 
@@ -315,10 +328,10 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
         if (isMaster)
         {
             //初始化玩家属性
-            SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_kill,0,true);
-            SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_Death,0,true);
+            SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_kill,0,false);
+            SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_Death,0,false);
             SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_Ping,999,false);
-            SetPlayerBoolProperties(newPlayer,EnumTools.PlayerProperties.IsDeath,true);
+            SetPlayerBoolProperties(newPlayer,EnumTools.PlayerProperties.IsDeath,false);
             newPlayer.SetScore(0);
         }
     }
@@ -327,15 +340,14 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
     public virtual void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log(otherPlayer.NickName+"退出了房间");
-        foreach (PlayerManager playerManager in _playerManagers)
+        for (int i = 0; i < _playerManagers.Count; i++)
         {
-            if (playerManager.Owner.Equals(otherPlayer))
+            if (_playerManagers[i].Owner.Equals(otherPlayer))
             {
-                _playerManagers.Remove(playerManager);
-                Debug.Log("删除玩家"+playerManager.Owner+"脚本");
+                Debug.Log("删除玩家"+_playerManagers[i].Owner+"脚本");
+                _playerManagers.Remove(_playerManagers[i]);
             }
         }
-        
     }
 
     public virtual void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
@@ -386,6 +398,7 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
     public bool GetRoomState => GameRunning;
 
     public bool GetRoomStateEnd => CanGameStart;
+    
 
     #endregion
 }

@@ -36,9 +36,12 @@ public class ScoreBoardManager : MonoBehaviour,IInRoomCallbacks
     [SerializeField] private GameObject scoreboard;
     [SerializeField] private Transform scoreBoardRoot;
     [SerializeField] private ScrollRect scoreBoardScrollRect;
+    [SerializeField] private bool EndingMode = false;
 
     [Header("预制体")] 
     [SerializeField] private GameObject UI_ScoreBoardPlayerPrefab;
+
+
 
     #endregion
 
@@ -56,15 +59,13 @@ public class ScoreBoardManager : MonoBehaviour,IInRoomCallbacks
     private void Awake()
     {
         UI_ScoreBoardPlayerList = new List<UIScordBoardPlayer>();
+        LocalPlayer = PhotonNetwork.LocalPlayer;
+        scoreboard.SetActive(false);
+        PhotonNetwork.AddCallbackTarget(this);
     }
 
     private void Start()
     {
-        LocalPlayer = PhotonNetwork.LocalPlayer;
-        scoreboard.SetActive(false);
-        updatePlayerList();
-        Instantiate_UI_ScoreBoardPlayerList();
-        PhotonNetwork.AddCallbackTarget(this);
         Data_RoomMapName.text = PhotonNetwork.CurrentRoom.CustomProperties["GameMode"] switch
         {
             MapTools.GameMode.Conquest => "征服",
@@ -77,13 +78,8 @@ public class ScoreBoardManager : MonoBehaviour,IInRoomCallbacks
         Data_RoomMapName.text = PhotonNetwork.CurrentRoom.CustomProperties["mapDiscripName"].ToString();
         
         //TODO 更新房间规则
-        Data_RoomRule.text = "击杀30个获得胜利";
-
-
+        Data_RoomRule.text = RoomManager.GetInstance().currentGamemodeManager.GetGameModeDiscription;
         Data_LocalPlayerName.text = LocalPlayer.NickName;
-        
-
-
     }
 
     private void OnDestroy()
@@ -91,11 +87,29 @@ public class ScoreBoardManager : MonoBehaviour,IInRoomCallbacks
         PhotonNetwork.RemoveCallbackTarget(this);
     }
 
+    private void OnEnable()
+    {
+        if (EndingMode)
+        {
+            scoreboard.SetActive(true);
+            updatePlayerList();
+        }
+    }
+    
+    private void OnDisable()
+    {
+        if (EndingMode)
+        {
+            scoreboard.SetActive(false);
+        }
+    }
+    
     private void Update()
     {
-        scoreboard.SetActive(scoreBoardVisible);
-        //计分板排序
-        UpdateMineData();
+        if (!EndingMode)
+        {
+            scoreboard.SetActive(scoreBoardVisible);
+        }
     }
     
     #endregion
@@ -105,6 +119,10 @@ public class ScoreBoardManager : MonoBehaviour,IInRoomCallbacks
     private void updatePlayerList()
     {
         roomPlayers = PhotonNetwork.PlayerList;
+        ClearLists();
+        Instantiate_UI_ScoreBoardPlayerList();
+        ScoreBoardSort();
+        UpdateMineData();
     }
 
     private void Instantiate_UI_ScoreBoardPlayerList()
@@ -122,7 +140,6 @@ public class ScoreBoardManager : MonoBehaviour,IInRoomCallbacks
     /// </summary>
     private void ScoreBoardSort()
     {
-        Debug.Log("计分板重新排序！");
         UI_ScoreBoardPlayerList.Sort((x,y) => -x.GetKillNum().CompareTo(y.GetKillNum()));
         foreach (UIScordBoardPlayer uiScordBoardPlayer in UI_ScoreBoardPlayerList)
         {
@@ -175,12 +192,22 @@ public class ScoreBoardManager : MonoBehaviour,IInRoomCallbacks
         UI_ScoreBoardPlayerList.Add(tmp_UIScordBoardPlayer);
     }
     
+    private void ClearLists()
+    {
+        foreach (UIScordBoardPlayer scordBoardPlayer in UI_ScoreBoardPlayerList)
+        {
+            Destroy(scordBoardPlayer.gameObject);
+        }
+        UI_ScoreBoardPlayerList.Clear();
+    }
+    
     #endregion
     
     #region INPUT
 
     public void OnScoreBoard(InputAction.CallbackContext context)
     {
+        updatePlayerList();
         scoreBoardVisible = context switch
         {
             //Started. Show the tutorial.
@@ -190,7 +217,6 @@ public class ScoreBoardManager : MonoBehaviour,IInRoomCallbacks
             //Default.
             _ => scoreBoardVisible
         };
-        ScoreBoardSort();
     }
 
     #endregion
@@ -199,14 +225,20 @@ public class ScoreBoardManager : MonoBehaviour,IInRoomCallbacks
 
     public void OnPlayerEnteredRoom(Player newPlayer)
     {
+        if (EndingMode)
+        {
+            return;
+        }
         updatePlayerList();
-        AddPlayerToList(newPlayer);
     }
 
     public void OnPlayerLeftRoom(Player otherPlayer)
     {
+        if (EndingMode)
+        {
+            return;
+        }
         updatePlayerList();
-        RemovePlayerFromList(otherPlayer);
     }
 
 
@@ -224,7 +256,15 @@ public class ScoreBoardManager : MonoBehaviour,IInRoomCallbacks
             Invoke("ScoreBoardSort",0.02f);
         }
     }
-    public void OnMasterClientSwitched(Player newMasterClient) { }
+
+    public void OnMasterClientSwitched(Player newMasterClient)
+    {
+        if (EndingMode)
+        {
+            return;
+        }
+        updatePlayerList();
+    }
     public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged) { }
 
     #endregion

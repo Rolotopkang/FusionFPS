@@ -1,9 +1,11 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using System;
+using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
 using UnityEngine;
 using UnityTemplateProjects.Tools;
+using UnityTemplateProjects.UI;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -22,7 +24,7 @@ namespace InfimaGames.LowPolyShooterPack
         
         [Tooltip("Sensitivity when looking around.")]
         [SerializeField]
-        private Vector2 sensitivity = new Vector2(1, 1);
+        private Vector2 sensitivityBase = new Vector2(1, 1);
 
         [Tooltip("Minimum and maximum up/down rotation angle the camera can have.")]
         [SerializeField]
@@ -82,6 +84,8 @@ namespace InfimaGames.LowPolyShooterPack
         private Vector2 currentRecoil;
 
         private Vector3 CameraRotation = Vector3.zero;
+
+        private Vector2 sensitivity;
         
         #endregion
         
@@ -91,9 +95,25 @@ namespace InfimaGames.LowPolyShooterPack
         {
             if (PlayerPrefs.HasKey("MouseSensitivity"))
             {
-                sensitivity = sensitivity * PlayerPrefs.GetFloat("MouseSensitivity");
+                sensitivity = sensitivityBase * PlayerPrefs.GetFloat("MouseSensitivity");
+            }
+            else
+            {
+                sensitivity = sensitivityBase;
             }
         }
+        
+        private void OnEnable()
+        {
+            SettingManager.GetInstance().AddSettingChangeObserver(this);
+        }
+
+        private void OnDisable()
+        {
+            SettingManager.GetInstance().RemoveSettingChangeObserver(this);
+        }
+        
+        
 
         private void Start()
         {
@@ -105,7 +125,7 @@ namespace InfimaGames.LowPolyShooterPack
         private void LateUpdate()
         {
             //Frame Input. The Input to add this frame!
-            Vector2 frameInput = playerCharacter.IsCursorLocked() ? playerCharacter.GetInputLook() : default;
+            Vector2 frameInput = In_Game_SettingsMenu.GetInstance().GetCursorLocked() ? playerCharacter.GetInputLook() : default;
             
             //Sensitivity.
             frameInput *= sensitivity;
@@ -203,7 +223,7 @@ namespace InfimaGames.LowPolyShooterPack
         
         public void OnSettingChange()
         {
-            sensitivity = sensitivity * PlayerPrefs.GetFloat("MouseSensitivity");
+            sensitivity = sensitivityBase * PlayerPrefs.GetFloat("MouseSensitivity");
         }
         #endregion
 

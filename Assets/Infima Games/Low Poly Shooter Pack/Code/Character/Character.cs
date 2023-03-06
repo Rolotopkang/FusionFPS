@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Numerics;
+using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
 using UnityEngine.InputSystem;
 using UnityTemplateProjects.MultiplayerScripts;
@@ -322,13 +323,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		private bool tutorialTextVisible;
 
-		/// <summary>
-		/// True if the game cursor is locked! Used when pressing "Escape" to allow developers to more easily access the editor.
-		/// </summary>
-		private bool cursorLocked;
-
-		private bool menuOpened;
-
 		private bool isMine;
 		#endregion
 
@@ -415,10 +409,8 @@ namespace InfimaGames.LowPolyShooterPack
 			if (isMine)
 			{
 				//Always make sure that our cursor is locked when the game starts!
-				cursorLocked = true;
-				menuOpened = false;
-				//Update the cursor's state.
-				UpdateCursorState();
+				In_Game_SettingsMenu.GetInstance().setCursorLocked(true);
+				In_Game_SettingsMenu.GetInstance().isLive = true;
 			}
 			
 			#endregion
@@ -483,21 +475,24 @@ namespace InfimaGames.LowPolyShooterPack
 					break;
 			}
 
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
+			{
+				
+			}
+
 			switch (scopeChanging)
 			{
 				case true when !wasscopeChanging:
 					//Toggle the cursor locked value.
-					cursorLocked = !cursorLocked;
-					//Update the cursor's state.
-					UpdateCursorState();
+					In_Game_SettingsMenu.GetInstance().convertCursorLocked();
 					wasscopeChanging = true;
+					In_Game_SettingsMenu.GetInstance().scopeChanging = true;
 					break;
 				case false when wasscopeChanging:
 					//Toggle the cursor locked value.
-					cursorLocked = !cursorLocked;
-					//Update the cursor's state.
-					UpdateCursorState();
+					In_Game_SettingsMenu.GetInstance().convertCursorLocked();
 					wasscopeChanging = false;
+					In_Game_SettingsMenu.GetInstance().scopeChanging = false;
 					break;
 			}
 
@@ -623,12 +618,20 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private void OnDestroy()
 		{
-			//如果是自己则解锁鼠标
-			if (cursorLocked && isMine)
+			if (In_Game_SettingsMenu.GetInstance())
 			{
-				cursorLocked = !cursorLocked;
-				UpdateCursorState();
+				//如果是自己则解锁鼠标
+				if (In_Game_SettingsMenu.GetInstance().GetCursorLocked() && isMine)
+				{
+					In_Game_SettingsMenu.GetInstance().convertCursorLocked();
+				}
 			}
+
+			if (isMine)
+			{
+				In_Game_SettingsMenu.GetInstance().isLive = false;
+			}
+			
 			//从表中移除自己
 			ServiceLocator.Current.Get<IGameModeService>().RemovePlayerFromList(gameObject);
 		}
@@ -703,8 +706,6 @@ namespace InfimaGames.LowPolyShooterPack
 		public override bool IsCrouching() => crouching;
 
 		public override bool IsAiming() => aiming;
-		public override bool IsCursorLocked() => cursorLocked;
-		public override bool IsMenuOpened() => menuOpened;
 
 		public override bool IsScopeChanging() => scopeChanging;
 
@@ -1000,17 +1001,6 @@ namespace InfimaGames.LowPolyShooterPack
 			lastShotTime = Time.time;
 			//Play.
 			FPCharacterAnimator.CrossFade("Fire Empty", 0.05f, layerOverlay, 0);
-		}
-
-		/// <summary>
-		/// Updates the cursor state based on the value of the cursorLocked variable.
-		/// </summary>
-		private void UpdateCursorState()
-		{
-			//Update cursor visibility.
-			Cursor.visible = !cursorLocked;
-			//Update cursor lock state.
-			Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 
 		/// <summary>
@@ -1385,7 +1375,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 
 			//Switch.
@@ -1432,7 +1422,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Block.
@@ -1458,7 +1448,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Block.
@@ -1483,7 +1473,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 
 			//Switch.
@@ -1507,6 +1497,9 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			if(!isMine)
 				return;
+			if(In_Game_SettingsMenu.GetInstance().GetMenuEnable())
+				return;
+			
 			//Switch.
 			switch (context.phase)
 			{
@@ -1529,7 +1522,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Switch.
@@ -1556,7 +1549,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Switch.
@@ -1579,7 +1572,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Switch.
@@ -1601,7 +1594,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Switch.
@@ -1628,7 +1621,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 
 			//Switch.
@@ -1653,7 +1646,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 
 			if(crouching)
@@ -1677,7 +1670,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
-			if (menuOpened)
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 				return;
 			
 			//Null Check.
@@ -1704,27 +1697,7 @@ namespace InfimaGames.LowPolyShooterPack
 					break;
 			}
 		}
-		
-		public void OnLockCursor(InputAction.CallbackContext context)
-		{
-			if(!isMine)
-				return;
-			//Switch.
-			switch (context)
-			{
-				//Performed.
-				case {phase: InputActionPhase.Performed}:
-					//更换配件无法呼出菜单
-					if(scopeChanging){break;}
-					//Toggle the cursor locked value.
-					cursorLocked = !cursorLocked;
-					menuOpened = !menuOpened;
-					//Update the cursor's state.
-					UpdateCursorState();
-					break;
-			}
-		}
-		
+
 		/// <summary>
 		/// Movement.
 		/// </summary>
@@ -1733,7 +1706,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Read.
-			axisMovement = !menuOpened ? context.ReadValue<Vector2>() : default;
+			axisMovement = !In_Game_SettingsMenu.GetInstance().GetMenuEnable() ? context.ReadValue<Vector2>() : default;
 		}
 		/// <summary>
 		/// Look.
@@ -1743,7 +1716,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if(!isMine)
 				return;
 			//Read.
-			 axisLook = cursorLocked ? context.ReadValue<Vector2>() : default;
+			axisLook = In_Game_SettingsMenu.GetInstance().GetCursorLocked() ? context.ReadValue<Vector2>() : default;
 
 			//Make sure that we have a weapon.
 			if (equippedWeapon == null)

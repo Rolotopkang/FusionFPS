@@ -13,11 +13,11 @@ public class LoginManager : MonoBehaviour
     public Text WrongHint;
     public String DebugName;
     public String DebugPassword;
-    private LoginUIManager loginUIManager;
+    private UIBase _uiBase;
     public ConnectServerManager ConnectServerManager;
     private void Awake()
     {
-        loginUIManager = GetComponentInParent<LoginUIManager>();
+        _uiBase = GetComponentInParent<UIBase>();
     }
 
     private void OnEnable()
@@ -34,7 +34,7 @@ public class LoginManager : MonoBehaviour
             case EnumTools.LoginState.Success:
                 ConnectServerManager.SetMyNickName(Username.text);
                 ConnectServerManager.ConnectToServer();
-                loginUIManager.ChangeToUI(2);
+                _uiBase.ChangeToUI(2);
                 break;
             case EnumTools.LoginState.SearchNoUser:
                 Username.text = String.Empty;
@@ -61,7 +61,7 @@ public class LoginManager : MonoBehaviour
         {
             ConnectServerManager.SetMyNickName(Username.text);
             ConnectServerManager.ConnectToServer();
-            loginUIManager.ChangeToUI(2);
+            _uiBase.ChangeToUI(2);
         }
         else
         {
@@ -72,7 +72,7 @@ public class LoginManager : MonoBehaviour
     //BTN引用
     public void BTNToRegister()
     {
-        loginUIManager.ChangeToUI(1);
+        _uiBase.ChangeToUI(1);
     }
     //debug用
     public void BTNDEBUG()
@@ -82,7 +82,7 @@ public class LoginManager : MonoBehaviour
             case EnumTools.LoginState.Success:
                 ConnectServerManager.SetMyNickName(DebugName);
                 ConnectServerManager.ConnectToServer();
-                loginUIManager.ChangeToUI(2);
+                _uiBase.ChangeToUI(2);
                 break;
             case EnumTools.LoginState.SearchNoUser:
                 Username.text = String.Empty;

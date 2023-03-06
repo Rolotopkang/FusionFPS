@@ -285,17 +285,13 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
 
     private void RemovePlayer(Player player)
     {
-        if (player.GetPhotonTeam().Name.Equals("Blue"))
+        if (blueTeamsInPointList.Contains(player))
         {
             blueTeamsInPointList.Remove(player);
         }
-        else if (player.GetPhotonTeam().Name.Equals("Red"))
+        else if(redTeamsInPointList.Contains(player))
         {
             redTeamsInPointList.Remove(player);
-        }
-        else
-        {
-            Debug.LogError("此角色没有设置阵营！");
         }
     }
 
