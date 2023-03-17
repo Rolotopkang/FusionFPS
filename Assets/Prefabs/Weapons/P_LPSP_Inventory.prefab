@@ -2656,6 +2656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7170d51de97d79e4fb11d3321667acb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponID: 41
   weaponName: Sniper 01
   weaponShowName: Sniper
   multiplierMovementSpeed: 0.8
@@ -2663,8 +2664,11 @@ MonoBehaviour:
   boltAction: 1
   shotCount: 1
   spread: 0.1
-  Recoil: {x: -0.5, y: 0.5}
-  RecoilOffset: 1
+  spreadSpeedTimer: 0
+  firstBulletAcc: 0
+  recoilCurves: []
+  recoilTimer: 0
+  recoilReturnTime: 0
   projectileImpulse: 400
   DMG: 100
   roundsPerMinutes: 125
@@ -2721,6 +2725,9 @@ MonoBehaviour:
     type: 3}
   audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 8300000, guid: 9437d90133cd4ff41b81629b342d38c9, type: 3}
+  DeployB: {fileID: 0}
+  DeployD: {fileID: 0}
+  KillPannel: {fileID: 0}
 --- !u!114 &3251889749459523679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10183,6 +10190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7170d51de97d79e4fb11d3321667acb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponID: 61
   weaponName: SMG 01
   weaponShowName: SMG
   multiplierMovementSpeed: 1
@@ -10190,8 +10198,11 @@ MonoBehaviour:
   boltAction: 0
   shotCount: 1
   spread: 1.5
-  Recoil: {x: -0.1, y: 0.1}
-  RecoilOffset: 0.5
+  spreadSpeedTimer: 0
+  firstBulletAcc: 0
+  recoilCurves: []
+  recoilTimer: 0
+  recoilReturnTime: 0
   projectileImpulse: 400
   DMG: 20
   roundsPerMinutes: 750
@@ -10247,6 +10258,9 @@ MonoBehaviour:
   audioClipReloadClose: {fileID: 0}
   audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 0}
+  DeployB: {fileID: 0}
+  DeployD: {fileID: 0}
+  KillPannel: {fileID: 0}
 --- !u!114 &3544356171879701197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11131,6 +11145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7170d51de97d79e4fb11d3321667acb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponID: 1
   weaponName: Assault Rifle 01
   weaponShowName: M5A3
   multiplierMovementSpeed: 1
@@ -11138,8 +11153,11 @@ MonoBehaviour:
   boltAction: 0
   shotCount: 1
   spread: 1
-  Recoil: {x: -0.2, y: 0.2}
-  RecoilOffset: 1
+  spreadSpeedTimer: 0
+  firstBulletAcc: 0
+  recoilCurves: []
+  recoilTimer: 0
+  recoilReturnTime: 0
   projectileImpulse: 400
   DMG: 33
   roundsPerMinutes: 610
@@ -11195,6 +11213,9 @@ MonoBehaviour:
   audioClipReloadClose: {fileID: 0}
   audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 0}
+  DeployB: {fileID: 0}
+  DeployD: {fileID: 0}
+  KillPannel: {fileID: 0}
 --- !u!114 &5250275263981900747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11417,7 +11438,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5108531017356044031}
   m_Enabled: 1
-  m_CastShadows: 3
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -11432,7 +11453,7 @@ SkinnedMeshRenderer:
   - {fileID: 2100000, guid: ee4c2d20abf0d78469f4e22888a80891, type: 2}
   - {fileID: 2100000, guid: 2d8b454c96dd40341a2b2ea298ad1576, type: 2}
   - {fileID: 2100000, guid: f163886c552e95540a538a1986131edf, type: 2}
-  - {fileID: 2100000, guid: 0d41f96a378bdab4192a7ed914e73fb0, type: 2}
+  - {fileID: 2100000, guid: f163886c552e95540a538a1986131edf, type: 2}
   - {fileID: 2100000, guid: f163886c552e95540a538a1986131edf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -14791,6 +14812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7170d51de97d79e4fb11d3321667acb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponID: 21
   weaponName: Handgun 01
   weaponShowName: P2000
   multiplierMovementSpeed: 1.3
@@ -14798,8 +14820,11 @@ MonoBehaviour:
   boltAction: 0
   shotCount: 1
   spread: 2
-  Recoil: {x: 0, y: 0}
-  RecoilOffset: 0
+  spreadSpeedTimer: 0
+  firstBulletAcc: 0
+  recoilCurves: []
+  recoilTimer: 0
+  recoilReturnTime: 0
   projectileImpulse: 400
   DMG: 15
   roundsPerMinutes: 500
@@ -14855,6 +14880,9 @@ MonoBehaviour:
   audioClipReloadClose: {fileID: 0}
   audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 0}
+  DeployB: {fileID: 0}
+  DeployD: {fileID: 0}
+  KillPannel: {fileID: 0}
 --- !u!114 &3698850545712377917
 MonoBehaviour:
   m_ObjectHideFlags: 0

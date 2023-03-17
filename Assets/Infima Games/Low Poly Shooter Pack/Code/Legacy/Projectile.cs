@@ -59,6 +59,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		private Player projectileOwner;
 
 		private Collider projectileCollider;
+		private TrailRenderer _trailRenderer;
 
 		#endregion
 
@@ -68,11 +69,17 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		private void Awake()
 		{
 			projectileCollider = GetComponent<Collider>();
+			_trailRenderer = GetComponent<TrailRenderer>();
 		}
 
 		private void Start()
 		{
 			//Start destroy timera
+			if (projectileOwner.Equals(PhotonNetwork.LocalPlayer))
+			{
+				_trailRenderer.enabled = false;
+				StartCoroutine(ShowTrail());
+			}
 			StartCoroutine(DestroyAfter());
 		}
 
@@ -304,6 +311,11 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			Destroy(gameObject);
 		}
 
+		private IEnumerator ShowTrail()
+		{
+			yield return new WaitForSeconds(0.2f);
+			_trailRenderer.enabled = true;
+		}
 		#endregion
 
 		#region GetterSetter

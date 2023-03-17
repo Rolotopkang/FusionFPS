@@ -60,8 +60,8 @@ public class Vedio_Settings : UIBase_Setting
         toggle_PP.isOn = PlayerPrefs.GetInt("PostProcessingIntensity")==1;
         _currentResolution = PlayerPrefs.GetInt("DisplayMode");
         _currentResolution =PlayerPrefs.GetInt("Resolution");
-        dropdown_Resolutions.value = _currentResolution;
         dropdown_DisplayMode.value = _currentDisplayMode;
+        dropdown_Resolutions.value = _currentResolution;
     }
 
     protected override void SaveSetting()

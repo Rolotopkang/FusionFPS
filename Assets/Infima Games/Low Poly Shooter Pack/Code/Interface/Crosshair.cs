@@ -140,9 +140,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             if (crosshairCanvasGroup == null || dotCanvasGroup == null || mainRectTransform == null ||
                 playerCharacter == null)
             {
-                //Reference Error.
-                Log.ReferenceError(this, gameObject);
-                
+                // //Reference Error.
+                // Log.ReferenceError(this, gameObject);
+                //
                 //Return.
                 return;
             }

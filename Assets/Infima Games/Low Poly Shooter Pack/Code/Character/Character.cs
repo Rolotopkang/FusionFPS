@@ -219,6 +219,8 @@ namespace InfimaGames.LowPolyShooterPack
 		private PhotonView PhotonView;
 
 		private PlayerManager PlayerManager;
+
+		private Coroutine CheckStopShooting;
 		
 		/// <summary>
 		/// True if the character is reloading.
@@ -324,6 +326,10 @@ namespace InfimaGames.LowPolyShooterPack
 		private bool tutorialTextVisible;
 
 		private bool isMine;
+
+		private float speedAbs;
+
+		private int shotsFired = 0;
 		#endregion
 
 		#region CONSTANTS
@@ -504,8 +510,10 @@ namespace InfimaGames.LowPolyShooterPack
 				{
 					//Has fire rate passed.
 					if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
+					{
 						Fire();
-				}	
+					}
+				}
 			}
 
 			//Try and calculate the sway so we can apply it.
@@ -719,6 +727,10 @@ namespace InfimaGames.LowPolyShooterPack
 		public override AudioClip[] GetAudioClipsGrenadeThrow() => audioClipsGrenadeThrow;
 		public override AudioClip[] GetAudioClipsMelee() => audioClipsMelee;
 
+		public override float GetSpeed() => speedAbs;
+
+		public override int GetShotfired()=> shotsFired;
+
 		#endregion
 
 		#region METHODS
@@ -753,9 +765,10 @@ namespace InfimaGames.LowPolyShooterPack
 			FPCharacterAnimator.SetFloat(HashLeaning,leaningValue, 0.5f, Time.deltaTime);
 
 			//Movement Value. This value affects absolute movement. Aiming movement uses this, as opposed to per-axis movement.
-			float movementValue = Mathf.Clamp01(Mathf.Abs(axisMovement.x) + Mathf.Abs(axisMovement.y));
-			FPCharacterAnimator.SetFloat(HashMovement,movementValue, dampTimeLocomotion, Time.deltaTime);
-			TPCharacterAnimator.SetFloat(HashMovement,movementValue, dampTimeLocomotion, Time.deltaTime);
+			speedAbs = Mathf.Clamp01(Mathf.Abs(axisMovement.x) + Mathf.Abs(axisMovement.y));
+			FPCharacterAnimator.SetFloat(HashMovement,speedAbs, dampTimeLocomotion, Time.deltaTime);
+			TPCharacterAnimator.SetFloat(HashMovement,speedAbs, dampTimeLocomotion, Time.deltaTime);
+
 			//Aiming Speed Multiplier.
 			FPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier);
 			TPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier);
@@ -882,11 +895,20 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		private void Fire()
 		{
+			if (CheckStopShooting != null)
+			{
+				StopCoroutine(CheckStopShooting);
+				CheckStopShooting = null;
+			}
+			
 			//Save the shot time, so we can calculate the fire rate correctly.
 			lastShotTime = Time.time;
 			//Fire the weapon! Make sure that we also pass the scope's spread multiplier if we're aiming.
-			equippedWeapon.Fire(aiming ? equippedWeaponScope.GetMultiplierSpread() : 1.0f);
-
+			equippedWeapon. Fire(aiming ? equippedWeaponScope.GetMultiplierSpread() : 1.0f);
+			
+			//射击次数计数
+			shotsFired++;
+			
 			//Play firing animation.
 			const string stateName = "Fire";
 			FPCharacterAnimator.CrossFade(stateName, 0.05f, layerOverlay, 0);
@@ -919,7 +941,8 @@ namespace InfimaGames.LowPolyShooterPack
 			FPCharacterAnimator.SetBool(boolName, reloading = true);
 			TPCharacterAnimator.SetBool(boolName, reloading = true);
 			
-			//Reload.
+			//Reload.(并重置后坐力曲线)
+			shotsFired = 0;
 			equippedWeapon.Reload();
 		}
 
@@ -1056,6 +1079,13 @@ namespace InfimaGames.LowPolyShooterPack
 			//Update Animator.
 			const string boolName = "Holstered";
 			FPCharacterAnimator.SetBool(boolName, holstered);	
+		}
+
+		private IEnumerator StopShooting()
+		{
+			float tmp_Wait = equippedWeapon? equippedWeapon.GetRevoilReturnTime() : 0.5f;
+			yield return new WaitForSeconds(tmp_Wait);
+			shotsFired = 0;
 		}
 		
 		#region ACTION CHECKS
@@ -1397,11 +1427,17 @@ namespace InfimaGames.LowPolyShooterPack
 					{
 						//Check.
 						if (equippedWeapon.IsAutomatic())
+						{
 							break;
+						}
+							
 							
 						//Has fire rate passed.
 						if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
+						{
 							Fire();
+						}
+							
 					}
 					//Fire Empty.
 					else
@@ -1411,6 +1447,12 @@ namespace InfimaGames.LowPolyShooterPack
 				case {phase: InputActionPhase.Canceled}:
 					//Stop Hold.
 					holdingButtonFire = false;
+					if (CheckStopShooting != null)
+					{
+						StopCoroutine(CheckStopShooting);
+						CheckStopShooting = null;
+					}
+					CheckStopShooting = StartCoroutine("StopShooting");
 					break;
 			}
 		}

@@ -67,7 +67,7 @@ namespace UnityTemplateProjects.Tools
             "NukeTown",
             new Dictionary<GameMode, int>()
             {
-                { GameMode.DeathMatch ,0},
+                { GameMode.DeathMatch ,2},
                 { GameMode.TeamDeathMatch ,0}
             }
             );
@@ -98,7 +98,7 @@ namespace UnityTemplateProjects.Tools
             "OLD_NukeTown",
             new Dictionary<GameMode, int>()
             {
-                { GameMode.DeathMatch, 2 },
+                { GameMode.DeathMatch, 0 },
                 { GameMode.TeamDeathMatch, 2 }
             }
         );

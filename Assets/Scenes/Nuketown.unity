@@ -8530,8 +8530,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5526374922559252214, guid: 11f87315f7919ff4ea9bb8721c8a8585,
         type: 3}
+      propertyPath: min_Player
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526374922559252214, guid: 11f87315f7919ff4ea9bb8721c8a8585,
+        type: 3}
       propertyPath: WinRequestNum
-      value: 20
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5526374922559252215, guid: 11f87315f7919ff4ea9bb8721c8a8585,
         type: 3}
@@ -33917,7 +33922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &5404584729217045956
 MeshCollider:
   m_ObjectHideFlags: 0
