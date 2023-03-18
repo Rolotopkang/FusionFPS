@@ -135,7 +135,12 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         protected override void Awake()
         {
-            Instantiate(ChangerUI,changerUITransform,changerUIQuaternion,transform.GetChild(0).GetChild(0));
+            GameObject tmp_ChangerUI = Instantiate(ChangerUI,changerUITransform,changerUIQuaternion,transform.GetChild(0).GetChild(0));
+            tmp_ChangerUI.transform.localPosition = changerUITransform;
+            tmp_ChangerUI.transform.localRotation = changerUIQuaternion;
+            
+
+
 
             //Randomize. This allows us to spice things up a little!
             if (scopeIndexRandom)
