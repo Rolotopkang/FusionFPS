@@ -473,12 +473,12 @@ GameObject:
   - component: {fileID: 5965040679779390065}
   - component: {fileID: 5965040679779390066}
   m_Layer: 9
-  m_Name: Canvas Quality Settings
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5965040679779390070
 RectTransform:
   m_ObjectHideFlags: 0
@@ -610,7 +610,7 @@ RectTransform:
   - {fileID: 7808040529461972148}
   m_Father: {fileID: 5965040679779390070}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -10}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 8.095}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 20, y: -27.5}
@@ -678,7 +678,6 @@ Animation:
   m_Animation: {fileID: 0}
   m_Animations:
   - {fileID: 7400000, guid: 3ac98ac19c60a4f40baab04b23291161, type: 2}
-  - {fileID: 7400000, guid: b8085963e7fe56746844f02da81d1922, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

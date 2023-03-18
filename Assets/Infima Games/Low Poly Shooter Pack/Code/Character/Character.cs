@@ -80,6 +80,9 @@ namespace InfimaGames.LowPolyShooterPack
 		[SerializeField]
 		private float dampTimeAiming = 0.3f;
 
+		[SerializeField]
+		private float dampTimeScopeChange = 0.3f;
+
 		[Tooltip("Interpolation speed for the running offsets.")]
 		[SerializeField]
 		private float runningInterpolationSpeed = 12.0f;
@@ -347,6 +350,9 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Aiming Alpha Value.
 		/// </summary>
 		private static readonly int HashAimingAlpha = Animator.StringToHash("Aiming");
+
+		private static readonly int HashScopeChange = Animator.StringToHash("ScopeChange");
+		
 		/// <summary>
 		/// Bolt Action Value.
 		/// </summary>
@@ -637,7 +643,8 @@ namespace InfimaGames.LowPolyShooterPack
 
 			if (isMine)
 			{
-				In_Game_SettingsMenu.GetInstance().isLive = false;
+				if(In_Game_SettingsMenu.GetInstance())
+					In_Game_SettingsMenu.GetInstance().isLive = false;
 			}
 			
 			//从表中移除自己
@@ -786,6 +793,8 @@ namespace InfimaGames.LowPolyShooterPack
 			//Update the aiming value, but use interpolation. This makes sure that things like firing can transition properly.
 			FPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming, Time.deltaTime);
 			TPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming, Time.deltaTime);
+			
+			FPCharacterAnimator.SetFloat(HashScopeChange,Convert.ToSingle(scopeChanging),dampTimeAiming,Time.deltaTime);
 
 			//Set the locomotion play rate. This basically stops movement from happening while in the air.
 			const string playRateLocomotionBool = "Play Rate Locomotion";

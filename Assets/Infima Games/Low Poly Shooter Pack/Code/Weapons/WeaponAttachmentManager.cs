@@ -93,6 +93,14 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private Magazine[] magazineArray;
 
+        [SerializeField]
+        private GameObject ChangerUI;
+
+        [SerializeField]
+        private Vector3 changerUITransform;
+
+        [SerializeField]
+        private Quaternion changerUIQuaternion;
         #endregion
 
         #region FIELDS
@@ -127,6 +135,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         protected override void Awake()
         {
+            Instantiate(ChangerUI,changerUITransform,changerUIQuaternion,transform.GetChild(0).GetChild(0));
+
             //Randomize. This allows us to spice things up a little!
             if (scopeIndexRandom)
                 scopeIndex = Random.Range(scopeIndexFirst, scopeArray.Length);

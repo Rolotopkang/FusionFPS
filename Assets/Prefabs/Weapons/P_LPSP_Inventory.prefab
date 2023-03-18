@@ -2775,6 +2775,10 @@ MonoBehaviour:
   magazineIndexRandom: 0
   magazineArray:
   - {fileID: 4381366713161154198}
+  ChangerUI: {fileID: 5965040680208419700, guid: 4bd95223c18463c4bb6b5d857bea2358,
+    type: 3}
+  changerUITransform: {x: -0.09, y: -0.198, z: -0.074}
+  changerUIQuaternion: {x: 0.6002662, y: 0.2501365, z: 0.48325732, w: 0.5861524}
 --- !u!114 &7992728314217503495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10304,6 +10308,10 @@ MonoBehaviour:
   magazineIndexRandom: 0
   magazineArray:
   - {fileID: 4514559258474931048}
+  ChangerUI: {fileID: 5965040680208419700, guid: 4bd95223c18463c4bb6b5d857bea2358,
+    type: 3}
+  changerUITransform: {x: -0.11, y: -0.179, z: -0.074}
+  changerUIQuaternion: {x: 0.59392023, y: 0.26485205, z: 0.4686668, w: 0.59788257}
 --- !u!114 &3746120533674924288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11264,6 +11272,10 @@ MonoBehaviour:
   magazineIndexRandom: 0
   magazineArray:
   - {fileID: 6000442985170146413}
+  ChangerUI: {fileID: 5965040680208419700, guid: 4bd95223c18463c4bb6b5d857bea2358,
+    type: 3}
+  changerUITransform: {x: -0.1176, y: -0.1712, z: -0.0514}
+  changerUIQuaternion: {x: 0.6002662, y: 0.2501365, z: 0.48325732, w: 0.5861524}
 --- !u!114 &3788812286036000544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14924,6 +14936,10 @@ MonoBehaviour:
   magazineIndexRandom: 0
   magazineArray:
   - {fileID: 8162645379713663543}
+  ChangerUI: {fileID: 5965040680208419700, guid: 4bd95223c18463c4bb6b5d857bea2358,
+    type: 3}
+  changerUITransform: {x: -0.1604, y: -0.0978, z: -0.0793}
+  changerUIQuaternion: {x: 0.58459395, y: 0.28484693, z: 0.4481154, w: 0.61343694}
 --- !u!114 &8973234812496540057
 MonoBehaviour:
   m_ObjectHideFlags: 0

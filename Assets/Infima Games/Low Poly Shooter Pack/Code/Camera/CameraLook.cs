@@ -110,7 +110,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         private void OnDisable()
         {
-            SettingManager.GetInstance().RemoveSettingChangeObserver(this);
+            SettingManager.GetInstance()?.RemoveSettingChangeObserver(this);
         }
         
         

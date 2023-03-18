@@ -77,11 +77,6 @@ public class ScopeChanger : MonoBehaviour
         playerCharacter = gameModeService.GetPlayerCharacter(PhotonNetwork.LocalPlayer);
     }
 
-    // private void OnEnable()
-    // {
-    //     cmCanvas.worldCamera = EventCM;
-    // }
-
     private void Start()
     {
         //Get canvas animation component.
