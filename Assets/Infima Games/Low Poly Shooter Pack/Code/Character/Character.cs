@@ -6,6 +6,7 @@ using System.Collections;
 using System.Numerics;
 using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.InputSystem;
 using UnityTemplateProjects.MultiplayerScripts;
 using Vector2 = UnityEngine.Vector2;
@@ -79,6 +80,9 @@ namespace InfimaGames.LowPolyShooterPack
 		[Tooltip("How smoothly we play aiming transitions. Beware that this affects lots of things!")]
 		[SerializeField]
 		private float dampTimeAiming = 0.3f;
+
+		[SerializeField]
+		private float dampTimeScopeChange = 0.3f;
 
 		[Tooltip("Interpolation speed for the running offsets.")]
 		[SerializeField]
@@ -219,6 +223,8 @@ namespace InfimaGames.LowPolyShooterPack
 		private PhotonView PhotonView;
 
 		private PlayerManager PlayerManager;
+
+		private Coroutine CheckStopShooting;
 		
 		/// <summary>
 		/// True if the character is reloading.
@@ -324,6 +330,12 @@ namespace InfimaGames.LowPolyShooterPack
 		private bool tutorialTextVisible;
 
 		private bool isMine;
+
+		private float speedAbs;
+
+		private int shotsFired ;
+
+		private int oldShotsFired;
 		#endregion
 
 		#region CONSTANTS
@@ -341,6 +353,9 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Aiming Alpha Value.
 		/// </summary>
 		private static readonly int HashAimingAlpha = Animator.StringToHash("Aiming");
+
+		private static readonly int HashScopeChange = Animator.StringToHash("ScopeChange");
+		
 		/// <summary>
 		/// Bolt Action Value.
 		/// </summary>
@@ -504,8 +519,10 @@ namespace InfimaGames.LowPolyShooterPack
 				{
 					//Has fire rate passed.
 					if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
+					{
 						Fire();
-				}	
+					}
+				}
 			}
 
 			//Try and calculate the sway so we can apply it.
@@ -629,7 +646,8 @@ namespace InfimaGames.LowPolyShooterPack
 
 			if (isMine)
 			{
-				In_Game_SettingsMenu.GetInstance().isLive = false;
+				if(In_Game_SettingsMenu.GetInstance())
+					In_Game_SettingsMenu.GetInstance().isLive = false;
 			}
 			
 			//从表中移除自己
@@ -719,6 +737,10 @@ namespace InfimaGames.LowPolyShooterPack
 		public override AudioClip[] GetAudioClipsGrenadeThrow() => audioClipsGrenadeThrow;
 		public override AudioClip[] GetAudioClipsMelee() => audioClipsMelee;
 
+		public override float GetSpeed() => speedAbs;
+
+		public override int GetShotfired()=> shotsFired;
+
 		#endregion
 
 		#region METHODS
@@ -753,9 +775,10 @@ namespace InfimaGames.LowPolyShooterPack
 			FPCharacterAnimator.SetFloat(HashLeaning,leaningValue, 0.5f, Time.deltaTime);
 
 			//Movement Value. This value affects absolute movement. Aiming movement uses this, as opposed to per-axis movement.
-			float movementValue = Mathf.Clamp01(Mathf.Abs(axisMovement.x) + Mathf.Abs(axisMovement.y));
-			FPCharacterAnimator.SetFloat(HashMovement,movementValue, dampTimeLocomotion, Time.deltaTime);
-			TPCharacterAnimator.SetFloat(HashMovement,movementValue, dampTimeLocomotion, Time.deltaTime);
+			speedAbs = Mathf.Clamp01(Mathf.Abs(axisMovement.x) + Mathf.Abs(axisMovement.y));
+			FPCharacterAnimator.SetFloat(HashMovement,speedAbs, dampTimeLocomotion, Time.deltaTime);
+			TPCharacterAnimator.SetFloat(HashMovement,speedAbs, dampTimeLocomotion, Time.deltaTime);
+
 			//Aiming Speed Multiplier.
 			FPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier);
 			TPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier);
@@ -773,6 +796,8 @@ namespace InfimaGames.LowPolyShooterPack
 			//Update the aiming value, but use interpolation. This makes sure that things like firing can transition properly.
 			FPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming, Time.deltaTime);
 			TPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming, Time.deltaTime);
+			
+			FPCharacterAnimator.SetFloat(HashScopeChange,Convert.ToSingle(scopeChanging),dampTimeAiming,Time.deltaTime);
 
 			//Set the locomotion play rate. This basically stops movement from happening while in the air.
 			const string playRateLocomotionBool = "Play Rate Locomotion";
@@ -882,11 +907,21 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		private void Fire()
 		{
+			if (CheckStopShooting != null)
+			{
+				StopCoroutine(CheckStopShooting);
+				CheckStopShooting = null;
+			}
+			
 			//Save the shot time, so we can calculate the fire rate correctly.
 			lastShotTime = Time.time;
 			//Fire the weapon! Make sure that we also pass the scope's spread multiplier if we're aiming.
-			equippedWeapon.Fire(aiming ? equippedWeaponScope.GetMultiplierSpread() : 1.0f);
-
+			equippedWeapon. Fire(aiming ? equippedWeaponScope.GetMultiplierSpread() : 1.0f);
+			
+			//射击次数计数
+			
+			shotsFired++;
+			
 			//Play firing animation.
 			const string stateName = "Fire";
 			FPCharacterAnimator.CrossFade(stateName, 0.05f, layerOverlay, 0);
@@ -919,7 +954,9 @@ namespace InfimaGames.LowPolyShooterPack
 			FPCharacterAnimator.SetBool(boolName, reloading = true);
 			TPCharacterAnimator.SetBool(boolName, reloading = true);
 			
-			//Reload.
+			//Reload.(并重置后坐力曲线)
+			shotsFired = 0;
+			oldShotsFired = 0;
 			equippedWeapon.Reload();
 		}
 
@@ -1056,6 +1093,14 @@ namespace InfimaGames.LowPolyShooterPack
 			//Update Animator.
 			const string boolName = "Holstered";
 			FPCharacterAnimator.SetBool(boolName, holstered);	
+		}
+
+		private IEnumerator StopShooting()
+		{
+			float tmp_Wait = equippedWeapon? equippedWeapon.GetRevoilReturnTime() : 0.5f;
+			yield return new WaitForSeconds(tmp_Wait);
+			// Debug.Log("重置");
+			oldShotsFired = 0;
 		}
 		
 		#region ACTION CHECKS
@@ -1385,6 +1430,8 @@ namespace InfimaGames.LowPolyShooterPack
 				case {phase: InputActionPhase.Started}:
 					//Hold.
 					holdingButtonFire = true;
+					shotsFired = oldShotsFired;
+					// Debug.Log(shotsFired+"旧值");
 					break;
 				//Performed.
 				case {phase: InputActionPhase.Performed}:
@@ -1397,11 +1444,19 @@ namespace InfimaGames.LowPolyShooterPack
 					{
 						//Check.
 						if (equippedWeapon.IsAutomatic())
+						{
+							// shotsFired = 0;
+							// Debug.Log("错误执行了");
 							break;
+						}
+							
 							
 						//Has fire rate passed.
 						if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
+						{
 							Fire();
+						}
+							
 					}
 					//Fire Empty.
 					else
@@ -1411,6 +1466,14 @@ namespace InfimaGames.LowPolyShooterPack
 				case {phase: InputActionPhase.Canceled}:
 					//Stop Hold.
 					holdingButtonFire = false;
+					oldShotsFired = shotsFired;
+					shotsFired = 0;
+					if (CheckStopShooting != null)
+					{
+						StopCoroutine(CheckStopShooting);
+						CheckStopShooting = null;
+					}
+					CheckStopShooting = StartCoroutine("StopShooting");
 					break;
 			}
 		}

@@ -77,13 +77,9 @@ public class ScopeChanger : MonoBehaviour
         playerCharacter = gameModeService.GetPlayerCharacter(PhotonNetwork.LocalPlayer);
     }
 
-    // private void OnEnable()
-    // {
-    //     cmCanvas.worldCamera = EventCM;
-    // }
-
     private void Start()
     {
+        ScopeChangerCanvas.GetComponent<Canvas>().worldCamera  = playerCharacter.GetCameraDepth();
         //Get canvas animation component.
         animationComponent = animatedCanvas.GetComponent<Animation>();
         //Find post process volumes in scene and assign them.

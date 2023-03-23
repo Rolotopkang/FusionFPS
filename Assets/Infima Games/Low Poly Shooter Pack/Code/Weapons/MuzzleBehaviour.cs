@@ -44,7 +44,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Returns the particle system to use when firing.
         /// </summary>
-        public abstract ParticleSystem GetParticlesFire();
+        public abstract ParticleSystem[] GetParticlesFires();
         /// <summary>
         /// Returns the number of particles to emit when firing.
         /// </summary>

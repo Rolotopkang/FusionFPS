@@ -34,14 +34,25 @@ public class  WeaponData : ScriptableObject
     [SerializeField]
     public int shotCount = 1;
 
-    [Tooltip("How far the weapon can fire from the center of the screen.")] [SerializeField]
+    [Tooltip("散射")] [SerializeField]
     public float spread = 0.25f;
 
-    [Header("后坐力")] [Tooltip("后坐力系数")] [SerializeField]
-    public Vector2 Recoil = new Vector2(-0.2f, 0.2f);
+    [Tooltip("散布的移动惩罚系数")]
+    public float spreadSpeedTimer;
 
-    [Tooltip("后坐力随机百分比抖动")] [SerializeField] [Range(0, 1)]
-    public float RecoilOffset = 1;
+    [Tooltip("首颗子弹是否有散射保护")]
+    public bool firstBulletAcc;
+
+    [SerializeField]
+    [Header("后坐力曲线（第一条为垂直第二条为水平）")]
+    public AnimationCurve[] recoilCurves;
+
+    [SerializeField]
+    public float recoilTimer = 0.02f;
+
+    [SerializeField]
+    [Tooltip("后坐力重置时间")]
+    public float recoilReturnTime = 0.3f;
 
     [Header("枪械属性")] [Tooltip("How fast the projectiles are.")] [SerializeField]
     public float projectileImpulse = 400.0f;
@@ -92,8 +103,6 @@ public class  WeaponData : ScriptableObject
     [Tooltip("The AnimatorController a player character needs to use while wielding this weapon.")] [SerializeField]
     public RuntimeAnimatorController controller;
 
-    public TP_Synchronization tpSynchronization;
-
     [Tooltip("Weapon Body Texture.")] [SerializeField]
     public Sprite spriteBody;
 
@@ -128,6 +137,8 @@ public class  WeaponData : ScriptableObject
     [SerializeField] public Sprite DeployB;
     [SerializeField] public Sprite DeployD;
     [SerializeField] public Sprite KillPannel;
+    
+    
     
     //TODO 配件集合
 

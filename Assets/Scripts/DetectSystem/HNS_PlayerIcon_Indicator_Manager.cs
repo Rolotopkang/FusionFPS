@@ -72,6 +72,8 @@ public class HNS_PlayerIcon_Indicator_Manager : MonoBehaviour
 
     public void SetArounded(bool _isActive)
     {
+        if(IsGazed)
+            return;
         if (IsEnemy)
         {
             Image.gameObject.SetActive(_isActive);

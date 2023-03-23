@@ -58,19 +58,19 @@ public class Vedio_Settings : UIBase_Setting
         base.GetSetting();
         dropdown_Quality.value = PlayerPrefs.GetInt("VideoQuality");
         toggle_PP.isOn = PlayerPrefs.GetInt("PostProcessingIntensity")==1;
-        _currentResolution = PlayerPrefs.GetInt("DisplayMode");
+        _currentDisplayMode = PlayerPrefs.GetInt("DisplayMode");
         _currentResolution =PlayerPrefs.GetInt("Resolution");
-        dropdown_Resolutions.value = _currentResolution;
         dropdown_DisplayMode.value = _currentDisplayMode;
+        dropdown_Resolutions.value = _currentResolution;
     }
 
     protected override void SaveSetting()
     {
         PlayerPrefs.SetInt("PostProcessingIntensity", toggle_PP.isOn? 1:0 );
         PlayerPrefs.SetInt("VideoQuality", dropdown_Quality.value);
-        PlayerPrefs.SetInt("Resolution", dropdown_Resolutions.value);
         PlayerPrefs.SetInt("DisplayMode", dropdown_DisplayMode.value);
-        
+        PlayerPrefs.SetInt("Resolution", dropdown_Resolutions.value);
+
         base.SaveSetting();
     }
 
@@ -151,8 +151,8 @@ public class Vedio_Settings : UIBase_Setting
     {
         return index switch
         {
-            0 => FullScreenMode.MaximizedWindow,
-            1 => FullScreenMode.ExclusiveFullScreen,
+            0 => FullScreenMode.ExclusiveFullScreen,
+            1 => FullScreenMode.MaximizedWindow,
             2 => FullScreenMode.Windowed,
             3 => FullScreenMode.FullScreenWindow,
             _ => FullScreenMode.Windowed

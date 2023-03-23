@@ -19,58 +19,180 @@ MonoBehaviour:
   automatic: 1
   boltAction: 0
   shotCount: 1
-  spread: 0.15
-  Recoil: {x: -0.2, y: 0.2}
-  RecoilOffset: 1
+  spread: 1
+  spreadSpeedTimer: 2
+  firstBulletAcc: 0
+  recoilCurves:
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10.056011
+      value: 10.666596
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 14.641337
+      value: 3.1260266
+      inSlope: -0.060758334
+      outSlope: -0.060758334
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.06786709
+    - serializedVersion: 3
+      time: 50
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 0
+    m_PostInfinity: 0
+    m_RotationOrder: 0
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 3.6966705
+      value: 0.70472765
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 6.1301737
+      value: -1.2417196
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10.988285
+      value: 4.885087
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 18.105406
+      value: -9.881777
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 30.106243
+      value: 9.956572
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 40.5086
+      value: -10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 50
+      value: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 0
+    m_PostInfinity: 0
+    m_RotationOrder: 0
+  recoilTimer: 0.1
   projectileImpulse: 400
-  DMG: 10
-  roundsPerMinutes: 200
+  DMG: 33
+  roundsPerMinutes: 610
   maximumDistance: 500
   cycledReload: 0
-  canReloadWhenFull: 1
-  automaticReloadOnEmpty: 0
+  canReloadWhenFull: 0
+  automaticReloadOnEmpty: 1
   automaticReloadOnEmptyDelay: 0.25
   weaponOffsets:
     standingLocation: {x: 0, y: 0, z: 0}
-    standingRotation: {x: 0, y: 0, z: 0}
+    standingRotation: {x: 0, y: -2.5, z: 0}
     aimingLocation: {x: 0, y: 0, z: 0}
     aimingRotation: {x: 0, y: 0, z: 0}
     runningLocation: {x: 0, y: 0, z: 0}
     runningRotation: {x: 0, y: 0, z: 0}
-    crouchingLocation: {x: 0, y: 0, z: 0}
-    crouchingRotation: {x: 0, y: 0, z: 0}
+    crouchingLocation: {x: 0, y: 0, z: 0.0005}
+    crouchingRotation: {x: 0, y: -10, z: 0}
     actionLocation: {x: 0, y: 0, z: 0}
     actionRotation: {x: 0, y: 0, z: 0}
-  swaySmoothValue: 10
+  swaySmoothValue: 20
   sway:
     look:
       location:
-        horizontal: {x: 0, y: 0, z: 0}
-        vertical: {x: 0, y: 0, z: 0}
+        horizontal: {x: -0.015, y: 0, z: 0}
+        vertical: {x: 0, y: 0, z: -0.015}
       rotation:
-        horizontal: {x: 0, y: 0, z: 0}
-        vertical: {x: 0, y: 0, z: 0}
+        horizontal: {x: 0, y: -1, z: 1}
+        vertical: {x: -1, y: 0, z: 0}
     movement:
       location:
-        horizontal: {x: 0, y: 0, z: 0}
-        vertical: {x: 0, y: 0, z: 0}
+        horizontal: {x: -0.015, y: 0, z: 0}
+        vertical: {x: 0, y: 0.015, z: 0}
       rotation:
-        horizontal: {x: 0, y: 0, z: 0}
-        vertical: {x: 0, y: 0, z: 0}
-  prefabCasing: {fileID: 0}
-  prefabProjectile: {fileID: 0}
-  controller: {fileID: 0}
-  tpSynchronization: {fileID: 0}
-  spriteBody: {fileID: 0}
-  audioClipHolster: {fileID: 0}
-  audioClipUnholster: {fileID: 0}
-  audioClipReload: {fileID: 0}
-  audioClipReloadEmpty: {fileID: 0}
+        horizontal: {x: 0, y: 0, z: 0.5}
+        vertical: {x: 0, y: 1, z: 0}
+  prefabCasing: {fileID: 1492315059354262, guid: c638dfae3f3edf843b2614dae230a771,
+    type: 3}
+  prefabProjectile: {fileID: 1086664671600574, guid: 8ce153c48bfd9f442aaa11507df2d446,
+    type: 3}
+  controller: {fileID: 22100000, guid: 1288116e5192cd84b808721e453eb7e7, type: 2}
+  spriteBody: {fileID: 21300000, guid: bcc477d9e47ffcf41acc147a6fc51cf9, type: 3}
+  audioClipHolster: {fileID: 8300000, guid: 8c4ede782a70c6e4b9e515d40d6e6e69, type: 3}
+  audioClipUnholster: {fileID: 8300000, guid: 4aaa78b2722c0344cb0363a3980adf64, type: 3}
+  audioClipReload: {fileID: 8300000, guid: 778c7be53403f9e45804f5a61a13a3e6, type: 3}
+  audioClipReloadEmpty: {fileID: 8300000, guid: 1fe5c2e1733f354428fe88c1a7cbafe4,
+    type: 3}
   audioClipReloadOpen: {fileID: 0}
   audioClipReloadInsert: {fileID: 0}
   audioClipReloadClose: {fileID: 0}
-  audioClipFireEmpty: {fileID: 0}
+  audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 0}
-  DeployB: {fileID: 0}
-  DeployD: {fileID: 0}
+  DeployB: {fileID: 21300000, guid: 95bedce41c3e9204c98e0d558e7adc89, type: 3}
+  DeployD: {fileID: 21300000, guid: ec2f1a014b199e54ba3de08ea0a22f03, type: 3}
   KillPannel: {fileID: 21300000, guid: be790a7fce7413c47b33cad7f6b72ce6, type: 3}

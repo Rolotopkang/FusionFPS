@@ -292,8 +292,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConquestSettlementUIController, Assembly-CSharp
+      - m_Target: {fileID: 4181346132494435082}
+        m_TargetAssemblyTypeName: DeathMatchSetttlementUIController, Assembly-CSharp
         m_MethodName: BTN_Quit
         m_Mode: 1
         m_Arguments:
@@ -1914,13 +1914,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2329215491659560619}
-  m_LocalRotation: {x: -0.005273602, y: 0.9532839, z: -0.016670374, w: -0.30156943}
-  m_LocalPosition: {x: -1221.3, y: 774, z: 914.7}
+  m_LocalRotation: {x: -0.0772957, y: 0.7028695, z: -0.07729567, w: -0.70286936}
+  m_LocalPosition: {x: 22.63, y: 22.03, z: -20.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7109202809294347235}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 2.004, y: 215.109, z: 0}
+  m_LocalEulerAnglesHint: {x: 12.551, y: 270, z: 0}
 --- !u!20 &8672196966470549716
 Camera:
   m_ObjectHideFlags: 0
@@ -4273,7 +4273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -412, y: 0.00002670288}
+  m_AnchoredPosition: {x: -412, y: -0.0009117285}
   m_SizeDelta: {x: 824, y: 360}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5255629855670069775
@@ -4896,7 +4896,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50.333313, y: -12.29071}
+  m_AnchoredPosition: {x: -50.333374, y: -12.29071}
   m_SizeDelta: {x: 7082.4023, y: 4794.764}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4117755303023315570

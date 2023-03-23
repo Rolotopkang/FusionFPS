@@ -115,6 +115,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         {
             //Destroy indicator
             IndicatorSystem.SetActive(false);
+            _audioSource.enabled = false;
         }
         
         public void LocalDeath()

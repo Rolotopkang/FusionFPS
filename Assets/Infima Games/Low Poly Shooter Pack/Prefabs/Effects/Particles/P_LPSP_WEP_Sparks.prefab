@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4934495559824030131}
   - component: {fileID: 1349624984464412664}
   - component: {fileID: 6734261123322837353}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P_LPSP_WEP_Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}

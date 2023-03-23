@@ -14,8 +14,11 @@ namespace InfimaGames.LowPolyShooterPack
     public class Weapon : WeaponBehaviour
     {
         #region FIELDS SERIALIZED
-        
+
         [Header("Settings")]
+        
+        [SerializeField]
+        private int weaponID;
         
         [Tooltip("Weapon Name. Currently not used for anything, but in the future, we will use this for pickups!")]
         [SerializeField] 
@@ -45,16 +48,22 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("How far the weapon can fire from the center of the screen.")]
         [SerializeField]
         private float spread = 0.25f;
-
-        [Header("后坐力")]
-        [Tooltip("后坐力系数")] 
-        [SerializeField]
-        private Vector2 Recoil = new Vector2(-0.2f, 0.2f);
         
-        [Tooltip("后坐力随机百分比抖动")] 
+        [Tooltip("散布的移动惩罚系数")]
+        public float spreadSpeedTimer;
+
+        [Tooltip("首颗子弹是否有散射保护")]
+        public bool firstBulletAcc;
+
         [SerializeField]
-        [Range(0, 1)]
-        private float RecoilOffset = 1;
+        private AnimationCurve[] recoilCurves;
+        
+        [SerializeField]
+        public float recoilTimer;
+        
+        [SerializeField]
+        [Tooltip("后坐力重置时间")]
+        public float recoilReturnTime;
         
         [Header("枪械属性")]
         [Tooltip("How fast the projectiles are.")]
@@ -176,6 +185,11 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("")]
         [SerializeField]
         private AudioClip audioClipBoltAction;
+        
+        [Header("武器图片素材")] 
+        [SerializeField] public Sprite DeployB;
+        [SerializeField] public Sprite DeployD;
+        [SerializeField] public Sprite KillPannel;
 
         #endregion
 
@@ -261,6 +275,50 @@ namespace InfimaGames.LowPolyShooterPack
             playerCamera = characterBehaviour.GetCameraWorld().transform;
             //获取后坐力组件
             CameraLook = GetComponentInParent<CameraLook>();
+            
+            //从SO读取枪械信息
+            WeaponData weaponData = ServiceLocator.Current.Get<IWeaponInfoService>().GetWeaponInfoFromID(weaponID);
+            weaponName = weaponData.weaponName;
+            weaponShowName = weaponData.weaponShowName;
+            multiplierMovementSpeed = weaponData.multiplierMovementSpeed;
+            automatic = weaponData.automatic;
+            boltAction = weaponData.boltAction;
+            shotCount = weaponData.shotCount;
+            spread = weaponData.spread;
+            spreadSpeedTimer = weaponData.spreadSpeedTimer;
+            firstBulletAcc = weaponData.firstBulletAcc;
+            recoilCurves = weaponData.recoilCurves;
+            recoilTimer = weaponData.recoilTimer;
+            recoilReturnTime = weaponData.recoilReturnTime;
+            projectileImpulse = weaponData.projectileImpulse;
+            DMG = weaponData.DMG;
+            roundsPerMinutes = weaponData.roundsPerMinutes;
+            maximumDistance = weaponData.maximumDistance;
+            cycledReload = weaponData.cycledReload;
+            canReloadWhenFull = weaponData.canReloadWhenFull;
+            automaticReloadOnEmpty = weaponData.automaticReloadOnEmpty;
+            automaticReloadOnEmptyDelay = weaponData.automaticReloadOnEmptyDelay;
+            weaponOffsets = weaponData.weaponOffsets;
+            swaySmoothValue = weaponData.swaySmoothValue;
+            sway = weaponData.sway;
+            prefabCasing = weaponData.prefabCasing;
+            prefabProjectile = weaponData.prefabProjectile;
+            controller = weaponData.controller;
+
+            spriteBody = weaponData.spriteBody;
+            audioClipHolster = weaponData.audioClipHolster;
+            audioClipUnholster = weaponData.audioClipUnholster;
+            audioClipReload = weaponData.audioClipReload;
+            audioClipFireEmpty = weaponData.audioClipFireEmpty;
+            audioClipReloadEmpty = weaponData.audioClipReloadEmpty;
+            audioClipReloadOpen = weaponData.audioClipReloadOpen;
+            audioClipReloadInsert = weaponData.audioClipReloadInsert;
+            audioClipReloadClose = weaponData.audioClipReloadClose;
+            audioClipBoltAction = weaponData.audioClipBoltAction;
+
+            DeployB = weaponData.DeployB;
+            DeployD = weaponData.DeployD;
+            KillPannel = weaponData.KillPannel;
         }
         protected override void Start()
         {
@@ -345,6 +403,9 @@ namespace InfimaGames.LowPolyShooterPack
         public override bool HasCycledReload() => cycledReload;
 
         public override bool IsAutomatic() => automatic;
+
+        public override float GetRevoilReturnTime() => recoilReturnTime;
+
         public override bool IsBoltAction() => boltAction;
 
         public override bool GetAutomaticallyReloadOnEmpty() => automaticReloadOnEmpty;
@@ -395,50 +456,72 @@ namespace InfimaGames.LowPolyShooterPack
         }
         public override void Fire(float spreadMultiplier = 1.0f)
         {
-            //We need a muzzle in order to fire this weapon!
+            
             if (muzzleBehaviour == null)
                 return;
-            
-            //Make sure that we have a camera cached, otherwise we don't really have the ability to perform traces.
+
             if (playerCamera == null)
                 return;
-
-            //Get Muzzle Socket. This is the point we fire from.
-            Transform muzzleSocket = muzzleBehaviour.GetSocket();
             
-            //Play the firing animation.
+            Transform muzzleSocket = muzzleBehaviour.GetSocket();
             const string stateName = "Fire";
             animator.Play(stateName, 0, 0.0f);
-            //Reduce ammunition! We just shot, so we need to get rid of one!
+            
+            //弹药减少
             ammunitionCurrent = Mathf.Clamp(ammunitionCurrent - 1, 0, magazineBehaviour.GetAmmunitionTotal());
 
-            //Set the slide back if we just ran out of ammunition.
+            //当空仓时退栓
             if (ammunitionCurrent == 0)
                 SetSlideBack(1);
             
-            //Play all muzzle effects.
+            //枪口特效
             muzzleBehaviour.Effect();
 
-            //后坐力和震屏幕
-            CameraLook.StartRecoil((Recoil+GetRandomRecoil(Recoil))*
-                                   gripBehaviour.GetRecoilCoefficient(),false);
+            // //后坐力和震屏幕
+            // if (recoilCurves != null)
+            // {
+            //     if (recoilCurves.Length == 2)
+            //     {
+            //         Vector2 recoilVector2 = new Vector2();
+            // int tmp_Shotfired = characterBehaviour.GetShotfired();
+            //         
+            //         if (tmp_Shotfired > magazineBehaviour.GetAmmunitionTotal())
+            //         {
+            //             Debug.LogError("枪械"+weaponShowName+"后坐力曲线不足!!");;
+            //         }
+            //         
+            //         recoilVector2.y = recoilCurves[0].Evaluate(tmp_Shotfired);
+            //         recoilVector2.x = recoilCurves[1].Evaluate(tmp_Shotfired);
+            //         CameraLook.StartRecoil(recoilVector2 * recoilTimer * gripBehaviour.GetRecoilCoefficient(),false);
+            //     }
+            //     
+            // }
+            
 
             //远程第三人称同步
             tpSynchronization.Shoot();
             
-            //Spawn as many projectiles as we need.
+            //生成子弹
             for (var i = 0; i < shotCount; i++)
             {
-                //Determine a random spread value using all of our multipliers.
-                Vector3 spreadValue = Random.insideUnitSphere * (spread * spreadMultiplier);
-                //Remove the forward spread component, since locally this would go inside the object we're shooting!
+                //随机散布部分
+                Vector3 spreadValue = Random.insideUnitSphere * (spread * (1 + characterBehaviour.GetSpeed() * spreadSpeedTimer));
+                spreadValue *= characterBehaviour.IsAiming() ? spreadMultiplier : 1;
+                
+                //向量转换
                 spreadValue.z = 0;
-                //Convert to world space.
                 spreadValue = muzzleSocket.TransformDirection(spreadValue);
+                
+                //选择是否开启首枪保护
+                if (characterBehaviour.GetShotfired() == 0 && firstBulletAcc && characterBehaviour.GetSpeed()<0.01f && characterBehaviour.IsAiming())
+                {
+                    spreadValue = Vector3.zero;
+                }
 
                 Quaternion rotation = Quaternion.Euler(playerCamera.eulerAngles + spreadValue);
-                GameObject projectile = Instantiate(prefabProjectile, playerCamera.position, rotation);
-                tpSynchronization.InstantiateProjectile(playerCamera.position,rotation,projectileImpulse);
+                Vector3 CMposition = playerCamera.position;
+                GameObject projectile = Instantiate(prefabProjectile, CMposition, rotation);
+                tpSynchronization.InstantiateProjectile(CMposition,rotation,projectileImpulse);
                 
                 //忽略自身碰撞
                 foreach (Collider collider in Colliders)
@@ -461,10 +544,15 @@ namespace InfimaGames.LowPolyShooterPack
                         {
                             continue;
                         }
-                        Collider[] tmp_colliders = ServiceLocator.Current.Get<IGameModeService>().GetPlayerGameObject(player).GetComponentInChildren<RagdollController>().GetColliders;
-                        foreach (Collider collider in tmp_colliders)
+
+                        //如果队友有碰撞体则忽略
+                        if (ServiceLocator.Current.Get<IGameModeService>().GetPlayerGameObject(player))
                         {
-                            Physics.IgnoreCollision(projectile.GetComponent<Collider>(),collider);
+                            Collider[] tmp_colliders = ServiceLocator.Current.Get<IGameModeService>().GetPlayerGameObject(player).GetComponentInChildren<RagdollController>().GetColliders;
+                            foreach (Collider collider in tmp_colliders)
+                            {
+                                Physics.IgnoreCollision(projectile.GetComponent<Collider>(),collider);
+                            }
                         }
                     }
                 }
@@ -535,13 +623,6 @@ namespace InfimaGames.LowPolyShooterPack
             gripBehaviour = attachmentManager.GetEquippedGrip();
         }
 
-        private Vector2 GetRandomRecoil(Vector2 original)
-        {
-           float tmp_X = Random.Range(-original.x, original.x) * RecoilOffset;
-           float tmp_Y = Random.Range(-original.y, original.y) * RecoilOffset;
-           return new Vector2(tmp_X, tmp_Y);
-        }
-        
         #endregion
     }
 }

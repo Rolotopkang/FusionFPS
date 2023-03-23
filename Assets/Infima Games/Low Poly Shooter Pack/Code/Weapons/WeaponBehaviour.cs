@@ -112,6 +112,13 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns true if this weapon shoots in automatic.
         /// </summary>
         public abstract bool IsAutomatic();
+
+
+        /// <summary>
+        /// 获取后坐力重置时间
+        /// </summary>
+        /// <returns></returns>
+        public abstract float GetRevoilReturnTime();
         /// <summary>
         /// Returns true if the weapon has any ammunition left.
         /// </summary>
@@ -219,9 +226,8 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract void ChangeAttachment(ScopeChangerBTN.AttachmentKind attachmentKind , int id);
 
 
-        
- 
-        
+
+
 
         #endregion
     }

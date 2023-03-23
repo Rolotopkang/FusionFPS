@@ -110,7 +110,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         private void OnDisable()
         {
-            SettingManager.GetInstance().RemoveSettingChangeObserver(this);
+            SettingManager.GetInstance()?.RemoveSettingChangeObserver(this);
         }
         
         
@@ -131,13 +131,13 @@ namespace InfimaGames.LowPolyShooterPack
             frameInput *= sensitivity;
             
             
-            #region ADD
-            CalculateRecoilOffset();
-            
-            frameInput.y += currentRecoil.y;
-            frameInput.x -= currentRecoil.x;
-
-            #endregion
+            // #region ADD
+            // CalculateRecoilOffset();
+            //
+            // frameInput.y += currentRecoil.y;
+            // frameInput.x -= currentRecoil.x;
+            //
+            // #endregion
             
             
             //Yaw.
@@ -204,22 +204,21 @@ namespace InfimaGames.LowPolyShooterPack
             return rotation;
         }
 
-        private void CalculateRecoilOffset()
-        {
-            currentRecoilTime += Time.deltaTime;
-            float tmp_RecoilFraction = currentRecoilTime / RecoilFadeOutTime;
-            float tmp_RecoilValue = RecoilCurve.Evaluate(tmp_RecoilFraction);
-            currentRecoil = Vector2.Lerp(Vector2.zero, currentRecoil, tmp_RecoilValue);
-        }
-        
-        public void StartRecoil(Vector2 RecoilRange, bool isSpring)
-        {
-            if (isRecoilCurve)
-            {
-                currentRecoil += RecoilRange;
-                currentRecoilTime = 0;
-            }
-        }
+        // private void CalculateRecoilOffset()
+        // {
+        //     float tmp_RecoilFraction = currentRecoilTime / RecoilFadeOutTime;
+        //     float tmp_RecoilValue = RecoilCurve.Evaluate(tmp_RecoilFraction);
+        //     currentRecoil = Vector2.Lerp(Vector2.zero, currentRecoil, tmp_RecoilValue);
+        // }
+        //
+        // public void StartRecoil(Vector2 RecoilRange, bool isSpring)
+        // {
+        //     if (isRecoilCurve)
+        //     {
+        //         currentRecoil += RecoilRange;
+        //         currentRecoilTime = 0;
+        //     }
+        // }
         
         public void OnSettingChange()
         {

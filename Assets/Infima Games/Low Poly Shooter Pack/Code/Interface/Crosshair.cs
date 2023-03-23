@@ -125,7 +125,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
         private void OnDisable()
         {
-            SettingManager.GetInstance().RemoveSettingChangeObserver(this);
+            SettingManager.GetInstance()?.RemoveSettingChangeObserver(this);
         }
 
         #endregion
@@ -140,9 +140,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             if (crosshairCanvasGroup == null || dotCanvasGroup == null || mainRectTransform == null ||
                 playerCharacter == null)
             {
-                //Reference Error.
-                Log.ReferenceError(this, gameObject);
-                
+                // //Reference Error.
+                // Log.ReferenceError(this, gameObject);
+                //
                 //Return.
                 return;
             }

@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -70,7 +71,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Instantiated Particle System.
         /// </summary>
-        private ParticleSystem particles;
+        private ParticleSystem[]  particles;
         /// <summary>
         /// Instantiated light.
         /// </summary>
@@ -96,7 +97,7 @@ namespace InfimaGames.LowPolyShooterPack
                 spawnedParticlesPrefab.transform.localEulerAngles = default;
                 
                 //Get Reference.
-                particles = spawnedParticlesPrefab.GetComponent<ParticleSystem>();
+                particles = spawnedParticlesPrefab.transform.parent.GetComponentsInChildren<ParticleSystem>();
             }
 
             //Null Check.
@@ -124,8 +125,13 @@ namespace InfimaGames.LowPolyShooterPack
         public override void Effect()
         {
             //Try to play the fire particles from the muzzle!
-            if(particles != null)
-                particles.Emit(flashParticlesCount);
+            if (particles.Length>0)
+            {
+                foreach (ParticleSystem particle in particles)
+                {
+                    particle.Emit(flashParticlesCount);
+                }
+            }
 
             //Make sure that we have a light to flash!
             if (flashLight != null)
@@ -145,7 +151,7 @@ namespace InfimaGames.LowPolyShooterPack
         
         public override AudioClip GetAudioClipFire() => audioClipFire;
         
-        public override ParticleSystem GetParticlesFire() => particles;
+        public override ParticleSystem[] GetParticlesFires() => particles;
         public override int GetParticlesFireCount() => flashParticlesCount;
         
         public override Light GetFlashLight() => flashLight;

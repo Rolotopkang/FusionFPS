@@ -91,6 +91,12 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the Movement Input.
         /// </summary>
         public abstract Vector2 GetInputMovement();
+
+        /// <summary>
+        /// 返回速度abs值
+        /// </summary>
+        /// <returns></returns>
+        public abstract float GetSpeed();
         /// <summary>
         /// Returns the Look Input.
         /// </summary>
@@ -104,6 +110,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the audio clip played when the character melees.
         /// </summary>
         public abstract AudioClip[] GetAudioClipsMelee();
+        
+        public abstract int GetShotfired();
         
         #endregion
 

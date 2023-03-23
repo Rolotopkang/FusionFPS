@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4174327299409239380}
   - component: {fileID: 4063260465274573668}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: P_LPSP_WEP_Flash_Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
