@@ -6,6 +6,7 @@ using System.Collections;
 using System.Numerics;
 using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.InputSystem;
 using UnityTemplateProjects.MultiplayerScripts;
 using Vector2 = UnityEngine.Vector2;
@@ -332,7 +333,9 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private float speedAbs;
 
-		private int shotsFired = 0;
+		private int shotsFired ;
+
+		private int oldShotsFired;
 		#endregion
 
 		#region CONSTANTS
@@ -916,6 +919,7 @@ namespace InfimaGames.LowPolyShooterPack
 			equippedWeapon. Fire(aiming ? equippedWeaponScope.GetMultiplierSpread() : 1.0f);
 			
 			//射击次数计数
+			
 			shotsFired++;
 			
 			//Play firing animation.
@@ -952,6 +956,7 @@ namespace InfimaGames.LowPolyShooterPack
 			
 			//Reload.(并重置后坐力曲线)
 			shotsFired = 0;
+			oldShotsFired = 0;
 			equippedWeapon.Reload();
 		}
 
@@ -1094,7 +1099,8 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			float tmp_Wait = equippedWeapon? equippedWeapon.GetRevoilReturnTime() : 0.5f;
 			yield return new WaitForSeconds(tmp_Wait);
-			shotsFired = 0;
+			// Debug.Log("重置");
+			oldShotsFired = 0;
 		}
 		
 		#region ACTION CHECKS
@@ -1424,6 +1430,8 @@ namespace InfimaGames.LowPolyShooterPack
 				case {phase: InputActionPhase.Started}:
 					//Hold.
 					holdingButtonFire = true;
+					shotsFired = oldShotsFired;
+					// Debug.Log(shotsFired+"旧值");
 					break;
 				//Performed.
 				case {phase: InputActionPhase.Performed}:
@@ -1437,6 +1445,8 @@ namespace InfimaGames.LowPolyShooterPack
 						//Check.
 						if (equippedWeapon.IsAutomatic())
 						{
+							// shotsFired = 0;
+							// Debug.Log("错误执行了");
 							break;
 						}
 							
@@ -1456,6 +1466,8 @@ namespace InfimaGames.LowPolyShooterPack
 				case {phase: InputActionPhase.Canceled}:
 					//Stop Hold.
 					holdingButtonFire = false;
+					oldShotsFired = shotsFired;
+					shotsFired = 0;
 					if (CheckStopShooting != null)
 					{
 						StopCoroutine(CheckStopShooting);

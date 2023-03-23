@@ -978,6 +978,7 @@ GameObject:
   - component: {fileID: 3080897795290413010}
   - component: {fileID: 3251889749459523679}
   - component: {fileID: 7992728314217503495}
+  - component: {fileID: 8896704968516479828}
   m_Layer: 9
   m_Name: P_LPSP_WEP_Sniper_01
   m_TagString: Untagged
@@ -1167,6 +1168,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4c405f36d24a5db61be27959609b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8896704968516479828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780013430326537888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af6dec5da9605b47aecd69b9858325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaningData: {fileID: 0}
+  cameraRecoilData: {fileID: 11400000, guid: 521db61b565c4104ea2dd050978ee1b3, type: 2}
 --- !u!1 &780013430326537890
 GameObject:
   m_ObjectHideFlags: 0
@@ -7066,6 +7081,7 @@ GameObject:
   - component: {fileID: 584410511109373730}
   - component: {fileID: 3544356171879701197}
   - component: {fileID: 3746120533674924288}
+  - component: {fileID: 2945406750821223313}
   m_Layer: 9
   m_Name: P_LPSP_WEP_SMG_01
   m_TagString: Untagged
@@ -7250,6 +7266,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4c405f36d24a5db61be27959609b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2945406750821223313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4433602204224912106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af6dec5da9605b47aecd69b9858325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaningData: {fileID: 0}
+  cameraRecoilData: {fileID: 11400000, guid: 7be7b655f30f7e2498ff387619141855, type: 2}
 --- !u!1 &4580234706710500374
 GameObject:
   m_ObjectHideFlags: 0
@@ -8024,6 +8054,7 @@ GameObject:
   - component: {fileID: 6922153754512279363}
   - component: {fileID: 5250275263981900747}
   - component: {fileID: 3788812286036000544}
+  - component: {fileID: 3462492615288873754}
   m_Layer: 9
   m_Name: P_LPSP_WEP_AR_01
   m_TagString: Untagged
@@ -8213,6 +8244,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4c405f36d24a5db61be27959609b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3462492615288873754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5108531017356044019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af6dec5da9605b47aecd69b9858325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaningData: {fileID: 0}
+  cameraRecoilData: {fileID: 11400000, guid: 521db61b565c4104ea2dd050978ee1b3, type: 2}
 --- !u!1 &5108531017356044021
 GameObject:
   m_ObjectHideFlags: 0
@@ -11002,6 +11047,7 @@ GameObject:
   - component: {fileID: 4896095704416779161}
   - component: {fileID: 3698850545712377917}
   - component: {fileID: 8973234812496540057}
+  - component: {fileID: 2013282623055054864}
   m_Layer: 9
   m_Name: P_LPSP_WEP_Handgun_01
   m_TagString: Untagged
@@ -11184,6 +11230,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4c405f36d24a5db61be27959609b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2013282623055054864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279830016921623081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af6dec5da9605b47aecd69b9858325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaningData: {fileID: 0}
+  cameraRecoilData: {fileID: 11400000, guid: 521db61b565c4104ea2dd050978ee1b3, type: 2}
 --- !u!1 &7392212372448065362
 GameObject:
   m_ObjectHideFlags: 0

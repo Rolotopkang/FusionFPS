@@ -40,9 +40,11 @@ public class EnumTools
     public enum PlayerProperties
     {
         IsDeath,
+        IsDetected,
         Data_kill,
         Data_Death,
         Data_Ping
+        
     }
     
     public enum Teams

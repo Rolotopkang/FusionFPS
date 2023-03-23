@@ -14,4 +14,10 @@ public static class StaticTools
         return !local.GetPhotonTeam().Name.
             Equals(target.Owner.GetPhotonTeam().Name);
     }
+
+    public static bool IsEnemy(Player local, Player target)
+    {
+        return !local.GetPhotonTeam().Name.
+            Equals(target.GetPhotonTeam().Name);
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class DetectSystem : MonoBehaviour
     private bool isGazed = false;
     private bool isAround = false;
 
+    private DetectTarget tmp_detectTarget;
+
     private RaycastHit G;
     private RaycastHit A;
     
@@ -21,7 +24,15 @@ public class DetectSystem : MonoBehaviour
     {
         RaycastUpdate();
     }
-    
+
+    private void OnDestroy()
+    {
+        if (tmp_detectTarget)
+        {
+            tmp_detectTarget.RayCastHit(EnumTools.DetectTargetKind.Gaze, false);
+        }
+    }
+
     private void RaycastUpdate()
     {
         Ray m_ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
@@ -30,6 +41,11 @@ public class DetectSystem : MonoBehaviour
             if (Hit_G.transform.tag.Equals("DetectTarget"))
             {
                 Hit_G.transform.GetComponent<DetectTarget>().RayCastHit(EnumTools.DetectTargetKind.Gaze, true);
+                if (Hit_G.transform.GetComponent<DetectTarget>() != tmp_detectTarget  && tmp_detectTarget)
+                {
+                    tmp_detectTarget.RayCastHit(EnumTools.DetectTargetKind.Gaze, false);
+                }
+                tmp_detectTarget = Hit_G.transform.GetComponent<DetectTarget>();
                 isGazed = true;
                 G = Hit_G;
             }
@@ -53,6 +69,11 @@ public class DetectSystem : MonoBehaviour
                     isGazed = false;
                 }
                 Hit_A.transform.GetComponent<DetectTarget>().RayCastHit(EnumTools.DetectTargetKind.Around, true);
+                if (Hit_A.transform.GetComponent<DetectTarget>() != tmp_detectTarget  && tmp_detectTarget)
+                {
+                    tmp_detectTarget.RayCastHit(EnumTools.DetectTargetKind.Around, false);
+                }
+                tmp_detectTarget = Hit_A.transform.GetComponent<DetectTarget>();
                 isAround = true;
                 A = Hit_A;
             }

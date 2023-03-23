@@ -67,7 +67,7 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
 
     private void Start()
     {
-        Data_RoomMapName.text = RoomManager.GetInstance().currentGamemode switch
+        Data_RoomModeName.text = RoomManager.GetInstance().currentGamemode switch
         {
             MapTools.GameMode.Conquest => "征服",
             MapTools.GameMode.DeathMatch => "个人自由混战",
@@ -81,6 +81,7 @@ public class ScoreBoardTeamManager : MonoBehaviour,IInRoomCallbacks
         //TODO 更新房间规则
         Data_RoomRule.text = RoomManager.GetInstance().currentGamemodeManager.GetGameModeDiscription;
         Data_LocalPlayerName.text = LocalPlayer.NickName;
+        
     }
 
     private void OnDestroy()

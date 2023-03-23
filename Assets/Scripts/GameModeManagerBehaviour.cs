@@ -65,6 +65,7 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
             SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_kill,0,false);
             SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_Death,0,false);
             SetPlayerIntProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.Data_Ping,999,false);
+            SetPlayerBoolProperties(PhotonNetwork.LocalPlayer,EnumTools.PlayerProperties.IsDetected,false);
             PhotonNetwork.LocalPlayer.SetScore(0);
         }
         
@@ -290,6 +291,7 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
         if (tmp_deathPlayer.Equals(tmp_KillFrom))
         {
             SetPlayerIntProperties(tmp_deathPlayer,EnumTools.PlayerProperties.Data_Death,1,true);
+            SetPlayerBoolProperties(tmp_deathPlayer,EnumTools.PlayerProperties.IsDetected,false);
             SetPlayerBoolProperties(tmp_deathPlayer,EnumTools.PlayerProperties.IsDeath,true);
             return;
         }
@@ -332,6 +334,7 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
             SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_Death,0,false);
             SetPlayerIntProperties(newPlayer,EnumTools.PlayerProperties.Data_Ping,999,false);
             SetPlayerBoolProperties(newPlayer,EnumTools.PlayerProperties.IsDeath,false);
+            SetPlayerBoolProperties(newPlayer,EnumTools.PlayerProperties.IsDetected,false);
             newPlayer.SetScore(0);
         }
     }

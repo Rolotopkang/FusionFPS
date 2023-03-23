@@ -477,25 +477,25 @@ namespace InfimaGames.LowPolyShooterPack
             //枪口特效
             muzzleBehaviour.Effect();
 
-            //后坐力和震屏幕
-            if (recoilCurves != null)
-            {
-                if (recoilCurves.Length == 2)
-                {
-                    Vector2 recoilVector2 = new Vector2();
-                    int tmp_Shotfired = characterBehaviour.GetShotfired();
-                    
-                    if (tmp_Shotfired > magazineBehaviour.GetAmmunitionTotal())
-                    {
-                        Debug.LogError("枪械"+weaponShowName+"后坐力曲线不足!!");;
-                    }
-                    
-                    recoilVector2.y = recoilCurves[0].Evaluate(tmp_Shotfired);
-                    recoilVector2.x = recoilCurves[1].Evaluate(tmp_Shotfired);
-                    CameraLook.StartRecoil(recoilVector2 * recoilTimer * gripBehaviour.GetRecoilCoefficient(),false);
-                }
-                
-            }
+            // //后坐力和震屏幕
+            // if (recoilCurves != null)
+            // {
+            //     if (recoilCurves.Length == 2)
+            //     {
+            //         Vector2 recoilVector2 = new Vector2();
+            // int tmp_Shotfired = characterBehaviour.GetShotfired();
+            //         
+            //         if (tmp_Shotfired > magazineBehaviour.GetAmmunitionTotal())
+            //         {
+            //             Debug.LogError("枪械"+weaponShowName+"后坐力曲线不足!!");;
+            //         }
+            //         
+            //         recoilVector2.y = recoilCurves[0].Evaluate(tmp_Shotfired);
+            //         recoilVector2.x = recoilCurves[1].Evaluate(tmp_Shotfired);
+            //         CameraLook.StartRecoil(recoilVector2 * recoilTimer * gripBehaviour.GetRecoilCoefficient(),false);
+            //     }
+            //     
+            // }
             
 
             //远程第三人称同步
@@ -519,8 +519,9 @@ namespace InfimaGames.LowPolyShooterPack
                 }
 
                 Quaternion rotation = Quaternion.Euler(playerCamera.eulerAngles + spreadValue);
-                GameObject projectile = Instantiate(prefabProjectile, playerCamera.position, rotation);
-                tpSynchronization.InstantiateProjectile(playerCamera.position,rotation,projectileImpulse);
+                Vector3 CMposition = playerCamera.position;
+                GameObject projectile = Instantiate(prefabProjectile, CMposition, rotation);
+                tpSynchronization.InstantiateProjectile(CMposition,rotation,projectileImpulse);
                 
                 //忽略自身碰撞
                 foreach (Collider collider in Colliders)
@@ -543,10 +544,15 @@ namespace InfimaGames.LowPolyShooterPack
                         {
                             continue;
                         }
-                        Collider[] tmp_colliders = ServiceLocator.Current.Get<IGameModeService>().GetPlayerGameObject(player).GetComponentInChildren<RagdollController>().GetColliders;
-                        foreach (Collider collider in tmp_colliders)
+
+                        //如果队友有碰撞体则忽略
+                        if (ServiceLocator.Current.Get<IGameModeService>().GetPlayerGameObject(player))
                         {
-                            Physics.IgnoreCollision(projectile.GetComponent<Collider>(),collider);
+                            Collider[] tmp_colliders = ServiceLocator.Current.Get<IGameModeService>().GetPlayerGameObject(player).GetComponentInChildren<RagdollController>().GetColliders;
+                            foreach (Collider collider in tmp_colliders)
+                            {
+                                Physics.IgnoreCollision(projectile.GetComponent<Collider>(),collider);
+                            }
                         }
                     }
                 }

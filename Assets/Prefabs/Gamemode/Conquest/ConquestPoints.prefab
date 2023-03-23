@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6449742973855620054}
   - component: {fileID: 6449742973855620052}
   - component: {fileID: 6449742973855620053}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6449742973857946568}
   - component: {fileID: 6449742973857946582}
   - component: {fileID: 6449742973857946583}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 6449742973859958088}
   - component: {fileID: 6449742973859958102}
   - component: {fileID: 6449742973859958103}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 6449742973941929636}
   - component: {fileID: 6449742973941929634}
   - component: {fileID: 6449742973941929635}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 6449742973989197346}
   - component: {fileID: 6449742973989197344}
   - component: {fileID: 6449742973989197345}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: SpawnPoint_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 6449742974055991675}
   - component: {fileID: 6449742974055991673}
   - component: {fileID: 6449742974055991674}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: SpawnPoint_12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 6449742974077667215}
   - component: {fileID: 6449742974077667200}
   - component: {fileID: 6449742974077667201}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PointC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +627,7 @@ GameObject:
   - component: {fileID: 6449742974143521728}
   - component: {fileID: 6449742974143521742}
   - component: {fileID: 6449742974143521743}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -709,7 +709,7 @@ GameObject:
   - component: {fileID: 6449742974223788377}
   - component: {fileID: 6449742974223788455}
   - component: {fileID: 6449742974223788376}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: SpawnPoint_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,7 +768,7 @@ GameObject:
   - component: {fileID: 6449742974259309989}
   - component: {fileID: 6449742974259309987}
   - component: {fileID: 6449742974259309988}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 6449742974388955167}
   - component: {fileID: 6449742974388955165}
   - component: {fileID: 6449742974388955166}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: SpawnPoint_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -909,7 +909,7 @@ GameObject:
   - component: {fileID: 6449742974410022429}
   - component: {fileID: 6449742974410022427}
   - component: {fileID: 6449742974410022428}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RedBirth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -968,7 +968,7 @@ GameObject:
   - component: {fileID: 6449742974413145272}
   - component: {fileID: 6449742974413145222}
   - component: {fileID: 6449742974413145223}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1048,7 +1048,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6449742974423963685}
   - component: {fileID: 6449742974423963684}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ConquestPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1100,7 +1100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6449742974486542303}
   - component: {fileID: 6449742974486542302}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BlueBirth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1146,7 +1146,7 @@ GameObject:
   - component: {fileID: 6449742974555114587}
   - component: {fileID: 6449742974555114585}
   - component: {fileID: 6449742974555114586}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,7 +1227,7 @@ GameObject:
   - component: {fileID: 6449742974582414548}
   - component: {fileID: 6449742974582414546}
   - component: {fileID: 6449742974582414547}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1308,7 +1308,7 @@ GameObject:
   - component: {fileID: 6449742974614188375}
   - component: {fileID: 6449742974614188373}
   - component: {fileID: 6449742974614188374}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1392,7 +1392,7 @@ GameObject:
   - component: {fileID: 6449742974669806058}
   - component: {fileID: 6449742974669806057}
   - component: {fileID: 6449742974669806056}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PointA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1562,7 +1562,7 @@ GameObject:
   - component: {fileID: 6449742974687062714}
   - component: {fileID: 6449742974687062712}
   - component: {fileID: 6449742974687062713}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1644,7 +1644,7 @@ GameObject:
   - component: {fileID: 6449742974707822050}
   - component: {fileID: 6449742974707822048}
   - component: {fileID: 6449742974707822049}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1727,7 +1727,7 @@ GameObject:
   - component: {fileID: 6449742974793851383}
   - component: {fileID: 6449742974793851368}
   - component: {fileID: 6449742974793851369}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PointD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1897,7 +1897,7 @@ GameObject:
   - component: {fileID: 6449742974826793899}
   - component: {fileID: 6449742974826793897}
   - component: {fileID: 6449742974826793898}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1979,7 +1979,7 @@ GameObject:
   - component: {fileID: 6449742974872697531}
   - component: {fileID: 6449742974872697529}
   - component: {fileID: 6449742974872697530}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2061,7 +2061,7 @@ GameObject:
   - component: {fileID: 6449742974921271495}
   - component: {fileID: 6449742974921271493}
   - component: {fileID: 6449742974921271494}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: SpawnPoint_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2120,7 +2120,7 @@ GameObject:
   - component: {fileID: 6449742975139154848}
   - component: {fileID: 6449742975139154862}
   - component: {fileID: 6449742975139154863}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2202,7 +2202,7 @@ GameObject:
   - component: {fileID: 6449742975220047915}
   - component: {fileID: 6449742975220047913}
   - component: {fileID: 6449742975220047914}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: SpawnPoint_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2261,7 +2261,7 @@ GameObject:
   - component: {fileID: 6449742975240742745}
   - component: {fileID: 6449742975240742823}
   - component: {fileID: 6449742975240742744}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: SpawnPoint_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2320,7 +2320,7 @@ GameObject:
   - component: {fileID: 6449742975434052308}
   - component: {fileID: 6449742975434052306}
   - component: {fileID: 6449742975434052307}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2403,7 +2403,7 @@ GameObject:
   - component: {fileID: 6449742975488438255}
   - component: {fileID: 6449742975488438240}
   - component: {fileID: 6449742975488438241}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PointB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2573,7 +2573,7 @@ GameObject:
   - component: {fileID: 6449742975676762889}
   - component: {fileID: 6449742975676762903}
   - component: {fileID: 6449742975676762888}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2654,7 +2654,7 @@ GameObject:
   - component: {fileID: 6449742975752191029}
   - component: {fileID: 6449742975752191027}
   - component: {fileID: 6449742975752191028}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: SpawnPoint_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2713,7 +2713,7 @@ GameObject:
   - component: {fileID: 6449742975809228828}
   - component: {fileID: 6449742975809228826}
   - component: {fileID: 6449742975809228827}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2794,7 +2794,7 @@ GameObject:
   - component: {fileID: 6449742975817401202}
   - component: {fileID: 6449742975817401200}
   - component: {fileID: 6449742975817401201}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: SpawnPoint_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}

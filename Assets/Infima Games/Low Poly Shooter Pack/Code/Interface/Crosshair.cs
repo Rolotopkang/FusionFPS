@@ -125,7 +125,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
         private void OnDisable()
         {
-            SettingManager.GetInstance().RemoveSettingChangeObserver(this);
+            SettingManager.GetInstance()?.RemoveSettingChangeObserver(this);
         }
 
         #endregion

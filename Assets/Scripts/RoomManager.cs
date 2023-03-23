@@ -25,6 +25,12 @@ public class RoomManager : Singleton<RoomManager>
 
     #region Unity
 
+    protected override void Awake()
+    {
+        base.Awake();
+        Application.targetFrameRate = 200;
+    }
+
     public void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;

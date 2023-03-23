@@ -22928,7 +22928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoginUIAnimation: {fileID: 8670796213098946179}
-  LoginUI: {fileID: 0}
+  LoginUI: {fileID: 8670796213098946178}
   MenuController: {fileID: 1819200892}
 --- !u!4 &795160771544996047
 Transform:

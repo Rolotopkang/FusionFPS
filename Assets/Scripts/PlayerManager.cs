@@ -236,11 +236,15 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
             UIKillFeedBackRoomManager.CreateKillFeedbackRoom(
                 new UIKillFeedBackRoom.RoomKillMes(
                     tmp_deathPlayer.NickName,
-                    tmp_deathPlayer.Equals(PhotonNetwork.LocalPlayer)? Color.green : Color.red,
+                    tmp_deathPlayer.Equals(PhotonNetwork.LocalPlayer)? Color.green : 
+                    StaticTools.IsEnemy(PhotonNetwork.LocalPlayer,tmp_KillFrom)? Color.red : 
+                    new Color(0,1,1),
                     tmp_KillWeapon,
                     tmp_headShot,
                     tmp_KillFrom.NickName,
-                    tmp_KillFrom.Equals(PhotonNetwork.LocalPlayer)? Color.green : Color.red));
+                     tmp_KillFrom.Equals(PhotonNetwork.LocalPlayer)? Color.green : 
+                     StaticTools.IsEnemy(PhotonNetwork.LocalPlayer,tmp_KillFrom)? Color.red : 
+                     new Color(0,1,1)));
         }
     }
 
