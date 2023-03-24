@@ -74,7 +74,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2adbb3788845b78bc1a9947684f3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MuzzleID: 0
+  WeaponAttachmentData: {fileID: 11400000, guid: 65c3817741af04645b89701779315d35,
+    type: 2}
   socket: {fileID: 3883664629094013655}
   sprite: {fileID: 0}
   BTNspriteB: {fileID: 21300000, guid: b555af8e6680e974e82e91b3fd663562, type: 3}

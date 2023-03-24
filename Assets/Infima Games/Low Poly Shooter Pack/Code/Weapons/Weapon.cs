@@ -56,12 +56,6 @@ namespace InfimaGames.LowPolyShooterPack
         public bool firstBulletAcc;
 
         [SerializeField]
-        private AnimationCurve[] recoilCurves;
-        
-        [SerializeField]
-        public float recoilTimer;
-        
-        [SerializeField]
         [Tooltip("后坐力重置时间")]
         public float recoilReturnTime;
         
@@ -185,11 +179,6 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("")]
         [SerializeField]
         private AudioClip audioClipBoltAction;
-        
-        [Header("武器图片素材")] 
-        [SerializeField] public Sprite DeployB;
-        [SerializeField] public Sprite DeployD;
-        [SerializeField] public Sprite KillPannel;
 
         #endregion
 
@@ -224,11 +213,6 @@ namespace InfimaGames.LowPolyShooterPack
         /// Equipped Muzzle Reference.
         /// </summary>
         private MuzzleBehaviour muzzleBehaviour;
-
-        /// <summary>
-        /// Equipped Laser Reference.
-        /// </summary>
-        private LaserBehaviour laserBehaviour;
         /// <summary>
         /// Equipped Grip Reference.
         /// </summary>
@@ -252,8 +236,6 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private Transform playerCamera;
 
-        private CameraLook CameraLook;
-        
         private Collider[] Colliders;
         
         #endregion
@@ -273,9 +255,7 @@ namespace InfimaGames.LowPolyShooterPack
             characterBehaviour = GetComponentInParent<CharacterBehaviour>();
             //Cache the world camera. We use this in line traces.
             playerCamera = characterBehaviour.GetCameraWorld().transform;
-            //获取后坐力组件
-            CameraLook = GetComponentInParent<CameraLook>();
-            
+
             //从SO读取枪械信息
             WeaponData weaponData = ServiceLocator.Current.Get<IWeaponInfoService>().GetWeaponInfoFromID(weaponID);
             weaponName = weaponData.weaponName;
@@ -287,8 +267,6 @@ namespace InfimaGames.LowPolyShooterPack
             spread = weaponData.spread;
             spreadSpeedTimer = weaponData.spreadSpeedTimer;
             firstBulletAcc = weaponData.firstBulletAcc;
-            recoilCurves = weaponData.recoilCurves;
-            recoilTimer = weaponData.recoilTimer;
             recoilReturnTime = weaponData.recoilReturnTime;
             projectileImpulse = weaponData.projectileImpulse;
             DMG = weaponData.DMG;
@@ -315,10 +293,6 @@ namespace InfimaGames.LowPolyShooterPack
             audioClipReloadInsert = weaponData.audioClipReloadInsert;
             audioClipReloadClose = weaponData.audioClipReloadClose;
             audioClipBoltAction = weaponData.audioClipBoltAction;
-
-            DeployB = weaponData.DeployB;
-            DeployD = weaponData.DeployD;
-            KillPannel = weaponData.KillPannel;
         }
         protected override void Start()
         {
@@ -331,9 +305,6 @@ namespace InfimaGames.LowPolyShooterPack
             magazineBehaviour = attachmentManager.GetEquippedMagazine();
             //Get Muzzle.
             muzzleBehaviour = attachmentManager.GetEquippedMuzzle();
-
-            //Get Laser.
-            laserBehaviour = attachmentManager.GetEquippedLaser();
             //Get Grip.
             gripBehaviour = attachmentManager.GetEquippedGrip();
 
@@ -412,7 +383,7 @@ namespace InfimaGames.LowPolyShooterPack
         public override float GetAutomaticallyReloadOnEmptyDelay() => automaticReloadOnEmptyDelay;
 
         public override bool CanReloadWhenFull() => canReloadWhenFull;
-        public override float GetRateOfFire() => roundsPerMinutes;
+        public override float GetRateOfFire() => roundsPerMinutes * attachmentManager.GetShootSpeedAlpha();
         
         public override bool IsFull() => ammunitionCurrent == magazineBehaviour.GetAmmunitionTotal();
         public override bool HasAmmunition() => ammunitionCurrent > 0;
@@ -477,27 +448,6 @@ namespace InfimaGames.LowPolyShooterPack
             //枪口特效
             muzzleBehaviour.Effect();
 
-            // //后坐力和震屏幕
-            // if (recoilCurves != null)
-            // {
-            //     if (recoilCurves.Length == 2)
-            //     {
-            //         Vector2 recoilVector2 = new Vector2();
-            // int tmp_Shotfired = characterBehaviour.GetShotfired();
-            //         
-            //         if (tmp_Shotfired > magazineBehaviour.GetAmmunitionTotal())
-            //         {
-            //             Debug.LogError("枪械"+weaponShowName+"后坐力曲线不足!!");;
-            //         }
-            //         
-            //         recoilVector2.y = recoilCurves[0].Evaluate(tmp_Shotfired);
-            //         recoilVector2.x = recoilCurves[1].Evaluate(tmp_Shotfired);
-            //         CameraLook.StartRecoil(recoilVector2 * recoilTimer * gripBehaviour.GetRecoilCoefficient(),false);
-            //     }
-            //     
-            // }
-            
-
             //远程第三人称同步
             tpSynchronization.Shoot();
             
@@ -505,8 +455,8 @@ namespace InfimaGames.LowPolyShooterPack
             for (var i = 0; i < shotCount; i++)
             {
                 //随机散布部分
-                Vector3 spreadValue = Random.insideUnitSphere * (spread * (1 + characterBehaviour.GetSpeed() * spreadSpeedTimer));
-                spreadValue *= characterBehaviour.IsAiming() ? spreadMultiplier : 1;
+                Vector3 spreadValue = Random.insideUnitSphere * (spread * (1 + characterBehaviour.GetSpeed() * spreadSpeedTimer * attachmentManager.GetMovSpreadAlpha()));
+                spreadValue *= spreadMultiplier;
                 
                 //向量转换
                 spreadValue.z = 0;
@@ -517,11 +467,10 @@ namespace InfimaGames.LowPolyShooterPack
                 {
                     spreadValue = Vector3.zero;
                 }
-
                 Quaternion rotation = Quaternion.Euler(playerCamera.eulerAngles + spreadValue);
                 Vector3 CMposition = playerCamera.position;
                 GameObject projectile = Instantiate(prefabProjectile, CMposition, rotation);
-                tpSynchronization.InstantiateProjectile(CMposition,rotation,projectileImpulse);
+                tpSynchronization.InstantiateProjectile(CMposition,rotation,projectileImpulse * attachmentManager.GetFlySpeedAlpha());
                 
                 //忽略自身碰撞
                 foreach (Collider collider in Colliders)
@@ -557,9 +506,9 @@ namespace InfimaGames.LowPolyShooterPack
                     }
                 }
                 //Add velocity to the projectile.
-                projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;
+                projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse * attachmentManager.GetFlySpeedAlpha();
                 projectile.GetComponent<Legacy.Projectile>().SetOwner(photonView.Owner);
-                projectile.GetComponent<Legacy.Projectile>().SetWeaponDMG(DMG);
+                projectile.GetComponent<Legacy.Projectile>().SetWeaponDMG(DMG * attachmentManager.GetDamageAlpha());
                 projectile.GetComponent<Legacy.Projectile>().SetweaponName(weaponName);
             }
         }
@@ -596,8 +545,8 @@ namespace InfimaGames.LowPolyShooterPack
                     attachmentManager.MuzzleChangeTo(id);
                     RefreshAttachment();
                     break;
-                case ScopeChangerBTN.AttachmentKind.Laser:
-                    attachmentManager.LazerChangeTo(id);
+                case ScopeChangerBTN.AttachmentKind.Magazine:
+                    attachmentManager.MagazineChangeTo(id);
                     RefreshAttachment();
                     break;
                 case ScopeChangerBTN.AttachmentKind.Grip:
@@ -616,9 +565,6 @@ namespace InfimaGames.LowPolyShooterPack
             magazineBehaviour = attachmentManager.GetEquippedMagazine();
             //Get Muzzle.
             muzzleBehaviour = attachmentManager.GetEquippedMuzzle();
-
-            //Get Laser.
-            laserBehaviour = attachmentManager.GetEquippedLaser();
             //Get Grip.
             gripBehaviour = attachmentManager.GetEquippedGrip();
         }

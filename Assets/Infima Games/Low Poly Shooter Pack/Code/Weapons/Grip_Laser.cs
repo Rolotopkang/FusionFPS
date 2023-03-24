@@ -7,27 +7,9 @@ namespace InfimaGames.LowPolyShooterPack
     /// <summary>
     /// Laser.
     /// </summary>
-    public class Laser : LaserBehaviour
+    public class Grip_Laser : Grip
     {
         #region FIELDS SERIALIZED
-
-        [Header("ID")]
-        [SerializeField]
-        private int LaserID;
-        
-        [Header("Settings")]
-
-        [Tooltip("Sprite. Displayed on the player's interface.")]
-        [SerializeField]
-        private Sprite sprite;
-        
-        [Tooltip("Sprite. Displayed on the player's interface.")]
-        [SerializeField]
-        private Sprite BTNspriteB;
-        
-        [Tooltip("Sprite. Displayed on the player's interface.")]
-        [SerializeField]
-        private Sprite BTNspriteD;
 
         [Header("Laser Beam")]
         
@@ -51,16 +33,6 @@ namespace InfimaGames.LowPolyShooterPack
         /// Beam Parent.
         /// </summary>
         private Transform beamParent;
-
-        #endregion
-        
-        #region GETTERS
-
-        public override Sprite GetSprite() => sprite;
-        public override int GetID() => LaserID;
-        
-        public override Sprite GetBTNSpriteB() => BTNspriteB;
-        public override Sprite GetBTNSpriteD() => BTNspriteD;
 
         #endregion
 

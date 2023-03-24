@@ -25,10 +25,6 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         [SerializeField]
         private Image imageWeaponGrip;
 
-        [Tooltip("Weapon Laser Image.")]
-        [SerializeField]
-        private Image imageWeaponLaser;
-        
         [Tooltip("Weapon Silencer Image.")]
         [SerializeField]
         private Image imageWeaponMuzzle;
@@ -138,14 +134,6 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             //Assign Sprite!
             AssignSprite(imageWeaponMagazine, sprite, magazineBehaviour == null);
 
-            //Laser.
-            LaserBehaviour laserBehaviour = attachmentManagerBehaviour.GetEquippedLaser();
-            //Get Sprite.
-            if (laserBehaviour != null)
-                sprite = laserBehaviour.GetSprite();
-            //Assign Sprite!
-            AssignSprite(imageWeaponLaser, sprite, laserBehaviour == null);
-            
             //Grip.
             GripBehaviour gripBehaviour = attachmentManagerBehaviour.GetEquippedGrip();
             //Get Sprite.

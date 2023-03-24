@@ -23,7 +23,7 @@ public class ButtonGroup : MonoBehaviour
     private ScopeBehaviour[] ScopeBehaviours;
     private MuzzleBehaviour[] MuzzleBehaviours;
     private GripBehaviour[] GripBehaviours;
-    private LaserBehaviour[] LaserBehaviours;
+    private MagazineBehaviour[] magazineBehaviours;
     private WeaponAttachmentManager WeaponAttachmentManager;
     private RectTransform _rectTransform;
     
@@ -70,18 +70,18 @@ public class ButtonGroup : MonoBehaviour
                     tmp_ScopeChangerBTN.attachmentID = muzzleBehaviour.GetID();
                 }
                 break;
-            case ScopeChangerBTN.AttachmentKind.Laser:
-                LaserBehaviours = WeaponAttachmentManager.GetLaserBehaviours();
-                foreach (LaserBehaviour laserBehaviour in LaserBehaviours)
+            case ScopeChangerBTN.AttachmentKind.Magazine:
+                magazineBehaviours = WeaponAttachmentManager.GetMagazineBehaviours();
+                foreach (MagazineBehaviour magazineBehaviour in magazineBehaviours)
                 {
                     GameObject tmp_BTN = Instantiate(BTNPrefab,new Vector3(0,0,_rectTransform.position.z), quaternion.identity, transform);
                     tmp_BTN.GetComponent<RectTransform>().localRotation = Quaternion.identity;
                     tmp_BTN.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(0, 0, 0);
                     ScopeChangerBTN tmp_ScopeChangerBTN = tmp_BTN.GetComponent<ScopeChangerBTN>();
-                    tmp_ScopeChangerBTN.SetButtonIMGB(laserBehaviour.GetBTNSpriteB());
-                    tmp_ScopeChangerBTN.SetButtonIMGD(laserBehaviour.GetBTNSpriteD());
-                    tmp_ScopeChangerBTN.attachmentKind = ScopeChangerBTN.AttachmentKind.Laser;
-                    tmp_ScopeChangerBTN.attachmentID = laserBehaviour.GetID();
+                    tmp_ScopeChangerBTN.SetButtonIMGB(magazineBehaviour.GetBTNSpriteB());
+                    tmp_ScopeChangerBTN.SetButtonIMGD(magazineBehaviour.GetBTNSpriteD());
+                    tmp_ScopeChangerBTN.attachmentKind = ScopeChangerBTN.AttachmentKind.Magazine;
+                    tmp_ScopeChangerBTN.attachmentID = magazineBehaviour.GetID();
                 }
                 break;
             case ScopeChangerBTN.AttachmentKind.Grip:

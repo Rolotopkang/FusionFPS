@@ -1,6 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
+using UnityTemplateProjects.Weapon;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -11,19 +12,14 @@ namespace InfimaGames.LowPolyShooterPack
     {
         #region FIELDS SERIALIZED
 
-        [Header("ID")]
-        [SerializeField]
-        private int ScopeID;
+        [Header("ID")] [SerializeField] 
+        private WeaponAttachmentData WeaponAttachmentData;
 
         [Header("Multipliers")]
         
         [Tooltip("Amount to multiply the mouse sensitivity by while aiming through this scope.")]
         [SerializeField]
         private float multiplierMouseSensitivity = 0.8f;
-        
-        [Tooltip("Value multiplied by the weapon's spread while aiming through this scope.")]
-        [SerializeField]
-        private float multiplierSpread = 0.1f;
 
         [Header("Interface")]
 
@@ -97,7 +93,7 @@ namespace InfimaGames.LowPolyShooterPack
         {
             //Cache Scope Renderer.
             meshRenderer = GetComponentInChildren<MeshRenderer>();
-            
+
             //Make sure that the index can exist.
             if (!HasMaterialIndex())
                 return;
@@ -116,11 +112,12 @@ namespace InfimaGames.LowPolyShooterPack
 
         #region GETTERS
 
-        public override int GetID() => ScopeID;
+        public override int GetID() => WeaponAttachmentData.AttachmentID;
+
+        public override WeaponAttachmentData GetWeaponAttachmentData() => WeaponAttachmentData;
 
         public override float GetMultiplierMouseSensitivity() => multiplierMouseSensitivity;
-
-        public override float GetMultiplierSpread() => multiplierSpread;
+        
         public override Sway GetSwayAiming() => aimingSway;
 
         public override Vector3 GetOffsetAimingLocation() => offsetAimingLocation;
@@ -129,10 +126,10 @@ namespace InfimaGames.LowPolyShooterPack
         public override float GetFieldOfViewMultiplierAim() => fieldOfViewMultiplierAim;
         public override float GetFieldOfViewMultiplierAimWeapon() => fieldOfViewMultiplierAimWeapon;
         
-        public override Sprite GetSprite() => sprite;
+        public override Sprite GetSprite() => WeaponAttachmentData.sprite;
 
-        public override Sprite GetBTNSpriteB() => BTNspriteB;
-        public override Sprite GetBTNSpriteD() => BTNspriteD;
+        public override Sprite GetBTNSpriteB() => WeaponAttachmentData.BTNspriteB;
+        public override Sprite GetBTNSpriteD() => WeaponAttachmentData.BTNspriteD;
 
         /// <summary>
         /// Returns true if the Scope's Mesh Renderer could have this Material index.

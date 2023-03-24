@@ -156,7 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2adbb3788845b78bc1a9947684f3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MuzzleID: 1
+  WeaponAttachmentData: {fileID: 11400000, guid: 0dc24d2fd6451cb49a94eaee19891305,
+    type: 2}
   socket: {fileID: 2576241391761904795}
   sprite: {fileID: 21300000, guid: 08eb47ae3fa5b5544859271d9e6ae01a, type: 3}
   BTNspriteB: {fileID: 21300000, guid: 1f3c1898b62b4f74aa6ac9a2341a91b8, type: 3}

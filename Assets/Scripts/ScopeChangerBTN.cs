@@ -12,7 +12,7 @@ public class ScopeChangerBTN : MonoBehaviour
     {
         Scope,
         Muzzle,
-        Laser,
+        Magazine,
         Grip
     }
     #endregion

@@ -44,13 +44,6 @@ public class  WeaponData : ScriptableObject
     public bool firstBulletAcc;
 
     [SerializeField]
-    [Header("后坐力曲线（第一条为垂直第二条为水平）")]
-    public AnimationCurve[] recoilCurves;
-
-    [SerializeField]
-    public float recoilTimer = 0.02f;
-
-    [SerializeField]
     [Tooltip("后坐力重置时间")]
     public float recoilReturnTime = 0.3f;
 

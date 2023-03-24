@@ -26,6 +26,9 @@ public class ScopeChanger : MonoBehaviour
     [SerializeField]
     private Canvas ScopeChangerCanvas;
 
+    [SerializeField]
+    private CanvasFader DiscriptionFader;
+
     #endregion
 
     #region FIELDS
@@ -125,6 +128,7 @@ public class ScopeChanger : MonoBehaviour
         //Enabled.
         menuIsEnabled = true;
         ScopeChangerCanvas.gameObject.SetActive(true);
+        DiscriptionFader.FadeIn();
 
         //Play Clip.
         animationComponent.clip = animationShow;
@@ -144,6 +148,7 @@ public class ScopeChanger : MonoBehaviour
         //Disabled.
         menuIsEnabled = false;
         ScopeChangerCanvas.gameObject.SetActive(false);
+        DiscriptionFader.FadeOut();
 
         //Disable depth of field effect.
         if(depthOfField != null)

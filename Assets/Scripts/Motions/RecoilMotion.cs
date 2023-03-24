@@ -122,6 +122,12 @@ namespace InfimaGames.LowPolyShooterPack
                 //Add Multipliers.
                 recoilRotation *= recoilCurves.RotationMultiplier * recoilDataMultiplier;
             }
+
+            if (characterBehaviour.GetInventory().GetEquipped())
+            {
+                recoilRotation.x *= characterBehaviour.GetInventory().GetEquipped().GetAttachmentManager().GetVerticalRecoilAlpha();
+                recoilRotation.y *= characterBehaviour.GetInventory().GetEquipped().GetAttachmentManager().GetHorizentalRecoilAlpha();
+            }
             
             //Update the location recoil values.
             //We do this after the null check because we want to make sure the recoil stops smoothly (spring-ly?) even
