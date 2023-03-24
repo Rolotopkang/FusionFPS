@@ -723,7 +723,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public override bool IsCrouching() => crouching;
 
-		public override bool IsAiming() => aiming;
+		public override bool IsAiming() => aimingAlpha>0.9f;
 
 		public override bool IsScopeChanging() => scopeChanging;
 
@@ -780,8 +780,8 @@ namespace InfimaGames.LowPolyShooterPack
 			TPCharacterAnimator.SetFloat(HashMovement,speedAbs, dampTimeLocomotion, Time.deltaTime);
 
 			//Aiming Speed Multiplier.
-			FPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier);
-			TPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier);
+			FPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier* weaponAttachmentManager.GetT_ADSTimeAlpha() );
+			TPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier*weaponAttachmentManager.GetT_ADSTimeAlpha());
 			
 			//Turning Value. This determines how much of the turning animation to play based on our current look rotation.
 			FPCharacterAnimator.SetFloat(HashTurning, Mathf.Abs(axisLook.x), dampTimeTurning, Time.deltaTime);
@@ -794,10 +794,10 @@ namespace InfimaGames.LowPolyShooterPack
 			TPCharacterAnimator.SetFloat(HashVertical,  scopeChanging ?axisMovementSmooth.y*0.5f:axisMovementSmooth.y, dampTimeLocomotion, Time.deltaTime);
 			
 			//Update the aiming value, but use interpolation. This makes sure that things like firing can transition properly.
-			FPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming, Time.deltaTime);
-			TPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming, Time.deltaTime);
+			FPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming / weaponAttachmentManager.GetT_ADSTimeAlpha(), Time.deltaTime);
+			TPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming / weaponAttachmentManager.GetT_ADSTimeAlpha(), Time.deltaTime);
 			
-			FPCharacterAnimator.SetFloat(HashScopeChange,Convert.ToSingle(scopeChanging),dampTimeAiming,Time.deltaTime);
+			FPCharacterAnimator.SetFloat(HashScopeChange,Convert.ToSingle(scopeChanging),dampTimeScopeChange,Time.deltaTime);
 
 			//Set the locomotion play rate. This basically stops movement from happening while in the air.
 			const string playRateLocomotionBool = "Play Rate Locomotion";
@@ -916,7 +916,8 @@ namespace InfimaGames.LowPolyShooterPack
 			//Save the shot time, so we can calculate the fire rate correctly.
 			lastShotTime = Time.time;
 			//Fire the weapon! Make sure that we also pass the scope's spread multiplier if we're aiming.
-			equippedWeapon. Fire(aiming ? equippedWeaponScope.GetMultiplierSpread() : 1.0f);
+			//TODO 应用配件增益
+			equippedWeapon. Fire(aimingAlpha > 0.9f ? weaponAttachmentManager.GetADSSpreadAlpha() : weaponAttachmentManager.GetHipShotSpreadAlpha());
 			
 			//射击次数计数
 			
@@ -1027,6 +1028,11 @@ namespace InfimaGames.LowPolyShooterPack
 			equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
 			//Get equipped magazine. We need this one for its settings!
 			equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
+			
+			if (attachmentKind == ScopeChangerBTN.AttachmentKind.Magazine)
+			{
+				
+			}
 		}
 
 		private void FireEmpty()

@@ -3,6 +3,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityTemplateProjects.Weapon;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -13,9 +14,8 @@ namespace InfimaGames.LowPolyShooterPack
     {
         #region FIELDS SERIALIZED
 
-        [Header("ID")]
-        [SerializeField]
-        private int MuzzleID;
+        [Header("ID")] [SerializeField] 
+        private WeaponAttachmentData WeaponAttachmentData;
         
         [Header("Settings")]
         
@@ -143,12 +143,10 @@ namespace InfimaGames.LowPolyShooterPack
             }
         }
 
-        public override int GetID() => MuzzleID;
+        public override WeaponAttachmentData GetWeaponAttachmentData() => WeaponAttachmentData;
+        public override int GetID() => WeaponAttachmentData.AttachmentID;
         public override Transform GetSocket() => socket;
-        public override Sprite GetSprite() => sprite;
-        public override Sprite GetBTNSpriteB() => BTNspriteB;
-        public override Sprite GetBTNSpriteD() => BTNspriteD;
-        
+
         public override AudioClip GetAudioClipFire() => audioClipFire;
         
         public override ParticleSystem[] GetParticlesFires() => particles;
@@ -156,6 +154,11 @@ namespace InfimaGames.LowPolyShooterPack
         
         public override Light GetFlashLight() => flashLight;
         public override float GetFlashLightDuration() => flashLightDuration;
+        
+        public override Sprite GetSprite() => WeaponAttachmentData.sprite;
+
+        public override Sprite GetBTNSpriteB() => WeaponAttachmentData.BTNspriteB;
+        public override Sprite GetBTNSpriteD() => WeaponAttachmentData.BTNspriteD;
 
         #endregion
 

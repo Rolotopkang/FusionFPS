@@ -1,6 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
+using UnityTemplateProjects.Weapon;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -11,6 +12,8 @@ namespace InfimaGames.LowPolyShooterPack
     {
         #region GETTERS
 
+
+        public abstract WeaponAttachmentData GetWeaponAttachmentData();
         /// <summary>
         /// 获取ID
         /// </summary>
@@ -22,11 +25,6 @@ namespace InfimaGames.LowPolyShooterPack
         /// <returns></returns>
         public abstract float GetMultiplierMouseSensitivity();
         
-        /// <summary>
-        /// Returns the value of multiplierSpread.
-        /// </summary>
-        /// <returns></returns>
-        public abstract float GetMultiplierSpread();
         /// <summary>
         /// Returns the sway values to use while aiming through this scope.
         /// </summary>

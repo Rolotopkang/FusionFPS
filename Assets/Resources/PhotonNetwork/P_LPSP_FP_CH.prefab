@@ -318,7 +318,7 @@ MonoBehaviour:
   dampTimeTurning: 0.4
   dampTimeLocomotion: 0.1
   dampTimeAiming: 0.08
-  dampTimeScopeChange: 0.3
+  dampTimeScopeChange: 0.08
   runningInterpolationSpeed: 5
   aimingSpeedMultiplier: 0.9
   boneWeapon: {fileID: 3928143913747436148}

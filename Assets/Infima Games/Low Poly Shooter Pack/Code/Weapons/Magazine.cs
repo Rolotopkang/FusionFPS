@@ -1,6 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
+using UnityTemplateProjects.Weapon;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -13,29 +14,43 @@ namespace InfimaGames.LowPolyShooterPack
 
         [Header("Settings")]
         
+        [Header("ID")] [SerializeField] 
+        private WeaponAttachmentData WeaponAttachmentData;
+        
         [Tooltip("Total Ammunition.")]
         [SerializeField]
         private int ammunitionTotal = 10;
+        
 
         [Header("Interface")]
 
         [Tooltip("Interface Sprite.")]
         [SerializeField]
         private Sprite sprite;
+        
+        [Tooltip("Sprite. Displayed on the player's interface.")]
+        [SerializeField]
+        private Sprite BTNspriteB;
+        
+        [Tooltip("Sprite. Displayed on the player's interface.")]
+        [SerializeField]
+        private Sprite BTNspriteD;
 
         #endregion
 
         #region GETTERS
-
-        /// <summary>
-        /// Ammunition Total.
-        /// </summary>
+        public override WeaponAttachmentData GetWeaponAttachmentData() => WeaponAttachmentData;
+        public override int GetID() => WeaponAttachmentData.AttachmentID;
+        
         public override int GetAmmunitionTotal() => ammunitionTotal;
-        /// <summary>
-        /// Sprite.
-        /// </summary>
-        public override Sprite GetSprite() => sprite;
+        
+        public override Sprite GetSprite() => WeaponAttachmentData.sprite;
 
+        public override Sprite GetBTNSpriteB() => WeaponAttachmentData.BTNspriteB;
+        public override Sprite GetBTNSpriteD() => WeaponAttachmentData.BTNspriteD;
+
+
+        
         #endregion
     }
 }

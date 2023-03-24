@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ccf896beed44d78f9b6db09cad8335, type: 3}
+  m_Name: Scope_01
+  m_EditorClassIdentifier: 
+  AttachmentID: 1
+  AttachmentName: "\u7B52\u955C\u7EA2\u70B9"
+  AdvantageDiscriptions: "\u589E\u52A0\u5B50\u5F39\u98DE\u884C\u901F\u5EA6"
+  DisadvantageDiscriptions: "\u51CF\u5C11\u5C04\u901F"
+  DamageAlpha: 1
+  ShootSpeedAlpha: 0.9
+  FlySpeedAlpha: 1.1
+  VerticalRecoilAlpha: 1
+  HorizentalRecoilAlpha: 1
+  ADSSpreadAlpha: 1
+  HipShotSpreadAlpha: 1
+  MovSpreadAlpha: 1
+  fieldOfViewMultiplierAim: 0.65
+  fieldOfViewMultiplierAimWeapon: 1
+  multiplierMouseSensitivity: 0.7
+  T_ADSTimeAlpha: 1.1
+  T_SwitchGunAlpha: 1
+  T_ReloadAlpha: 1
+  sprite: {fileID: 21300000, guid: 33fe56516310cdc49977e2b9ff065a3e, type: 3}
+  BTNspriteB: {fileID: 21300000, guid: 8e8b35e5d54c633469d1127ae2560265, type: 3}
+  BTNspriteD: {fileID: 21300000, guid: 121c5187a1810fb4096a61c4fb82678e, type: 3}

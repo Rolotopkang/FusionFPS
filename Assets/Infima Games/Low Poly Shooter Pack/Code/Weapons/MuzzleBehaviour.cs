@@ -1,6 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
+using UnityTemplateProjects.Weapon;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -11,6 +12,8 @@ namespace InfimaGames.LowPolyShooterPack
     {
         #region GETTERS
 
+        public abstract WeaponAttachmentData GetWeaponAttachmentData();
+        
         /// <summary>
         /// 获取ID
         /// </summary>

@@ -9,6 +9,26 @@ namespace InfimaGames.LowPolyShooterPack
     /// </summary>
     public class WeaponAttachmentManager : WeaponAttachmentManagerBehaviour
     {
+        #region Struct
+
+        public struct AttachmentIndexs
+        {
+            public int scopeIndex;
+            public int muzzleIndex;
+            public int gripIndex;
+            public int magazineIndex;
+
+            public AttachmentIndexs(int scopeIndex, int muzzleIndex, int gripIndex, int magazineIndex)
+            {
+                this.scopeIndex = scopeIndex;
+                this.muzzleIndex = muzzleIndex;
+                this.gripIndex = gripIndex;
+                this.magazineIndex = magazineIndex;
+            }
+        }
+
+        #endregion
+        
         #region FIELDS SERIALIZED
 
         [Header("Scope")]
@@ -25,14 +45,6 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private int scopeIndex = -1;
 
-        [Tooltip("First scope index when using random scopes.")]
-        [SerializeField]
-        private int scopeIndexFirst = -1;
-        
-        [Tooltip("Should we pick a random index when starting the game?")]
-        [SerializeField]
-        private bool scopeIndexRandom;
-
         [Tooltip("All possible Scope Attachments that this Weapon can use!")]
         [SerializeField]
         private ScopeBehaviour[] scopeArray;
@@ -42,38 +54,16 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("Selected Muzzle Index.")]
         [SerializeField]
         private int muzzleIndex;
-        
-        [Tooltip("Should we pick a random index when starting the game?")]
-        [SerializeField]
-        private bool muzzleIndexRandom = true;
 
         [Tooltip("All possible Muzzle Attachments that this Weapon can use!")]
         [SerializeField]
         private MuzzleBehaviour[] muzzleArray;
-        
-        [Header("Laser")]
-
-        [Tooltip("Selected Laser Index.")]
-        [SerializeField]
-        private int laserIndex = -1;
-        
-        [Tooltip("Should we pick a random index when starting the game?")]
-        [SerializeField]
-        private bool laserIndexRandom = true;
-
-        [Tooltip("All possible Laser Attachments that this Weapon can use!")]
-        [SerializeField]
-        private LaserBehaviour[] laserArray;
         
         [Header("Grip")]
 
         [Tooltip("Selected Grip Index.")]
         [SerializeField]
         private int gripIndex = -1;
-        
-        [Tooltip("Should we pick a random index when starting the game?")]
-        [SerializeField]
-        private bool gripIndexRandom = true;
 
         [Tooltip("All possible Grip Attachments that this Weapon can use!")]
         [SerializeField]
@@ -85,13 +75,9 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private int magazineIndex;
         
-        [Tooltip("Should we pick a random index when starting the game?")]
-        [SerializeField]
-        private bool magazineIndexRandom = true;
-
         [Tooltip("All possible Magazine Attachments that this Weapon can use!")]
         [SerializeField]
-        private Magazine[] magazineArray;
+        private MagazineBehaviour[] magazineArray;
 
         [SerializeField]
         private GameObject ChangerUI;
@@ -114,10 +100,6 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private MuzzleBehaviour muzzleBehaviour;
         /// <summary>
-        /// Equipped Laser.
-        /// </summary>
-        private LaserBehaviour laserBehaviour; 
-        /// <summary>
         /// Equipped Grip.
         /// </summary>
         private GripBehaviour gripBehaviour;
@@ -138,16 +120,7 @@ namespace InfimaGames.LowPolyShooterPack
             GameObject tmp_ChangerUI = Instantiate(ChangerUI,changerUITransform,changerUIQuaternion,transform.GetChild(0).GetChild(0));
             tmp_ChangerUI.transform.localPosition = changerUITransform;
             tmp_ChangerUI.transform.localRotation = changerUIQuaternion;
-            
-
-
-
-            //Randomize. This allows us to spice things up a little!
-            if (scopeIndexRandom)
-                scopeIndex = Random.Range(scopeIndexFirst, scopeArray.Length);
-            //Select Scope!
             scopeBehaviour = scopeArray.SelectAndSetActive(scopeIndex);
-            //Check if we have no scope. This could happen if we have an incorrect index.
             if (scopeBehaviour == null)
             {
                 //Select Default Scope.
@@ -155,35 +128,22 @@ namespace InfimaGames.LowPolyShooterPack
                 //Set Active.
                 scopeBehaviour.gameObject.SetActive(scopeDefaultShow);
             }
-            
-            //Randomize. This allows us to spice things up a little!
-            if (muzzleIndexRandom)
-                muzzleIndex = Random.Range(0, muzzleArray.Length);
-            //Select Muzzle!
             muzzleBehaviour = muzzleArray.SelectAndSetActive(muzzleIndex);
-
-            //Randomize. This allows us to spice things up a little!
-            if (laserIndexRandom)
-                laserIndex = Random.Range(0, laserArray.Length);
-            //Select Laser!
-            laserBehaviour = laserArray.SelectAndSetActive(laserIndex);
-            
-            //Randomize. This allows us to spice things up a little!
-            if (gripIndexRandom)
-                gripIndex = Random.Range(0, gripArray.Length);
-            //Select Grip!
             gripBehaviour = gripArray.SelectAndSetActive(gripIndex);
-            
-            //Randomize. This allows us to spice things up a little!
-            if (magazineIndexRandom)
-                magazineIndex = Random.Range(0, magazineArray.Length);
-            //Select Magazine!
             magazineBehaviour = magazineArray.SelectAndSetActive(magazineIndex);
         }        
 
         #endregion
 
         #region Funtions
+
+        public override void Init(AttachmentIndexs attachmentIndexs)
+        {
+            ScopeChangeTo(attachmentIndexs.scopeIndex);
+            MuzzleChangeTo(attachmentIndexs.muzzleIndex);
+            GripChangeTo(attachmentIndexs.gripIndex);
+            MagazineChangeTo(attachmentIndexs.magazineIndex);
+        }
 
         public override void ScopeChangeTo(int id)
         {
@@ -198,7 +158,6 @@ namespace InfimaGames.LowPolyShooterPack
                 tmp_index++;
             }
             scopeArray.SelectAndSetActive(tmp_index);
-            
         }
 
         public override void MuzzleChangeTo(int id)
@@ -216,19 +175,19 @@ namespace InfimaGames.LowPolyShooterPack
             muzzleArray.SelectAndSetActive(tmp_index);
         }
 
-        public override void LazerChangeTo(int id)
+        public override void MagazineChangeTo(int id)
         {
             int tmp_index = 0;
-            foreach (LaserBehaviour laser in laserArray)
+            foreach (MagazineBehaviour magazine in magazineArray)
             {
-                if (laser.GetID().Equals(id))
+                if (magazine.GetID().Equals(id))
                 {
-                    laserBehaviour = laser;
+                    magazineBehaviour = magazine;
                     break;
                 }
                 tmp_index++;
             }
-            laserArray.SelectAndSetActive(tmp_index);
+            magazineArray.SelectAndSetActive(tmp_index);
         }
 
         public override void GripChangeTo(int id)
@@ -254,17 +213,109 @@ namespace InfimaGames.LowPolyShooterPack
 
         public MuzzleBehaviour[] GetMuzzleBehaviours() => muzzleArray;
 
-        public LaserBehaviour[] GetLaserBehaviours() => laserArray;
+        public MagazineBehaviour[] GetMagazineBehaviours() => magazineArray;
 
         public GripBehaviour[] GetGripBehaviours() => gripArray;
+        
+        
+        
         public override ScopeBehaviour GetEquippedScope() => scopeBehaviour;
         public override ScopeBehaviour GetEquippedScopeDefault() => scopeDefaultBehaviour;
 
         public override MagazineBehaviour GetEquippedMagazine() => magazineBehaviour;
         public override MuzzleBehaviour GetEquippedMuzzle() => muzzleBehaviour;
-
-        public override LaserBehaviour GetEquippedLaser() => laserBehaviour;
         public override GripBehaviour GetEquippedGrip() => gripBehaviour;
+        public override AttachmentIndexs GetCurrentAttachmentIndexs() =>
+            new AttachmentIndexs(scopeIndex, muzzleIndex, gripIndex, magazineIndex);
+
+
+        public override float GetDamageAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().DamageAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().DamageAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().DamageAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().DamageAlpha;
+        }
+
+        public override float GetShootSpeedAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().ShootSpeedAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().ShootSpeedAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().ShootSpeedAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().ShootSpeedAlpha;
+        }
+
+        public override float GetFlySpeedAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().FlySpeedAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().FlySpeedAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().FlySpeedAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().FlySpeedAlpha;
+        }
+
+        public override float GetVerticalRecoilAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().VerticalRecoilAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().VerticalRecoilAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().VerticalRecoilAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().VerticalRecoilAlpha;
+        }
+
+        public override float GetHorizentalRecoilAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().HorizentalRecoilAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().HorizentalRecoilAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().HorizentalRecoilAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().HorizentalRecoilAlpha;
+        }
+
+        public override float GetADSSpreadAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().ADSSpreadAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().ADSSpreadAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().ADSSpreadAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().ADSSpreadAlpha;
+        }
+
+        public override float GetHipShotSpreadAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().HipShotSpreadAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().HipShotSpreadAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().HipShotSpreadAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().HipShotSpreadAlpha;
+        }
+
+        public override float GetMovSpreadAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().MovSpreadAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().MovSpreadAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().MovSpreadAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().MovSpreadAlpha;
+        }
+
+        public override float GetT_ADSTimeAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().T_ADSTimeAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().T_ADSTimeAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().T_ADSTimeAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().T_ADSTimeAlpha;
+        }
+
+        public override float GetT_SwitchGunAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().T_SwitchGunAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().T_SwitchGunAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().T_SwitchGunAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().T_SwitchGunAlpha;
+        }
+
+        public override float GetT_ReloadAlpha()
+        {
+            return scopeBehaviour.GetWeaponAttachmentData().T_ReloadAlpha *
+                   muzzleBehaviour.GetWeaponAttachmentData().T_ReloadAlpha *
+                   gripBehaviour.GetWeaponAttachmentData().T_ReloadAlpha *
+                   magazineBehaviour.GetWeaponAttachmentData().T_ReloadAlpha;
+        }
 
         #endregion
     }
