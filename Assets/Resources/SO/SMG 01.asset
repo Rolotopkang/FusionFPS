@@ -19,7 +19,7 @@ MonoBehaviour:
   automatic: 1
   boltAction: 0
   shotCount: 1
-  spread: 3
+  spread: 2
   spreadSpeedTimer: 0.5
   firstBulletAcc: 0
   recoilReturnTime: 0.2

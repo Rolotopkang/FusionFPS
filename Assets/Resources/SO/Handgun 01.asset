@@ -20,7 +20,7 @@ MonoBehaviour:
   boltAction: 0
   shotCount: 1
   spread: 0.5
-  spreadSpeedTimer: 1
+  spreadSpeedTimer: 0.7
   firstBulletAcc: 1
   recoilReturnTime: 0.3
   projectileImpulse: 400
