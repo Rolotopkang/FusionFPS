@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System;
 using UnityEngine;
 using UnityTemplateProjects.Weapon;
 
@@ -15,6 +16,11 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract WeaponAttachmentData GetWeaponAttachmentData();
         
         /// <summary>
+        /// 获取名字
+        /// </summary>
+        /// <returns></returns>
+        public abstract String GetName();
+        /// <summary>
         /// 获取ID
         /// </summary>
         /// <returns></returns>
@@ -23,6 +29,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the firing socket. This is the point that we use to fire the bullets.
         /// </summary>
         public abstract Transform GetSocket();
+
+        public abstract bool GetIsMute();
 
         /// <summary>
         /// Returns the Sprite used on the Character's Interface.

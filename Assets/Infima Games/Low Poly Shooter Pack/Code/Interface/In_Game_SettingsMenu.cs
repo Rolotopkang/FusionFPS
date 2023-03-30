@@ -39,6 +39,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private AnimationClip animationHide;
 
         [SerializeField]
+        private CanvasGroup CanvasGroup;
+
+        [SerializeField]
         private UIBase _uiBase;
 
         #endregion
@@ -60,6 +63,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
         private void Start()
         {
+            CanvasGroup.interactable = false;
             cursorLocked = false;
             animatedCanvas.GetComponent<CanvasGroup>().alpha = 0;
             animationComponent = animatedCanvas.GetComponent<Animation>();
@@ -74,6 +78,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
         private void Show()
         {
+            CanvasGroup.interactable = true;
             menuIsEnabled = true;
             animationComponent.clip = animationShow;
             animationComponent.Play();
@@ -82,6 +87,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         }
         private void Hide()
         {
+            CanvasGroup.interactable = false;
             menuIsEnabled = false;
             animationComponent.clip = animationHide;
             animationComponent.Play();

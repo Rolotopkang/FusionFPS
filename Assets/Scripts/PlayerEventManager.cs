@@ -18,12 +18,9 @@ public class PlayerEventManager : MonoBehaviourPun,IOnEventCallback
     private AudioClip ac_headShotKill;
     private Battle Battle;
 
-    private bool hitHint;
+    public delegate void OnHitPlayer(EnumTools.HitKinds hitKinds);
+    public static OnHitPlayer onHitPlayer;
 
-
-
-    private EnumTools.HitKinds HitKind;
-    
     protected IGameModeService gameModeService;
     private IAudioManagerService audioManagerService;
 
@@ -94,8 +91,9 @@ public class PlayerEventManager : MonoBehaviourPun,IOnEventCallback
         //造成伤害UI提示
         if (tmp_DMGFrom.Equals(PhotonNetwork.LocalPlayer))
         {
-            hitHint = true;
-            HitKind = tmp_headShot ? EnumTools.HitKinds.headShot : EnumTools.HitKinds.normal;
+            onHitPlayer?.Invoke(tmp_headShot ? EnumTools.HitKinds.headShot :
+                battle.CheckDeathDamage(tmp_DMG)? EnumTools.HitKinds.killShot :
+                EnumTools.HitKinds.normal);
         }
         
         //仅在被击中方执行
@@ -107,8 +105,6 @@ public class PlayerEventManager : MonoBehaviourPun,IOnEventCallback
             if (Battle.Damage(tmp_DMG))
             {
                 Debug.Log("death！");
-                //致死伤害准星提示
-                HitKind = EnumTools.HitKinds.killShot;
                 //如果造成伤害致死的情况下且击中人为自己
                 //发送死亡event
                 Dictionary<byte, object> tmp_DeathData = new Dictionary<byte, object>();
@@ -169,21 +165,5 @@ public class PlayerEventManager : MonoBehaviourPun,IOnEventCallback
             audioManagerService?.PlayOneShot(tmp_headShot? ac_headShotKill: ac_normalKill, settings);
         }
     }
-    #region Getter
-
-    public bool GethitHint => hitHint;
-
-    public EnumTools.HitKinds GetHitKind => HitKind;
-
-    #endregion
-
-    #region Setter
-
-    public void SethitHint(bool set)
-    {
-        hitHint = set;
-    }
-
-    #endregion
 
 }

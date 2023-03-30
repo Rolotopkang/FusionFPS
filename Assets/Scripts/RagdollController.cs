@@ -31,10 +31,7 @@ public class RagdollController : MonoBehaviourPun
     }
 
     #endregion
-
     
-    
-
     #region Methods
 
     /// <summary>

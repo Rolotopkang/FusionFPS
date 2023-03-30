@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6207817828717427557
 Transform:
   m_ObjectHideFlags: 0
@@ -94,8 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88018222edb48e1a74ae3424986b2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GripID: 3
-  RecoilCoefficient: 0.2
+  WeaponAttachmentData: {fileID: 0}
   sprite: {fileID: 21300000, guid: 82c9817d61286ec409bbb4ef45443347, type: 3}
   BTNspriteB: {fileID: 21300000, guid: 38a751e034e8f874ca233daf36c20069, type: 3}
   BTNspriteD: {fileID: 21300000, guid: 50aa450fae3307d4eab2b9f22c182ecb, type: 3}

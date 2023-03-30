@@ -79,7 +79,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7139012948172468230
 Transform:
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2adbb3788845b78bc1a9947684f3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MuzzleID: 2
+  WeaponAttachmentData: {fileID: 0}
   socket: {fileID: 4261838623924216481}
   sprite: {fileID: 21300000, guid: 7a33f905c2fb98246a31d475864e5971, type: 3}
   BTNspriteB: {fileID: 21300000, guid: c5af4adf53cedad489e67138f9e912d1, type: 3}
@@ -168,3 +168,4 @@ MonoBehaviour:
   prefabFlashLight: {fileID: 0}
   flashLightDuration: 0
   flashLightOffset: {x: 0, y: 0, z: 0}
+  IsMute: 1

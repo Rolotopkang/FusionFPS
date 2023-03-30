@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ccf896beed44d78f9b6db09cad8335, type: 3}
+  m_Name: Scope_D_SMG_01
+  m_EditorClassIdentifier: 
+  AttachmentID: 0
+  AttachmentName: "\u539F\u5382\u7784\u5177"
+  AdvantageDiscriptions: 
+  DisadvantageDiscriptions: 
+  DamageAlpha: 1
+  ShootSpeedAlpha: 1
+  FlySpeedAlpha: 1
+  VerticalRecoilAlpha: 1
+  HorizentalRecoilAlpha: 1
+  ADSSpreadAlpha: 0.5
+  HipShotSpreadAlpha: 1
+  MovSpreadAlpha: 1
+  T_ADSTimeAlpha: 1
+  T_SwitchGunAlpha: 1
+  T_ReloadAlpha: 1
+  sprite: {fileID: 21300000, guid: c26bf01c46a5629408398acf1d31ba1d, type: 3}
+  BTNspriteB: {fileID: 21300000, guid: b555af8e6680e974e82e91b3fd663562, type: 3}
+  BTNspriteD: {fileID: 21300000, guid: ab356d6eb94914e48ba02ea5d54247c8, type: 3}

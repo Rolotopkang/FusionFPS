@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Grip_D
   m_EditorClassIdentifier: 
   AttachmentID: 0
-  AttachmentName: 
+  AttachmentName: "\u65E0\u4E0B\u6302"
   AdvantageDiscriptions: 
   DisadvantageDiscriptions: 
   DamageAlpha: 1

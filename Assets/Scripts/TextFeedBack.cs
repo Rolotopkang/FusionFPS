@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using InfimaGames.LowPolyShooterPack.Interface;
@@ -31,13 +32,14 @@ public class TextFeedBack : Element
         crosshairFeedBack = GetComponent<Animation>();
     }
 
-    protected override void Tick()
+    private void OnEnable()
     {
-        if (PlayerPlayerEventManager.GethitHint)
-        {
-            // Debug.Log("击中！"+PlayerPlayerEventManager.GetHitKind.ToString());
-            HitFeedBack(PlayerPlayerEventManager.GetHitKind);
-        }
+        PlayerEventManager.onHitPlayer += HitFeedBack;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerEventManager.onHitPlayer -= HitFeedBack;
     }
 
     #endregion
@@ -46,6 +48,7 @@ public class TextFeedBack : Element
 
     private void HitFeedBack(EnumTools.HitKinds hitKind)
     {
+        // Debug.Log(hitKind+"动画播出！");
         switch (hitKind)
         {
             case EnumTools.HitKinds.normal:
@@ -61,8 +64,6 @@ public class TextFeedBack : Element
                 break;
         }
         crosshairFeedBack.Play();
-        // Debug.Log("播放击中提示！播放的片段为"+hitKind);
-        PlayerPlayerEventManager.SethitHint(false);
     }
 
     #endregion

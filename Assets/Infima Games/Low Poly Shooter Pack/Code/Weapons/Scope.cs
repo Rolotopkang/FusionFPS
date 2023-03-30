@@ -112,6 +112,8 @@ namespace InfimaGames.LowPolyShooterPack
 
         #region GETTERS
 
+        public override string GetName() => WeaponAttachmentData.AttachmentName;
+
         public override int GetID() => WeaponAttachmentData.AttachmentID;
 
         public override WeaponAttachmentData GetWeaponAttachmentData() => WeaponAttachmentData;

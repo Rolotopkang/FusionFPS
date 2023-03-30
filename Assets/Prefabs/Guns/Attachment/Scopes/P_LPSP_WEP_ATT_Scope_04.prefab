@@ -131,7 +131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4185488406491762978
 Transform:
   m_ObjectHideFlags: 0
@@ -160,9 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponAttachmentData: {fileID: 0}
-  ScopeID: 4
   multiplierMouseSensitivity: 0.7
-  multiplierSpread: 0.1
   sprite: {fileID: 21300000, guid: 3dcb9a493e0eeea4d96285a3de572bb6, type: 3}
   BTNspriteB: {fileID: 21300000, guid: f7f16fadd91bd13418b4286f51134e56, type: 3}
   BTNspriteD: {fileID: 21300000, guid: 8d10a886f1f148840a8c1097e3baae60, type: 3}

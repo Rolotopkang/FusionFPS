@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scope_06
   m_EditorClassIdentifier: 
   AttachmentID: 6
-  AttachmentName: 
+  AttachmentName: "4\u500D\u72D9\u51FB\u955C"
   AdvantageDiscriptions: 
   DisadvantageDiscriptions: 
   DamageAlpha: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
   ADSSpreadAlpha: 1
   HipShotSpreadAlpha: 1
   MovSpreadAlpha: 1
-  T_ADSTimeAlpha: 1
+  T_ADSTimeAlpha: 0.8
   T_SwitchGunAlpha: 1
   T_ReloadAlpha: 1
   sprite: {fileID: 21300000, guid: ecf71283eac18c54a857fcc68835bae0, type: 3}

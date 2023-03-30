@@ -3161,7 +3161,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4917,7 +4917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeURL: http://www.beijing-time.org
-  TestLimitTime: 2679031064
+  TestLimitTime: 1689844600
 --- !u!1 &473724303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5146,7 +5146,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6838\u5F39\u5C0F\u9547"
+  m_text: "\u65E7\u6838\u5F39\u5C0F\u9547"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c97cc9d775646347a845dd3c6469dbc, type: 2}
   m_sharedMaterial: {fileID: 21832533780058910, guid: 4c97cc9d775646347a845dd3c6469dbc,
@@ -7602,8 +7602,8 @@ RectTransform:
   m_Father: {fileID: 1024709056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9280,9 +9280,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 770274313}
   m_Direction: 0
   m_MinValue: 2
-  m_MaxValue: 10
+  m_MaxValue: 16
   m_WholeNumbers: 1
-  m_Value: 2
+  m_Value: 16
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -13465,9 +13465,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '2
-
-'
+  m_text: 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -15689,9 +15687,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '2
-
-'
+  m_text: 16
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -19911,7 +19907,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6838\u5F39\u5C0F\u9547"
+  m_text: "\u897F\u90E8\u524D\u7EBF"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c97cc9d775646347a845dd3c6469dbc, type: 2}
   m_sharedMaterial: {fileID: 21832533780058910, guid: 4c97cc9d775646347a845dd3c6469dbc,
@@ -21517,7 +21513,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -21914,7 +21910,7 @@ MonoBehaviour:
   m_MinValue: 2
   m_MaxValue: 10
   m_WholeNumbers: 1
-  m_Value: 2
+  m_Value: 10
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -22085,8 +22081,8 @@ RectTransform:
   m_Father: {fileID: 890321763}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

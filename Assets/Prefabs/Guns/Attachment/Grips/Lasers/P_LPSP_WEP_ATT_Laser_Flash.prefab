@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8096434443958078657
 Transform:
   m_ObjectHideFlags: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3808596fa68246e8930813f0c6895582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaserID: 2
+  WeaponAttachmentData: {fileID: 0}
   sprite: {fileID: 21300000, guid: 405f111e0741d34479323db52502ee80, type: 3}
   BTNspriteB: {fileID: 21300000, guid: 4f21ca00090dbbc4aaa16b14357e4d0d, type: 3}
   BTNspriteD: {fileID: 21300000, guid: a812e312aec72834dba89b77721266ac, type: 3}

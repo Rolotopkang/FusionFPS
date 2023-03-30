@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System;
 using UnityEngine;
 using UnityTemplateProjects.Weapon;
 
@@ -14,6 +15,13 @@ namespace InfimaGames.LowPolyShooterPack
 
 
         public abstract WeaponAttachmentData GetWeaponAttachmentData();
+
+        /// <summary>
+        /// 获取名字
+        /// </summary>
+        /// <returns></returns>
+        public abstract String GetName();
+        
         /// <summary>
         /// 获取ID
         /// </summary>

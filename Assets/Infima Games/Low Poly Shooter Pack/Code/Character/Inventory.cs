@@ -100,7 +100,7 @@ namespace InfimaGames.LowPolyShooterPack
 
             //Update index.
             equippedIndex = index;
-            UpdatePlayerProperties(index);
+            UpdatePlayerProperties(index , equipped);
             //Update equipped.
             equipped = weapons[equippedIndex];
             //Activate the newly-equipped weapon.
@@ -135,13 +135,15 @@ namespace InfimaGames.LowPolyShooterPack
 
         #region Tools
 
-        private void UpdatePlayerProperties(int index)
+        private void UpdatePlayerProperties(int index , WeaponBehaviour weaponBehaviour)
         {
             if (photonView.IsMine)
             {
                 Hashtable hash = new Hashtable();
                 hash.Add("EquipWeaponIndex",index);
+                hash.Add(EnumTools.PlayerProperties.CurrentWeaponID.ToString(),weaponBehaviour.GetWeaponID());
                 PhotonNetwork.SetPlayerCustomProperties(hash);
+
             }
         }
         

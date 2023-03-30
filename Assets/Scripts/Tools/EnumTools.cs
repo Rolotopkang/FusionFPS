@@ -43,7 +43,9 @@ public class EnumTools
         IsDetected,
         Data_kill,
         Data_Death,
-        Data_Ping
+        Data_Ping,
+        IsMuzzle,
+        CurrentWeaponID,
         
     }
     

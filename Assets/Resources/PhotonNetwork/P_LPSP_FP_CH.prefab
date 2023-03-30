@@ -11047,6 +11047,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_LPSP_Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 3435889973659780297, guid: f74aca7fe48489a4799606021e06ad5e,
+        type: 3}
+      propertyPath: offsetAimingLocation.y
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411208269684875090, guid: f74aca7fe48489a4799606021e06ad5e,
+        type: 3}
+      propertyPath: offsetAimingLocation.y
+      value: 0.13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74aca7fe48489a4799606021e06ad5e, type: 3}
 --- !u!114 &6181232706914167374 stripped

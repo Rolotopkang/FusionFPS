@@ -9,6 +9,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.InputSystem;
 using UnityTemplateProjects.MultiplayerScripts;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -216,6 +217,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// The magazine equipped on the character's weapon.
 		/// </summary>
 		private MagazineBehaviour equippedWeaponMagazine;
+
+		private MuzzleBehaviour equippedWeaponMuzzle;
 
 		/// <summary>
 		/// PhotonView of Character
@@ -426,6 +429,9 @@ namespace InfimaGames.LowPolyShooterPack
 				//Always make sure that our cursor is locked when the game starts!
 				In_Game_SettingsMenu.GetInstance().setCursorLocked(true);
 				In_Game_SettingsMenu.GetInstance().isLive = true;
+				Hashtable hashtable = new Hashtable(); 
+				hashtable.Add(EnumTools.PlayerProperties.IsMuzzle.ToString(),false); 
+				PhotonView.Owner.SetCustomProperties(hashtable);
 			}
 			
 			#endregion
@@ -435,10 +441,13 @@ namespace InfimaGames.LowPolyShooterPack
 			//Cache the CharacterKinematics component.
 			characterKinematics = GetComponent<CharacterKinematics>();
 
+
+
 			//Initialize Inventory.
 			inventory.Init(PlayerManager.GetDeployMainWeapon(),PlayerManager.GetDeploySecWeapon());
 			//Refresh!
 			RefreshWeaponSetup();
+			
 		}
 		
 		
@@ -522,6 +531,10 @@ namespace InfimaGames.LowPolyShooterPack
 					{
 						Fire();
 					}
+				}else if (!equippedWeapon.HasAmmunition() && CanPlayAnimationFire() && equippedWeapon.IsAutomatic())
+				{
+					shotsFired = 0;
+					oldShotsFired = 0;
 				}
 			}
 
@@ -939,6 +952,15 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private void PlayReloadAnimation()
 		{
+			#region Check
+
+			if (!equippedWeapon.CanReload())
+			{
+				return;
+			}
+
+			#endregion
+			
 			#region Animation
 
 			//Get the name of the animation state to play, which depends on weapon settings, and ammunition!
@@ -1018,6 +1040,8 @@ namespace InfimaGames.LowPolyShooterPack
 			equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
 			//Get equipped magazine. We need this one for its settings!
 			equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
+
+			equippedWeaponMuzzle = weaponAttachmentManager.GetEquippedMuzzle();
 		}
 
 		public override void ChangeAttachment(ScopeChangerBTN.AttachmentKind attachmentKind, int ID)
@@ -1028,10 +1052,18 @@ namespace InfimaGames.LowPolyShooterPack
 			equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
 			//Get equipped magazine. We need this one for its settings!
 			equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
-			
+			equippedWeaponMuzzle = weaponAttachmentManager.GetEquippedMuzzle();
 			if (attachmentKind == ScopeChangerBTN.AttachmentKind.Magazine)
 			{
-				
+				equippedWeapon.AmmunitionBack();
+				PlayReloadAnimation();
+			}
+
+			if (attachmentKind == ScopeChangerBTN.AttachmentKind.Muzzle)
+			{
+				Hashtable hashtable = new Hashtable(); 
+				hashtable.Add(EnumTools.PlayerProperties.IsMuzzle.ToString(),equippedWeaponMuzzle.GetIsMute()); 
+				PhotonView.Owner.SetCustomProperties(hashtable);
 			}
 		}
 
@@ -1455,18 +1487,23 @@ namespace InfimaGames.LowPolyShooterPack
 							// Debug.Log("错误执行了");
 							break;
 						}
-							
-							
+
+
 						//Has fire rate passed.
 						if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
 						{
 							Fire();
 						}
-							
+
 					}
 					//Fire Empty.
 					else
+					{
+						shotsFired = 0;
+						oldShotsFired = 0;
 						FireEmpty();
+					}
+						
 					break;
 				//Canceled.
 				case {phase: InputActionPhase.Canceled}:
@@ -1615,6 +1652,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryThrowGrenade(InputAction.CallbackContext context)
 		{
+			return;
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
@@ -1638,6 +1676,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryMelee(InputAction.CallbackContext context)
 		{
+			return;
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.
@@ -1872,6 +1911,9 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Stop reloading!
 			reloading = false;
+			const string boolName = "Reloading";
+			FPCharacterAnimator.SetBool(boolName, reloading = false);
+			TPCharacterAnimator.SetBool(boolName, reloading = false);
 		}
 
 		public override void AnimationEndedGrenadeThrow()

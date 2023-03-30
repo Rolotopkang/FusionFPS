@@ -44,6 +44,10 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("Amount of shots fired at once. Helpful for things like shotguns, where there are multiple projectiles fired at once.")]
         [SerializeField]
         private int shotCount = 1;
+
+        [Tooltip("一次装弹装多少")]
+        [SerializeField]
+        private int ReloadCount = 0;
         
         [Tooltip("How far the weapon can fire from the center of the screen.")]
         [SerializeField]
@@ -71,6 +75,10 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("Amount of shots this weapon can shoot in a minute. It determines how fast the weapon shoots.")]
         [SerializeField] 
         private int roundsPerMinutes = 200;
+
+        [Tooltip("武器初始携带弹药量")]
+        [SerializeField]
+        private int MaxAmmunition;
 
         [Tooltip("Mask of things recognized when firing.")]
         [SerializeField]
@@ -218,6 +226,9 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private GripBehaviour gripBehaviour;
 
+        
+        private int LeftAmmunition;
+
         #endregion
 
         /// <summary>
@@ -271,6 +282,7 @@ namespace InfimaGames.LowPolyShooterPack
             projectileImpulse = weaponData.projectileImpulse;
             DMG = weaponData.DMG;
             roundsPerMinutes = weaponData.roundsPerMinutes;
+            MaxAmmunition = weaponData.MaxAmmunition;
             maximumDistance = weaponData.maximumDistance;
             cycledReload = weaponData.cycledReload;
             canReloadWhenFull = weaponData.canReloadWhenFull;
@@ -293,6 +305,7 @@ namespace InfimaGames.LowPolyShooterPack
             audioClipReloadInsert = weaponData.audioClipReloadInsert;
             audioClipReloadClose = weaponData.audioClipReloadClose;
             audioClipBoltAction = weaponData.audioClipBoltAction;
+            LeftAmmunition = MaxAmmunition;
         }
         protected override void Start()
         {
@@ -349,7 +362,9 @@ namespace InfimaGames.LowPolyShooterPack
         }
 
         public override Animator GetAnimator() => animator;
-        
+
+        public override int GetWeaponID() => weaponID;
+
         public override Sprite GetSpriteBody() => spriteBody;
         public override float GetMultiplierMovementSpeed() => multiplierMovementSpeed;
 
@@ -398,7 +413,11 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override string GetWeaponShowName() => weaponShowName;
 
+        public override int GetLeftAmmunition() => LeftAmmunition;
+
         public override MagazineBehaviour GetMagazineBehaviour() => magazineBehaviour;
+
+        public override bool CanReload() => LeftAmmunition > 0 &&  LeftAmmunition >= ReloadCount;
 
         #endregion
 
@@ -516,9 +535,65 @@ namespace InfimaGames.LowPolyShooterPack
         public override void FillAmmunition(int amount)
         {
             //Update the value by a certain amount.
-            ammunitionCurrent = amount != 0 ? Mathf.Clamp(ammunitionCurrent + amount, 
-                0, GetAmmunitionTotal()) : magazineBehaviour.GetAmmunitionTotal();
+            if (LeftAmmunition >= GetAmmunitionTotal())
+            {
+                if (amount != 0)
+                {
+                    ammunitionCurrent = Mathf.Clamp(ammunitionCurrent + amount,
+                        0, GetAmmunitionTotal());
+                    LeftAmmunition -= amount;
+                }
+                else
+                {
+                    ammunitionCurrent = magazineBehaviour.GetAmmunitionTotal();
+                    LeftAmmunition -= GetAmmunitionTotal();
+                }
+                
+            }
+            else if(LeftAmmunition>0)
+            {
+                if (amount != 0)
+                {
+                    //如果数量不足则直接停止换弹
+                    if (LeftAmmunition - amount < 0)
+                    {
+                        characterBehaviour.AnimationEndedReload();
+                    }
+                    ammunitionCurrent = Mathf.Clamp(ammunitionCurrent + amount,
+                        0, GetAmmunitionTotal());
+                    LeftAmmunition -= amount;
+                    if (LeftAmmunition <= 0)
+                    {
+                        characterBehaviour.AnimationEndedReload();
+                    }
+                }
+                else
+                {
+                    if (LeftAmmunition + ammunitionCurrent >= GetAmmunitionTotal())
+                    {
+                        LeftAmmunition = LeftAmmunition + ammunitionCurrent - GetAmmunitionTotal();
+                        ammunitionCurrent = GetAmmunitionTotal();
+                    }
+                    else
+                    {
+                        ammunitionCurrent = LeftAmmunition + ammunitionCurrent;
+                        LeftAmmunition = 0;
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("停止！");
+                characterBehaviour.AnimationEndedReload();
+            }
         }
+
+        public override void AmmunitionBack()
+        {
+            LeftAmmunition += ammunitionCurrent;
+            ammunitionCurrent = 0;
+        }
+        
         public override void SetSlideBack(int back)
         {
             //Set the slide back bool.
