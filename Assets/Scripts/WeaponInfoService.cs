@@ -25,10 +25,11 @@ public class WeaponInfoService : MonoBehaviour,IWeaponInfoService
         //     // weaponDataList.Add(AssetDatabase.LoadAssetAtPath<WeaponData>(dirs[i])); 
         // }
 
-        foreach (WeaponData weaponData in weaponDataList)
-        {
-            Debug.Log(weaponData.weaponName);
-        }
+        // foreach (WeaponData weaponData in weaponDataList)
+        // {
+        //     Debug.Log(weaponData.weaponName);
+        // }
+        Debug.Log("SO注册完毕");
     }
 
     public WeaponData GetWeaponInfoFromID(int id)
