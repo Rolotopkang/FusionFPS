@@ -1,5 +1,5 @@
 # Fusion Multi FPS
-+ 基于Unity3D + Photon pun2 + linux(Spring + Netty) 服务端开发的多人fps游戏
++ 基于Unity3D + Photon pun2 + linux + Java(Spring + Netty) 服务端开发的多人fps游戏
 + 游戏数据库服务器项目地址：https://github.com/Rolotopkang/FusionFPS_DBServer
 + 目前版本只支持：
 + 死斗模式（2022.4.20）
