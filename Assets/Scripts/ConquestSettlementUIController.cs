@@ -47,7 +47,8 @@ public class ConquestSettlementUIController : MonoBehaviour
         int tmp_teamRedRebornCount = (int)tmp_SettlementData[2];
 
         _canvas1.SetActive(true);
-        score.text = tmp_teamBlueRebornCount + "-" + tmp_teamRedRebornCount;
+        
+        score.text = (tmp_teamBlueRebornCount<0? 0: tmp_teamBlueRebornCount)+ "-" + (tmp_teamRedRebornCount<0? 0: tmp_teamRedRebornCount);
         if (tmp_winTeam.Equals(""))
         {
             EndingHint.text = "平局";

@@ -1,0 +1,394 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotNetty.Codecs.Http</name>
+    </assembly>
+    <members>
+        <member name="P:DotNetty.Codecs.Http.Cookies.ICookie.Wrap">
+            <summary>
+            Returns true if the raw value of this {@link Cookie},
+            was wrapped with double quotes in original Set-Cookie header.
+            </summary>
+        </member>
+        <member name="P:DotNetty.Codecs.Http.Cookies.ICookie.IsHttpOnly">
+            <summary>
+             Checks to see if this Cookie can only be accessed via HTTP.
+             If this returns true, the Cookie cannot be accessed through
+             client side script - But only if the browser supports it.
+             For more information, please look "http://www.owasp.org/index.php/HTTPOnly".
+            </summary>
+        </member>
+        <member name="M:DotNetty.Codecs.Http.HttpClientUpgradeHandler.IUpgradeCodec.UpgradeTo(DotNetty.Transport.Channels.IChannelHandlerContext,DotNetty.Codecs.Http.IFullHttpResponse)">
+            
+        </member>
+        <member name="T:DotNetty.Codecs.Http.HttpHeaderNames">
+            
+             Standard HTTP header names.
+             
+             These are all defined as lowercase to support HTTP/2 requirements while also not
+             violating HTTP/1.x requirements.New header names should always be lowercase.
+             
+        </member>
+        <member name="M:DotNetty.Codecs.Http.HttpHeaders.Copy">
+            <summary>
+            Deep copy of the headers.
+            </summary>
+            <returns>A deap copy of this.</returns>
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpMethod.Options">
+            The OPTIONS method represents a request for information about the communication options
+            available on the request/response chain identified by the Request-URI. This method allows
+            the client to determine the options and/or requirements associated with a resource, or the
+            capabilities of a server, without implying a resource action or initiating a resource
+            retrieval.
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpMethod.Get">
+            The GET method means retrieve whatever information (in the form of an entity) is identified
+            by the Request-URI.  If the Request-URI refers to a data-producing process, it is the
+            produced data which shall be returned as the entity in the response and not the source text
+            of the process, unless that text happens to be the output of the process.
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpMethod.Head">
+            The HEAD method is identical to GET except that the server MUST NOT return a message-body
+            in the response.
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpMethod.Post">
+            The POST method is used to request that the origin server accept the entity enclosed in the
+            request as a new subordinate of the resource identified by the Request-URI in the
+            Request-Line.
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpMethod.Put">
+            The PUT method requests that the enclosed entity be stored under the supplied Request-URI.
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpMethod.Patch">
+            The PATCH method requests that a set of changes described in the
+            request entity be applied to the resource identified by the Request-URI.
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpMethod.Delete">
+            The DELETE method requests that the origin server delete the resource identified by the
+            Request-URI.
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpMethod.Trace">
+            The TRACE method is used to invoke a remote, application-layer loop- back of the request
+            message.
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpMethod.Connect">
+            This specification reserves the method name CONNECT for use with a proxy that can dynamically
+            switch to being a tunnel
+        </member>
+        <member name="T:DotNetty.Codecs.Http.HttpResponseStatus">
+            The response code and its description of HTTP or its derived protocols, such as
+            <a href="http://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol">RTSP</a> and
+            <a href="http://en.wikipedia.org/wiki/Internet_Content_Adaptation_Protocol">ICAP</a>.
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.Continue">
+            100 Continue
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.SwitchingProtocols">
+            101 Switching Protocols
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.Processing">
+            102 Processing (WebDAV, RFC2518)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.OK">
+            200 OK
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.Created">
+            201 Created
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.Accepted">
+            202 Accepted
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.NonAuthoritativeInformation">
+            203 Non-Authoritative Information (since HTTP/1.1)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.NoContent">
+            204 No Content
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.ResetContent">
+            205 Reset Content
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.PartialContent">
+            206 Partial Content
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.MultiStatus">
+            207 Multi-Status (WebDAV, RFC2518)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.MultipleChoices">
+            300 Multiple Choices
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.MovedPermanently">
+            301 Moved Permanently
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.Found">
+            302 Found
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.SeeOther">
+            303 See Other (since HTTP/1.1)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.NotModified">
+            304 Not Modified
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.UseProxy">
+            305 Use Proxy (since HTTP/1.1)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.TemporaryRedirect">
+            307 Temporary Redirect (since HTTP/1.1)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.PermanentRedirect">
+            308 Permanent Redirect (RFC7538)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.BadRequest">
+            400 Bad Request
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.Unauthorized">
+            401 Unauthorized
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.PaymentRequired">
+            402 Payment Required
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.Forbidden">
+            403 Forbidden
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.NotFound">
+            404 Not Found
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.MethodNotAllowed">
+            405 Method Not Allowed
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.NotAcceptable">
+            406 Not Acceptable
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.ProxyAuthenticationRequired">
+            407 Proxy Authentication Required
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.RequestTimeout">
+            408 Request Timeout
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.Conflict">
+            409 Conflict
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.Gone">
+            410 Gone
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.LengthRequired">
+            411 Length Required
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.PreconditionFailed">
+            412 Precondition Failed
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.RequestEntityTooLarge">
+            413 Request Entity Too Large
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.RequestUriTooLong">
+            414 Request-URI Too Long
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.UnsupportedMediaType">
+            415 Unsupported Media Type
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.RequestedRangeNotSatisfiable">
+            416 Requested Range Not Satisfiable
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.ExpectationFailed">
+            417 Expectation Failed
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.MisdirectedRequest">
+             421 Misdirected Request
+            
+             <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-15#section-9.1.2">421 Status Code</a>
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.UnprocessableEntity">
+            422 Unprocessable Entity (WebDAV, RFC4918)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.Locked">
+            423 Locked (WebDAV, RFC4918)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.FailedDependency">
+            424 Failed Dependency (WebDAV, RFC4918)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.UnorderedCollection">
+            425 Unordered Collection (WebDAV, RFC3648)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.UpgradeRequired">
+            426 Upgrade Required (RFC2817)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.PreconditionRequired">
+            428 Precondition Required (RFC6585)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.TooManyRequests">
+            429 Too Many Requests (RFC6585)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.RequestHeaderFieldsTooLarge">
+            431 Request Header Fields Too Large (RFC6585)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.InternalServerError">
+            500 Internal Server Error
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.NotImplemented">
+            501 Not Implemented
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.BadGateway">
+            502 Bad Gateway
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.ServiceUnavailable">
+            503 Service Unavailable
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.GatewayTimeout">
+            504 Gateway Timeout
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.HttpVersionNotSupported">
+            505 HTTP Version Not Supported
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.VariantAlsoNegotiates">
+            506 Variant Also Negotiates (RFC2295)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.InsufficientStorage">
+            507 Insufficient Storage (WebDAV, RFC4918)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.NotExtended">
+            510 Not Extended (RFC2774)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpResponseStatus.NetworkAuthenticationRequired">
+            511 Network Authentication Required (RFC6585)
+        </member>
+        <member name="F:DotNetty.Codecs.Http.HttpServerCodec.queue">
+            A queue that is used for correlating a request and a response. 
+        </member>
+        <member name="M:DotNetty.Codecs.Http.HttpServerKeepAliveHandler.IsSelfDefinedMessageLength(DotNetty.Codecs.Http.IHttpResponse)">
+            <summary>
+            Keep-alive only works if the client can detect when the message has ended without relying on the connection being
+            closed.
+            https://tools.ietf.org/html/rfc7230#section-6.3
+            https://tools.ietf.org/html/rfc7230#section-3.3.2
+            https://tools.ietf.org/html/rfc7230#section-3.3.3
+            </summary>
+            <param name="response">The HttpResponse to check</param>
+            <returns>true if the response has a self defined message length.</returns>
+        </member>
+        <member name="T:DotNetty.Codecs.Http.HttpServerUpgradeHandler.ISourceCodec">
+            <summary>
+            The source codec that is used in the pipeline initially.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Codecs.Http.HttpServerUpgradeHandler.ISourceCodec.UpgradeFrom(DotNetty.Transport.Channels.IChannelHandlerContext)">
+            <summary>
+            Removes this codec (i.e. all associated handlers) from the pipeline.
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Http.HttpServerUpgradeHandler.IUpgradeCodec">
+            <summary>
+            A codec that the source can be upgraded to.
+            </summary>
+        </member>
+        <member name="P:DotNetty.Codecs.Http.HttpServerUpgradeHandler.IUpgradeCodec.RequiredUpgradeHeaders">
+            <summary>
+            Gets all protocol-specific headers required by this protocol for a successful upgrade.
+            Any supplied header will be required to appear in the {@link HttpHeaderNames#CONNECTION} header as well.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Codecs.Http.HttpServerUpgradeHandler.IUpgradeCodec.PrepareUpgradeResponse(DotNetty.Transport.Channels.IChannelHandlerContext,DotNetty.Codecs.Http.IFullHttpRequest,DotNetty.Codecs.Http.HttpHeaders)">
+            <summary>
+            Prepares the {@code upgradeHeaders} for a protocol update based upon the contents of {@code upgradeRequest}.
+            This method returns a boolean value to proceed or abort the upgrade in progress. If {@code false} is
+            returned, the upgrade is aborted and the {@code upgradeRequest} will be passed through the inbound pipeline
+            as if no upgrade was performed. If {@code true} is returned, the upgrade will proceed to the next
+            step which invokes {@link #upgradeTo}. When returning {@code true}, you can add headers to
+            the {@code upgradeHeaders} so that they are added to the 101 Switching protocols response.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Codecs.Http.HttpServerUpgradeHandler.IUpgradeCodec.UpgradeTo(DotNetty.Transport.Channels.IChannelHandlerContext,DotNetty.Codecs.Http.IFullHttpRequest)">
+             <summary>
+             Performs an HTTP protocol upgrade from the source codec. This method is responsible for
+             adding all handlers required for the new protocol.
+            
+             ctx the context for the current handler.
+             upgradeRequest the request that triggered the upgrade to this protocol.
+             </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Http.HttpServerUpgradeHandler.IUpgradeCodecFactory">
+            <summary>
+             Creates a new UpgradeCodec for the requested protocol name.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Codecs.Http.HttpServerUpgradeHandler.IUpgradeCodecFactory.NewUpgradeCodec(DotNetty.Common.Utilities.ICharSequence)">
+            <summary>
+             Invoked by {@link HttpServerUpgradeHandler} for all the requested protocol names in the order of
+             the client preference.The first non-{@code null} {@link UpgradeCodec} returned by this method
+             will be selected.
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Http.Multipart.IHttpDataFactory">
+            <summary>
+            Interface to enable creation of IPostHttpData objects
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Http.QueryStringEncoder">
+            <summary>
+            Creates an URL-encoded URI from a path string and key-value parameter pairs.
+            This encoder is for one time use only.  Create a new instance for each URI.
+            
+            {@link QueryStringEncoder} encoder = new {@link QueryStringEncoder}("/hello");
+            encoder.addParam("recipient", "world");
+            assert encoder.toString().equals("/hello?recipient=world");
+            </summary>
+        </member>
+        <member name="M:DotNetty.Codecs.Http.WebSockets.CloseWebSocketFrame.StatusCode">
+            <summary>
+                Returns the closing status code as per http://tools.ietf.org/html/rfc6455#section-7.4 RFC 6455. 
+                If a getStatus code is set, -1 is returned.
+             </summary>
+        </member>
+        <member name="M:DotNetty.Codecs.Http.WebSockets.CloseWebSocketFrame.ReasonText">
+            <summary>
+                 Returns the reason text as per http://tools.ietf.org/html/rfc6455#section-7.4 RFC 6455
+                 If a reason text is not supplied, an empty string is returned.
+             </summary>
+        </member>
+        <member name="P:DotNetty.Codecs.Http.WebSockets.Extensions.IWebSocketExtension.Rsv">
+            <summary>
+            The reserved bit value to ensure that no other extension should interfere.
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Http.WebSockets.IWebSocketFrameDecoder">
+            <summary>
+                Marker interface which all WebSocketFrame decoders need to implement. This makes it 
+                easier to access the added encoder later in the <see cref="T:DotNetty.Transport.Channels.IChannelPipeline"/>
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Http.WebSockets.IWebSocketFrameEncoder">
+            <summary>
+                Marker interface which all WebSocketFrame encoders need to implement. This makes it 
+                easier to access the added encoder later in the <see cref="T:DotNetty.Transport.Channels.IChannelPipeline"/>.
+            </summary>
+        </member>
+        <member name="F:DotNetty.Codecs.Http.WebSockets.WebSocket08FrameEncoder.GatheringWriteThreshold">
+            
+        </member>
+        <member name="T:DotNetty.Codecs.Http.WebSockets.WebSocketClientProtocolHandler.ClientHandshakeStateEvent">
+            <summary>
+            Events that are fired to notify about handshake status
+            </summary>
+        </member>
+        <member name="F:DotNetty.Codecs.Http.WebSockets.WebSocketClientProtocolHandler.ClientHandshakeStateEvent.HandshakeIssued">
+            <summary>
+            The Handshake was started but the server did not response yet to the request
+            </summary>
+        </member>
+        <member name="F:DotNetty.Codecs.Http.WebSockets.WebSocketClientProtocolHandler.ClientHandshakeStateEvent.HandshakeComplete">
+            <summary>
+            The Handshake was complete succesful and so the channel was upgraded to websockets
+            </summary>
+        </member>
+        <member name="P:DotNetty.Codecs.Http.WebSockets.WebSocketFrame.IsFinalFragment">
+            <summary>
+            Flag to indicate if this frame is the final fragment in a message. The first fragment (frame)
+            may also be the final fragment.
+            </summary>
+        </member>
+        <member name="P:DotNetty.Codecs.Http.WebSockets.WebSocketFrame.Rsv">
+            <summary>
+            RSV1, RSV2, RSV3 used for extensions
+            </summary>
+        </member>
+    </members>
+</doc>

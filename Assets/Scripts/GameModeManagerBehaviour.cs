@@ -1,13 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using ExitGames.Client.Photon;
 using ExitGames.Client.Photon.StructWrapping;
 using InfimaGames.LowPolyShooterPack;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
-using UnityEngine;using UnityTemplateProjects.Tools;
+using UnityEngine;
+using UnityTemplateProjects.DBServer.NetWork;
+using UnityTemplateProjects.Tools;
 using EventCode = Scripts.Weapon.EventCode;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -277,6 +280,27 @@ public abstract class GameModeManagerBehaviour : SingletonPunCallbacks<GameModeM
 
     protected virtual void OnGameEnd(EventData eventData)
     {
+        int tmp_AddGold =  PhotonNetwork.LocalPlayer.GetScore() / 10;
+        DatabaseConnector.GetInstance().UserMoneyAdd(PhotonNetwork.LocalPlayer.NickName, tmp_AddGold,
+            () => MessageDistributer.GetInstance().DefaultResponse += AddMoneyStatus);
+    }
+
+    private void AddMoneyStatus(DefaultStatus defaultStatus)
+    {
+        switch (defaultStatus)
+        {
+            case DefaultStatus.Success:
+                Debug.Log("增加金钱成功");
+                break;
+            case DefaultStatus.Failed:
+                Debug.Log("增加金钱失败");
+                break;
+            case DefaultStatus.ServerWrong:
+                Debug.Log("增加金钱服务器出错");
+                break;
+        }
+
+        MessageDistributer.GetInstance().DefaultResponse -= AddMoneyStatus;
     }
     
     protected virtual void OnPlayerDeath(EventData eventData)

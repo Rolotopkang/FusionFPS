@@ -220,6 +220,13 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "com.vovgou.dotnetty": {
+      "version": "0.7.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.cn"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

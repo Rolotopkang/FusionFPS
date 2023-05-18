@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
+using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplateProjects.DBServer.NetWork;
 
 public class RegisterManager : MonoBehaviour
 {
@@ -12,7 +15,8 @@ public class RegisterManager : MonoBehaviour
     public TMP_InputField VefiryPassword;
     public Text WrongHint;
     private UIBase _uiBase;
-    private bool registerable = false;
+    private bool formatCheck = false;
+    private bool RegisterAble = true;
 
     private void Awake()
     {
@@ -32,52 +36,58 @@ public class RegisterManager : MonoBehaviour
         if (!Password.text.Equals(VefiryPassword.text))
         {
             WrongHint.text = "两次密码不一致";
-            registerable = false;
+            formatCheck = false;
         }
         else if(Password.text.Equals(String.Empty) && VefiryPassword.text.Equals(String.Empty))
         {
-            registerable = false;
+            formatCheck = false;
         }
         else
         {
             WrongHint.text = String.Empty;
-            registerable = true;
+            formatCheck = true;
         }
     }
 
     public void BTNRegister()
     {
-        if (!registerable)
+        if (!formatCheck)
         {
             return;
         }
-        switch (MysqlManager.GetInstance().Register(Username.text,Password.text))
+
+        if (!RegisterAble)
         {
-            case EnumTools.RegisterState.Success:
-                Username.text = String.Empty;
-                Password.text = String.Empty;
-                VefiryPassword.text = String.Empty;
-                WrongHint.text = "Register Successful";
+            return;
+        }
+
+        RegisterAble = false;
+        string tmp_psw = MD5Encrypt.MD5Encrypt32(Password.text);
+        DatabaseConnector.GetInstance().Register(Username.text,tmp_psw,() => MessageDistributer.GetInstance().RegisterResponse += OnRegisterResponse);
+        Username.text = String.Empty;
+        Password.text = String.Empty;
+        VefiryPassword.text = String.Empty;
+    }
+
+    private void OnRegisterResponse(RegisterStatus registerStatus)
+    {
+        switch (registerStatus)
+        {
+            case RegisterStatus.SUCCESS:
+                Debug.Log("注册成功");
+                WrongHint.text = "注册成功";
                 break;
-            case EnumTools.RegisterState.RepeatName:
-                Username.text = String.Empty;
-                Password.text = String.Empty;
-                VefiryPassword.text = String.Empty;
-                WrongHint.text = "Name has already be registered";
+            case RegisterStatus.FAILED_SAMENAME:
+                Debug.Log("注册重名");
+                WrongHint.text = "名字已被占用";
                 break;
-            case EnumTools.RegisterState.HasNoInput:
-                Username.text = String.Empty;
-                Password.text = String.Empty;
-                VefiryPassword.text = String.Empty;
-                WrongHint.text = "Check Input";
-                break;
-            case EnumTools.RegisterState.Error:
-                Username.text = String.Empty;
-                Password.text = String.Empty;
-                VefiryPassword.text = String.Empty;
-                WrongHint.text = "Unknown Wrong";
+            case RegisterStatus.CONNECTION_FAILED:
+                Debug.Log("注册连接失败");
+                WrongHint.text = "未知错误";
                 break;
         }
+        MessageDistributer.GetInstance().RegisterResponse -= OnRegisterResponse;
+        RegisterAble = true;
     }
 
     public void BTNReturnToLogin()

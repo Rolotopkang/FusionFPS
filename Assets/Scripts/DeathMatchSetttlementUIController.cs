@@ -57,6 +57,7 @@ public class DeathMatchSetttlementUIController : MonoBehaviour
         }
         
 
+
         _canvas1.SetActive(false);
         _canvas2.SetActive(true);
         _canvasFader.FadeIn(0.75f,OnFadeIn);
@@ -78,8 +79,6 @@ public class DeathMatchSetttlementUIController : MonoBehaviour
         
         
         int tmp_AddGold =  PhotonNetwork.LocalPlayer.GetScore() / 10;
-        
-        //数据库通信
 
         GoldCount.text = "+" + tmp_AddGold;
         StartCoroutine(countingDownEnumerator());

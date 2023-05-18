@@ -64,7 +64,9 @@ public class ConnectServerManager : SingletonPunCallbacks<ConnectServerManager>
         }
         PhotonNetwork.NickName = MyNickName;
         PhotonNetwork.AutomaticallySyncScene = true;
-        
+        AccountManager.GetInstance().setIsConnected(true);
+        AccountManager.GetInstance().SetLocalUsername(MyNickName);
+
         
         LoginUIAnimation.UIFade();
         MenuController.gameObject.SetActive(true);

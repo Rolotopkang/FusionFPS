@@ -4,5 +4,6 @@
     {
         public string username;
         public string password;
+        public int returnMsg;
     }
 }

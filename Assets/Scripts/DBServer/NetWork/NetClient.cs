@@ -5,10 +5,17 @@ using System.Net.Sockets;
 using System.Text;
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityTemplateProjects.DBServer.NetMsg;
+using UnityTemplateProjects.Login;
+
 
 namespace UnityTemplateProjects.DBServer.NetWork
 {
+    /// <summary>
+    /// 废弃
+    /// </summary>
+    [Obsolete]
     public class NetClient : Singleton<NetClient>
     {
         private IPEndPoint address;
@@ -50,6 +57,7 @@ namespace UnityTemplateProjects.DBServer.NetWork
                 bool success = result.AsyncWaitHandle.WaitOne(1000);
                 if (success)
                 {
+                    Debug.Log("连接数据库服务器成功:");
                     clientSocket.EndConnect(result);
                 }
             }
@@ -88,13 +96,7 @@ namespace UnityTemplateProjects.DBServer.NetWork
             bool ret = false;
             try
             {
-                if (clientSocket.Blocking)
-                {
-                    // Debug.Log("socket被阻断！");
-                }
-
-                bool error = clientSocket.Poll(0, SelectMode.SelectError);
-                if (error)
+                if (clientSocket.Poll(0, SelectMode.SelectError))
                 {
                     Debug.Log("Socket错误");
                     CloseConnection();
@@ -104,14 +106,15 @@ namespace UnityTemplateProjects.DBServer.NetWork
                 ret = clientSocket.Poll(0, SelectMode.SelectRead);
                 if (ret)
                 {
-                    int n = this.clientSocket.Receive(receiveBuffer.GetBuffer(), 0, receiveBuffer.Capacity,
-                        SocketFlags.Broadcast);
+                    int n = this.clientSocket.Receive(receiveBuffer.GetBuffer(), 
+                        0, receiveBuffer.Capacity,
+                        SocketFlags.None);
                     if (n <= 0)
                     {
+                        Debug.Log("关闭socket");
                         CloseConnection();
                         return false;
                     }
-
                     ReceiveData(receiveBuffer.GetBuffer(), 0, n);
                 }
             }
@@ -147,7 +150,6 @@ namespace UnityTemplateProjects.DBServer.NetWork
                     {
                         throw new Exception("无法解包");
                     }
-
                     MessageDistributer.GetInstance().Dispatch(message);
 
                     readOffset += (packageSize + 4);

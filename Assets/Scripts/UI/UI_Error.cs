@@ -25,7 +25,7 @@ public class UI_Error : Singleton<UI_Error>
     public void OnReconnect()
     {
         UI_NetWorkWarning.SetActive(false);
-        MysqlManager.GetInstance().Init();
+        //TODO
     }
 
     public void OnReturnLogin()
