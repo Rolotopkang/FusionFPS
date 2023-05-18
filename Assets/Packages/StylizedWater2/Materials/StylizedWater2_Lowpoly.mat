@@ -9,9 +9,9 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: StylizedWater2_Lowpoly
   m_Shader: {fileID: 4800000, guid: f04c9486b297dd848909db26983c9ddb, type: 3}
-  m_ShaderKeywords: _ADVANCED_SHADING _CROSSPAN_INTERSECTION _DEPTH_TEX _FLAT_SHADING
-    _NORMALMAP _RECEIVE_SHADOWS_OFF _REFRACTION _SHARP_INERSECTION _TRANSLUCENCY
-    _WAVES
+  m_ShaderKeywords: _ADVANCED_SHADING _CROSSPAN_INTERSECTION _DEPTH_TEX _DISTANCE_NORMALS
+    _FLAT_SHADING _NORMALMAP _RECEIVE_SHADOWS_OFF _REFRACTION _SHARP_INERSECTION
+    _TRANSLUCENCY _WAVES
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -151,6 +151,9 @@ Material:
     - _SunReflectionSize: 0.969
     - _SunReflectionStrength: 1
     - _Surface: 0
+    - _TessMax: 15
+    - _TessMin: 0
+    - _TessValue: 16
     - _Texture_IntersectionOn: 0
     - _Translucency: 1
     - _TranslucencyReflectionMask: 0
