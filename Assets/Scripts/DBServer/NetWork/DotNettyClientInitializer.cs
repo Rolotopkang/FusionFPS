@@ -10,7 +10,7 @@ namespace UnityTemplateProjects.DBServer.NetWork
     public class DotNettyClientInitializer : ChannelInitializer<ISocketChannel>
     {
         private readonly DotNettyClient _client;
-        private static int TimeOutSec = 5;
+        private static int TimeOutSec = 15;
         public DotNettyClientInitializer(DotNettyClient dotNettyClient)
         {
             _client = dotNettyClient;
@@ -26,6 +26,8 @@ namespace UnityTemplateProjects.DBServer.NetWork
             pipeline.AddLast(new StringDecoder(Encoding.UTF8));
 
             // pipeline.AddLast(new IdleStateHandler(TimeOutSec, 0, 0));
+
+            pipeline.AddLast(new IdleStateHandler(TimeOutSec, 0, TimeOutSec * 2));
             pipeline.AddLast(new DotNettyHeartBeatHandler());
             pipeline.AddLast(new DotNettyClientHandler(_client));
         }

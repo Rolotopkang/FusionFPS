@@ -57,7 +57,9 @@ public class ConnectServerManager : SingletonPunCallbacks<ConnectServerManager>
         // }
         if (PhotonNetwork.CountOfPlayers >= 40)
         {
-            UI_Error.GetInstance().OpenUI_ServerFullWarning();
+            UI_Error.GetInstance().OpenErrorUI("服务器已满","退出",
+                UI_Error.GetInstance().Exit
+                );
             PhotonNetwork.Disconnect();
             connectToMaster = false;
             return;
@@ -76,7 +78,13 @@ public class ConnectServerManager : SingletonPunCallbacks<ConnectServerManager>
         //TODO
         AccountManager.GetInstance().setIsConnected(true);
     }
-    
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        base.OnDisconnected(cause);
+        if(cause != DisconnectCause.DisconnectByClientLogic)
+            UI_Error.GetInstance().OpenErrorUI("网络连接错误","退出",UI_Error.GetInstance().Exit);
+    }
 
     public void SetMyNickName(String set)
     {

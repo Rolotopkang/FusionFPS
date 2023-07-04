@@ -40,8 +40,11 @@ namespace UnityTemplateProjects.DBServer.NetWork
             catch (Exception ex)
             {
                 Debug.LogError(ex.Message);
-                
-                //TODO  弹窗错误
+                UI_Error.GetInstance().OpenErrorUI("无法连接至数据库服务器","重试", () =>
+                {
+                    UI_Error.GetInstance().CloseUI();
+                    Connect();
+                });
             }
         }
         

@@ -43,7 +43,7 @@ public class DatabaseConnector : Singleton<DatabaseConnector>
         else
         {
             Debug.Log("版本需要更新");
-            
+            UI_Error.GetInstance().OpenErrorUI("客户端版本需要更新 \n 请前往xxx进行更新","退出",UI_Error.GetInstance().Exit);
         }
 
         MessageDistributer.GetInstance().EconomicResponse -= VersionCheck;

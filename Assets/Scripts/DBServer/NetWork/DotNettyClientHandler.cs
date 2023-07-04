@@ -45,6 +45,14 @@ namespace UnityTemplateProjects.DBServer.NetWork
 
         public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
         {
+            UnityMainThreadDispatcher.GetInstance().Enqueue(() =>
+                    {
+                        UI_Error.GetInstance().OpenErrorUI("服务器已下线","退出", () =>
+                        {
+                            UI_Error.GetInstance().Exit();
+                        });
+                    }
+                );
             Debug.LogError(exception.Message);
             context.CloseAsync();
         }

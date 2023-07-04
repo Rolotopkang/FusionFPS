@@ -60,6 +60,7 @@ namespace UnityTemplateProjects.DBServer.NetWork
         {
             if (evt is IdleStateEvent idleStateEvent)
             {
+                
                 // if (idleStateEvent.State == IdleState.WriterIdle)
                 // {
                 //     // 写空闲事件，发送心跳包
@@ -69,11 +70,16 @@ namespace UnityTemplateProjects.DBServer.NetWork
                 {
                     // 读空闲事件，判断服务器是否在线
                     long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    Debug.Log("读空闲！" + (currentTimestamp - lastHeartbeatTimestamp));
                     if (currentTimestamp - lastHeartbeatTimestamp > 30)
                     {
                         Debug.LogFormat("Server {0} is offline", context.Channel.RemoteAddress);
                         context.CloseAsync();
-                        // TODO: 服务器断线处理
+                        UnityMainThreadDispatcher.GetInstance().Enqueue((() =>
+                                {
+                                    UI_Error.GetInstance().OpenErrorUI("网络连接错误","退出",UI_Error.GetInstance().Exit);
+                                }
+                            ));
                     }
                 }
             }

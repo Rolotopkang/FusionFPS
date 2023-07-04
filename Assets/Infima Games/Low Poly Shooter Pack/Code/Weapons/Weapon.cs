@@ -474,7 +474,11 @@ namespace InfimaGames.LowPolyShooterPack
             for (var i = 0; i < shotCount; i++)
             {
                 //随机散布部分
-                Vector3 spreadValue = Random.insideUnitSphere * (spread * (1 + characterBehaviour.GetSpeed() * spreadSpeedTimer * attachmentManager.GetMovSpreadAlpha()));
+                Vector3 spreadValue = Random.insideUnitSphere * 
+                                      (spread * 
+                                       (1 + characterBehaviour.GetSpeed() *
+                                           spreadSpeedTimer * 
+                                           attachmentManager.GetMovSpreadAlpha()));
                 spreadValue *= spreadMultiplier;
                 
                 //向量转换

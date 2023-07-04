@@ -110,7 +110,7 @@ namespace InfimaGames.LowPolyShooterPack
             WeaponData weaponData = _infoService.GetWeaponInfoFromID((int)tmpPhotonView.Owner.CustomProperties[EnumTools.PlayerProperties.CurrentWeaponID.ToString()]);
             bool isMuzzle = (bool)tmpPhotonView.Owner.CustomProperties[EnumTools.PlayerProperties.IsMuzzle.ToString()];
 
-            Debug.Log("当前玩家"+tmpPhotonView.Owner.NickName+"当前武器"+weaponData.weaponShowName);
+            // Debug.Log("当前玩家"+tmpPhotonView.Owner.NickName+"当前武器"+weaponData.weaponShowName);
             //Switch.
             AudioClip clip = soundType switch
             {

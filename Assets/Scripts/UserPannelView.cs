@@ -42,7 +42,6 @@ public class UserPannelView : MonoBehaviour
 
     private void GetUserMoney()
     {
-        Debug.Log("show");
         DatabaseConnector.GetInstance().UserMoneyGet(AccountManager.GetInstance().GetLocalUsername(),
             () => MessageDistributer.GetInstance().EconomicResponse += UpdateMoneyUI);
     }
