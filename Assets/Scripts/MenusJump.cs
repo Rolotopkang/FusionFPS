@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class MenusJump : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class MenusJump : MonoBehaviour
 
     public void JumpToUI(Page page)
     {
+        Debug.Log("跳转到页面"+page);
         switch(page)
         {
             case Page.Room:

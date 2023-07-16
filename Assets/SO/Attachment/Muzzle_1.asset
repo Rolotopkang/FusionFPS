@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Muzzle_1
   m_EditorClassIdentifier: 
   AttachmentID: 1
-  AttachmentName: 
+  AttachmentName: "6KU\u6D88\u97F3\u5668"
   AdvantageDiscriptions: 
   DisadvantageDiscriptions: 
-  DamageAlpha: 1
+  DamageAlpha: 0.88
   ShootSpeedAlpha: 1
   FlySpeedAlpha: 1
-  VerticalRecoilAlpha: 1
-  HorizentalRecoilAlpha: 1
+  VerticalRecoilAlpha: 0.9
+  HorizentalRecoilAlpha: 0.9
   ADSSpreadAlpha: 1
   HipShotSpreadAlpha: 1
   MovSpreadAlpha: 1

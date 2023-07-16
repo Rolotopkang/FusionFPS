@@ -1,0 +1,453 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotNettySocket</name>
+    </assembly>
+    <members>
+        <member name="T:Coldairarrow.DotNettySocket.IBaseSocketConnection">
+            <summary>
+            SocketConnection基接口
+            </summary>
+            <seealso cref="T:Coldairarrow.DotNettySocket.IClose" />
+        </member>
+        <member name="P:Coldairarrow.DotNettySocket.IBaseSocketConnection.ConnectionId">
+            <summary>
+            连接Id,不可更改
+            </summary>
+            <value>
+            The connection identifier.
+            </value>
+        </member>
+        <member name="P:Coldairarrow.DotNettySocket.IBaseSocketConnection.ConnectionName">
+            <summary>
+            连接名,可更改
+            </summary>
+            <value>
+            The name of the connection.
+            </value>
+        </member>
+        <member name="P:Coldairarrow.DotNettySocket.IBaseSocketConnection.ClientAddress">
+            <summary>
+            客户端地址
+            </summary>
+            <value>
+            The client address.
+            </value>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IBaseTcpSocketClient">
+            <summary>
+            TcpSocket客户端
+            </summary>
+            <seealso cref="T:Coldairarrow.DotNettySocket.IClose" />
+        </member>
+        <member name="P:Coldairarrow.DotNettySocket.IBaseTcpSocketClient.Ip">
+            <summary>
+            服务器Ip
+            </summary>
+            <value>
+            The ip.
+            </value>
+        </member>
+        <member name="P:Coldairarrow.DotNettySocket.IBaseTcpSocketClient.Port">
+            <summary>
+            服务器端口
+            </summary>
+            <value>
+            The port.
+            </value>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IBaseTcpSocketServer`1">
+            <summary>
+            TcpSocketServer基接口
+            </summary>
+            <typeparam name="SocketConnection">The type of the ocket connection.</typeparam>
+            <seealso cref="T:Coldairarrow.DotNettySocket.IClose" />
+        </member>
+        <member name="P:Coldairarrow.DotNettySocket.IBaseTcpSocketServer`1.Port">
+            <summary>
+            监听端口
+            </summary>
+            <value>
+            The port.
+            </value>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IBaseTcpSocketServer`1.SetConnectionName(`0,System.String,System.String)">
+            <summary>
+            设置连接名
+            </summary>
+            <param name="theConnection">连接</param>
+            <param name="oldConnectionName">原连接名</param>
+            <param name="newConnectionName">新连接名</param>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IBaseTcpSocketServer`1.GetConnectionById(System.String)">
+            <summary>
+            通过连接Id获取连接
+            </summary>
+            <param name="connectionId">连接Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IBaseTcpSocketServer`1.GetConnectionByName(System.String)">
+            <summary>
+            通过连接名获取连接Id
+            </summary>
+            <param name="connectionName">连接名</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IBaseTcpSocketServer`1.RemoveConnection(`0)">
+            <summary>
+            删除连接
+            </summary>
+            <param name="theConnection">连接</param>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IBaseTcpSocketServer`1.GetAllConnectionNames">
+            <summary>
+            获取所有连接名
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IBaseTcpSocketServer`1.GetAllConnections">
+            <summary>
+            获取所有连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IBaseTcpSocketServer`1.GetConnectionCount">
+            <summary>
+            获取当前连接数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IClose">
+            <summary>
+            关闭接口
+            </summary>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IClose.Close">
+            <summary>
+            关闭
+            </summary>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.ISendBytes">
+            <summary>
+            发送字节
+            </summary>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.ISendBytes.Send(System.Byte[])">
+            <summary>
+            发送字节
+            </summary>
+            <param name="bytes">字节数组</param>
+            <returns></returns>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.ISendString">
+            <summary>
+            发送字符串
+            </summary>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.ISendString.Send(System.String)">
+            <summary>
+            发送字符串
+            </summary>
+            <param name="msgStr">字符串</param>
+            <returns></returns>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IBuilder`2">
+            <summary>
+            构建者
+            </summary>
+            <typeparam name="TBuilder">特定构建者</typeparam>
+            <typeparam name="TTarget">目标生成类</typeparam>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IBuilder`2.OnException(System.Action{System.Exception})">
+            <summary>
+            异常处理
+            </summary>
+            <param name="action">异常处理委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IBuilder`2.BuildAsync">
+            <summary>
+            构建目标生成类
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.ICoderBuilder`1">
+            <summary>
+            包含编码器和解码器的构建者
+            </summary>
+            <typeparam name="TBuilder">特定构建着</typeparam>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.ICoderBuilder`1.SetLengthFieldDecoder(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,DotNetty.Buffers.ByteOrder)">
+            <summary>
+            设置基于长度的解码器,解决粘包与分包问题
+            </summary>
+            <param name="maxFrameLength">最大长度</param>
+            <param name="lengthFieldOffset">长度字段偏移量</param>
+            <param name="lengthFieldLength">长度字段占字节数</param>
+            <param name="lengthAdjustment">添加到长度字段的补偿值</param>
+            <param name="initialBytesToStrip">从解码帧中开始去除的字节数</param>
+            <param name="byteOrder">长度字节排序,默认为BigEndian,BigEndian:大端序,高位在前低位在后;LittleEndian:小端序,低位在前高位在后</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.ICoderBuilder`1.SetLengthFieldEncoder(System.Int32)">
+            <summary>
+            设置基于长度的编码器,解决粘包与分包问题
+            </summary>
+            <param name="lengthFieldLength">长度字段占字节数</param>
+            <returns></returns>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IGenericClientBuilder`3">
+            <summary>
+            泛型客户端构建者
+            </summary>
+            <typeparam name="TBuilder">特定构建者</typeparam>
+            <typeparam name="TTarget">目标生成类</typeparam>
+            <typeparam name="TData">数据类型</typeparam>
+            <seealso cref="T:Coldairarrow.DotNettySocket.IBuilder`2" />
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IGenericClientBuilder`3.OnClientStarted(System.Action{`1})">
+            <summary>
+            客户端启动事件
+            </summary>
+            <param name="action">处理客户端启动事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IGenericClientBuilder`3.OnRecieve(System.Action{`1,`2})">
+            <summary>
+            接受数据事件
+            </summary>
+            <param name="action">处理接受数据事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IGenericClientBuilder`3.OnSend(System.Action{`1,`2})">
+            <summary>
+            发送数据事件
+            </summary>
+            <param name="action">处理发送数据事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IGenericClientBuilder`3.OnClientClose(System.Action{`1})">
+            <summary>
+            客户端关闭事件
+            </summary>
+            <param name="action">处理客户端关闭事件</param>
+            <returns></returns>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IGenericServerBuilder`4">
+            <summary>
+            泛型服务端构建者
+            </summary>
+            <typeparam name="TBuilder">特定构建者</typeparam>
+            <typeparam name="TTarget">目标生成类</typeparam>
+            <typeparam name="IConnection">特定连接</typeparam>
+            <typeparam name="TData">数据类型</typeparam>
+            <seealso cref="T:Coldairarrow.DotNettySocket.IBuilder`2" />
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IGenericServerBuilder`4.OnServerStarted(System.Action{`1})">
+            <summary>
+            服务启动事件
+            </summary>
+            <param name="action">处理服务启动事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IGenericServerBuilder`4.OnNewConnection(System.Action{`1,`2})">
+            <summary>
+            收到新连接事件
+            </summary>
+            <param name="action">处理收到新连接事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IGenericServerBuilder`4.OnRecieve(System.Action{`1,`2,`3})">
+            <summary>
+            连接收到数据事件
+            </summary>
+            <param name="action">处理连接收到数据事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IGenericServerBuilder`4.OnSend(System.Action{`1,`2,`3})">
+            <summary>
+            连接发送数据事件
+            </summary>
+            <param name="action">处理接发送数据事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IGenericServerBuilder`4.OnConnectionClose(System.Action{`1,`2})">
+            <summary>
+            连接关闭事件
+            </summary>
+            <param name="action">处理连接关闭事件</param>
+            <returns></returns>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.ITcpSocketClientBuilder">
+            <summary>
+            TcpSocket客户端构建者
+            </summary>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.ITcpSocketServerBuilder">
+            <summary>
+            TcpSocket服务端构建者
+            </summary>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IUdpSocketBuilder">
+            <summary>
+            UdpSocket构建者
+            </summary>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IUdpSocketBuilder.OnStarted(System.Action{Coldairarrow.DotNettySocket.IUdpSocket})">
+            <summary>
+            启动事件
+            </summary>
+            <param name="action">处理启动事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IUdpSocketBuilder.OnRecieve(System.Action{Coldairarrow.DotNettySocket.IUdpSocket,System.Net.EndPoint,System.Byte[]})">
+            <summary>
+            收到数据事件
+            </summary>
+            <param name="action">处理收到数据事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IUdpSocketBuilder.OnSend(System.Action{Coldairarrow.DotNettySocket.IUdpSocket,System.Net.EndPoint,System.Byte[]})">
+            <summary>
+            发送数据事件
+            </summary>
+            <param name="action">处理发送数据事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IUdpSocketBuilder.OnClose(System.Action{Coldairarrow.DotNettySocket.IUdpSocket})">
+            <summary>
+            关闭事件
+            </summary>
+            <param name="action">处理关闭事件</param>
+            <returns></returns>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IWebSocketClientBuilder">
+            <summary>
+            WebSocket客户端构建者
+            </summary>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IWebSocketServerBuilder">
+            <summary>
+            WebSocket服务端构建者
+            </summary>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.SocketBuilderFactory">
+            <summary>
+            Socket构建者工厂
+            </summary>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.SocketBuilderFactory.GetTcpSocketClientBuilder(System.String,System.Int32)">
+            <summary>
+            获取TcpSocket客户端构建者
+            </summary>
+            <param name="ip">服务器Ip</param>
+            <param name="port">服务器端口</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.SocketBuilderFactory.GetTcpSocketServerBuilder(System.Int32)">
+            <summary>
+            获取TcpSocket服务端构建者
+            </summary>
+            <param name="port">监听端口</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.SocketBuilderFactory.GetWebSocketServerBuilder(System.Int32,System.String)">
+            <summary>
+            获取WebSocket服务端构建者
+            </summary>
+            <param name="port">监听端口</param>
+            <param name="path">路径,默认为"/"</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.SocketBuilderFactory.GetWebSocketClientBuilder(System.String,System.Int32,System.String)">
+            <summary>
+            获取WebSocket客户端构建者
+            </summary>
+            <param name="ip">服务器Ip</param>
+            <param name="port">服务器端口</param>
+            <param name="path">路径,默认为"/"</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.SocketBuilderFactory.GetUdpSocketBuilder(System.Int32)">
+            <summary>
+            获取Udpocket构建者
+            注:UDP服务端与客户端一样
+            </summary>
+            <param name="port">监听端口,作为客户端时可不设置</param>
+            <returns></returns>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.ITcpSocketClient">
+            <summary>
+            TcpSocket客户端
+            </summary>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.ITcpSocketConnection">
+            <summary>
+            TcpSocket连接
+            </summary>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.ITcpSocketServer">
+            <summary>
+            TcpSocket服务端
+            </summary>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IUdpSocket">
+            <summary>
+            UdpSocket
+            </summary>
+        </member>
+        <member name="P:Coldairarrow.DotNettySocket.IUdpSocket.Port">
+            <summary>
+            监听端口
+            </summary>
+            <value>
+            The port.
+            </value>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IUdpSocket.Send(System.Byte[],System.Net.EndPoint)">
+            <summary>
+            发送字节
+            </summary>
+            <param name="bytes">字节数组</param>
+            <param name="point">目标地址</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.IUdpSocket.Send(System.String,System.Net.EndPoint)">
+            <summary>
+            发送字符串,UTF-8编码
+            </summary>
+            <param name="msgStr">字符串</param>
+            <param name="point">目标地址</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.Extention.ToIPEndPoint(System.String)">
+            <summary>
+            转为网络终结点IPEndPoint
+            </summary>=
+            <param name="str">字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coldairarrow.DotNettySocket.Extention.ToArray(DotNetty.Buffers.IByteBuffer)">
+            <summary>
+            获取IByteBuffer中的byte[]
+            </summary>
+            <param name="byteBuffer">IByteBuffer</param>
+            <returns></returns>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IWebSocketClient">
+            <summary>
+            WebSocket客户端
+            </summary>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IWebSocketConnection">
+            <summary>
+            WebSocket连接
+            </summary>
+        </member>
+        <member name="T:Coldairarrow.DotNettySocket.IWebSocketServer">
+            <summary>
+            WebSocket服务端
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154985ddac9f2324e94958942d00d746, type: 3}
   m_Name: Suicide
   m_EditorClassIdentifier: 
-  ID: 0
+  ID: 1000
   weaponName: suicide
   weaponShowName: suicide
   multiplierMovementSpeed: 0
@@ -20,11 +20,13 @@ MonoBehaviour:
   boltAction: 0
   shotCount: 1
   spread: 0.25
-  Recoil: {x: -0.2, y: 0.2}
-  RecoilOffset: 1
+  spreadSpeedTimer: 0
+  firstBulletAcc: 0
+  recoilReturnTime: 0.3
   projectileImpulse: 400
   DMG: 10
   roundsPerMinutes: 200
+  MaxAmmunition: 150
   maximumDistance: 500
   cycledReload: 0
   canReloadWhenFull: 1
@@ -60,7 +62,6 @@ MonoBehaviour:
   prefabCasing: {fileID: 0}
   prefabProjectile: {fileID: 0}
   controller: {fileID: 0}
-  tpSynchronization: {fileID: 0}
   spriteBody: {fileID: 0}
   audioClipHolster: {fileID: 0}
   audioClipUnholster: {fileID: 0}
@@ -69,6 +70,8 @@ MonoBehaviour:
   audioClipReloadOpen: {fileID: 0}
   audioClipReloadInsert: {fileID: 0}
   audioClipReloadClose: {fileID: 0}
+  audioClipFire: {fileID: 0}
+  audioClipFireMuzzle: {fileID: 0}
   audioClipFireEmpty: {fileID: 0}
   audioClipBoltAction: {fileID: 0}
   DeployB: {fileID: 0}

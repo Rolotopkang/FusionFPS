@@ -64,6 +64,9 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private Vector3 flashLightOffset;
 
+        [SerializeField]
+        private bool IsMute  = false;
+
         #endregion
         
         #region FIELDS
@@ -144,6 +147,7 @@ namespace InfimaGames.LowPolyShooterPack
         }
 
         public override WeaponAttachmentData GetWeaponAttachmentData() => WeaponAttachmentData;
+        public override string GetName() => WeaponAttachmentData.AttachmentName;
         public override int GetID() => WeaponAttachmentData.AttachmentID;
         public override Transform GetSocket() => socket;
 
@@ -159,6 +163,9 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override Sprite GetBTNSpriteB() => WeaponAttachmentData.BTNspriteB;
         public override Sprite GetBTNSpriteD() => WeaponAttachmentData.BTNspriteD;
+
+
+        public override bool GetIsMute() => IsMute;
 
         #endregion
 

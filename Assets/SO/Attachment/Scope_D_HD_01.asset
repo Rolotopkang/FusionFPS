@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scope_D_HD_01
   m_EditorClassIdentifier: 
   AttachmentID: 0
-  AttachmentName: "\u539F\u5382"
+  AttachmentName: "\u539F\u5382\u7784\u5177"
   AdvantageDiscriptions: 
   DisadvantageDiscriptions: 
   DamageAlpha: 1
@@ -21,7 +21,7 @@ MonoBehaviour:
   FlySpeedAlpha: 1
   VerticalRecoilAlpha: 1
   HorizentalRecoilAlpha: 1
-  ADSSpreadAlpha: 1
+  ADSSpreadAlpha: 0.5
   HipShotSpreadAlpha: 1
   MovSpreadAlpha: 1
   T_ADSTimeAlpha: 1

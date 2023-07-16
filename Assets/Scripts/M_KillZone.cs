@@ -114,6 +114,7 @@ public class M_KillZone : MonoBehaviour
         
         yield return new WaitForSeconds(DeathTime);
 
+        PostProcessingManager.GetInstance().PostProcessings.PP_DeathZone.SetActive(false);
         Sentenced();
     }
 

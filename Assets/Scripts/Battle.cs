@@ -35,6 +35,11 @@ public class Battle : MonoBehaviourPun,IPunObservable
         return false;
     }
 
+    public bool CheckDeathDamage(float dmg)
+    {
+        return health - dmg <= 0;
+    }
+
     #region Getter
 
     public float GetCurrentHealth() => health;

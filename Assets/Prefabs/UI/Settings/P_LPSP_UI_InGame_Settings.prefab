@@ -2072,6 +2072,7 @@ MonoBehaviour:
   animatedCanvas: {fileID: 5965040679945168711}
   animationShow: {fileID: 7400000, guid: 9fb6ea74a26a0e240b06702882bdf1be, type: 2}
   animationHide: {fileID: 7400000, guid: 8b8ff9da74b20434aa71e9556f0f836c, type: 2}
+  CanvasGroup: {fileID: 5965040679945168714}
   _uiBase: {fileID: 7310700178426179971}
   scopeChanging: 0
   isLive: 0

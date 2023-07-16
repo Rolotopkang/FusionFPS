@@ -162,7 +162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8154125364613076364
 Transform:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
       rotation:
         horizontal: {x: 0, y: 2, z: 0}
         vertical: {x: 0, y: 0, z: 0}
-  offsetAimingLocation: {x: 0, y: 0, z: -0.022}
+  offsetAimingLocation: {x: 0, y: 0, z: -0.02}
   offsetAimingRotation: {x: 0, y: 0, z: 0}
   fieldOfViewMultiplierAim: 0.65
   fieldOfViewMultiplierAimWeapon: 1

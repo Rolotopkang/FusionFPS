@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -71,68 +72,77 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private IAudioManagerService audioManagerService;
 
+        private IWeaponInfoService _infoService;
+
         #endregion
         
         #region UNITY
+
+        private void Awake()
+        {
+            _infoService ??= ServiceLocator.Current.Get<IWeaponInfoService>();
+            audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
+        }
+
 
         /// <summary>
         /// On State Enter.
         /// </summary>
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            PhotonView tmpPhotonView = animator.transform.GetComponent<PhotonView>();
+            PhotonView tmpPhotonView = animator.transform.parent.GetComponent<PhotonView>();
 
-            //We need to get the character component.
-            playerCharacter ??= ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter(PhotonNetwork.LocalPlayer);
-            
-            //Get Inventory.
-            playerInventory ??= playerCharacter.GetInventory();
-            if (playerInventory == null)
+            if (tmpPhotonView == null)
             {
+                tmpPhotonView = animator.transform.GetComponent<PhotonView>();
+                if (tmpPhotonView == null)
+                {
+                    Debug.Log("没有photonview");
+                
+                    return;
+                }
+            }
+            if (tmpPhotonView.Owner.CustomProperties[EnumTools.PlayerProperties.CurrentWeaponID.ToString()] == null)
+            {
+                Debug.Log("没有武器属性");
                 return;
             }
+            WeaponData weaponData = _infoService.GetWeaponInfoFromID((int)tmpPhotonView.Owner.CustomProperties[EnumTools.PlayerProperties.CurrentWeaponID.ToString()]);
+            bool isMuzzle = (bool)tmpPhotonView.Owner.CustomProperties[EnumTools.PlayerProperties.IsMuzzle.ToString()];
 
-            //Try to get the equipped weapon's Weapon component.
-            if (!(playerInventory.GetEquipped() is { } weaponBehaviour))
-                return;
-            
-            //Try grab a reference to the sound managing service.
-            audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
-
-            #region Select Correct Clip To Play
-
+            // Debug.Log("当前玩家"+tmpPhotonView.Owner.NickName+"当前武器"+weaponData.weaponShowName);
             //Switch.
             AudioClip clip = soundType switch
             {
-                //Grenade Throw.
-                SoundType.GrenadeThrow => playerCharacter.GetAudioClipsGrenadeThrow().GetRandom(),
-                //Melee.
-                SoundType.Melee => playerCharacter.GetAudioClipsMelee().GetRandom(),
+                // //Grenade Throw.
+                // SoundType.GrenadeThrow => playerCharacter.GetAudioClipsGrenadeThrow().GetRandom(),
+                // //Melee.
+                // SoundType.Melee => playerCharacter.GetAudioClipsMelee().GetRandom(),
                 
                 //Holster.
-                SoundType.Holster => weaponBehaviour.GetAudioClipHolster(),
+                SoundType.Holster => weaponData.audioClipHolster,
                 //Unholster.
-                SoundType.Unholster => weaponBehaviour.GetAudioClipUnholster(),
+                SoundType.Unholster => weaponData.audioClipUnholster,
                 
                 //Reload.
-                SoundType.Reload => weaponBehaviour.GetAudioClipReload(),
+                SoundType.Reload => weaponData.audioClipReload,
                 //Reload Empty.
-                SoundType.ReloadEmpty => weaponBehaviour.GetAudioClipReloadEmpty(),
+                SoundType.ReloadEmpty => weaponData.audioClipReloadEmpty,
                 
                 //Reload Open.
-                SoundType.ReloadOpen => weaponBehaviour.GetAudioClipReloadOpen(),
+                SoundType.ReloadOpen => weaponData.audioClipReloadOpen,
                 //Reload Insert.
-                SoundType.ReloadInsert => weaponBehaviour.GetAudioClipReloadInsert(),
+                SoundType.ReloadInsert => weaponData.audioClipReloadInsert,
                 //Reload Close.
-                SoundType.ReloadClose => weaponBehaviour.GetAudioClipReloadClose(),
+                SoundType.ReloadClose => weaponData.audioClipReloadClose,
                 
                 //Fire.
-                SoundType.Fire => weaponBehaviour.GetAudioClipFire(),
+                SoundType.Fire => isMuzzle ? weaponData.audioClipFireMuzzle : weaponData.audioClipFire,
                 //Fire Empty.
-                SoundType.FireEmpty => weaponBehaviour.GetAudioClipFireEmpty(),
+                SoundType.FireEmpty => weaponData.audioClipFireEmpty,
                 
                 //Bolt Action.
-                SoundType.BoltAction => weaponBehaviour.GetAudioClipBoltAction(),
+                SoundType.BoltAction => weaponData.audioClipBoltAction,
                 
                 //Default.
                 _ => default
@@ -161,9 +171,6 @@ namespace InfimaGames.LowPolyShooterPack
                 //Default.
                 _ => 0,
             });
-                
-            
-            #endregion
 
             if (audioSettings.SpatialBlend > 0)
             {

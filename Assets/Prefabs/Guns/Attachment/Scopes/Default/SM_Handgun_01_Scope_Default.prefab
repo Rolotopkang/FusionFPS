@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262a90da45c94c348be144e6130ec77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponAttachmentData: {fileID: 11400000, guid: 28656e02743237143865bd0d5b2aa39d,
+  WeaponAttachmentData: {fileID: 11400000, guid: 30c4b299ddbc7b244aa20063a900ab60,
     type: 2}
   multiplierMouseSensitivity: 1
   sprite: {fileID: 21300000, guid: c2a97b56575e8f6418a28d1261e20f69, type: 3}

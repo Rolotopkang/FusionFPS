@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -19,7 +20,13 @@ public class HNS_PlayerIcon_Indicator_Manager : MonoBehaviour
 
     private bool IsGazed = false;
     private bool IsEnemy = false;
-    
+
+    private void Start()
+    {
+        SetGazed(false);
+        SetArounded(false);
+    }
+
     public void Initialisation(bool _isEnemy , string _name)
     {
         //指示器颜色初始化

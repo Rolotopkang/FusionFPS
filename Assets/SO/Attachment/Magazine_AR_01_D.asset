@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Magazine_AR_01_D
   m_EditorClassIdentifier: 
   AttachmentID: 0
-  AttachmentName: 
+  AttachmentName: "\u6807\u51C6\u5F39\u5323"
   AdvantageDiscriptions: 
   DisadvantageDiscriptions: 
   DamageAlpha: 1
@@ -28,5 +28,5 @@ MonoBehaviour:
   T_SwitchGunAlpha: 1
   T_ReloadAlpha: 1
   sprite: {fileID: 21300000, guid: 51d720b69910c244aa44a082bddf0155, type: 3}
-  BTNspriteB: {fileID: 0}
-  BTNspriteD: {fileID: 0}
+  BTNspriteB: {fileID: 21300000, guid: 43b32d582727ca948ab647611113a00e, type: 3}
+  BTNspriteD: {fileID: 21300000, guid: 919b15386205f404f9edac7e28e2091a, type: 3}

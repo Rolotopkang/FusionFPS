@@ -62,29 +62,52 @@ public class RoomListManager : MonoBehaviourPunCallbacks
                  }
              }
          }
+
+         for (int i = 0; i < roomList.Count; i++)
+         {
+             Debug.Log(roomList.Count);
+             if (roomList[i].PlayerCount != 0)
+             {
+                 GameObject newRoom = Instantiate(RoomNameButtonPrefab, gridLayout.position, Quaternion.identity);
+                 newRoom.GetComponent<JoinRoomBTN>().min = roomList[i].PlayerCount;
+                 newRoom.GetComponent<JoinRoomBTN>().max = roomList[i].MaxPlayers;
+                 Text[] texts = newRoom.GetComponentsInChildren<Text>();
+                 texts[0].text = roomList[i].Name;
+                 texts[2].text = (String)roomList[i].CustomProperties["host"];
+                 texts[4].text = roomList[i].PlayerCount+"/"+roomList[i].MaxPlayers;
+                 texts[6].text = roomList[i].CustomProperties["GameMode"].ToString();
+                 texts[8].text = roomList[i].CustomProperties["mapDiscripName"].ToString();
+                 newRoom.transform.SetParent(gridLayout);
+             }
+             else
+             {
+                 roomList.Remove(roomList[i]);
+                 Debug.Log("remove one room");
+             }
+         }
          
-        foreach (RoomInfo room in roomList)
-        {
-            Debug.Log(roomList.Count);
-            if (room.PlayerCount != 0)
-            {
-                GameObject newRoom = Instantiate(RoomNameButtonPrefab, gridLayout.position, Quaternion.identity);
-                newRoom.GetComponent<JoinRoomBTN>().min = room.PlayerCount;
-                newRoom.GetComponent<JoinRoomBTN>().max = room.MaxPlayers;
-                Text[] texts = newRoom.GetComponentsInChildren<Text>();
-                texts[0].text = room.Name;
-                texts[2].text = (String)room.CustomProperties["host"];
-                texts[4].text = room.PlayerCount+"/"+room.MaxPlayers;
-                texts[6].text = room.CustomProperties["GameMode"].ToString();
-                texts[8].text = room.CustomProperties["mapDiscripName"].ToString();
-                newRoom.transform.SetParent(gridLayout);
-            }
-            else
-            {
-                roomList.Remove(room);
-                Debug.Log("remove one room");
-            }
-        }
+        // foreach (RoomInfo room in roomList)
+        // {
+        //     Debug.Log(roomList.Count);
+        //     if (room.PlayerCount != 0)
+        //     {
+        //         GameObject newRoom = Instantiate(RoomNameButtonPrefab, gridLayout.position, Quaternion.identity);
+        //         newRoom.GetComponent<JoinRoomBTN>().min = room.PlayerCount;
+        //         newRoom.GetComponent<JoinRoomBTN>().max = room.MaxPlayers;
+        //         Text[] texts = newRoom.GetComponentsInChildren<Text>();
+        //         texts[0].text = room.Name;
+        //         texts[2].text = (String)room.CustomProperties["host"];
+        //         texts[4].text = room.PlayerCount+"/"+room.MaxPlayers;
+        //         texts[6].text = room.CustomProperties["GameMode"].ToString();
+        //         texts[8].text = room.CustomProperties["mapDiscripName"].ToString();
+        //         newRoom.transform.SetParent(gridLayout);
+        //     }
+        //     else
+        //     {
+        //         roomList.Remove(room);
+        //         Debug.Log("remove one room");
+        //     }
+        // }
     }
 
     public override void OnJoinedRoom()

@@ -6,7 +6,7 @@ using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class JoinRoomBTN : MonoBehaviourPunCallbacks
+public class JoinRoomBTN : MonoBehaviour
 {
     public int min;
     public int max;

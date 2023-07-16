@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4826408432039378527}
   - component: {fileID: 7286313663696784021}
   - component: {fileID: 2093175236209393841}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_SMG_01_Scope_Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,8 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9087934040330693440}
-  m_LocalRotation: {x: 2.0695484e-15, y: 0.000000026077025, z: 0.0000000063187695,
-    w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.033117864, z: -0.07543528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -95,9 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262a90da45c94c348be144e6130ec77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScopeID: 0
-  multiplierMouseSensitivity: 0.8
-  multiplierSpread: 1
+  WeaponAttachmentData: {fileID: 11400000, guid: 30c4b299ddbc7b244aa20063a900ab60,
+    type: 2}
+  multiplierMouseSensitivity: 1
   sprite: {fileID: 21300000, guid: c26bf01c46a5629408398acf1d31ba1d, type: 3}
   BTNspriteB: {fileID: 21300000, guid: b555af8e6680e974e82e91b3fd663562, type: 3}
   BTNspriteD: {fileID: 21300000, guid: ab356d6eb94914e48ba02ea5d54247c8, type: 3}

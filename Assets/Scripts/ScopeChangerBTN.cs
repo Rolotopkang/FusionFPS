@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using InfimaGames.LowPolyShooterPack;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,9 @@ public class ScopeChangerBTN : MonoBehaviour
     [Tooltip("配件ID")]
     [SerializeField]
     public int attachmentID;
+
+    [SerializeField]
+    public TextMeshProUGUI NumInfo;
 
     [Header("资源")]
 
@@ -90,6 +94,10 @@ public class ScopeChangerBTN : MonoBehaviour
 
     public void BTN_Pressed()
     {
+        if (isChecked)
+        {
+            return;
+        }
         ButtonGroup.BTN_Pressed();
         isChecked = true;
         CharacterBehaviour.ChangeAttachment(attachmentKind,attachmentID);

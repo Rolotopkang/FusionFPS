@@ -237,7 +237,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                 new UIKillFeedBackRoom.RoomKillMes(
                     tmp_deathPlayer.NickName,
                     tmp_deathPlayer.Equals(PhotonNetwork.LocalPlayer)? Color.green : 
-                    StaticTools.IsEnemy(PhotonNetwork.LocalPlayer,tmp_KillFrom)? Color.red : 
+                    StaticTools.IsEnemy(PhotonNetwork.LocalPlayer,tmp_deathPlayer)? Color.red : 
                     new Color(0,1,1),
                     tmp_KillWeapon,
                     tmp_headShot,
@@ -245,6 +245,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
                      tmp_KillFrom.Equals(PhotonNetwork.LocalPlayer)? Color.green : 
                      StaticTools.IsEnemy(PhotonNetwork.LocalPlayer,tmp_KillFrom)? Color.red : 
                      new Color(0,1,1)));
+            Debug.Log( tmp_deathPlayer.GetPhotonTeam()+ "队伍的" +tmp_deathPlayer.NickName +"被" + tmp_KillFrom.GetPhotonTeam()+"队伍的"+ tmp_KillFrom.NickName +"击杀");
         }
     }
 

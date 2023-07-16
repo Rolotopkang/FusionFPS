@@ -56,6 +56,8 @@ public class  WeaponData : ScriptableObject
     [SerializeField]
     public int roundsPerMinutes = 200;
     
+    [Tooltip("初始携带弹药量")]
+    public int MaxAmmunition = 150;
 
     [Tooltip(
         "Maximum distance at which this weapon can fire accurately. Shots beyond this distance will not use linetracing for accuracy.")]
@@ -119,6 +121,12 @@ public class  WeaponData : ScriptableObject
 
     [Tooltip("Reload Close Audio Clip.")] [SerializeField]
     public AudioClip audioClipReloadClose;
+
+    [SerializeField]
+    public AudioClip audioClipFire;
+
+    [SerializeField]
+    public AudioClip audioClipFireMuzzle;
 
     [Header("Audio Clips Other")]
     [Tooltip("AudioClip played when this weapon is fired without any ammunition.")]

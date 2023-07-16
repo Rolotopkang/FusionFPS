@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using ExitGames.Client.Photon;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -31,6 +32,15 @@ namespace InfimaGames.LowPolyShooterPack
         
         #region FIELDS SERIALIZED
 
+        [SerializeField]
+        private GameObject GO_SOCKET_Scope;
+        [SerializeField]
+        private GameObject GO_SOCKET_Muzzle;
+        [SerializeField]
+        private GameObject GO_SOCKET_Grip;
+        [SerializeField]
+        private GameObject GO_SOCKET_Magazine;
+        
         [Header("Scope")]
 
         [Tooltip("Determines if the ironsights should be shown on the weapon model.")]
@@ -117,6 +127,11 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         protected override void Awake()
         {
+            scopeArray = GO_SOCKET_Scope.GetComponentsInChildren<ScopeBehaviour>(); 
+            muzzleArray = GO_SOCKET_Muzzle.GetComponentsInChildren<MuzzleBehaviour>(); 
+            gripArray = GO_SOCKET_Grip.GetComponentsInChildren<GripBehaviour>(); 
+            magazineArray = GO_SOCKET_Magazine.GetComponentsInChildren<MagazineBehaviour>(); 
+            
             GameObject tmp_ChangerUI = Instantiate(ChangerUI,changerUITransform,changerUIQuaternion,transform.GetChild(0).GetChild(0));
             tmp_ChangerUI.transform.localPosition = changerUITransform;
             tmp_ChangerUI.transform.localRotation = changerUIQuaternion;

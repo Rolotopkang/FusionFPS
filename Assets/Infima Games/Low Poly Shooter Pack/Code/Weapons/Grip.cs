@@ -36,7 +36,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override WeaponAttachmentData GetWeaponAttachmentData() => WeaponAttachmentData;
 
-
+        public override string GetName() => WeaponAttachmentData.AttachmentName;
         public override int GetID() => WeaponAttachmentData.AttachmentID;
 
         public override Sprite GetSprite() => WeaponAttachmentData.sprite;

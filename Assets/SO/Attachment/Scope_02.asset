@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scope_02
   m_EditorClassIdentifier: 
   AttachmentID: 2
-  AttachmentName: "\u7EA2\u70B9\u7784\u51C6\u955C"
+  AttachmentName: "\u4E00\u500D\u5F00\u653E\u578B\u7EA2\u70B9\u955C"
   AdvantageDiscriptions: "\u589E\u52A0\u5C04\u901F"
   DisadvantageDiscriptions: "\u51CF\u5C11\u5B50\u5F39\u98DE\u884C\u901F\u5EA6"
   DamageAlpha: 1
@@ -21,13 +21,10 @@ MonoBehaviour:
   FlySpeedAlpha: 0.9
   VerticalRecoilAlpha: 1
   HorizentalRecoilAlpha: 1
-  ADSSpreadAlpha: 1
+  ADSSpreadAlpha: 0.2
   HipShotSpreadAlpha: 1
   MovSpreadAlpha: 1
-  fieldOfViewMultiplierAim: 0.75
-  fieldOfViewMultiplierAimWeapon: 1
-  multiplierMouseSensitivity: 1
-  T_ADSTimeAlpha: 1.1
+  T_ADSTimeAlpha: 1.5
   T_SwitchGunAlpha: 1
   T_ReloadAlpha: 1
   sprite: {fileID: 21300000, guid: 0e7f7770865ee0344a6742ba4edf8466, type: 3}

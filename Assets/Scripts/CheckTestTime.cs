@@ -71,7 +71,8 @@ public class CheckTestTime : MonoBehaviour
         }
         else
         {
-            UI_Error.GetInstance().OpenUI_NetWorkWarning();
+            UI_Error.GetInstance().OpenErrorUI("测试时间已过，请删除包体","退出",
+                UI_Error.GetInstance().Exit);
             yield break;
         }
         CheckTime();

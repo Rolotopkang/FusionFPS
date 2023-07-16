@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Muzzle_D
   m_EditorClassIdentifier: 
   AttachmentID: 0
-  AttachmentName: 
+  AttachmentName: "\u539F\u5382\u67AA\u53E3"
   AdvantageDiscriptions: 
   DisadvantageDiscriptions: 
   DamageAlpha: 1

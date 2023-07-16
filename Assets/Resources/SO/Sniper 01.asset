@@ -19,137 +19,18 @@ MonoBehaviour:
   automatic: 0
   boltAction: 1
   shotCount: 1
-  spread: 6
-  spreadSpeedTimer: 25
+  spread: 0.5
+  spreadSpeedTimer: 5
   firstBulletAcc: 1
-  recoilCurves:
-  - serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 10.056011
-      value: 10.666596
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 14.641337
-      value: 3.1260266
-      inSlope: -0.060758334
-      outSlope: -0.060758334
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.06786709
-    - serializedVersion: 3
-      time: 50
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 0
-    m_PostInfinity: 0
-    m_RotationOrder: 0
-  - serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 5.9135284
-      value: 1.8132787
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 10.39763
-      value: -1.0833639
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 17.08466
-      value: 8.685807
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 24.25714
-      value: -9.459475
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 31.990643
-      value: 9.270323
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 40.5086
-      value: -10
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 50
-      value: 10
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 0
-    m_PostInfinity: 0
-    m_RotationOrder: 0
-  recoilTimer: 0.02
   recoilReturnTime: 0.3
-  projectileImpulse: 400
-  DMG: 10
+  projectileImpulse: 500
+  DMG: 80
   roundsPerMinutes: 125
+  MaxAmmunition: 999
   maximumDistance: 500
   cycledReload: 1
   canReloadWhenFull: 0
-  automaticReloadOnEmpty: 1
+  automaticReloadOnEmpty: 0
   automaticReloadOnEmptyDelay: 0.25
   weaponOffsets:
     standingLocation: {x: 0, y: 0, z: 0}
@@ -193,6 +74,8 @@ MonoBehaviour:
     type: 3}
   audioClipReloadClose: {fileID: 8300000, guid: 728f3240a486d8646ad6c8cb1a9cd878,
     type: 3}
+  audioClipFire: {fileID: 8300000, guid: 9725f166fab506e45a16924306480f26, type: 3}
+  audioClipFireMuzzle: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732, type: 3}
   audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 8300000, guid: 9437d90133cd4ff41b81629b342d38c9, type: 3}
   DeployB: {fileID: 21300000, guid: b113200652f73a545810a1de8ef91891, type: 3}

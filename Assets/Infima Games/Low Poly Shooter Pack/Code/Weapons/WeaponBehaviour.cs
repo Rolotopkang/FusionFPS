@@ -34,6 +34,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         #region GETTERS
 
+        public abstract int GetWeaponID();
         /// <summary>
         /// Returns the sprite to use when displaying the weapon's body.
         /// </summary>
@@ -151,6 +152,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public abstract float GetRateOfFire();
 
+        public abstract int GetLeftAmmunition();
+
         /// <summary>
         /// Returns the weapon's animation offsets.
         /// </summary>
@@ -192,7 +195,10 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract float GetSwaySmoothValue();
 
         public abstract MagazineBehaviour GetMagazineBehaviour();
-        
+
+        public abstract bool CanReload();
+
+        public abstract void AmmunitionBack();
         #endregion
 
         #region METHODS
