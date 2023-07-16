@@ -5003,6 +5003,8 @@ MonoBehaviour:
     m_Options:
     - m_Text: "\u65E7\u6838\u5F39\u5C0F\u9547"
       m_Image: {fileID: 21300000, guid: 39f9f5af9b830924eb0c3611a90dc3ce, type: 3}
+    - m_Text: "\u6D4B\u8BD5\u5730\u56FE1"
+      m_Image: {fileID: 21300000, guid: 39f9f5af9b830924eb0c3611a90dc3ce, type: 3}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
