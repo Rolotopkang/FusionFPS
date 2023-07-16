@@ -1,5 +1,7 @@
 ﻿using System;
 using DotNetty.Transport.Channels;
+using InfimaGames.LowPolyShooterPack.Interface;
+using Photon.Pun;
 using UnityEngine;
 
 namespace UnityTemplateProjects.DBServer.NetWork
@@ -41,12 +43,30 @@ namespace UnityTemplateProjects.DBServer.NetWork
         public override void ChannelInactive(IChannelHandlerContext context)
         {
             Debug.Log("通道"+context.Name+"关闭:"+context.Channel.RemoteAddress);
+            Debug.LogFormat("Server {0} is offline", context.Channel.RemoteAddress);
+            context.CloseAsync();
+            UnityMainThreadDispatcher.GetInstance().Enqueue((() =>
+                    {
+                        if (PhotonNetwork.InRoom)
+                        {
+                            In_Game_SettingsMenu.GetInstance().Quit();
+                        }
+                        UI_Error.GetInstance().OpenErrorUI("服务器连接异常断开","退出", () =>
+                        {
+                            UI_Error.GetInstance().Exit();
+                        });
+                    }
+                ));
         }
 
         public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
         {
             UnityMainThreadDispatcher.GetInstance().Enqueue(() =>
                     {
+                        if (PhotonNetwork.InRoom)
+                        {
+                            In_Game_SettingsMenu.GetInstance().Quit();
+                        }
                         UI_Error.GetInstance().OpenErrorUI("服务器已下线","退出", () =>
                         {
                             UI_Error.GetInstance().Exit();

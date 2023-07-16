@@ -119,10 +119,18 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                 return;
             }
 
+            if (GetInPointBlueTeamsNum() != 0 && GetInPointRedTeamsNum() != 0)
+            {
+                isScrambling = true;
+            }
+            else
+            {
+                isScrambling = false;
+            }
+
             //点内人数一样多
             if (GetInPointBlueTeamsNum() == GetInPointRedTeamsNum())
             {
-                isScrambling = true;
                 isOccupying = false;
                 return;
             }
@@ -135,7 +143,7 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                     if (GetInPointBlueTeamsNum() != GetInPointRedTeamsNum())
                     {
                         int tmp_gip = GetInPointBlueTeamsNum() - GetInPointRedTeamsNum();
-                        isScrambling = false;
+
                         isOccupying = true;
                         occupyProgress += tmp_gip * ConquestPointManager.GetInstance().occupySpeed * Time.deltaTime;
                         if (Mathf.Abs(occupyProgress) >= 1)
@@ -158,7 +166,6 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                         if (GetInPointBlueTeamsNum() > GetInPointRedTeamsNum())
                         {
                             isOccupying = true;
-                            isScrambling = false;
                             int tmp_gip = GetInPointBlueTeamsNum() - GetInPointRedTeamsNum();
                             occupyProgress += tmp_gip * ConquestPointManager.GetInstance().occupySpeed * Time.deltaTime;
                             if (occupyProgress >= 0)
@@ -169,7 +176,6 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                         else
                         {
                             isOccupying = false;
-                            isScrambling = GetInPointBlueTeamsNum() != 0;
                         }
                     }
 
@@ -183,7 +189,6 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                         if (GetInPointBlueTeamsNum() < GetInPointRedTeamsNum())
                         {
                             isOccupying = true;
-                            isScrambling = false;
                             int tmp_gip = GetInPointBlueTeamsNum() - GetInPointRedTeamsNum();
                             occupyProgress += tmp_gip * ConquestPointManager.GetInstance().occupySpeed * Time.deltaTime;
                             if (occupyProgress <= 0)
@@ -194,7 +199,6 @@ public class ConquestPoint : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
                         else
                         {
                             isOccupying = false;
-                            isScrambling = GetInPointRedTeamsNum() != 0;
                         }
                     }
 

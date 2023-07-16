@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using DefaultNamespace;
 using DotNetty.Buffers;
 using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityTemplateProjects.DBServer.NetMsg;
@@ -19,35 +21,56 @@ namespace UnityTemplateProjects.DBServer.NetWork
         
         private IChannel channel;
         private MultithreadEventLoopGroup group;
+        private Bootstrap currentBootstrap;
 
         public async void Connect()
         {
-            group = new MultithreadEventLoopGroup();
-
             try
             {
-                var bootstrap = new Bootstrap()
-                    .Group(group)
+                // Debug.Log(@group== null);
+                // Debug.Log(channel == null);
+                // Debug.Log(currentBootstrap == null);
+
+                group ??= new MultithreadEventLoopGroup();
+                currentBootstrap ??= new Bootstrap()
+                    .Group(@group)
                     .Channel<TcpSocketChannel>()
                     .Option(ChannelOption.TcpNodelay, true)
                     .Handler(new DotNettyClientInitializer(this));
-
-
-                channel = await bootstrap.ConnectAsync
+                channel = await currentBootstrap.ConnectAsync
                     (new IPEndPoint(
                         IPAddress.Parse(HostIP), HostPort));
+                Debug.Log("连接服务器成功");
             }
             catch (Exception ex)
             {
                 Debug.LogError(ex.Message);
-                UI_Error.GetInstance().OpenErrorUI("无法连接至数据库服务器","重试", () =>
+                Close();
+                UI_Error.GetInstance().OpenErrorUI("无法连接至数据库服务器","退出", () =>
                 {
-                    UI_Error.GetInstance().CloseUI();
-                    Connect();
+                    UI_Error.GetInstance().Exit();
+                    // UI_Error.GetInstance().CloseUI();
+                    // Connect();
                 });
             }
         }
-        
+
+        private void Close()
+        {
+            if (channel != null)
+            {
+                Debug.Log("关通道！");
+                channel.CloseAsync();
+                channel = null;
+            }
+
+            if (group != null)
+            {
+                group.ShutdownGracefullyAsync();
+                group = null;
+            }
+        }
+
         public void SendData(NetMessage netMessage)
         {
             if (channel != null && channel.Active)

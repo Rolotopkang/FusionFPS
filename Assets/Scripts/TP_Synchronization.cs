@@ -22,30 +22,45 @@ public class TP_Synchronization : MonoBehaviourPun
 
     public void Shoot()
     {
-        //除了本地以外执行第三人称射击
-        photonView.RPC("RPC_Shoot", RpcTarget.Others);
+        if (photonView != null)
+        {
+            //除了本地以外执行第三人称射击
+            photonView.RPC("RPC_Shoot", RpcTarget.Others);
+        }
     }
 
     public void InstantiateProjectile(Vector3 transform,Quaternion rotation,float projectileImpulse)
     {
-        photonView.RPC("RPC_InstantiateProjectile", RpcTarget.Others,transform,rotation,projectileImpulse);
+        if (photonView != null)
+        {
+            photonView.RPC("RPC_InstantiateProjectile", RpcTarget.Others,transform,rotation,projectileImpulse);
+        }
     }
 
     public void Reload()
     {
-        //除了本地以外执行第三人称换弹
-        photonView.RPC("RPC_Reload", RpcTarget.Others);
+        if (photonView != null)
+        {
+            //除了本地以外执行第三人称换弹
+            photonView.RPC("RPC_Reload", RpcTarget.Others);
+        }
     }
 
     public void ReloadOutOf()
     {
-        //除了本地以外执行第三人称换弹
-        photonView.RPC("RPC_ReloadOutOf", RpcTarget.Others);
+        if (photonView != null)
+        {
+            //除了本地以外执行第三人称换弹
+            photonView.RPC("RPC_ReloadOutOf", RpcTarget.Others);
+        }
     }
 
     public void ReloadOpen()
     {
-        photonView.RPC("RPC_ReloadOpen",RpcTarget.Others);
+        if (photonView != null)
+        {
+            photonView.RPC("RPC_ReloadOpen",RpcTarget.Others);
+        }
     }
 
     [PunRPC]

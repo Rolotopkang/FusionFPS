@@ -49,7 +49,7 @@ public class CreateRoomManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.CreateRoom(
-            roomName.text.Equals(String.Empty) ? PhotonNetwork.LocalPlayer.NickName + "'s room" : roomName.text,
+            roomName.text.Equals(String.Empty) ? "" : roomName.text,
             roomOptions, TypedLobby.Default);
     }
 

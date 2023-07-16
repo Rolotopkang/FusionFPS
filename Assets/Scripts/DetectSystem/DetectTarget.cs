@@ -26,6 +26,11 @@ public class DetectTarget : MonoBehaviour
 
     private void Start()
     {
+        //重置
+        Hashtable hash = new Hashtable();
+        hash.Add(EnumTools.PlayerProperties.IsDetected.ToString(),false);
+        PhotonView.Owner.SetCustomProperties(hash);
+        
         currentGamemode = RoomManager.GetInstance().currentGamemode;
         switch (currentGamemode)
         {
