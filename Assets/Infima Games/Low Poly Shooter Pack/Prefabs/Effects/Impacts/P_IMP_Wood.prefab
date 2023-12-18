@@ -33566,7 +33566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1ff595cafaf634c8876e79d424183b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  despawnTimer: 2
+  despawnTimer: 5
   impactSounds:
   - {fileID: 8300000, guid: 172f576bc4226094180d5993f9325d57, type: 3}
   - {fileID: 8300000, guid: ead9439cc21260d44b99cc5037814e27, type: 3}
