@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 5458643541292538786}
   - component: {fileID: 4530996834211516048}
   - component: {fileID: 428552716704493812}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: P_LPSP_FP_CH
   m_TagString: Player
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -313,6 +313,7 @@ MonoBehaviour:
   grenadePrefab: {fileID: 1948591290861370, guid: 7b04fe350ed10a741a1e245447860d9e,
     type: 3}
   knife: {fileID: 4839845910020965219}
+  MeleeDistance: 1.5
   cameraWorld: {fileID: 2937804146979999265}
   cameraDepth: {fileID: 8972031304953816062}
   dampTimeTurning: 0.4
@@ -2264,6 +2265,50 @@ Transform:
   m_Father: {fileID: 832711208442572950}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.07386219, y: 0.08912443, z: -74.06034}
+--- !u!1 &2258111666941663913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4102314548535253670}
+  - component: {fileID: 7116493737420484602}
+  m_Layer: 17
+  m_Name: MeleeBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4102314548535253670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2258111666941663913}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9213160678828289526}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7116493737420484602
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2258111666941663913}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5690366, y: 1.8133583, z: 1}
+  m_Center: {x: -0.0056646466, y: 0.90025854, z: 0}
 --- !u!1 &2259791359692921592
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,6 +2337,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4016144583633864946}
+  - {fileID: 4102314548535253670}
   m_Father: {fileID: 3352235458732541139}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8290,6 +8336,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74aca7fe48489a4799606021e06ad5e, type: 3}
+--- !u!4 &6181232706914167373 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1583202327145144684, guid: f74aca7fe48489a4799606021e06ad5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4625351046979111713}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6181232706914167374 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1583202327145144687, guid: f74aca7fe48489a4799606021e06ad5e,
@@ -8302,12 +8354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c368290cc3e914ab3a0cf540de2166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6181232706914167373 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1583202327145144684, guid: f74aca7fe48489a4799606021e06ad5e,
-    type: 3}
-  m_PrefabInstance: {fileID: 4625351046979111713}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8268396188743661059
 PrefabInstance:
   m_ObjectHideFlags: 0

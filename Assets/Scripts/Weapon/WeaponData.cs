@@ -127,6 +127,12 @@ public class  WeaponData : ScriptableObject
 
     [SerializeField]
     public AudioClip audioClipFireMuzzle;
+    
+    [SerializeField]
+    public AudioClip[] audioClipMelee;
+    
+    [SerializeField]
+    public AudioClip[] audioClipGrenadeThrow;
 
     [Header("Audio Clips Other")]
     [Tooltip("AudioClip played when this weapon is fired without any ammunition.")]

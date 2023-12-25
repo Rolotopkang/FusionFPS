@@ -28,6 +28,7 @@ TagManager:
   - CMBrain
   - Water
   - DetectTarget
+  - World
   layers:
   - Default
   - TransparentFX
@@ -46,7 +47,7 @@ TagManager:
   - Invisible Wall
   - Projectile
   - TP_CH
-  - 
+  - TouchLayer
   - 
   - 
   - 

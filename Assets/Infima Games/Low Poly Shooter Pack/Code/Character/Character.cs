@@ -3,13 +3,18 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Numerics;
+using ExitGames.Client.Photon;
 using InfimaGames.LowPolyShooterPack.Interface;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine.InputSystem;
 using UnityTemplateProjects.MultiplayerScripts;
+using EventCode = Scripts.Weapon.EventCode;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -57,6 +62,9 @@ namespace InfimaGames.LowPolyShooterPack
 		[Tooltip("Knife GameObject.")]
 		[SerializeField]
 		private GameObject knife;
+
+		[SerializeField]
+		private float MeleeDistance = 1.5f;
 
 		[Header("Cameras")]
 
@@ -181,6 +189,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Holster Layer Index. Used to play holster animations.
 		/// </summary>
 		private int layerHolster;
+		
 		/// <summary>
 		/// Actions Layer Index. Used to play actions like reloading.
 		/// </summary>
@@ -1111,7 +1120,62 @@ namespace InfimaGames.LowPolyShooterPack
 			FPCharacterAnimator.CrossFade("Knife Attack", 0.05f,
 				FPCharacterAnimator.GetLayerIndex("Layer Actions Arm Right"), 0.0f);
 		}
-		
+
+		/// <summary>
+		/// 近战攻击
+		/// </summary>
+		public override void Melee()
+		{
+			Ray MeleeRay = cameraWorld.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+			Debug.DrawRay(MeleeRay.origin,MeleeRay.direction * MeleeDistance,Color.green);
+			
+			RaycastHit[] hit;
+			Debug.Log("try");
+			if (Physics.Raycast(MeleeRay.origin,MeleeRay.direction, MeleeDistance,1<<17))
+			{
+				hit = Physics.RaycastAll(MeleeRay.origin, MeleeRay.direction,  MeleeDistance,1<<17);
+				Player TargetPlayer = hit[0].transform.GetComponentInParent<PhotonView>().Owner;
+
+				if (!RoomManager.GetInstance().isFriendlyFire())
+				{
+					if (!StaticTools.IsEnemy(TargetPlayer, PhotonNetwork.LocalPlayer))
+					{
+						return;
+					}
+				}
+
+				if (TargetPlayer.CustomProperties[EnumTools.PlayerProperties.IsDeath.ToString()].Equals(true))
+				{ 
+					Debug.Log("角色已经死亡"); return;
+				}
+				
+				Dictionary<byte, object> tmp_HitData = new Dictionary<byte, object>();
+				//被击中人
+				tmp_HitData.Add(0,TargetPlayer);
+				//造成伤害人
+				tmp_HitData.Add(1,PhotonNetwork.LocalPlayer);
+				//造成伤害人武器
+				tmp_HitData.Add(2,"Melee");
+				//造成伤害
+				tmp_HitData.Add(3,70f);
+				//是否爆头
+				tmp_HitData.Add(4,false);
+				//伤害来源点
+				tmp_HitData.Add(5,transform.position);
+				//造成伤害时间戳
+				tmp_HitData.Add(6,DateTime.Now.ToUniversalTime().Ticks);
+				
+				RaiseEventOptions tmp_RaiseEventOptions = new RaiseEventOptions() {Receivers = ReceiverGroup.All};
+				SendOptions tmp_SendOptions = SendOptions.SendReliable;
+				PhotonNetwork.RaiseEvent(
+					(byte)EventCode.HitPlayer,
+						tmp_HitData,
+						tmp_RaiseEventOptions,
+						tmp_SendOptions);
+				Debug.Log("发送击中事件！");
+			}
+		}
+
 		/// <summary>
 		/// Changes the value of bolting, and updates the animator.
 		/// </summary>
@@ -1676,7 +1740,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryMelee(InputAction.CallbackContext context)
 		{
-			return;
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.

@@ -114,10 +114,10 @@ namespace InfimaGames.LowPolyShooterPack
             //Switch.
             AudioClip clip = soundType switch
             {
-                // //Grenade Throw.
-                // SoundType.GrenadeThrow => playerCharacter.GetAudioClipsGrenadeThrow().GetRandom(),
-                // //Melee.
-                // SoundType.Melee => playerCharacter.GetAudioClipsMelee().GetRandom(),
+                //Grenade Throw.
+                SoundType.GrenadeThrow =>  _infoService.GetWeaponInfoFromName("Grenade").audioClipMelee.GetRandom(),
+                //Melee.
+                SoundType.Melee => _infoService.GetWeaponInfoFromName("Melee").audioClipMelee.GetRandom(),
                 
                 //Holster.
                 SoundType.Holster => weaponData.audioClipHolster,

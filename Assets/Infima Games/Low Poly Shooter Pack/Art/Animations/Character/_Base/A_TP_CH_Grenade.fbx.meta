@@ -1,17 +1,11 @@
 fileFormatVersion: 2
-guid: 038497986a540464ba04b899883cbbbf
+guid: 27d418f3317cbe347b2ef183f4d49c4c
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: -623603649343465320
-    second: Scene
-  - first:
-      74: -203655887218126122
-    second: A_TP_CH_Throw_Right
-  - first:
-      74: -3780516532778130023
-    second: mixamo.com (1)
+      74: -5005298213620940126
+    second: A_TP_CH_GRENADE
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -41,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: A_TP_CH_Throw_Right
-      takeName: mixamo.com
+      name: A_TP_CH_GRENADE
+      takeName: Armature|Armature|Scene
       internalID: 0
       firstFrame: 0
-      lastFrame: 59
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -69,10 +63,10 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.01
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
