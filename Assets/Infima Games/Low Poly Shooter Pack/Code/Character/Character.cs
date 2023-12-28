@@ -1183,6 +1183,7 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Update.
 			FPCharacterAnimator.SetBool(HashBoltAction, bolting = value);
+			TPCharacterAnimator.SetBool(HashBoltAction, bolting = value);
 		}
 		/// <summary>
 		/// Updates the "Holstered" variable, along with the Character's Animator value.

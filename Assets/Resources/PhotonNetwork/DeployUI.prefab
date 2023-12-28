@@ -3188,7 +3188,7 @@ MonoBehaviour:
   - {fileID: 8795432344671297823}
   - {fileID: 4210862614516355135}
   - {fileID: 5077986552101644979}
-  IsSetting: 0
+  aotoShowFirstPage: 1
 --- !u!1 &4210862614875676966
 GameObject:
   m_ObjectHideFlags: 0
@@ -5546,7 +5546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDown: 0
-  ItemName: Sniper 01
+  ItemName: ShotGun 01
   ShowName: Sniper
   BTB: {fileID: 21300000, guid: b113200652f73a545810a1de8ef91891, type: 3}
   BTD: {fileID: 21300000, guid: 55bb91aee41baa5429f4bceaeb39141a, type: 3}

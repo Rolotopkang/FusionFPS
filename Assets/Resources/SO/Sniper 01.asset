@@ -18,7 +18,7 @@ MonoBehaviour:
   multiplierMovementSpeed: 0.8
   automatic: 0
   boltAction: 1
-  shotCount: 1
+  shotCount: 8
   spread: 0.5
   spreadSpeedTimer: 5
   firstBulletAcc: 1
@@ -76,6 +76,8 @@ MonoBehaviour:
     type: 3}
   audioClipFire: {fileID: 8300000, guid: 9725f166fab506e45a16924306480f26, type: 3}
   audioClipFireMuzzle: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732, type: 3}
+  audioClipMelee: []
+  audioClipGrenadeThrow: []
   audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 8300000, guid: 9437d90133cd4ff41b81629b342d38c9, type: 3}
   DeployB: {fileID: 21300000, guid: b113200652f73a545810a1de8ef91891, type: 3}
