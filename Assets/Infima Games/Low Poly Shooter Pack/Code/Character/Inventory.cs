@@ -26,6 +26,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private int equippedIndex = -1;
 
+        private int currentSlotIndex = 1;
+
 
         /// <summary>
         /// 主武器
@@ -38,10 +40,13 @@ namespace InfimaGames.LowPolyShooterPack
 
         [SerializeField]
         private InventoryState inventoryState;
+
+        [SerializeField] private int InventorySlotMaxNum = 2;
         enum InventoryState
         {
             MainWeapon,
-            SecWeapon
+            SecWeapon,
+            item,
         }
         
         #endregion
@@ -69,6 +74,7 @@ namespace InfimaGames.LowPolyShooterPack
                 }
 
                 inventoryState = InventoryState.MainWeapon;
+                currentSlotIndex = 1;
                 Equip(GetIndexByWeaponBehaviour(MainWeapon));
             }
         }
@@ -115,15 +121,50 @@ namespace InfimaGames.LowPolyShooterPack
         #region Getters
 
         
-        public override int ChangeWeapon()
+        public override int ChangeWeapon(int index)
         {
-            if (equippedIndex.Equals(GetIndexByWeaponBehaviour(MainWeapon)))
+            if (index == -1)
             {
-                return GetIndexByWeaponBehaviour(SecWeapon);
+                currentSlotIndex--;
+                if (currentSlotIndex <= 0)
+                {
+                    currentSlotIndex = InventorySlotMaxNum;
+                }
+                index = currentSlotIndex;
             }
             
+            if (index == 0)
+            {
+                currentSlotIndex++;
+                if (currentSlotIndex > InventorySlotMaxNum)
+                {
+                    currentSlotIndex = 1;
+                }
+                index = currentSlotIndex;
+            }
+
+            switch (index)
+            {
+                case 1:
+                    currentSlotIndex = 1;
+                    inventoryState = InventoryState.MainWeapon;
+                    return GetIndexByWeaponBehaviour(MainWeapon);
+                case 2:
+                    currentSlotIndex = 2;
+                    inventoryState = InventoryState.SecWeapon;
+                    return GetIndexByWeaponBehaviour(SecWeapon);
+                case 3:
+                    currentSlotIndex = 3;
+                    inventoryState = InventoryState.item;
+                    
+                    break;
+                case 4:
+                    currentSlotIndex = 4;
+                    break;
+            }
             return GetIndexByWeaponBehaviour(MainWeapon);
         }
+
 
         public override WeaponBehaviour GetEquipped() => equipped;
         public override WeaponBehaviour GetMainWeapon() => MainWeapon;

@@ -30,117 +30,78 @@ namespace InfimaGames.LowPolyShooterPack
 		#region FIELDS SERIALIZED
 
 		[Header("Inventory")]
-		
 		[Tooltip("Determines the index of the weapon to equip when the game starts.")]
 		[SerializeField]
 		private int weaponIndexEquippedAtStart;
-		
-		[Tooltip("Inventory.")]
-		[SerializeField]
+
+		[Tooltip("Inventory.")] [SerializeField]
 		private InventoryBehaviour inventory;
 
-		[Header("Grenade")]
-
-		[Tooltip("If true, the character's grenades will never run out.")]
-		[SerializeField]
+		[Header("Grenade")] [Tooltip("If true, the character's grenades will never run out.")] [SerializeField]
 		private bool grenadesUnlimited;
 
-		[Tooltip("Total amount of grenades at start.")]
-		[SerializeField]
+		[Tooltip("Total amount of grenades at start.")] [SerializeField]
 		private int grenadeTotal = 10;
-		
-		[Tooltip("Grenade spawn offset from the character's camera.")]
-		[SerializeField]
+
+		[Tooltip("Grenade spawn offset from the character's camera.")] [SerializeField]
 		private float grenadeSpawnOffset = 1.0f;
-		
-		[Tooltip("Grenade Prefab. Spawned when throwing a grenade.")]
-		[SerializeField]
+
+		[Tooltip("Grenade Prefab. Spawned when throwing a grenade.")] [SerializeField]
 		private GameObject grenadePrefab;
-		
-		[Header("Knife")]
-		
-		[Tooltip("Knife GameObject.")]
-		[SerializeField]
+
+		[Header("Knife")] [Tooltip("Knife GameObject.")] [SerializeField]
 		private GameObject knife;
 
-		[SerializeField]
-		private float MeleeDistance = 1.5f;
+		[SerializeField] private float MeleeDistance = 1.5f;
 
-		[Header("Cameras")]
-
-		[Tooltip("Normal Camera.")]
-		[SerializeField]
+		[Header("Cameras")] [Tooltip("Normal Camera.")] [SerializeField]
 		private Camera cameraWorld;
 
-		[Tooltip("Weapon-Only Camera. Depth.")]
-		[SerializeField]
+		[Tooltip("Weapon-Only Camera. Depth.")] [SerializeField]
 		private Camera cameraDepth;
 
-		[Header("Animation")]
-		
-		[Tooltip("Determines how smooth the turning animation is.")]
-		[SerializeField]
+		[Header("Animation")] [Tooltip("Determines how smooth the turning animation is.")] [SerializeField]
 		private float dampTimeTurning = 0.4f;
 
-		[Tooltip("Determines how smooth the locomotion blendspace is.")]
-		[SerializeField]
+		[Tooltip("Determines how smooth the locomotion blendspace is.")] [SerializeField]
 		private float dampTimeLocomotion = 0.15f;
 
-		[Tooltip("How smoothly we play aiming transitions. Beware that this affects lots of things!")]
-		[SerializeField]
+		[Tooltip("How smoothly we play aiming transitions. Beware that this affects lots of things!")] [SerializeField]
 		private float dampTimeAiming = 0.3f;
 
-		[SerializeField]
-		private float dampTimeScopeChange = 0.3f;
+		[SerializeField] private float dampTimeScopeChange = 0.3f;
 
-		[Tooltip("Interpolation speed for the running offsets.")]
-		[SerializeField]
+		[Tooltip("Interpolation speed for the running offsets.")] [SerializeField]
 		private float runningInterpolationSpeed = 12.0f;
 
-		[Tooltip("Determines how fast the character's weapons are aimed.")]
-		[SerializeField]
+		[Tooltip("Determines how fast the character's weapons are aimed.")] [SerializeField]
 		private float aimingSpeedMultiplier = 1.0f;
-		
-		[Header("Animation Procedural")]
 
-		[Tooltip("Weapon Bone.")]
-		[SerializeField]
+		[Header("Animation Procedural")] [Tooltip("Weapon Bone.")] [SerializeField]
 		private Transform boneWeapon;
-		
-		[Tooltip("Character Animator.")]
-		[SerializeField]
+
+		[Tooltip("Character Animator.")] [SerializeField]
 		private Animator FPCharacterAnimator;
-		[SerializeField]
-		private Animator TPCharacterAnimator;
 
-		[SerializeField]
-		private bool enableWeaponSway = true;
+		[SerializeField] private Animator TPCharacterAnimator;
 
-		[SerializeField]
-		private float weaponSwaySmoothValueInput = 8.0f;
+		[SerializeField] private bool enableWeaponSway = true;
 
-		[Header("Field Of View")]
+		[SerializeField] private float weaponSwaySmoothValueInput = 8.0f;
 
-		[Tooltip("Normal world field of view.")]
-		[SerializeField]
+		[Header("Field Of View")] [Tooltip("Normal world field of view.")] [SerializeField]
 		private float fieldOfView = 100.0f;
 
-		[Tooltip("Multiplier for the field of view while running.")]
-		[SerializeField]
+		[Tooltip("Multiplier for the field of view while running.")] [SerializeField]
 		private float fieldOfViewRunningMultiplier = 1.05f;
 
-		[Tooltip("Weapon-specific field of view.")]
-		[SerializeField]
+		[Tooltip("Weapon-specific field of view.")] [SerializeField]
 		private float fieldOfViewWeapon = 55.0f;
 
-		[Header("Audio Clips")]
-		
-		[Tooltip("Melee Audio Clips.")]
-		[SerializeField]
+		[Header("Audio Clips")] [Tooltip("Melee Audio Clips.")] [SerializeField]
 		private AudioClip[] audioClipsMelee;
 
-		[Tooltip("Grenade Throw Audio Clips.")]
-		[SerializeField]
+		[Tooltip("Grenade Throw Audio Clips.")] [SerializeField]
 		private AudioClip[] audioClipsGrenadeThrow;
 
 		#endregion
@@ -150,46 +111,53 @@ namespace InfimaGames.LowPolyShooterPack
 		/// <summary>
 		/// True if the character is aiming.
 		/// </summary>
-		private bool aiming;	
+		private bool aiming;
+
 		/// <summary>
 		/// Last Frame's Aiming Value.
 		/// </summary>
 		private bool wasAiming = false;
+
 		/// <summary>
 		/// 正在更换配件
 		/// </summary>
 		private bool scopeChanging;
+
 		/// <summary>
 		/// 曾经更换配件
 		/// </summary>
 		private bool wasscopeChanging;
+
 		/// <summary>
 		/// True if the character is running.
 		/// </summary>
 		private bool running;
+
 		/// <summary>
 		/// True if the character has its weapon holstered.
 		/// </summary>
 		private bool holstered;
-		
+
 		/// <summary>
 		/// Last Time.time at which we shot.
 		/// </summary>
 		private float lastShotTime;
-		
+
 		/// <summary>
 		/// Overlay Layer Index. Useful for playing things like firing animations.
 		/// </summary>
 		private int layerOverlay;
+
 		/// <summary>
 		/// TP Overlay Layer Index. Useful for playing things like firing animations.
 		/// </summary>
 		private int TPLayerOverlay;
+
 		/// <summary>
 		/// Holster Layer Index. Used to play holster animations.
 		/// </summary>
 		private int layerHolster;
-		
+
 		/// <summary>
 		/// Actions Layer Index. Used to play actions like reloading.
 		/// </summary>
@@ -204,24 +172,27 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Character Kinematics. Handles all the IK stuff.
 		/// </summary>
 		private CharacterKinematics characterKinematics;
+
 		/// <summary>
 		/// Cached Movement Component. Used in order to access some of the movement-related properties.
 		/// </summary>
 		private MovementBehaviour movementBehaviour;
-		
+
 		/// <summary>
 		/// The currently equipped weapon.
 		/// </summary>
 		private WeaponBehaviour equippedWeapon;
+
 		/// <summary>
 		/// The equipped weapon's attachment manager.
 		/// </summary>
 		private WeaponAttachmentManagerBehaviour weaponAttachmentManager;
-		
+
 		/// <summary>
 		/// The scope equipped on the character's weapon.
 		/// </summary>
 		private ScopeBehaviour equippedWeaponScope;
+
 		/// <summary>
 		/// The magazine equipped on the character's weapon.
 		/// </summary>
@@ -237,36 +208,39 @@ namespace InfimaGames.LowPolyShooterPack
 		private PlayerManager PlayerManager;
 
 		private Coroutine CheckStopShooting;
-		
+
 		/// <summary>
 		/// True if the character is reloading.
 		/// </summary>
 		private bool reloading;
-		
+
 		/// <summary>
 		/// True if the character is inspecting its weapon.
 		/// </summary>
 		private bool inspecting;
+
 		/// <summary>
 		/// True if the character is throwing a grenade.
 		/// </summary>
 		private bool throwingGrenade;
-		
+
 		/// <summary>
 		/// True if the character is meleeing.
 		/// </summary>
 		private bool meleeing;
+
 		/// <summary>
 		/// True if the character is currently crouching.
 		/// </summary>
 		private bool crouching;
-		
-		
+
+
 
 		/// <summary>
 		/// Sway Location Value.
 		/// </summary>
 		private Vector3 swayLocation;
+
 		/// <summary>
 		/// Sway Rotation Value.
 		/// </summary>
@@ -276,6 +250,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// True if the character is in the middle of holstering a weapon.
 		/// </summary>
 		private bool holstering;
+
 		/// <summary>
 		/// Alpha Aiming Value. Zero to one value representing aiming. Zero if we're not aiming, and one if we are
 		/// fully aiming.
@@ -286,6 +261,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Crouching Alpha. This value dictates how visible the crouching state is at any given time.
 		/// </summary>
 		private float crouchingAlpha;
+
 		/// <summary>
 		/// Running Alpha. This value dictates how visible the running state is at any given time.
 		/// </summary>
@@ -295,15 +271,17 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Look Axis Values.
 		/// </summary>
 		private Vector2 axisLook;
+
 		/// <summary>
 		/// Smoothed Look Axis Values. Used for Sway.
 		/// </summary>
 		private Vector2 axisLookSmooth;
-		
+
 		/// <summary>
 		/// Look Axis Values.
 		/// </summary>
 		private Vector2 axisMovement;
+
 		/// <summary>
 		/// Smoothed Movement Axis Values. Used for Sway.
 		/// </summary>
@@ -323,14 +301,17 @@ namespace InfimaGames.LowPolyShooterPack
 		/// True if the player is holding the aiming button.
 		/// </summary>
 		private bool holdingButtonAim;
+
 		/// <summary>
 		/// True if the player is holding the running button.
 		/// </summary>
 		private bool holdingButtonRun;
+
 		/// <summary>
 		/// 是否按住切换配件键
 		/// </summary>
 		private bool holdingButtonScopeChanger;
+
 		/// <summary>
 		/// True if the player is holding the firing button.
 		/// </summary>
@@ -345,9 +326,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private float speedAbs;
 
-		private int shotsFired ;
+		private int shotsFired;
 
 		private int oldShotsFired;
+
 		#endregion
 
 		#region CONSTANTS
@@ -356,6 +338,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Left Arm Constraint Alpha.
 		/// </summary>
 		private static readonly int HashConstraintAlphaLeft = Animator.StringToHash("Alpha IK Hand Left");
+
 		/// <summary>
 		/// Right Arm Constraint Alpha.
 		/// </summary>
@@ -367,7 +350,7 @@ namespace InfimaGames.LowPolyShooterPack
 		private static readonly int HashAimingAlpha = Animator.StringToHash("Aiming");
 
 		private static readonly int HashScopeChange = Animator.StringToHash("ScopeChange");
-		
+
 		/// <summary>
 		/// Bolt Action Value.
 		/// </summary>
@@ -377,41 +360,49 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Hashed "Movement".
 		/// </summary>
 		private static readonly int HashMovement = Animator.StringToHash("Movement");
+
 		/// <summary>
 		/// Hashed "Leaning".
 		/// </summary>
 		private static readonly int HashLeaning = Animator.StringToHash("Leaning");
-		
+
 		/// <summary>
 		/// Hashed "Aiming Speed Multiplier".
 		/// </summary>
 		private static readonly int HashAimingSpeedMultiplier = Animator.StringToHash("Aiming Speed Multiplier");
+
 		/// <summary>
 		/// Hashed "Turning".
 		/// </summary>
 		private static readonly int HashTurning = Animator.StringToHash("Turning");
-		
+
 		/// <summary>
 		/// Hashed "Horizontal".
 		/// </summary>
 		private static readonly int HashHorizontal = Animator.StringToHash("Horizontal");
+
 		/// <summary>
 		/// Hashed "Vertical".
 		/// </summary>
 		private static readonly int HashVertical = Animator.StringToHash("Vertical");
-		
+
 		/// <summary>
 		/// Hashed "Play Rate Locomotion Forward".
 		/// </summary>
-		private static readonly int HashPlayRateLocomotionForward = Animator.StringToHash("Play Rate Locomotion Forward");
+		private static readonly int HashPlayRateLocomotionForward =
+			Animator.StringToHash("Play Rate Locomotion Forward");
+
 		/// <summary>
 		/// Hashed "Play Rate Locomotion Sideways".
 		/// </summary>
-		private static readonly int HashPlayRateLocomotionSideways = Animator.StringToHash("Play Rate Locomotion Sideways");
+		private static readonly int HashPlayRateLocomotionSideways =
+			Animator.StringToHash("Play Rate Locomotion Sideways");
+
 		/// <summary>
 		/// Hashed "Play Rate Locomotion Backwards".
 		/// </summary>
-		private static readonly int HashPlayRateLocomotionBackwards = Animator.StringToHash("Play Rate Locomotion Backwards");
+		private static readonly int HashPlayRateLocomotionBackwards =
+			Animator.StringToHash("Play Rate Locomotion Backwards");
 
 		/// <summary>
 		/// Hashed "Alpha Action Offset".
@@ -429,8 +420,9 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			ServiceLocator.Current.Get<IGameModeService>().AddPlayerIntoList(gameObject);
 			PhotonView = GetComponent<PhotonView>();
-			PlayerManager = PhotonView.Find((int)PhotonView.InstantiationData[0]).GetComponent<PlayerManager>(); 
+			PlayerManager = PhotonView.Find((int)PhotonView.InstantiationData[0]).GetComponent<PlayerManager>();
 			isMine = PhotonView.IsMine;
+
 			#region Lock Cursor
 
 			if (isMine)
@@ -438,11 +430,11 @@ namespace InfimaGames.LowPolyShooterPack
 				//Always make sure that our cursor is locked when the game starts!
 				In_Game_SettingsMenu.GetInstance().setCursorLocked(true);
 				In_Game_SettingsMenu.GetInstance().isLive = true;
-				Hashtable hashtable = new Hashtable(); 
-				hashtable.Add(EnumTools.PlayerProperties.IsMuzzle.ToString(),false); 
+				Hashtable hashtable = new Hashtable();
+				hashtable.Add(EnumTools.PlayerProperties.IsMuzzle.ToString(), false);
 				PhotonView.Owner.SetCustomProperties(hashtable);
 			}
-			
+
 			#endregion
 
 			//Cache the movement behaviour.
@@ -453,13 +445,13 @@ namespace InfimaGames.LowPolyShooterPack
 
 
 			//Initialize Inventory.
-			inventory.Init(PlayerManager.GetDeployMainWeapon(),PlayerManager.GetDeploySecWeapon());
+			inventory.Init(PlayerManager.GetDeployMainWeapon(), PlayerManager.GetDeploySecWeapon());
 			//Refresh!
 			RefreshWeaponSetup();
-			
+
 		}
-		
-		
+
+
 		/// <summary>
 		/// Start.
 		/// </summary>
@@ -467,17 +459,17 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Max out the grenades.
 			grenadeCount = grenadeTotal;
-			
+
 			//Hide knife. We do this so we don't see a giant knife stabbing through the character's hands all the time!
 			if (knife != null)
 				knife.SetActive(false);
-			
+
 			//Cache a reference to the holster layer's index.
 			layerHolster = FPCharacterAnimator.GetLayerIndex("Layer Holster");
 			//Cache a reference to the action layer's index.
 			layerActions = FPCharacterAnimator.GetLayerIndex("Layer Actions");
 			TPLayerActions = TPCharacterAnimator.GetLayerIndex("Layer Actions");
-			
+
 			//Cache a reference to the overlay layer's index.
 			layerOverlay = FPCharacterAnimator.GetLayerIndex("Layer Overlay");
 			TPLayerOverlay = TPCharacterAnimator.GetLayerIndex("Layer Overlay");
@@ -510,7 +502,7 @@ namespace InfimaGames.LowPolyShooterPack
 
 			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
 			{
-				
+
 			}
 
 			switch (scopeChanging)
@@ -540,7 +532,8 @@ namespace InfimaGames.LowPolyShooterPack
 					{
 						Fire();
 					}
-				}else if (!equippedWeapon.HasAmmunition() && CanPlayAnimationFire() && equippedWeapon.IsAutomatic())
+				}
+				else if (!equippedWeapon.HasAmmunition() && CanPlayAnimationFire() && equippedWeapon.IsAutomatic())
 				{
 					shotsFired = 0;
 					oldShotsFired = 0;
@@ -548,11 +541,12 @@ namespace InfimaGames.LowPolyShooterPack
 			}
 
 			//Try and calculate the sway so we can apply it.
-			if(enableWeaponSway)
+			if (enableWeaponSway)
 				CalculateSway();
 
 			//Interpolate Movement Axis.
-			axisMovementSmooth = Vector2.Lerp(axisMovementSmooth, axisMovement, Time.deltaTime * weaponSwaySmoothValueInput);
+			axisMovementSmooth =
+				Vector2.Lerp(axisMovementSmooth, axisMovement, Time.deltaTime * weaponSwaySmoothValueInput);
 			//Interpolate Look Axis.
 			axisLookSmooth = Vector2.Lerp(axisLookSmooth, axisLook, Time.deltaTime * weaponSwaySmoothValueInput);
 
@@ -569,12 +563,15 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Running Field Of View Multiplier.
 			float runningFieldOfView = Mathf.Lerp(1.0f, fieldOfViewRunningMultiplier, runningAlpha);
-			
+
 			//Interpolate the world camera's field of view based on whether we are aiming or not.
-			cameraWorld.fieldOfView = Mathf.Lerp(fieldOfView, fieldOfView * equippedWeapon.GetFieldOfViewMultiplierAim(), aimingAlpha) * runningFieldOfView;
+			cameraWorld.fieldOfView =
+				Mathf.Lerp(fieldOfView, fieldOfView * equippedWeapon.GetFieldOfViewMultiplierAim(), aimingAlpha) *
+				runningFieldOfView;
 			//Interpolate the depth camera's field of view based on whether we are aiming or not.
-			cameraDepth.fieldOfView = Mathf.Lerp(fieldOfViewWeapon, fieldOfViewWeapon * equippedWeapon.GetFieldOfViewMultiplierAimWeapon(), aimingAlpha);
-			
+			cameraDepth.fieldOfView = Mathf.Lerp(fieldOfViewWeapon,
+				fieldOfViewWeapon * equippedWeapon.GetFieldOfViewMultiplierAimWeapon(), aimingAlpha);
+
 			//Save Aiming Value.
 			wasAiming = aiming;
 		}
@@ -602,31 +599,41 @@ namespace InfimaGames.LowPolyShooterPack
 			//Frame Location Local.
 			Vector3 frameLocationLocal = swayLocation;
 			//Offset Location.
-			frameLocationLocal += Vector3.Lerp(weaponOffsets.StandingLocation, weaponOffsets.AimingLocation, aimingAlpha);
+			frameLocationLocal +=
+				Vector3.Lerp(weaponOffsets.StandingLocation, weaponOffsets.AimingLocation, aimingAlpha);
 			//Scope Aiming Location.
 			frameLocationLocal += Vector3.Lerp(default, equippedWeaponScope.GetOffsetAimingLocation(), aimingAlpha);
 			//Crouching Location.
-			frameLocationLocal += Vector3.Lerp(default, weaponOffsets.CrouchingLocation, crouchingAlpha * (1 - aimingAlpha));
+			frameLocationLocal +=
+				Vector3.Lerp(default, weaponOffsets.CrouchingLocation, crouchingAlpha * (1 - aimingAlpha));
 			//Running Location.
-			frameLocationLocal += Vector3.Lerp(default, weaponOffsets.RunningLocation, runningAlpha * (1 - aimingAlpha));
+			frameLocationLocal +=
+				Vector3.Lerp(default, weaponOffsets.RunningLocation, runningAlpha * (1 - aimingAlpha));
 			//Action Offset Location. This is a helping value to make actions like throwing a grenade different per-weapon.
-			frameLocationLocal += Vector3.Lerp(weaponOffsets.ActionLocation * FPCharacterAnimator.GetFloat(HashAlphaActionOffset), default, aimingAlpha);
+			frameLocationLocal +=
+				Vector3.Lerp(weaponOffsets.ActionLocation * FPCharacterAnimator.GetFloat(HashAlphaActionOffset),
+					default, aimingAlpha);
 
 			//Frame Rotation Local.
 			Vector3 frameRotationLocal = swayRotation;
 			//Offset Rotation.
-			frameRotationLocal += Vector3.Lerp(weaponOffsets.StandingRotation, weaponOffsets.AimingRotation, aimingAlpha);
+			frameRotationLocal +=
+				Vector3.Lerp(weaponOffsets.StandingRotation, weaponOffsets.AimingRotation, aimingAlpha);
 			//Scope Aiming Rotation.
 			frameRotationLocal += Vector3.Lerp(default, equippedWeaponScope.GetOffsetAimingRotation(), aimingAlpha);
 			//Crouching Rotation.
-			frameRotationLocal += Vector3.Lerp(default, weaponOffsets.CrouchingRotation, crouchingAlpha * (1 - aimingAlpha));
+			frameRotationLocal +=
+				Vector3.Lerp(default, weaponOffsets.CrouchingRotation, crouchingAlpha * (1 - aimingAlpha));
 			//Running Rotation.
-			frameRotationLocal += Vector3.Lerp(default, weaponOffsets.RunningRotation, runningAlpha * (1 - aimingAlpha));
+			frameRotationLocal +=
+				Vector3.Lerp(default, weaponOffsets.RunningRotation, runningAlpha * (1 - aimingAlpha));
 			//Action Offset Rotation. This is a helping value to make actions like throwing a grenade different per-weapon.
-			frameRotationLocal += Vector3.Lerp(weaponOffsets.ActionRotation * FPCharacterAnimator.GetFloat(HashAlphaActionOffset), default, aimingAlpha);
-			
+			frameRotationLocal +=
+				Vector3.Lerp(weaponOffsets.ActionRotation * FPCharacterAnimator.GetFloat(HashAlphaActionOffset),
+					default, aimingAlpha);
+
 			#region Automatic Aim Offsets
-			
+
 			// Transform socketScopeCorrected = equippedWeaponScope.transform.GetChild(0).GetChild(0).GetChild(0);
 			// Transform socketScopes = equippedWeaponScope.transform.parent.parent;
 			//
@@ -641,15 +648,15 @@ namespace InfimaGames.LowPolyShooterPack
 			boneWeapon.localPosition += frameLocationLocal;
 			//Add to the weapon rotation.
 			boneWeapon.localEulerAngles += frameRotationLocal;
-			
+
 			//Make sure that we have a kinematics component!
-			if(characterKinematics != null)
+			if (characterKinematics != null)
 			{
 				//Get Left Constraint Alpha.
 				float alphaLeft = FPCharacterAnimator.GetFloat(HashConstraintAlphaLeft);
 				//Get Right Constraint Alpha.
 				float alphaRight = FPCharacterAnimator.GetFloat(HashConstraintAlphaRight);
-				
+
 				//Compute.
 				characterKinematics.Compute(alphaLeft, alphaRight);
 			}
@@ -668,10 +675,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 			if (isMine)
 			{
-				if(In_Game_SettingsMenu.GetInstance())
+				if (In_Game_SettingsMenu.GetInstance())
 					In_Game_SettingsMenu.GetInstance().isLive = false;
 			}
-			
+
 			//从表中移除自己
 			ServiceLocator.Current.Get<IGameModeService>().RemovePlayerFromList(gameObject);
 		}
@@ -682,7 +689,7 @@ namespace InfimaGames.LowPolyShooterPack
 
 		public override Camera GetCameraWorld() => cameraWorld;
 		public override Camera GetCameraDepth() => cameraDepth;
-		
+
 		/// <summary>
 		/// Returns the looking sway values for this frame.
 		/// </summary>
@@ -707,6 +714,7 @@ namespace InfimaGames.LowPolyShooterPack
 			//Return.
 			return (horizontalLocation + verticalLocation, horizontalRotation + verticalRotation);
 		}
+
 		/// <summary>
 		/// Returns the movement sway values for this frame.
 		/// </summary>
@@ -717,7 +725,7 @@ namespace InfimaGames.LowPolyShooterPack
 			float horizontalAxis = Mathf.Clamp(axisMovementSmooth.x, -1.0f, 1.0f);
 			//Vertical Axis.
 			float verticalAxis = Mathf.Clamp(axisMovementSmooth.y, -1.0f, 1.0f);
-			
+
 			//Horizontal Axis Location.
 			Vector3 horizontalLocation = horizontalAxis * sway.Movement.Location.Horizontal;
 			//Horizontal Axis Rotation.
@@ -733,19 +741,19 @@ namespace InfimaGames.LowPolyShooterPack
 		}
 
 		public override InventoryBehaviour GetInventory() => inventory;
-		
+
 		public override int GetGrenadesCurrent() => grenadeCount;
 		public override int GetGrenadesTotal() => grenadeTotal;
-		
+
 		public override bool IsCrosshairVisible() => !aiming && !holstered && !scopeChanging;
 		public override bool IsRunning() => running;
-		
+
 		/// <summary>
 		/// Is Crouching.
 		/// </summary>
 		public override bool IsCrouching() => crouching;
 
-		public override bool IsAiming() => aimingAlpha>0.9f;
+		public override bool IsAiming() => aimingAlpha > 0.9f;
 
 		public override bool IsScopeChanging() => scopeChanging;
 
@@ -761,7 +769,7 @@ namespace InfimaGames.LowPolyShooterPack
 
 		public override float GetSpeed() => speedAbs;
 
-		public override int GetShotfired()=> shotsFired;
+		public override int GetShotfired() => shotsFired;
 
 		#endregion
 
@@ -786,7 +794,7 @@ namespace InfimaGames.LowPolyShooterPack
 					TPCharacterAnimator.SetBool(boolNameReloading, false);
 					//Update the weapon animator.
 					equippedWeapon.GetAnimator().SetBool(boolNameReloading, false);
-				}	
+				}
 			}
 
 			#endregion
@@ -794,79 +802,92 @@ namespace InfimaGames.LowPolyShooterPack
 			//Leaning. Affects how much the character should apply of the leaning additive animation.
 			float leaningValue = Mathf.Clamp01(axisMovement.y);
 
-			FPCharacterAnimator.SetFloat(HashLeaning,leaningValue, 0.5f, Time.deltaTime);
+			FPCharacterAnimator.SetFloat(HashLeaning, leaningValue, 0.5f, Time.deltaTime);
 
 			//Movement Value. This value affects absolute movement. Aiming movement uses this, as opposed to per-axis movement.
 			speedAbs = Mathf.Clamp01(Mathf.Abs(axisMovement.x) + Mathf.Abs(axisMovement.y));
-			FPCharacterAnimator.SetFloat(HashMovement,speedAbs, dampTimeLocomotion, Time.deltaTime);
-			TPCharacterAnimator.SetFloat(HashMovement,speedAbs, dampTimeLocomotion, Time.deltaTime);
+			FPCharacterAnimator.SetFloat(HashMovement, speedAbs, dampTimeLocomotion, Time.deltaTime);
+			TPCharacterAnimator.SetFloat(HashMovement, speedAbs, dampTimeLocomotion, Time.deltaTime);
 
 			//Aiming Speed Multiplier.
-			FPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier* weaponAttachmentManager.GetT_ADSTimeAlpha() );
-			TPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier, aimingSpeedMultiplier*weaponAttachmentManager.GetT_ADSTimeAlpha());
-			
+			FPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier,
+				aimingSpeedMultiplier * weaponAttachmentManager.GetT_ADSTimeAlpha());
+			TPCharacterAnimator.SetFloat(HashAimingSpeedMultiplier,
+				aimingSpeedMultiplier * weaponAttachmentManager.GetT_ADSTimeAlpha());
+
 			//Turning Value. This determines how much of the turning animation to play based on our current look rotation.
 			FPCharacterAnimator.SetFloat(HashTurning, Mathf.Abs(axisLook.x), dampTimeTurning, Time.deltaTime);
 
 			//Horizontal Movement Float.
-			FPCharacterAnimator.SetFloat(HashHorizontal, scopeChanging ?axisMovementSmooth.x*0.5f: axisMovementSmooth.x, dampTimeLocomotion, Time.deltaTime);
-			TPCharacterAnimator.SetFloat(HashHorizontal, scopeChanging ?axisMovementSmooth.x*0.5f: axisMovementSmooth.x, dampTimeLocomotion, Time.deltaTime);
+			FPCharacterAnimator.SetFloat(HashHorizontal,
+				scopeChanging ? axisMovementSmooth.x * 0.5f : axisMovementSmooth.x, dampTimeLocomotion, Time.deltaTime);
+			TPCharacterAnimator.SetFloat(HashHorizontal,
+				scopeChanging ? axisMovementSmooth.x * 0.5f : axisMovementSmooth.x, dampTimeLocomotion, Time.deltaTime);
 			//Vertical Movement Float.
-			FPCharacterAnimator.SetFloat(HashVertical,  scopeChanging ?axisMovementSmooth.y*0.5f:axisMovementSmooth.y, dampTimeLocomotion, Time.deltaTime);
-			TPCharacterAnimator.SetFloat(HashVertical,  scopeChanging ?axisMovementSmooth.y*0.5f:axisMovementSmooth.y, dampTimeLocomotion, Time.deltaTime);
-			
+			FPCharacterAnimator.SetFloat(HashVertical,
+				scopeChanging ? axisMovementSmooth.y * 0.5f : axisMovementSmooth.y, dampTimeLocomotion, Time.deltaTime);
+			TPCharacterAnimator.SetFloat(HashVertical,
+				scopeChanging ? axisMovementSmooth.y * 0.5f : axisMovementSmooth.y, dampTimeLocomotion, Time.deltaTime);
+
 			//Update the aiming value, but use interpolation. This makes sure that things like firing can transition properly.
-			FPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming / weaponAttachmentManager.GetT_ADSTimeAlpha(), Time.deltaTime);
-			TPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming), dampTimeAiming / weaponAttachmentManager.GetT_ADSTimeAlpha(), Time.deltaTime);
-			
-			FPCharacterAnimator.SetFloat(HashScopeChange,Convert.ToSingle(scopeChanging),dampTimeScopeChange,Time.deltaTime);
+			FPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming),
+				dampTimeAiming / weaponAttachmentManager.GetT_ADSTimeAlpha(), Time.deltaTime);
+			TPCharacterAnimator.SetFloat(HashAimingAlpha, Convert.ToSingle(aiming),
+				dampTimeAiming / weaponAttachmentManager.GetT_ADSTimeAlpha(), Time.deltaTime);
+
+			FPCharacterAnimator.SetFloat(HashScopeChange, Convert.ToSingle(scopeChanging), dampTimeScopeChange,
+				Time.deltaTime);
 
 			//Set the locomotion play rate. This basically stops movement from happening while in the air.
 			const string playRateLocomotionBool = "Play Rate Locomotion";
-			FPCharacterAnimator.SetFloat(playRateLocomotionBool, movementBehaviour.IsGrounded() ? 1.0f : 0.0f, 0.2f, Time.deltaTime);
+			FPCharacterAnimator.SetFloat(playRateLocomotionBool, movementBehaviour.IsGrounded() ? 1.0f : 0.0f, 0.2f,
+				Time.deltaTime);
 
 			#region Movement Play Rates
 
 			//Update Forward Multiplier. This allows us to change the play rate of our animations based on our movement multipliers.
-			FPCharacterAnimator.SetFloat(HashPlayRateLocomotionForward, movementBehaviour.GetMultiplierForward(), 0.2f, Time.deltaTime);
+			FPCharacterAnimator.SetFloat(HashPlayRateLocomotionForward, movementBehaviour.GetMultiplierForward(), 0.2f,
+				Time.deltaTime);
 			//Update Sideways Multiplier. This allows us to change the play rate of our animations based on our movement multipliers.
-			FPCharacterAnimator.SetFloat(HashPlayRateLocomotionSideways, movementBehaviour.GetMultiplierSideways(), 0.2f, Time.deltaTime);
+			FPCharacterAnimator.SetFloat(HashPlayRateLocomotionSideways, movementBehaviour.GetMultiplierSideways(),
+				0.2f, Time.deltaTime);
 			//Update Backwards Multiplier. This allows us to change the play rate of our animations based on our movement multipliers.
-			FPCharacterAnimator.SetFloat(HashPlayRateLocomotionBackwards, movementBehaviour.GetMultiplierBackwards(), 0.2f, Time.deltaTime);
+			FPCharacterAnimator.SetFloat(HashPlayRateLocomotionBackwards, movementBehaviour.GetMultiplierBackwards(),
+				0.2f, Time.deltaTime);
 
 			#endregion
-			
+
 			//Update Animator Aiming.
 			const string boolNameAim = "Aim";
 			FPCharacterAnimator.SetBool(boolNameAim, aiming);
 			TPCharacterAnimator.SetBool(boolNameAim, aiming);
-			
+
 			//Update Animator ScopeChanger
 			const string boolNameScopeChanger = "ScopeChanger";
-			FPCharacterAnimator.SetBool(boolNameScopeChanger,scopeChanging);
-			
+			FPCharacterAnimator.SetBool(boolNameScopeChanger, scopeChanging);
+
 			//Update Animator Running.
 			const string boolNameRun = "Running";
 			FPCharacterAnimator.SetBool(boolNameRun, running);
 			TPCharacterAnimator.SetBool(boolNameRun, running);
-			
+
 			//Update Animator Crouching.
 			const string boolNameCrouch = "Crouching";
 			FPCharacterAnimator.SetBool(boolNameCrouch, crouching);
 			TPCharacterAnimator.SetBool(boolNameCrouch, crouching);
-			
+
 			//Update Animator Jumping.
-			
+
 			const String floatNameJumpUp = "Jump";
-			TPCharacterAnimator.SetFloat(floatNameJumpUp,movementBehaviour.GetVelocity().y);
-			
-			
+			TPCharacterAnimator.SetFloat(floatNameJumpUp, movementBehaviour.GetVelocity().y);
+
+
 			const String boolNameJumpUp = "Jump Up";
-			TPCharacterAnimator.SetBool(boolNameJumpUp,movementBehaviour.IsJumping());
-			
-			
+			TPCharacterAnimator.SetBool(boolNameJumpUp, movementBehaviour.IsJumping());
+
+
 			const String boolNameJumpLand = "Jump Land";
-			TPCharacterAnimator.SetBool(boolNameJumpLand,movementBehaviour.IsGrounded());
+			TPCharacterAnimator.SetBool(boolNameJumpLand, movementBehaviour.IsGrounded());
 
 		}
 
@@ -880,9 +901,9 @@ namespace InfimaGames.LowPolyShooterPack
 			//Play.
 			FPCharacterAnimator.CrossFade("Inspect", 0.0f, layerActions, 0);
 			TPCharacterAnimator.CrossFade("Inspect", 0.0f, TPLayerActions, 0);
-			
+
 		}
-		
+
 		/// <summary>
 		/// Calculates the sway values.
 		/// </summary>
@@ -896,13 +917,14 @@ namespace InfimaGames.LowPolyShooterPack
 			Sway sway = equippedWeapon.GetSway();
 			//Weapon Sway Smooth Value.
 			float swaySmoothValue = equippedWeapon.GetSwaySmoothValue();
-			
+
 			(Vector3 location, Vector3 rotation) swayLookStanding = GetSwayLook(sway);
 			(Vector3 location, Vector3 rotation) swayLookAiming = GetSwayLook(equippedWeaponScope.GetSwayAiming());
-			
+
 			(Vector3 location, Vector3 rotation) swayMovementStanding = GetSwayMovement(sway);
-			(Vector3 location, Vector3 rotation) swayMovementAiming = GetSwayMovement(equippedWeaponScope.GetSwayAiming());
-			
+			(Vector3 location, Vector3 rotation) swayMovementAiming =
+				GetSwayMovement(equippedWeaponScope.GetSwayAiming());
+
 			//Get Look Sway.
 			(Vector3 location, Vector3 rotation) swayLook = default;
 			swayLook.location = Vector3.Lerp(swayLookStanding.location, swayLookAiming.location, aimingAlpha);
@@ -910,9 +932,11 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Get Movement Sway.
 			(Vector3 location, Vector3 rotation) swayMovement = default;
-			swayMovement.location = Vector3.Lerp(swayMovementStanding.location, swayMovementAiming.location, aimingAlpha);
-			swayMovement.rotation = Vector3.Lerp(swayMovementStanding.rotation, swayMovementAiming.rotation, aimingAlpha);
-			
+			swayMovement.location =
+				Vector3.Lerp(swayMovementStanding.location, swayMovementAiming.location, aimingAlpha);
+			swayMovement.rotation =
+				Vector3.Lerp(swayMovementStanding.rotation, swayMovementAiming.rotation, aimingAlpha);
+
 			//Calculate Sway Location.
 			Vector3 frameLocation = swayLook.location + swayMovement.location;
 			//Interpolate.
@@ -923,7 +947,7 @@ namespace InfimaGames.LowPolyShooterPack
 			//Interpolate.
 			swayRotation = Vector3.LerpUnclamped(swayRotation, frameRotation, Time.deltaTime * swaySmoothValue);
 		}
-		
+
 		/// <summary>
 		/// Fires the character's weapon.
 		/// </summary>
@@ -934,17 +958,19 @@ namespace InfimaGames.LowPolyShooterPack
 				StopCoroutine(CheckStopShooting);
 				CheckStopShooting = null;
 			}
-			
+
 			//Save the shot time, so we can calculate the fire rate correctly.
 			lastShotTime = Time.time;
 			//Fire the weapon! Make sure that we also pass the scope's spread multiplier if we're aiming.
 			//TODO 应用配件增益
-			equippedWeapon. Fire(aimingAlpha > 0.9f ? weaponAttachmentManager.GetADSSpreadAlpha() : weaponAttachmentManager.GetHipShotSpreadAlpha());
-			
+			equippedWeapon.Fire(aimingAlpha > 0.9f
+				? weaponAttachmentManager.GetADSSpreadAlpha()
+				: weaponAttachmentManager.GetHipShotSpreadAlpha());
+
 			//射击次数计数
-			
+
 			shotsFired++;
-			
+
 			//Play firing animation.
 			const string stateName = "Fire";
 			FPCharacterAnimator.CrossFade(stateName, 0.05f, layerOverlay, 0);
@@ -969,26 +995,28 @@ namespace InfimaGames.LowPolyShooterPack
 			}
 
 			#endregion
-			
+
 			#region Animation
-			
+
 			//Set Reloading Bool. This helps cycled reloads know when they need to stop cycling.
 			const string boolName = "Reloading";
 			FPCharacterAnimator.SetBool(boolName, reloading = true);
 			TPCharacterAnimator.SetBool(boolName, reloading = true);
-			
+
 			//TODO
 			const string floatName = "ReloadMultiplier";
-			FPCharacterAnimator.SetFloat(floatName,1);
-			TPCharacterAnimator.SetFloat(floatName,1);
+			FPCharacterAnimator.SetFloat(floatName, 1);
+			TPCharacterAnimator.SetFloat(floatName, 1);
 
 			//Get the name of the animation state to play, which depends on weapon settings, and ammunition!
-			string stateName = equippedWeapon.HasCycledReload() ? "Reload Open" :
-				(equippedWeapon.HasAmmunition() ? "Reload" : "Reload Empty");
-			
+			string stateName = equippedWeapon.HasCycledReload()
+				? "Reload Open"
+				: (equippedWeapon.HasAmmunition() ? "Reload" : "Reload Empty");
+
 			//Play the animation state!
 			FPCharacterAnimator.Play(stateName, layerActions, 0.0f);
 			TPCharacterAnimator.Play(stateName, TPLayerActions, 0.0f);
+
 			#endregion
 
 			//Reload.(并重置后坐力曲线)
@@ -1015,18 +1043,19 @@ namespace InfimaGames.LowPolyShooterPack
 		private IEnumerator Equip(int index = 0)
 		{
 			//Only if we're not holstered, holster. If we are already, we don't need to wait.
-			if(!holstered)
+			if (!holstered)
 			{
 				//Holster.
 				SetHolstered(holstering = true);
 				//Wait.
 				yield return new WaitUntil(() => holstering == false);
 			}
+
 			//Unholster. We do this just in case we were holstered.
 			SetHolstered(false);
 			//Play Unholster Animation.
 			FPCharacterAnimator.Play("Unholster", layerHolster, 0);
-			
+
 			//Equip The New Weapon.
 			inventory.Equip(index);
 			//Refresh.
@@ -1041,15 +1070,15 @@ namespace InfimaGames.LowPolyShooterPack
 			//Make sure we have a weapon. We don't want errors!
 			if ((equippedWeapon = inventory.GetEquipped()) == null)
 				return;
-			
+
 			//Update Animator Controller. We do this to update all animations to a specific weapon's set.
 			FPCharacterAnimator.runtimeAnimatorController = equippedWeapon.GetAnimatorController();
 
 			//Get the attachment manager so we can use it to get all the attachments!
 			weaponAttachmentManager = equippedWeapon.GetAttachmentManager();
-			if (weaponAttachmentManager == null) 
+			if (weaponAttachmentManager == null)
 				return;
-			
+
 			//Get equipped scope. We need this one for its settings!
 			equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
 			//Get equipped magazine. We need this one for its settings!
@@ -1060,7 +1089,7 @@ namespace InfimaGames.LowPolyShooterPack
 
 		public override void ChangeAttachment(ScopeChangerBTN.AttachmentKind attachmentKind, int ID)
 		{
-			equippedWeapon.ChangeAttachment(attachmentKind,ID);
+			equippedWeapon.ChangeAttachment(attachmentKind, ID);
 
 			//Get equipped scope. We need this one for its settings!
 			equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
@@ -1075,8 +1104,8 @@ namespace InfimaGames.LowPolyShooterPack
 
 			if (attachmentKind == ScopeChangerBTN.AttachmentKind.Muzzle)
 			{
-				Hashtable hashtable = new Hashtable(); 
-				hashtable.Add(EnumTools.PlayerProperties.IsMuzzle.ToString(),equippedWeaponMuzzle.GetIsMute()); 
+				Hashtable hashtable = new Hashtable();
+				hashtable.Add(EnumTools.PlayerProperties.IsMuzzle.ToString(), equippedWeaponMuzzle.GetIsMute());
 				PhotonView.Owner.SetCustomProperties(hashtable);
 			}
 		}
@@ -1099,11 +1128,11 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Start State.
 			throwingGrenade = true;
-			
+
 			//Play Normal.
 			FPCharacterAnimator.CrossFade("Grenade Throw", 0.15f,
 				FPCharacterAnimator.GetLayerIndex("Layer Actions Arm Left"), 0.0f);
-					
+
 			//Play Additive.
 			FPCharacterAnimator.CrossFade("Grenade Throw", 0.05f,
 				FPCharacterAnimator.GetLayerIndex("Layer Actions Arm Right"), 0.0f);
@@ -1116,11 +1145,11 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Start State.
 			meleeing = true;
-			
+
 			//Play Normal.
 			FPCharacterAnimator.CrossFade("Knife Attack", 0.05f,
 				FPCharacterAnimator.GetLayerIndex("Layer Actions Arm Left"), 0.0f);
-			
+
 			//Play Additive.
 			FPCharacterAnimator.CrossFade("Knife Attack", 0.05f,
 				FPCharacterAnimator.GetLayerIndex("Layer Actions Arm Right"), 0.0f);
@@ -1132,13 +1161,13 @@ namespace InfimaGames.LowPolyShooterPack
 		public override void Melee()
 		{
 			Ray MeleeRay = cameraWorld.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-			Debug.DrawRay(MeleeRay.origin,MeleeRay.direction * MeleeDistance,Color.green);
-			
+			Debug.DrawRay(MeleeRay.origin, MeleeRay.direction * MeleeDistance, Color.green);
+
 			RaycastHit[] hit;
 			Debug.Log("try");
-			if (Physics.Raycast(MeleeRay.origin,MeleeRay.direction, MeleeDistance,1<<17))
+			if (Physics.Raycast(MeleeRay.origin, MeleeRay.direction, MeleeDistance, 1 << 17))
 			{
-				hit = Physics.RaycastAll(MeleeRay.origin, MeleeRay.direction,  MeleeDistance,1<<17);
+				hit = Physics.RaycastAll(MeleeRay.origin, MeleeRay.direction, MeleeDistance, 1 << 17);
 				Player TargetPlayer = hit[0].transform.GetComponentInParent<PhotonView>().Owner;
 
 				if (!RoomManager.GetInstance().isFriendlyFire())
@@ -1150,33 +1179,34 @@ namespace InfimaGames.LowPolyShooterPack
 				}
 
 				if (TargetPlayer.CustomProperties[EnumTools.PlayerProperties.IsDeath.ToString()].Equals(true))
-				{ 
-					Debug.Log("角色已经死亡"); return;
+				{
+					Debug.Log("角色已经死亡");
+					return;
 				}
-				
+
 				Dictionary<byte, object> tmp_HitData = new Dictionary<byte, object>();
 				//被击中人
-				tmp_HitData.Add(0,TargetPlayer);
+				tmp_HitData.Add(0, TargetPlayer);
 				//造成伤害人
-				tmp_HitData.Add(1,PhotonNetwork.LocalPlayer);
+				tmp_HitData.Add(1, PhotonNetwork.LocalPlayer);
 				//造成伤害人武器
-				tmp_HitData.Add(2,"Melee");
+				tmp_HitData.Add(2, "Melee");
 				//造成伤害
-				tmp_HitData.Add(3,70f);
+				tmp_HitData.Add(3, 70f);
 				//是否爆头
-				tmp_HitData.Add(4,false);
+				tmp_HitData.Add(4, false);
 				//伤害来源点
-				tmp_HitData.Add(5,transform.position);
+				tmp_HitData.Add(5, transform.position);
 				//造成伤害时间戳
-				tmp_HitData.Add(6,DateTime.Now.ToUniversalTime().Ticks);
-				
-				RaiseEventOptions tmp_RaiseEventOptions = new RaiseEventOptions() {Receivers = ReceiverGroup.All};
+				tmp_HitData.Add(6, DateTime.Now.ToUniversalTime().Ticks);
+
+				RaiseEventOptions tmp_RaiseEventOptions = new RaiseEventOptions() { Receivers = ReceiverGroup.All };
 				SendOptions tmp_SendOptions = SendOptions.SendReliable;
 				PhotonNetwork.RaiseEvent(
 					(byte)EventCode.HitPlayer,
-						tmp_HitData,
-						tmp_RaiseEventOptions,
-						tmp_SendOptions);
+					tmp_HitData,
+					tmp_RaiseEventOptions,
+					tmp_SendOptions);
 				Debug.Log("发送击中事件！");
 			}
 		}
@@ -1190,6 +1220,7 @@ namespace InfimaGames.LowPolyShooterPack
 			FPCharacterAnimator.SetBool(HashBoltAction, bolting = value);
 			TPCharacterAnimator.SetBool(HashBoltAction, bolting = value);
 		}
+
 		/// <summary>
 		/// Updates the "Holstered" variable, along with the Character's Animator value.
 		/// </summary>
@@ -1197,20 +1228,20 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Update value.
 			holstered = value;
-			
+
 			//Update Animator.
 			const string boolName = "Holstered";
-			FPCharacterAnimator.SetBool(boolName, holstered);	
+			FPCharacterAnimator.SetBool(boolName, holstered);
 		}
 
 		private IEnumerator StopShooting()
 		{
-			float tmp_Wait = equippedWeapon? equippedWeapon.GetRevoilReturnTime() : 0.5f;
+			float tmp_Wait = equippedWeapon ? equippedWeapon.GetRevoilReturnTime() : 0.5f;
 			yield return new WaitForSeconds(tmp_Wait);
 			// Debug.Log("重置");
 			oldShotsFired = 0;
 		}
-		
+
 		#region ACTION CHECKS
 
 		/// <summary>
@@ -1225,15 +1256,21 @@ namespace InfimaGames.LowPolyShooterPack
 			//Block.
 			if (meleeing || throwingGrenade)
 				return false;
-			
+
 			//Block.
 			if (bolting)
 				return false;
 
+			if (reloading)
+			{
+				if(!equippedWeapon.CanForceEndReload())
+					return false;
+			}
+
 			//Block.
 			if (inspecting)
 				return false;
-			
+
 			//Block.
 			if (scopeChanging)
 				return false;
@@ -1266,19 +1303,19 @@ namespace InfimaGames.LowPolyShooterPack
 			//Block while inspecting.
 			if (inspecting)
 				return false;
-			
+
 			//Block Full Reloading if needed.
 			if (!equippedWeapon.CanReloadWhenFull() && equippedWeapon.IsFull())
 				return false;
-			
+
 			//Block.
 			if (scopeChanging)
 				return false;
-			
+
 			//Return.
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Returns true if the character is able to throw a grenade.
 		/// </summary>
@@ -1299,15 +1336,15 @@ namespace InfimaGames.LowPolyShooterPack
 			//Block.
 			if (inspecting)
 				return false;
-			
+
 			//Block.
 			if (scopeChanging)
 				return false;
-			
+
 			//We need to have grenades!
 			if (!grenadesUnlimited && grenadeCount == 0)
 				return false;
-			
+
 			//Return.
 			return true;
 		}
@@ -1332,7 +1369,7 @@ namespace InfimaGames.LowPolyShooterPack
 			//Block.
 			if (inspecting)
 				return false;
-			
+
 			//Return.
 			return true;
 		}
@@ -1348,17 +1385,17 @@ namespace InfimaGames.LowPolyShooterPack
 				return false;
 
 			//Block.
-			if ( bolting)
+			if (bolting)
 				return false;
 
 			//Block.
 			if (scopeChanging)
 				return false;
-			
+
 			//Block.
 			if (inspecting)
 				return false;
-			
+
 			//Return.
 			return true;
 		}
@@ -1384,11 +1421,11 @@ namespace InfimaGames.LowPolyShooterPack
 			//Block.
 			if (scopeChanging)
 				return false;
-			
+
 			//Block.
 			if (inspecting)
 				return false;
-			
+
 			//Return.
 			return true;
 		}
@@ -1413,11 +1450,11 @@ namespace InfimaGames.LowPolyShooterPack
 			//Block.
 			if (scopeChanging)
 				return false;
-			
+
 			//Block.
 			if (inspecting)
 				return false;
-			
+
 			//Return.
 			return true;
 		}
@@ -1436,6 +1473,10 @@ namespace InfimaGames.LowPolyShooterPack
 			if (meleeing || throwingGrenade)
 				return false;
 
+			//Block.
+			if (reloading || bolting)
+				return false; 
+			
 			//Block.
 			if (holstering)
 				return false;
@@ -1550,14 +1591,9 @@ namespace InfimaGames.LowPolyShooterPack
 					if (!CanPlayAnimationFire())
 						break;
 
-					if (reloading)
+					if (reloading && equippedWeapon.CanForceEndReload())
 					{
 						ForceEndReloading();
-					}
-
-					if (bolting)
-					{
-						ForceEndBolting();
 					}
 					
 					//Check.
@@ -1670,10 +1706,6 @@ namespace InfimaGames.LowPolyShooterPack
 			{
 				case InputActionPhase.Started:
 					//Started.
-					if (reloading)
-					{
-						ForceEndReloading();
-					}
 					holdingButtonAim = true;
 					break;
 				case InputActionPhase.Canceled:
@@ -1703,9 +1735,20 @@ namespace InfimaGames.LowPolyShooterPack
 						ForceEndReloading();
 					}
 					holdingButtonScopeChanger = true;
+					
+					if (CanScopeChang())
+					{
+						PostProcessingManager.GetInstance().StartScopeChange(true);
+					}
+					
 					break;
 				case InputActionPhase.Canceled:
 					//Canceled.
+					if (reloading)
+					{
+						ForceEndReloading();
+					}
+					PostProcessingManager.GetInstance().StartScopeChange(false);
 					holdingButtonScopeChanger = false;
 					break;
 			}
@@ -1913,9 +1956,8 @@ namespace InfimaGames.LowPolyShooterPack
 					//Get the index increment direction for our inventory using the scroll wheel direction. If we're not
 					//actually using one, then just increment by one.
 					float scrollValue = context.valueType.IsEquivalentTo(typeof(Vector2)) ? Mathf.Sign(context.ReadValue<Vector2>().y) : 1.0f;
-					
 					//Get the next index to switch to.
-					int indexNext = inventory.ChangeWeapon();
+					int indexNext = inventory.ChangeWeapon(scrollValue==1? -1 :0);
 					//Get the current weapon's index.
 					int indexCurrent = inventory.GetEquippedIndex();
 
@@ -1988,6 +2030,150 @@ namespace InfimaGames.LowPolyShooterPack
 			};
 		}
 
+		public void OnWeaponButton1(InputAction.CallbackContext context)
+		{
+			if(!isMine)
+				return;
+			//Block while the cursor is unlocked.
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
+				return;
+			
+			//Null Check.
+			if (inventory == null)
+				return;
+			switch (context.phase)
+			{
+				//Performed.
+				case InputActionPhase.Performed:
+					int indexNext = inventory.ChangeWeapon(1);
+					//Get the current weapon's index.
+					int indexCurrent = inventory.GetEquippedIndex();
+
+					//Make sure we're allowed to change, and also that we're not using the same index, otherwise weird things happen!
+					if (CanChangeWeapon() && (indexCurrent != indexNext))
+					{
+						if (reloading)
+						{
+							ForceEndReloading();
+						}
+						if (bolting)
+						{
+							ForceEndBolting();
+						}
+						StartCoroutine(nameof(Equip), indexNext);
+					}
+					break;
+			}
+		}
+		
+		public void OnWeaponButton2(InputAction.CallbackContext context)
+		{
+			if(!isMine)
+				return;
+			//Block while the cursor is unlocked.
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
+				return;
+			
+			//Null Check.
+			if (inventory == null)
+				return;
+			switch (context.phase)
+			{
+				//Performed.
+				case InputActionPhase.Performed:
+					int indexNext = inventory.ChangeWeapon(2);
+					//Get the current weapon's index.
+					int indexCurrent = inventory.GetEquippedIndex();
+
+					//Make sure we're allowed to change, and also that we're not using the same index, otherwise weird things happen!
+					if (CanChangeWeapon() && (indexCurrent != indexNext))
+					{
+						if (reloading)
+						{
+							ForceEndReloading();
+						}
+						if (bolting)
+						{
+							ForceEndBolting();
+						}
+						StartCoroutine(nameof(Equip), indexNext);
+					}
+					break;
+			}
+		}
+		
+		public void OnWeaponButton3(InputAction.CallbackContext context)
+		{
+			if(!isMine)
+				return;
+			//Block while the cursor is unlocked.
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
+				return;
+			
+			//Null Check.
+			if (inventory == null)
+				return;
+			switch (context.phase)
+			{
+				//Performed.
+				case InputActionPhase.Performed:
+					int indexNext = inventory.ChangeWeapon(3);
+					//Get the current weapon's index.
+					int indexCurrent = inventory.GetEquippedIndex();
+
+					//Make sure we're allowed to change, and also that we're not using the same index, otherwise weird things happen!
+					if (CanChangeWeapon() && (indexCurrent != indexNext))
+					{
+						if (reloading)
+						{
+							ForceEndReloading();
+						}
+						if (bolting)
+						{
+							ForceEndBolting();
+						}
+						StartCoroutine(nameof(Equip), indexNext);
+					}
+					break;
+			}
+		}
+		
+		public void OnWeaponButton4(InputAction.CallbackContext context)
+		{
+			if(!isMine)
+				return;
+			//Block while the cursor is unlocked.
+			if (In_Game_SettingsMenu.GetInstance().GetMenuEnable())
+				return;
+			
+			//Null Check.
+			if (inventory == null)
+				return;
+			switch (context.phase)
+			{
+				//Performed.
+				case InputActionPhase.Performed:
+					int indexNext = inventory.ChangeWeapon(4);
+					//Get the current weapon's index.
+					int indexCurrent = inventory.GetEquippedIndex();
+
+					//Make sure we're allowed to change, and also that we're not using the same index, otherwise weird things happen!
+					if (CanChangeWeapon() && (indexCurrent != indexNext))
+					{
+						if (reloading)
+						{
+							ForceEndReloading();
+						}
+						if (bolting)
+						{
+							ForceEndBolting();
+						}
+						StartCoroutine(nameof(Equip), indexNext);
+					}
+					break;
+			}
+		}
+
 		#endregion
 
 		#region ANIMATION EVENTS
@@ -2035,6 +2221,7 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private void ForceEndReloading()
 		{
+			// Debug.Log("强制解除！");
 			const string boolName = "Reloading";
 			FPCharacterAnimator.SetBool(boolName, reloading = false);
 			TPCharacterAnimator.SetBool(boolName, reloading = false);

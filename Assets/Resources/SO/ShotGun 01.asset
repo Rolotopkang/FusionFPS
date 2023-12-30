@@ -18,14 +18,15 @@ MonoBehaviour:
   multiplierMovementSpeed: 0.95
   automatic: 0
   boltAction: 1
+  forceEndReload: 1
   shotCount: 8
   spread: 5
   spreadSpeedTimer: 0.7
   firstBulletAcc: 0
   recoilReturnTime: 0.1
   projectileImpulse: 600
-  DMG: 13
-  roundsPerMinutes: 250
+  DMG: 14
+  roundsPerMinutes: 350
   MaxAmmunition: 999
   maximumDistance: 500
   cycledReload: 1

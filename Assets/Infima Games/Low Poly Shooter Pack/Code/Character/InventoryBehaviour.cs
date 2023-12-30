@@ -17,7 +17,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// 切换主副手武器
         /// </summary>
         /// <returns></returns>
-        public abstract int ChangeWeapon();
+        public abstract int ChangeWeapon(int index);
         
         /// <summary>
         /// Returns the currently equipped WeaponBehaviour.

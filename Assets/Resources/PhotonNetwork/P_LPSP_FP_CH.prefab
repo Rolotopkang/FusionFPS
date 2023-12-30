@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 5458643541292538786}
   - component: {fileID: 4530996834211516048}
   - component: {fileID: 428552716704493812}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: P_LPSP_FP_CH
   m_TagString: Player
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -713,6 +713,54 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: be56e20a-bae5-4254-9957-cd61137e6af7
     m_ActionName: Player/DEBUG_DEATH[/Keyboard/numpad4]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2626598216940496189}
+        m_TargetAssemblyTypeName: InfimaGames.LowPolyShooterPack.Character, Assembly-CSharp
+        m_MethodName: OnWeaponButton1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b3e688e4-49d7-4a7a-9913-1781c7b71500
+    m_ActionName: Player/MainWeapon[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2626598216940496189}
+        m_TargetAssemblyTypeName: InfimaGames.LowPolyShooterPack.Character, Assembly-CSharp
+        m_MethodName: OnWeaponButton2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f3c24dec-5f00-41c8-ad42-17be7ddbf2b7
+    m_ActionName: Player/SecWeapon[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2626598216940496189}
+        m_TargetAssemblyTypeName: InfimaGames.LowPolyShooterPack.Character, Assembly-CSharp
+        m_MethodName: OnWeaponButton3
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 472f8097-ae57-4d57-96c8-7653bc7ce1cc
+    m_ActionName: Player/Item[/Keyboard/3]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -6004,11 +6052,20 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: Alpha Action Offset
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Melee
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Grenade
+  - Type: 1
+    SynchronizeType: 2
+    Name: ReloadMultiplier
+  - Type: 9
+    SynchronizeType: 2
+    Name: ForceStopReloading
+  - Type: 9
+    SynchronizeType: 2
+    Name: ForceStopBolt
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
@@ -6022,7 +6079,7 @@ MonoBehaviour:
     LayerIndex: 4
   - SynchronizeType: 2
     LayerIndex: 5
-  - SynchronizeType: 0
+  - SynchronizeType: 2
     LayerIndex: 6
 --- !u!114 &8559863212117377630
 MonoBehaviour:

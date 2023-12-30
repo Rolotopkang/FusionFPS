@@ -199,6 +199,8 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract bool CanReload();
 
         public abstract void AmmunitionBack();
+
+        public abstract bool CanForceEndReload();
         #endregion
 
         #region METHODS

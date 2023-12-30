@@ -23,7 +23,7 @@ MonoBehaviour:
   spreadSpeedTimer: 0.5
   firstBulletAcc: 0
   recoilReturnTime: 0.2
-  projectileImpulse: 400
+  projectileImpulse: 600
   DMG: 20
   roundsPerMinutes: 750
   MaxAmmunition: 999

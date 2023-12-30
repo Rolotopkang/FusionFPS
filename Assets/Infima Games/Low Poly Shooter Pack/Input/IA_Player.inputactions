@@ -202,6 +202,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MainWeapon",
+                    "type": "Button",
+                    "id": "b3e688e4-49d7-4a7a-9913-1781c7b71500",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SecWeapon",
+                    "type": "Button",
+                    "id": "f3c24dec-5f00-41c8-ad42-17be7ddbf2b7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Item",
+                    "type": "Button",
+                    "id": "472f8097-ae57-4d57-96c8-7653bc7ce1cc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -697,6 +724,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "DEBUG_DEATH",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6289a41-4de7-47c9-858d-97c092524b14",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MainWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e56a7fc5-03a3-4d78-b504-aefef508f00d",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a95a68d-b409-4c4d-b9f6-89df6f29a517",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

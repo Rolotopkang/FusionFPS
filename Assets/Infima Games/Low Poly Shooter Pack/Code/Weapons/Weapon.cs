@@ -41,6 +41,9 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private bool boltAction;
 
+        [SerializeField]
+        private bool forceEndReload;
+
         [Tooltip("Amount of shots fired at once. Helpful for things like shotguns, where there are multiple projectiles fired at once.")]
         [SerializeField]
         private int shotCount = 1;
@@ -274,6 +277,7 @@ namespace InfimaGames.LowPolyShooterPack
             multiplierMovementSpeed = weaponData.multiplierMovementSpeed;
             automatic = weaponData.automatic;
             boltAction = weaponData.boltAction;
+            forceEndReload = weaponData.forceEndReload;
             shotCount = weaponData.shotCount;
             spread = weaponData.spread;
             spreadSpeedTimer = weaponData.spreadSpeedTimer;
@@ -405,7 +409,9 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override RuntimeAnimatorController GetAnimatorController() => controller;
         public override WeaponAttachmentManagerBehaviour GetAttachmentManager() => attachmentManager;
-        
+
+        public override bool CanForceEndReload() => forceEndReload;
+
         public override Sway GetSway() => sway;
         public override float GetSwaySmoothValue() => swaySmoothValue;
 

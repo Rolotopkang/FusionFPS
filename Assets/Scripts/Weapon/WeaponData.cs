@@ -29,6 +29,8 @@ public class  WeaponData : ScriptableObject
     [SerializeField]
     public bool boltAction;
 
+    public bool forceEndReload;
+    
     [Tooltip(
         "Amount of shots fired at once. Helpful for things like shotguns, where there are multiple projectiles fired at once.")]
     [SerializeField]
