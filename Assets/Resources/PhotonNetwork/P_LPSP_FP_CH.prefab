@@ -8332,6 +8332,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_LPSP_Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 5108531017356044019, guid: f74aca7fe48489a4799606021e06ad5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74aca7fe48489a4799606021e06ad5e, type: 3}
 --- !u!4 &6181232706914167373 stripped

@@ -2035,24 +2035,24 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private void ForceEndReloading()
 		{
-			// const string boolName = "Reloading";
-			// FPCharacterAnimator.SetBool(boolName, reloading = false);
-			// TPCharacterAnimator.SetBool(boolName, reloading = false);
-			// const string triggerName = "ForceStopReloading";
-			// FPCharacterAnimator.SetTrigger(triggerName);
-			// TPCharacterAnimator.SetTrigger(triggerName);
-			// UpdateBolt(false);
-			// reloading = false;
-			// equippedWeapon.EndReload();
+			const string boolName = "Reloading";
+			FPCharacterAnimator.SetBool(boolName, reloading = false);
+			TPCharacterAnimator.SetBool(boolName, reloading = false);
+			const string triggerName = "ForceStopReloading";
+			FPCharacterAnimator.SetTrigger(triggerName);
+			TPCharacterAnimator.SetTrigger(triggerName);
+			UpdateBolt(false);
+			reloading = false;
+			equippedWeapon.EndReload();
 		}
 
 		private void ForceEndBolting()
 		{
-			// const string triggerName = "ForceStopBolt";
-			// FPCharacterAnimator.SetTrigger(triggerName);
-			// TPCharacterAnimator.SetTrigger(triggerName);
-			// UpdateBolt(false);
-			// bolting = false;
+			const string triggerName = "ForceStopBolt";
+			FPCharacterAnimator.SetTrigger(triggerName);
+			TPCharacterAnimator.SetTrigger(triggerName);
+			UpdateBolt(false);
+			bolting = false;
 		}
 
 		public override void AnimationEndedBolt()

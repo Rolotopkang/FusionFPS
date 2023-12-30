@@ -491,8 +491,8 @@ namespace InfimaGames.LowPolyShooterPack
                 spreadValue *= spreadMultiplier;
                 
                 //向量转换
-                spreadValue.z = 0;
                 spreadValue = muzzleSocket.TransformDirection(spreadValue);
+                spreadValue.z = 0;
                 
                 //选择是否开启首枪保护
                 if (characterBehaviour.GetShotfired() == 0 && firstBulletAcc && characterBehaviour.GetSpeed()<0.01f && characterBehaviour.IsAiming())
