@@ -60,6 +60,12 @@ namespace InfimaGames.LowPolyShooterPack
 			if(playerCharacter != null)
 				playerCharacter.SetActiveKnife(active);
 		}
+
+		private void OnMelee()
+		{
+			if (playerCharacter != null)
+				playerCharacter.Melee();
+		}
 		
 		/// <summary>
 		/// Spawns a grenade at the correct location. This function is called from an Animation Event.

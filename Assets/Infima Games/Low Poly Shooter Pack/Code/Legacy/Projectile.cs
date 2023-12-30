@@ -149,7 +149,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		//If the bullet collides with anything
 		private void OnCollisionEnter(Collision collision)
 		{
-
+			// Debug.Log("碰撞"+collision.gameObject.name);
 			// if (!destroyOnImpact)
 			 // {
 			 // 	StartCoroutine(DestroyTimer());

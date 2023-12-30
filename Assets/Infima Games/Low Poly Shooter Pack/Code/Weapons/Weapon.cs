@@ -41,6 +41,9 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private bool boltAction;
 
+        [SerializeField]
+        private bool forceEndReload;
+
         [Tooltip("Amount of shots fired at once. Helpful for things like shotguns, where there are multiple projectiles fired at once.")]
         [SerializeField]
         private int shotCount = 1;
@@ -274,6 +277,7 @@ namespace InfimaGames.LowPolyShooterPack
             multiplierMovementSpeed = weaponData.multiplierMovementSpeed;
             automatic = weaponData.automatic;
             boltAction = weaponData.boltAction;
+            forceEndReload = weaponData.forceEndReload;
             shotCount = weaponData.shotCount;
             spread = weaponData.spread;
             spreadSpeedTimer = weaponData.spreadSpeedTimer;
@@ -384,8 +388,8 @@ namespace InfimaGames.LowPolyShooterPack
         public override AudioClip GetAudioClipFire() => muzzleBehaviour.GetAudioClipFire();
         
         public override int GetAmmunitionCurrent() => ammunitionCurrent;
-
-        public override int GetAmmunitionTotal() => magazineBehaviour.GetAmmunitionTotal();
+        
+        public override int GetAmmunitionTotal() =>(int)magazineBehaviour?.GetAmmunitionTotal();
         public override bool HasCycledReload() => cycledReload;
 
         public override bool IsAutomatic() => automatic;
@@ -405,7 +409,9 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override RuntimeAnimatorController GetAnimatorController() => controller;
         public override WeaponAttachmentManagerBehaviour GetAttachmentManager() => attachmentManager;
-        
+
+        public override bool CanForceEndReload() => forceEndReload;
+
         public override Sway GetSway() => sway;
         public override float GetSwaySmoothValue() => swaySmoothValue;
 
@@ -417,7 +423,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override MagazineBehaviour GetMagazineBehaviour() => magazineBehaviour;
 
-        public override bool CanReload() => LeftAmmunition > 0 &&  LeftAmmunition >= ReloadCount;
+        public override bool CanReload() => LeftAmmunition > 0 &&  LeftAmmunition >= GetAmmunitionTotal() ;
 
         #endregion
 
@@ -444,6 +450,15 @@ namespace InfimaGames.LowPolyShooterPack
                 tpSynchronization.ReloadOutOf();
             }
         }
+
+        public override void EndReload()
+        {
+            const string boolName = "Reloading";
+            animator.SetBool(boolName, false);
+            
+            SetSlideBack(0);
+        }
+
         public override void Fire(float spreadMultiplier = 1.0f)
         {
             
@@ -482,8 +497,8 @@ namespace InfimaGames.LowPolyShooterPack
                 spreadValue *= spreadMultiplier;
                 
                 //向量转换
-                spreadValue.z = 0;
                 spreadValue = muzzleSocket.TransformDirection(spreadValue);
+                spreadValue.z = 0;
                 
                 //选择是否开启首枪保护
                 if (characterBehaviour.GetShotfired() == 0 && firstBulletAcc && characterBehaviour.GetSpeed()<0.01f && characterBehaviour.IsAiming())

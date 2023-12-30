@@ -83,11 +83,11 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Internal PlayOneShot. Basically does the whole function's name!
         /// </summary>
-        private void PlayOneShot_Internal(AudioClip clip, AudioSettings settings)
+        private GameObject PlayOneShot_Internal(AudioClip clip, AudioSettings settings)
         {
             //No need to do absolutely anything if the clip is null.
             if (clip == null)
-                return;
+                return null;
             
             //Spawn a game object for the audio source.
             var newSourceObject = new GameObject($"Audio Source -> {clip.name}");
@@ -106,18 +106,18 @@ namespace InfimaGames.LowPolyShooterPack
             newAudioSource.transform.parent = settings.Parent;
             //Play the clip!
             newAudioSource.PlayOneShot(clip);
-            
             //Start a coroutine that will destroy the whole object once it is done!
             if(settings.AutomaticCleanup)
                 StartCoroutine(nameof(DestroySourceWhenFinished), newAudioSource);
+            return newSourceObject;
         }
 
         #region Audio Manager Service Interface
 
-        public void PlayOneShot(AudioClip clip, AudioSettings settings = default)
+        public GameObject PlayOneShot(AudioClip clip, AudioSettings settings = default)
         {
             //Play.
-            PlayOneShot_Internal(clip, settings);
+            return PlayOneShot_Internal(clip, settings);
         }
 
         public void PlayOneShotDelayed(AudioClip clip, AudioSettings settings = default, float delay = 1.0f)

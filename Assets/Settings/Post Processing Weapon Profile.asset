@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.26
   contrast:
     m_OverrideState: 1
     m_Value: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
-    m_Value: -10
+    m_Value: -20
     min: -100
     max: 100
   tint:

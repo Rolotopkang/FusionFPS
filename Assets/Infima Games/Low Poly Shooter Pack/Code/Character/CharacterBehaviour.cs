@@ -130,6 +130,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// Throws a grenade.
         /// </summary>
         public abstract void Grenade();
+
+        public abstract void Melee();
         
         /// <summary>
         /// 换配件

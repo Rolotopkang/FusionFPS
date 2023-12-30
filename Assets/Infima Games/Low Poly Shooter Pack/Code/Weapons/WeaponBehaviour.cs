@@ -199,6 +199,8 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract bool CanReload();
 
         public abstract void AmmunitionBack();
+
+        public abstract bool CanForceEndReload();
         #endregion
 
         #region METHODS
@@ -212,6 +214,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// Reloads the weapon.
         /// </summary>
         public abstract void Reload();
+
+        public abstract void EndReload();
 
         /// <summary>
         /// Fills the character's equipped weapon's ammunition by a certain amount, or fully if set to -1.

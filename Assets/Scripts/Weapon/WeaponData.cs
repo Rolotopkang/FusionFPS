@@ -29,6 +29,8 @@ public class  WeaponData : ScriptableObject
     [SerializeField]
     public bool boltAction;
 
+    public bool forceEndReload;
+    
     [Tooltip(
         "Amount of shots fired at once. Helpful for things like shotguns, where there are multiple projectiles fired at once.")]
     [SerializeField]
@@ -127,6 +129,12 @@ public class  WeaponData : ScriptableObject
 
     [SerializeField]
     public AudioClip audioClipFireMuzzle;
+    
+    [SerializeField]
+    public AudioClip[] audioClipMelee;
+    
+    [SerializeField]
+    public AudioClip[] audioClipGrenadeThrow;
 
     [Header("Audio Clips Other")]
     [Tooltip("AudioClip played when this weapon is fired without any ammunition.")]

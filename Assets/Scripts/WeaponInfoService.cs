@@ -12,23 +12,16 @@ public class WeaponInfoService : MonoBehaviour,IWeaponInfoService
 
     private void Awake()
     {
-        // string[] dirs = Directory.GetFiles("Assets/SO");
         var _getSources = Resources.LoadAll<WeaponData>("SO");
         foreach (var sources in _getSources) 
         { 
             weaponDataList.Add(sources as WeaponData); 
         }
-        
-        // for (int i = 0; i < dirs.Length; i+=2)
-        // {
-        //     weaponDataList.();
-        //     // weaponDataList.Add(AssetDatabase.LoadAssetAtPath<WeaponData>(dirs[i])); 
-        // }
 
-        // foreach (WeaponData weaponData in weaponDataList)
-        // {
-        //     Debug.Log(weaponData.weaponName);
-        // }
+        foreach (WeaponData weaponData in weaponDataList)
+        {
+            Debug.Log(weaponData.weaponName);
+        }
         Debug.Log("SO注册完毕");
     }
 
