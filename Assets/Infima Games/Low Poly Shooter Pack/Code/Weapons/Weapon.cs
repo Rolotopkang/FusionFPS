@@ -384,8 +384,8 @@ namespace InfimaGames.LowPolyShooterPack
         public override AudioClip GetAudioClipFire() => muzzleBehaviour.GetAudioClipFire();
         
         public override int GetAmmunitionCurrent() => ammunitionCurrent;
-
-        public override int GetAmmunitionTotal() => magazineBehaviour.GetAmmunitionTotal();
+        
+        public override int GetAmmunitionTotal() =>(int)magazineBehaviour?.GetAmmunitionTotal();
         public override bool HasCycledReload() => cycledReload;
 
         public override bool IsAutomatic() => automatic;
@@ -417,7 +417,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override MagazineBehaviour GetMagazineBehaviour() => magazineBehaviour;
 
-        public override bool CanReload() => LeftAmmunition > 0 &&  LeftAmmunition >= ReloadCount;
+        public override bool CanReload() => LeftAmmunition > 0 &&  LeftAmmunition >= GetAmmunitionTotal() ;
 
         #endregion
 
@@ -444,6 +444,15 @@ namespace InfimaGames.LowPolyShooterPack
                 tpSynchronization.ReloadOutOf();
             }
         }
+
+        public override void EndReload()
+        {
+            const string boolName = "Reloading";
+            animator.SetBool(boolName, false);
+            
+            SetSlideBack(0);
+        }
+
         public override void Fire(float spreadMultiplier = 1.0f)
         {
             

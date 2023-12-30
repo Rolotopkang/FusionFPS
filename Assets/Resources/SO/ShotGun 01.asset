@@ -19,18 +19,18 @@ MonoBehaviour:
   automatic: 0
   boltAction: 1
   shotCount: 8
-  spread: 9
-  spreadSpeedTimer: 1
+  spread: 5
+  spreadSpeedTimer: 0.7
   firstBulletAcc: 0
   recoilReturnTime: 0.1
-  projectileImpulse: 500
+  projectileImpulse: 600
   DMG: 13
   roundsPerMinutes: 250
   MaxAmmunition: 999
   maximumDistance: 500
   cycledReload: 1
   canReloadWhenFull: 0
-  automaticReloadOnEmpty: 0
+  automaticReloadOnEmpty: 1
   automaticReloadOnEmptyDelay: 0.25
   weaponOffsets:
     standingLocation: {x: 0, y: 0, z: 0}

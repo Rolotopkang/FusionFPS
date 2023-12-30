@@ -971,6 +971,16 @@ namespace InfimaGames.LowPolyShooterPack
 			#endregion
 			
 			#region Animation
+			
+			//Set Reloading Bool. This helps cycled reloads know when they need to stop cycling.
+			const string boolName = "Reloading";
+			FPCharacterAnimator.SetBool(boolName, reloading = true);
+			TPCharacterAnimator.SetBool(boolName, reloading = true);
+			
+			//TODO
+			const string floatName = "ReloadMultiplier";
+			FPCharacterAnimator.SetFloat(floatName,1);
+			TPCharacterAnimator.SetFloat(floatName,1);
 
 			//Get the name of the animation state to play, which depends on weapon settings, and ammunition!
 			string stateName = equippedWeapon.HasCycledReload() ? "Reload Open" :
@@ -981,11 +991,6 @@ namespace InfimaGames.LowPolyShooterPack
 			TPCharacterAnimator.Play(stateName, TPLayerActions, 0.0f);
 			#endregion
 
-			//Set Reloading Bool. This helps cycled reloads know when they need to stop cycling.
-			const string boolName = "Reloading";
-			FPCharacterAnimator.SetBool(boolName, reloading = true);
-			TPCharacterAnimator.SetBool(boolName, reloading = true);
-			
 			//Reload.(并重置后坐力曲线)
 			shotsFired = 0;
 			oldShotsFired = 0;
@@ -1220,9 +1225,9 @@ namespace InfimaGames.LowPolyShooterPack
 			//Block.
 			if (meleeing || throwingGrenade)
 				return false;
-
+			
 			//Block.
-			if (reloading || bolting)
+			if (bolting)
 				return false;
 
 			//Block.
@@ -1288,7 +1293,7 @@ namespace InfimaGames.LowPolyShooterPack
 				return false;
 
 			//Block.
-			if (reloading || bolting)
+			if (bolting)
 				return false;
 
 			//Block.
@@ -1321,7 +1326,7 @@ namespace InfimaGames.LowPolyShooterPack
 				return false;
 
 			//Block.
-			if (reloading || bolting)
+			if (bolting)
 				return false;
 
 			//Block.
@@ -1343,7 +1348,7 @@ namespace InfimaGames.LowPolyShooterPack
 				return false;
 
 			//Block.
-			if (reloading || bolting)
+			if ( bolting)
 				return false;
 
 			//Block.
@@ -1372,9 +1377,9 @@ namespace InfimaGames.LowPolyShooterPack
 			if (meleeing || throwingGrenade)
 				return false;
 
-			//Block.
-			if (reloading || bolting)
-				return false;
+			// //Block.
+			// if (reloading || bolting)
+			// 	return false;
 
 			//Block.
 			if (scopeChanging)
@@ -1432,7 +1437,7 @@ namespace InfimaGames.LowPolyShooterPack
 				return false;
 
 			//Block.
-			if (reloading || holstering)
+			if (holstering)
 				return false;
 			
 			//Block.
@@ -1456,13 +1461,16 @@ namespace InfimaGames.LowPolyShooterPack
 			//Block.
 			if (meleeing || throwingGrenade)
 				return false;
+
+			if (bolting)
+				return false;
 			
 			//Block.
 			if (holstering)
 				return false;
 			
 			//Block
-			if (aiming || reloading)
+			if (aiming)
 				return false;
 			
 			
@@ -1541,6 +1549,16 @@ namespace InfimaGames.LowPolyShooterPack
 					//Ignore if we're not allowed to actually fire.
 					if (!CanPlayAnimationFire())
 						break;
+
+					if (reloading)
+					{
+						ForceEndReloading();
+					}
+
+					if (bolting)
+					{
+						ForceEndBolting();
+					}
 					
 					//Check.
 					if (equippedWeapon.HasAmmunition())
@@ -1652,6 +1670,10 @@ namespace InfimaGames.LowPolyShooterPack
 			{
 				case InputActionPhase.Started:
 					//Started.
+					if (reloading)
+					{
+						ForceEndReloading();
+					}
 					holdingButtonAim = true;
 					break;
 				case InputActionPhase.Canceled:
@@ -1676,6 +1698,10 @@ namespace InfimaGames.LowPolyShooterPack
 			{
 				case InputActionPhase.Started:
 					//Started.
+					if (reloading)
+					{
+						ForceEndReloading();
+					}
 					holdingButtonScopeChanger = true;
 					break;
 				case InputActionPhase.Canceled:
@@ -1704,6 +1730,14 @@ namespace InfimaGames.LowPolyShooterPack
 					//Check.
 					if (CanPlayAnimationHolster())
 					{
+						if (reloading)
+						{
+							ForceEndReloading();
+						}
+						if (bolting)
+						{
+							ForceEndBolting();
+						}
 						//Set.
 						SetHolstered(!holstered);
 						//Holstering.
@@ -1731,7 +1765,18 @@ namespace InfimaGames.LowPolyShooterPack
 				case InputActionPhase.Performed:
 					//Try Play.
 					if (CanPlayAnimationGrenadeThrow())
+					{
+						if (reloading)
+						{
+							ForceEndReloading();
+						}
+						if (bolting)
+						{
+							ForceEndBolting();
+						}
 						PlayGrenadeThrow();
+					}
+
 					break;
 			}
 		}
@@ -1754,7 +1799,18 @@ namespace InfimaGames.LowPolyShooterPack
 				case InputActionPhase.Performed:
 					//Try Play.
 					if (CanPlayAnimationMelee())
+					{
+						if (reloading)
+						{
+							ForceEndReloading();
+						}
+						if (bolting)
+						{
+							ForceEndBolting();
+						}
 						PlayMelee();
+					}
+
 					break;
 			}
 		}
@@ -1865,7 +1921,18 @@ namespace InfimaGames.LowPolyShooterPack
 
 					//Make sure we're allowed to change, and also that we're not using the same index, otherwise weird things happen!
 					if (CanChangeWeapon() && (indexCurrent != indexNext))
+					{
+						if (reloading)
+						{
+							ForceEndReloading();
+						}
+						if (bolting)
+						{
+							ForceEndBolting();
+						}
 						StartCoroutine(nameof(Equip), indexNext);
+					}
+						
 					break;
 			}
 		}
@@ -1964,6 +2031,28 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Set magazine gameObject active.
 			equippedWeaponMagazine.gameObject.SetActive(active != 0);
+		}
+
+		private void ForceEndReloading()
+		{
+			// const string boolName = "Reloading";
+			// FPCharacterAnimator.SetBool(boolName, reloading = false);
+			// TPCharacterAnimator.SetBool(boolName, reloading = false);
+			// const string triggerName = "ForceStopReloading";
+			// FPCharacterAnimator.SetTrigger(triggerName);
+			// TPCharacterAnimator.SetTrigger(triggerName);
+			// UpdateBolt(false);
+			// reloading = false;
+			// equippedWeapon.EndReload();
+		}
+
+		private void ForceEndBolting()
+		{
+			// const string triggerName = "ForceStopBolt";
+			// FPCharacterAnimator.SetTrigger(triggerName);
+			// TPCharacterAnimator.SetTrigger(triggerName);
+			// UpdateBolt(false);
+			// bolting = false;
 		}
 
 		public override void AnimationEndedBolt()

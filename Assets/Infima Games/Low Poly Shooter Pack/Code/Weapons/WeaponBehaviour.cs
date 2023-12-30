@@ -213,6 +213,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public abstract void Reload();
 
+        public abstract void EndReload();
+
         /// <summary>
         /// Fills the character's equipped weapon's ammunition by a certain amount, or fully if set to -1.
         /// </summary>

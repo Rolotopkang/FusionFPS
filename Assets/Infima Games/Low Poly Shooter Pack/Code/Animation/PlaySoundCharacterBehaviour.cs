@@ -47,6 +47,10 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private bool attachToParent;
 
+        [Tooltip("退出状态是否消除声音")]
+        [SerializeField]
+        private bool DestroyOnExitStage = false;
+
         [Header("Audio Settings")]
 
         [Tooltip("Audio Settings.")]
@@ -74,6 +78,8 @@ namespace InfimaGames.LowPolyShooterPack
 
         private IWeaponInfoService _infoService;
 
+        private GameObject tmp_AudioGO;
+
         #endregion
         
         #region UNITY
@@ -84,6 +90,16 @@ namespace InfimaGames.LowPolyShooterPack
             audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
         }
 
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            if (DestroyOnExitStage)
+            {
+                if (tmp_AudioGO != null)
+                {
+                    Destroy(tmp_AudioGO);
+                }
+            }
+        }
 
         /// <summary>
         /// On State Enter.
@@ -183,7 +199,7 @@ namespace InfimaGames.LowPolyShooterPack
                 audioSettings.SetParent(animator.transform.parent);
             }
             
-            audioManagerService.PlayOneShotDelayed(clip, audioSettings, delay);
+            tmp_AudioGO = audioManagerService.PlayOneShot(clip, audioSettings);
 
         }
         #endregion

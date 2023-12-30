@@ -18,7 +18,7 @@ MonoBehaviour:
   multiplierMovementSpeed: 0.8
   automatic: 0
   boltAction: 1
-  shotCount: 8
+  shotCount: 1
   spread: 0.5
   spreadSpeedTimer: 5
   firstBulletAcc: 1
