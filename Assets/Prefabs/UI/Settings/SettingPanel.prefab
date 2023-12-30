@@ -763,6 +763,16 @@ PrefabInstance:
       propertyPath: _settingName
       value: 
       objectReference: {fileID: 2776979668053167207}
+    - target: {fileID: 8962354939856120700, guid: f79ee8c367077434dbee282fc4741bbe,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: "\u7A97\u53E3\u5316\u5168\u5C4F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962354939856120700, guid: f79ee8c367077434dbee282fc4741bbe,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[1].m_Text
+      value: "\u5168\u5C4F\u6A21\u5F0F"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f79ee8c367077434dbee282fc4741bbe, type: 3}
 --- !u!1 &2776979669376504519 stripped
