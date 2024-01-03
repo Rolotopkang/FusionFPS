@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 1
   weaponName: Assault Rifle 01
+  WeaponKind: 1
   weaponShowName: M5A3
   multiplierMovementSpeed: 1
   automatic: 1
   boltAction: 0
+  forceEndReload: 0
   shotCount: 1
   spread: 0.5
   spreadSpeedTimer: 2

@@ -6,6 +6,24 @@ using UnityEngine;
 
 public class EnumTools
 {
+    public enum WeaponKind
+    {
+        SMG,
+        ASSAULT,
+        LMG,
+        MARKSMAN,
+        SNIPER,
+        UTILITY,
+        HANDGUN,
+        GRENADE,
+        ITEM,
+        
+        
+        
+        
+        NONE
+    }
+    
     public enum HitKinds
     {
         normal,

@@ -1794,7 +1794,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryThrowGrenade(InputAction.CallbackContext context)
 		{
-			return;
 			if(!isMine)
 				return;
 			//Block while the cursor is unlocked.

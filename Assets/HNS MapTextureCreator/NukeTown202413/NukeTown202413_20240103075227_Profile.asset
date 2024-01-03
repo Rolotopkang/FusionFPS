@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3375dd6ef0f71e4f8c1910ea7114d16, type: 3}
+  m_Name: NukeTown202413_20240103075227_Profile
+  m_EditorClassIdentifier: 
+  MapTexture: {fileID: 21300000, guid: 28ad4af76330a3f4890755423c2ce060, type: 3}
+  MapTextureSize: {x: 2048, y: 2048}
+  MapBackground: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  MapBounds:
+    m_Center: {x: -2.365738, y: 0, z: -17.813065}
+    m_Extent: {x: 98.177475, y: 50, z: 98.177475}
+  CustomLayers: []

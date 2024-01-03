@@ -13,6 +13,18 @@ public class UIBase : MonoBehaviour
 
     protected void Awake()
     {
+        foreach (GameObject ui in UIList)
+        {
+            ui.gameObject.SetActive(true);
+        }
+    }
+
+    private void Start()
+    {
+        foreach (GameObject ui in UIList)
+        {
+            ui.gameObject.SetActive(false);
+        }
         UIList[currentUI].SetActive(aotoShowFirstPage);
     }
 

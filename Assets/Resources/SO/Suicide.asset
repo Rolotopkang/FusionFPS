@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 1000
   weaponName: suicide
+  WeaponKind: 9
   weaponShowName: suicide
   multiplierMovementSpeed: 0
   automatic: 0
   boltAction: 0
+  forceEndReload: 0
   shotCount: 1
   spread: 0.25
   spreadSpeedTimer: 0
@@ -72,6 +74,8 @@ MonoBehaviour:
   audioClipReloadClose: {fileID: 0}
   audioClipFire: {fileID: 0}
   audioClipFireMuzzle: {fileID: 0}
+  audioClipMelee: []
+  audioClipGrenadeThrow: []
   audioClipFireEmpty: {fileID: 0}
   audioClipBoltAction: {fileID: 0}
   DeployB: {fileID: 0}

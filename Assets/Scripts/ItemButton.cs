@@ -8,27 +8,35 @@ using UnityEngine.UI;
 public class ItemButton : MonoBehaviour
 {
     public bool isDown;
-    [SerializeField]
-    private String ItemName;
+    [SerializeField] private String ItemName;
 
     public String ShowName;
 
     private Image image;
-    
 
-    public Sprite BTB;
 
-    public Sprite BTD;
+    private Sprite BTB;
+
+    private Sprite BTD;
 
     public Sprite BTDS;
 
     private DeployManager DeployManager;
-    
+
 
     private void Awake()
     {
         image = GetComponent<Image>();
         DeployManager = GetComponentInParent<DeployManager>();
+    }
+
+    public void Init(String _ItemName, String _ShowName, Sprite _DeployB, Sprite _DeployD, Sprite _BTD)
+    {
+        ItemName = _ItemName;
+        ShowName = _ShowName;
+        BTB = _DeployB;
+        BTD = _DeployD;
+        BTDS = _BTD;
     }
 
     private void Update()
@@ -47,6 +55,18 @@ public class ItemButton : MonoBehaviour
     public void SetSecisDown(bool set)
     {
         DeployManager.SetSecIsChecked();
+        isDown = set;
+    }
+
+    public void SetGrenadeDown(bool set)
+    {
+        DeployManager.SetGrenadeChecked();
+        isDown = set;
+    }
+
+    public void SetItemDown(bool set)
+    {
+        DeployManager.SetItemChecked();
         isDown = set;
     }
 

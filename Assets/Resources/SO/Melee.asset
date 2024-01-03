@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 999
   weaponName: Melee
+  WeaponKind: 9
   weaponShowName: Melee
   multiplierMovementSpeed: 0
   automatic: 0
   boltAction: 0
+  forceEndReload: 0
   shotCount: 1
   spread: 0.25
   spreadSpeedTimer: 0

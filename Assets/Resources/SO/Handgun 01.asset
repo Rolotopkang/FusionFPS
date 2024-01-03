@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 21
   weaponName: Handgun 01
+  WeaponKind: 6
   weaponShowName: P2000
   multiplierMovementSpeed: 1.1
   automatic: 0
   boltAction: 0
+  forceEndReload: 0
   shotCount: 1
   spread: 0.5
   spreadSpeedTimer: 0.7

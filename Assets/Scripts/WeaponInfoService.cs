@@ -52,4 +52,17 @@ public class WeaponInfoService : MonoBehaviour,IWeaponInfoService
         Debug.LogError("没有此对应注册名的武器");
         return null;
     }
+
+    public List<WeaponData> GetWeaponInfosFromKinds(EnumTools.WeaponKind weaponKind)
+    {
+        List<WeaponData> temp = new List<WeaponData>();
+        foreach (WeaponData weaponData in weaponDataList)
+        {
+            if (weaponData.WeaponKind.Equals(weaponKind))
+            {
+                temp.Add(weaponData);
+            }
+        }
+        return temp;
+    }
 }
