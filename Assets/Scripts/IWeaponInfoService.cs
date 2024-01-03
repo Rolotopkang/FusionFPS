@@ -9,4 +9,6 @@ public interface IWeaponInfoService : IGameService
     public WeaponData GetWeaponInfoFromID(int id);
 
     public WeaponData GetWeaponInfoFromName(String weaponName);
+
+    public List<WeaponData> GetWeaponInfosFromKinds(EnumTools.WeaponKind weaponKind);
 }

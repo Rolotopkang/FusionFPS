@@ -21,10 +21,10 @@ MonoBehaviour:
   FlySpeedAlpha: 1
   VerticalRecoilAlpha: 1
   HorizentalRecoilAlpha: 1
-  ADSSpreadAlpha: 0.5
+  ADSSpreadAlpha: 1
   HipShotSpreadAlpha: 1
   MovSpreadAlpha: 1
-  T_ADSTimeAlpha: 1
+  T_ADSTimeAlpha: 2
   T_SwitchGunAlpha: 1
   T_ReloadAlpha: 1
   sprite: {fileID: 21300000, guid: c26bf01c46a5629408398acf1d31ba1d, type: 3}

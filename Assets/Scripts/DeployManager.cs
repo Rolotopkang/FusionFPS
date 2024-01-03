@@ -13,13 +13,15 @@ using UnityTemplateProjects.Tools;
 
 public class DeployManager : Singleton<DeployManager>
 {
-    [SerializeField]
     private ItemButton currMainWeapon;
-    [SerializeField]
     private ItemButton currSecWeapon;
-
+    private ItemButton currGrenade;
+    private ItemButton currItem;
+    
     public Image MainWeaponImage;
     public Image SecWeaponImage;
+    public Image GrenadeImage;
+    public Image ItemImage;
     
     [SerializeField]
     private GameObject MainWeaponPanel;
@@ -28,15 +30,31 @@ public class DeployManager : Singleton<DeployManager>
     private GameObject SecWeaponPanel;
     
     [SerializeField]
+    private GameObject GrenadePanel;
+
+    [SerializeField]
+    private GameObject ItemPanel;
+    
+    [SerializeField]
     private ItemButton[] mainWeaponBTNlist;
     [SerializeField]
     private ItemButton[] secWeaponBTNlist;
+    [SerializeField]
+    private ItemButton[] GrenadeBTNlist;
+    [SerializeField]
+    private ItemButton[] ItemBTNlist;
 
     [SerializeField]
     private TextMeshProUGUI MainWeaponName;
     
     [SerializeField]
     private TextMeshProUGUI SecWeaponName;
+    
+    [SerializeField]
+    private TextMeshProUGUI GrenadeName;
+    
+    [SerializeField]
+    private TextMeshProUGUI ItemName;
 
     [SerializeField]
     private TextMeshProUGUI CountDownText;
@@ -73,8 +91,6 @@ public class DeployManager : Singleton<DeployManager>
     {
         base.Awake();
         canvasFader = GetComponent<CanvasFader>();
-        mainWeaponBTNlist = MainWeaponPanel.GetComponentsInChildren<ItemButton>();
-        secWeaponBTNlist = SecWeaponPanel.GetComponentsInChildren<ItemButton>();
         DePloyTimer = RoomManager.GetInstance().currentGamemodeManager.GetdeployWaitTime;
     }
 
@@ -89,6 +105,31 @@ public class DeployManager : Singleton<DeployManager>
             MapTools.GameMode.BombScenario => 4,
 
         }].gameObject.SetActive(true);
+        
+        mainWeaponBTNlist = MainWeaponPanel.GetComponentsInChildren<ItemButton>();
+        secWeaponBTNlist = SecWeaponPanel.GetComponentsInChildren<ItemButton>();
+        GrenadeBTNlist = GrenadePanel.GetComponentsInChildren<ItemButton>();
+        ItemBTNlist = ItemPanel.GetComponentsInChildren<ItemButton>();
+
+        if (mainWeaponBTNlist.Length > 0)
+        {
+            mainWeaponBTNlist[0].isDown = true;
+        }
+
+        if (secWeaponBTNlist.Length > 0)
+        {
+            secWeaponBTNlist[0].isDown = true;
+        }
+
+        if (GrenadeBTNlist.Length > 0)
+        {
+            GrenadeBTNlist[0].isDown = true;
+        }
+
+        if (ItemBTNlist.Length > 0)
+        {
+            ItemBTNlist[0].isDown = true;
+        }
     }
 
     public void OnEnable()
@@ -126,10 +167,19 @@ public class DeployManager : Singleton<DeployManager>
         
         currMainWeapon = CheckActive(mainWeaponBTNlist);
         currSecWeapon = CheckActive(secWeaponBTNlist);
+        currGrenade = CheckActive(GrenadeBTNlist);
+        currItem = CheckActive(ItemBTNlist);
+        
         MainWeaponImage.sprite = currMainWeapon.BTDS;
         SecWeaponImage.sprite = currSecWeapon.BTDS;
+        GrenadeImage.sprite = currGrenade.BTDS;
+        ItemImage.sprite = currItem.BTDS;
+        
+        
         MainWeaponName.text = currMainWeapon.ShowName;
         SecWeaponName.text = currSecWeapon.ShowName;
+        GrenadeName.text = currGrenade.ShowName; 
+        ItemName.text = currItem.ShowName;
         
         CountDownBTN.SetActive(!(timer<=0));
         DepolyBTN.SetActive(timer<=0);
@@ -174,6 +224,23 @@ public class DeployManager : Singleton<DeployManager>
             itemButton.isDown = false;
         }
     }
+    
+    public void SetGrenadeChecked()
+    {
+        foreach (ItemButton itemButton in GrenadeBTNlist)
+        {
+            itemButton.isDown = false;
+        }
+    }
+    
+    public void SetItemChecked()
+    {
+        foreach (ItemButton itemButton in ItemBTNlist)
+        {
+            itemButton.isDown = false;
+        }
+    }
+    
 
     public void OnDeployButton()
     {

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 81
   weaponName: ShotGun 01
+  WeaponKind: 5
   weaponShowName: ShotGun
   multiplierMovementSpeed: 0.95
   automatic: 0

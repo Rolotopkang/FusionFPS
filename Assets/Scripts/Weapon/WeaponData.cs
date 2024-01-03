@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using InfimaGames.LowPolyShooterPack;
@@ -6,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FPS/Weapon/NewWeaponData", fileName = "NewWeaponData")]
 public class  WeaponData : ScriptableObject
 {
+
     #region Serialized
 
     [Header("Settings")] 
@@ -14,6 +16,11 @@ public class  WeaponData : ScriptableObject
     [Tooltip("Weapon Name. Currently not used for anything, but in the future, we will use this for pickups!")]
     [SerializeField]
     public string weaponName;
+
+    [SerializeField]
+    [Tooltip("武器类型")]
+    public EnumTools.WeaponKind WeaponKind;
+    
 
     [SerializeField] public string weaponShowName;
 

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 154985ddac9f2324e94958942d00d746, type: 3}
-  m_Name: Melee
+  m_Name: Item1
   m_EditorClassIdentifier: 
-  ID: 999
-  weaponName: Melee
-  WeaponKind: 9
-  weaponShowName: Melee
+  ID: 950
+  weaponName: Item1
+  WeaponKind: 8
+  weaponShowName: TestItem
   multiplierMovementSpeed: 0
   automatic: 0
   boltAction: 0
@@ -74,11 +74,14 @@ MonoBehaviour:
   audioClipReloadClose: {fileID: 0}
   audioClipFire: {fileID: 0}
   audioClipFireMuzzle: {fileID: 0}
-  audioClipMelee:
-  - {fileID: 8300000, guid: 8381cfa68b44d734b9c039db0dbad2a1, type: 3}
-  audioClipGrenadeThrow: []
+  audioClipMelee: []
+  audioClipGrenadeThrow:
+  - {fileID: 8300000, guid: 4cf3d4b6124c56844a5db19cc7df74fc, type: 3}
+  - {fileID: 8300000, guid: 35aa15aa460d5704383e356a55b0b147, type: 3}
+  - {fileID: 8300000, guid: 66e20a1df4a8a004e9e3eec624d38c28, type: 3}
+  - {fileID: 8300000, guid: 058ad0f0e88b6054990c6e98008ae4ea, type: 3}
   audioClipFireEmpty: {fileID: 0}
   audioClipBoltAction: {fileID: 0}
-  DeployB: {fileID: 0}
-  DeployD: {fileID: 0}
-  KillPannel: {fileID: 21300000, guid: 7b1baba78d6ddeb499301c966a42c9fa, type: 3}
+  DeployB: {fileID: 21300010, guid: 7ebbc5afba29b7d4ea29da8e79be257c, type: 3}
+  DeployD: {fileID: 21300012, guid: 7ebbc5afba29b7d4ea29da8e79be257c, type: 3}
+  KillPannel: {fileID: 21300010, guid: 7ebbc5afba29b7d4ea29da8e79be257c, type: 3}
