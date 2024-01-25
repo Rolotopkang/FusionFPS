@@ -8389,10 +8389,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_LPSP_Inventory
       objectReference: {fileID: 0}
-    - target: {fileID: 5108531017356044019, guid: f74aca7fe48489a4799606021e06ad5e,
+    - target: {fileID: 4683324000210661423, guid: f74aca7fe48489a4799606021e06ad5e,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: projectileImpulse
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74aca7fe48489a4799606021e06ad5e, type: 3}
@@ -8422,6 +8422,11 @@ PrefabInstance:
     m_TransformParent: {fileID: 3352235458732541091}
     m_Modifications:
     - target: {fileID: 181576153211996777, guid: f56d26fc3b0894642b25d1422b12b108,
+        type: 3}
+      propertyPath: TPAnimator
+      value: 
+      objectReference: {fileID: 3352235458740235099}
+    - target: {fileID: 1638392198072930413, guid: f56d26fc3b0894642b25d1422b12b108,
         type: 3}
       propertyPath: TPAnimator
       value: 

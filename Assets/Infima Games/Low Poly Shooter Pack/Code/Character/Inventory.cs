@@ -38,6 +38,12 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private WeaponBehaviour SecWeapon;
 
+        /// <summary>
+        /// 道具
+        /// </summary>
+        private WeaponBehaviour Item;
+
+        
         [SerializeField]
         private InventoryState inventoryState;
 
@@ -53,7 +59,7 @@ namespace InfimaGames.LowPolyShooterPack
         
         #region METHODS
         
-        public override void Init(String DepolyMainWeapon ,String DepolySecWeapon)
+        public override void Init(String DepolyMainWeapon ,String DepolySecWeapon , String DeployItem)
         {
             weapons = GetComponentsInChildren<WeaponBehaviour>(true);
             foreach (WeaponBehaviour weapon in weapons)
@@ -70,6 +76,9 @@ namespace InfimaGames.LowPolyShooterPack
                     }else if (weapon.GetWeaponName().Equals(DepolySecWeapon))
                     {
                         SecWeapon = weapon;
+                    }else if (weapon.GetWeaponName().Equals(DeployItem))
+                    {
+                        Item = weapon;
                     }
                 }
 
@@ -156,8 +165,7 @@ namespace InfimaGames.LowPolyShooterPack
                 case 3:
                     currentSlotIndex = 3;
                     inventoryState = InventoryState.item;
-                    
-                    break;
+                    return GetIndexByWeaponBehaviour(Item);
                 case 4:
                     currentSlotIndex = 4;
                     break;
@@ -169,6 +177,7 @@ namespace InfimaGames.LowPolyShooterPack
         public override WeaponBehaviour GetEquipped() => equipped;
         public override WeaponBehaviour GetMainWeapon() => MainWeapon;
         public override WeaponBehaviour GetSecWeapon() => SecWeapon;
+        public override WeaponBehaviour GetItem() => Item;
 
         public override int GetEquippedIndex() => equippedIndex;
 

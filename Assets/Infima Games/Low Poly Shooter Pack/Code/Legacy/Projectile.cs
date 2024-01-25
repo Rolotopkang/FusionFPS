@@ -19,7 +19,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 {
 	public class Projectile : MonoBehaviour
 	{
-
 		[Range(5, 100)]
 		[Tooltip("After how long time should the bullet prefab be destroyed?")]
 		public float destroyAfter;
@@ -35,31 +34,14 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		public float BulletSpeed = 50;
 		
-		[Header("对人体部位的伤害系数")]
-		[Range(0,5)][Tooltip("头部伤害系数")]
-		[SerializeField] private float headDamageTimer = 2.0f;
-		[Range(0,5)][Tooltip("身体伤害系数")]
-		[SerializeField] private float bodyDamageTimer = 1.0f;
-		[Range(0,5)][Tooltip("腿部伤害系数")]
-		[SerializeField] private float legDamageTimer = 0.75f;
-
-
-		[Header("Impact Effect Prefabs")]
-		public Transform[] bloodImpactPrefabs;
-
-		public Transform[] metalImpactPrefabs;
-		public Transform[] dirtImpactPrefabs;
-		public Transform[] concreteImpactPrefabs;
-		public Transform[] woodImpactPrefabs;
-		public Transform[] waterImpactPrefabs;
 		#region Static
 		
-		private float WeaponDMG;
-		private String weaponName;
-		private Player projectileOwner;
+		protected float WeaponDMG;
+		protected String weaponName;
+		protected Player projectileOwner;
 
-		private Collider projectileCollider;
-		private TrailRenderer _trailRenderer;
+		protected Collider projectileCollider;
+		protected TrailRenderer _trailRenderer;
 
 		#endregion
 
@@ -72,14 +54,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			_trailRenderer = GetComponent<TrailRenderer>();
 		}
 
-		private void Start()
+		protected virtual void Start()
 		{
-			//Start destroy timera
-			if (projectileOwner.Equals(PhotonNetwork.LocalPlayer))
-			{
-				_trailRenderer.enabled = false;
-				StartCoroutine(ShowTrail());
-			}
 			StartCoroutine(DestroyAfter());
 		}
 
@@ -88,210 +64,16 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		#region Function
 
-		private bool HitPlayer(float DMGtime, Collision hitPlayer)
+		protected  virtual bool HitPlayer(float DMGtime, Collision hitPlayer)
 		{
-			Player tmp_hitOwner = hitPlayer.gameObject.GetComponentInParent<PhotonView>().Owner;
-			
-			//忽略自身
-			if (tmp_hitOwner.Equals(projectileOwner))
-			{
-				return false;
-			}
-
-			//溅血特效
-			if (!tmp_hitOwner.Equals(PhotonNetwork.LocalPlayer))
-			{
-				GameObject tmp_Impact =Instantiate(bloodImpactPrefabs[Random.Range(0, bloodImpactPrefabs.Length)],
-					transform.position,
-					Quaternion.LookRotation(hitPlayer.contacts[0].normal)).gameObject;
-				tmp_Impact.transform.parent = hitPlayer.transform;
-			}
-			
-			//向photon网络发送击中事件
-			if (PhotonNetwork.LocalPlayer.Equals(projectileOwner))
-			{
-				Dictionary<byte, object> tmp_HitData = new Dictionary<byte, object>();
-				//被击中人
-				tmp_HitData.Add(0,tmp_hitOwner);
-				//造成伤害人
-				tmp_HitData.Add(1,projectileOwner);
-				//造成伤害人武器
-				tmp_HitData.Add(2,weaponName);
-				//造成伤害
-				tmp_HitData.Add(3,WeaponDMG*DMGtime);
-				//是否爆头
-				tmp_HitData.Add(4,DMGtime.Equals(headDamageTimer));
-				//伤害来源点
-				tmp_HitData.Add(5,hitPlayer.contacts[0].point);
-				//造成伤害时间戳
-				tmp_HitData.Add(6,DateTime.Now.ToUniversalTime().Ticks);
-				
-				RaiseEventOptions tmp_RaiseEventOptions = new RaiseEventOptions() {Receivers = ReceiverGroup.All};
-				SendOptions tmp_SendOptions = SendOptions.SendReliable;
-				PhotonNetwork.RaiseEvent(
-					(byte)EventCode.HitPlayer,
-					tmp_HitData,
-					tmp_RaiseEventOptions,
-					tmp_SendOptions);
-			}
 			return true;
 		}
 
 		#endregion
 
-		// private void OnTriggerEnter(Collider other)
-		// {
-		// 	
-		// 	Debug.Log("Enter!!!"+other.name);
-		// }
 
 
-		//If the bullet collides with anything
-		private void OnCollisionEnter(Collision collision)
-		{
-			// Debug.Log("碰撞"+collision.gameObject.name);
-			// if (!destroyOnImpact)
-			 // {
-			 // 	StartCoroutine(DestroyTimer());
-			 // }
-			 // //Otherwise, destroy bullet on impact
-			 // else
-			 // {
-				//  Debug.Log("碰撞销毁了！");
-				//  Destroy(gameObject);
-			 // }
-			 
-			 
-			 
-			 //默认
-			 if (collision.transform.tag.Equals("Untagged"))
-			 {
-				 //Instantiate random impact prefab from array
-				 Instantiate(woodImpactPrefabs[Random.Range
-						 (0, woodImpactPrefabs.Length)], transform.position,
-					 Quaternion.LookRotation(collision.contacts[0].normal));
-				 //Destroy bullet object
-				 Destroy(gameObject);
-			 }
-		
-			//If bullet collides with "Metal" tag
-			if (collision.transform.tag.Equals("Metal"))
-			{
 
-				//Instantiate random impact prefab from array
-				Instantiate(metalImpactPrefabs[Random.Range
-						(0, metalImpactPrefabs.Length)], transform.position,
-					Quaternion.LookRotation(collision.contacts[0].normal));
-				//Destroy bullet object
-				Destroy(gameObject);
-			}
-		
-			//If bullet collides with "Dirt" tag
-			if (collision.transform.tag.Equals("Dirt"))
-			{
-
-				//Instantiate random impact prefab from array
-				Instantiate(dirtImpactPrefabs[Random.Range
-						(0, dirtImpactPrefabs.Length)], transform.position,
-					Quaternion.LookRotation(collision.contacts[0].normal));
-				//Destroy bullet object
-				Destroy(gameObject);
-			}
-		
-			//If bullet collides with "Wood" tag
-			if (collision.transform.tag.Equals("Wood") )
-			{
-
-				//Instantiate random impact prefab from array
-				Instantiate(woodImpactPrefabs[Random.Range
-						(0, woodImpactPrefabs.Length)], transform.position,
-					Quaternion.LookRotation(collision.contacts[0].normal));
-				//Destroy bullet object
-				Destroy(gameObject);
-			}
-			
-			//If bullet collides with "Concrete" tag
-			if (collision.transform.tag.Equals("Concrete"))
-			{
-
-				//Instantiate random impact prefab from array
-				Instantiate(concreteImpactPrefabs[Random.Range
-						(0, concreteImpactPrefabs.Length)], transform.position,
-					Quaternion.LookRotation(collision.contacts[0].normal));
-				//Destroy bullet object
-				Destroy(gameObject);
-			}
-			
-			//If bullet collides with "Concrete" tag
-			if (collision.transform.tag.Equals("Water"))
-			{
-				//Instantiate random impact prefab from array
-				Instantiate(waterImpactPrefabs[Random.Range
-						(0, waterImpactPrefabs.Length)], collision.contacts[0].point + Vector3.up.normalized*0.01f, Quaternion.Euler(Vector3.up));
-				//Destroy bullet object
-				Destroy(gameObject);
-			}
-		
-			//If bullet collides with "Target" tag
-			if (collision.transform.tag.Equals("Target"))
-			{
-
-				//Toggle "isHit" on target object
-				collision.transform.gameObject.GetComponent
-					<TargetScript>().isHit = true;
-				//Destroy bullet object
-				Destroy(gameObject);
-			}
-		
-			//If bullet collides with "ExplosiveBarrel" tag
-			if (collision.transform.tag.Equals("ExplosiveBarrel"))
-			{
-
-				//Toggle "explode" on explosive barrel object
-				collision.transform.gameObject.GetComponent
-					<ExplosiveBarrelScript>().explode = true;
-				//Destroy bullet object
-				Destroy(gameObject);
-			}
-		
-			//If bullet collides with "GasTank" tag
-			if (collision.transform.tag.Equals("GasTank"))
-			{
-
-				//Toggle "isHit" on gas tank object
-				collision.transform.gameObject.GetComponent
-					<GasTankScript>().isHit = true;
-				//Destroy bullet object
-				Destroy(gameObject);
-			}
-			
-			if (collision.transform.tag.Equals("PlayerHead"))
-			{
-
-				if (HitPlayer(headDamageTimer, collision))
-				{
-					Destroy(gameObject);
-				}
-			}
-			
-			if (collision.transform.tag.Equals("PlayerChest"))
-			{
-				if (HitPlayer(bodyDamageTimer, collision))
-				{
-					Destroy(gameObject);
-				}
-			}			
-			
-			if (collision.transform.tag.Equals("PlayerLeg"))
-			{
-				if (HitPlayer(legDamageTimer, collision))
-				{
-					Destroy(gameObject);
-				}
-			}
-			
-		}
-		
 
 		#region IEnumerators
 		private IEnumerator DestroyTimer()
@@ -311,11 +93,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			Destroy(gameObject);
 		}
 
-		private IEnumerator ShowTrail()
-		{
-			yield return new WaitForSeconds(0.2f);
-			_trailRenderer.enabled = true;
-		}
 		#endregion
 
 		#region GetterSetter
@@ -338,5 +115,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		public Player GetOwner() => projectileOwner;
 
 		#endregion
+		
 	}
 }

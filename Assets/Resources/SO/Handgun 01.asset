@@ -81,6 +81,6 @@ MonoBehaviour:
   audioClipGrenadeThrow: []
   audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 0}
-  DeployB: {fileID: 21300000, guid: dbe8295abfe8fd745acf135e971e875d, type: 3}
-  DeployD: {fileID: 21300000, guid: 05f57d120780de54b946180250624aac, type: 3}
-  KillPannel: {fileID: 21300000, guid: c3fb05e5bedebbd4c8b8136cd7fc960f, type: 3}
+  DeployB: {fileID: 21300000, guid: d6ac6e59aa00bc64db387785547571d5, type: 3}
+  DeployD: {fileID: 21300000, guid: 7a80443c8b268424cabeef8ec91f90c9, type: 3}
+  KillPannel: {fileID: 21300000, guid: dd0e926f847bdac4a9470d64825e0bc0, type: 3}

@@ -267,6 +267,8 @@ public class DeployManager : Singleton<DeployManager>
     public String getChosedMainWeapon() => currMainWeapon.GetItemName();
     public String getChosedSecWeapon() => currSecWeapon.GetItemName();
 
+    public String getClosedItem() => currItem.GetItemName();
+
     #endregion
-    
+
 }

@@ -27,6 +27,6 @@ MonoBehaviour:
   T_ADSTimeAlpha: 1
   T_SwitchGunAlpha: 1
   T_ReloadAlpha: 1
-  sprite: {fileID: 21300000, guid: ba7316b137fe5a04995ea787d28785c0, type: 3}
+  sprite: {fileID: 21300000, guid: 129fab05e8e650b4d8c3f2cb51ec656c, type: 3}
   BTNspriteB: {fileID: 21300000, guid: afdc82f1204a6e64383aeb80624ed780, type: 3}
   BTNspriteD: {fileID: 21300000, guid: f6a298f2443899d4491f686aa34c9312, type: 3}

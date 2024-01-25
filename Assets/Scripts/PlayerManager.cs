@@ -57,6 +57,7 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     private String DeployMainWeapon;
     private String DeploySecWeapon;
+    private String DeployItem;
 
     private GameObject MainCM;
     private GameObject CMBrain;
@@ -299,6 +300,8 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
         //获取部署武器
         DeployMainWeapon = DeployManager.getChosedMainWeapon();
         DeploySecWeapon = DeployManager.getChosedSecWeapon();
+        DeployItem = DeployManager.getClosedItem();
+        
         
         //TODO
         //添加本局武器插槽记录
@@ -443,6 +446,8 @@ public class PlayerManager : MonoBehaviour,IOnEventCallback
 
     public String GetDeployMainWeapon() => DeployMainWeapon;
     public String GetDeploySecWeapon() => DeploySecWeapon;
+
+    public String GetDeployItem() => DeployItem;
 
     public GameObject GetPlayerOBJ() => tmp_Player;
 

@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 61
   weaponName: SMG 01
+  WeaponKind: 0
   weaponShowName: SMG
   multiplierMovementSpeed: 1.05
   automatic: 1
   boltAction: 0
+  forceEndReload: 0
   shotCount: 1
   spread: 2
   spreadSpeedTimer: 0.5
@@ -79,6 +81,6 @@ MonoBehaviour:
   audioClipGrenadeThrow: []
   audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 0}
-  DeployB: {fileID: 21300000, guid: 3ed03bba611bc464f8d04b4728559a5c, type: 3}
-  DeployD: {fileID: 21300000, guid: dc3f92d2f8f04c041ad1321f3187bd81, type: 3}
-  KillPannel: {fileID: 21300000, guid: 6a84c64159ac81b44a8e96957c06d6d2, type: 3}
+  DeployB: {fileID: 21300000, guid: 21f4b070389e3f84f8078f968d3aae00, type: 3}
+  DeployD: {fileID: 21300000, guid: 43920adb4fb180b45bdec16ba9953026, type: 3}
+  KillPannel: {fileID: 21300000, guid: bc72a181b9833524a9f3ae2fdb8c5a04, type: 3}

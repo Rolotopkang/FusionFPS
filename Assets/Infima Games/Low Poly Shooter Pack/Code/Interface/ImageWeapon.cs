@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,9 +14,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
     {
         #region FIELDS SERIALIZED
 
-        [Header("Settings")]
-        
-        [SerializeField] private bool isMainWeapon;
+        [Header("Settings")] 
+        [SerializeField] 
+        private EnumTools.InventoryKind InventoryKind;
         
         [Tooltip("Weapon Body Image.")]
         [SerializeField]
@@ -62,6 +63,8 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private WeaponBehaviour MainWeapon;
 
         private WeaponBehaviour SecWeapon;
+
+        private WeaponBehaviour Item;
         
         private WeaponBehaviour CurrentWeapon;
         
@@ -75,33 +78,49 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         {
             MainWeapon = playerCharacterInventory.GetMainWeapon();
             SecWeapon = playerCharacterInventory.GetSecWeapon();
+            Item = playerCharacterInventory.GetItem();
             CurrentWeapon = playerCharacterInventory.GetEquipped();
-            if (CurrentWeapon.Equals(MainWeapon))
-            {
-                SetCurrentItem(0);
-            }
 
-            if (CurrentWeapon.Equals(SecWeapon))
+            switch (InventoryKind)
             {
-                SetCurrentItem(1);
-            }
+                case EnumTools.InventoryKind.Main:
+                    if (CurrentWeapon.Equals(MainWeapon))
+                    {
+                        SetCurrentItem(0);
+                    }
 
-            //Get Attachment Manager.
-            attachmentManagerBehaviour = isMainWeapon? MainWeapon.GetAttachmentManager(): SecWeapon.GetAttachmentManager();
-            //Update the weapon's body sprite!
-            imageWeaponBody.sprite = isMainWeapon? MainWeapon.GetSpriteBody(): SecWeapon.GetSpriteBody();
-
-            
-            
-            if (isMainWeapon && CurrentWeapon.Equals(MainWeapon))
-            {
-                UpdateSprite();
-                bulletNum.text = MainWeapon.GetMagazineBehaviour().GetAmmunitionTotal().ToString();
-            }
-            else if(!isMainWeapon && CurrentWeapon.Equals(SecWeapon))
-            {
-                UpdateSprite();
-                bulletNum.text = SecWeapon.GetMagazineBehaviour().GetAmmunitionTotal().ToString();
+                    attachmentManagerBehaviour = MainWeapon.GetAttachmentManager();
+                    imageWeaponBody.sprite = MainWeapon.GetSpriteBody();
+                    if (CurrentWeapon.Equals(MainWeapon))
+                    {
+                        UpdateSprite();
+                    }
+                    break;
+                case EnumTools.InventoryKind.Sec:
+                    if (CurrentWeapon.Equals(SecWeapon))
+                    {
+                        SetCurrentItem(1);
+                    }
+                    attachmentManagerBehaviour = SecWeapon.GetAttachmentManager();
+                    imageWeaponBody.sprite = SecWeapon.GetSpriteBody();
+                    if (CurrentWeapon.Equals(SecWeapon))
+                    {
+                        UpdateSprite();
+                    }
+                    break;
+                case EnumTools.InventoryKind.Item:
+                    if (CurrentWeapon.Equals(Item))
+                    {
+                        SetCurrentItem(2);
+                    }
+                    attachmentManagerBehaviour = Item.GetAttachmentManager();
+                    imageWeaponBody.sprite = Item.GetSpriteBody();
+                    if (CurrentWeapon.Equals(Item))
+                    {
+                        UpdateSprite();
+                        bulletNum.text = playerCharacter.GetGrenadesCurrent().ToString();
+                    }
+                    break;
             }
         }
 

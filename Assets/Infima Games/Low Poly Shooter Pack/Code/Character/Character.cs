@@ -445,7 +445,7 @@ namespace InfimaGames.LowPolyShooterPack
 
 
 			//Initialize Inventory.
-			inventory.Init(PlayerManager.GetDeployMainWeapon(), PlayerManager.GetDeploySecWeapon());
+			inventory.Init(PlayerManager.GetDeployMainWeapon(), PlayerManager.GetDeploySecWeapon() , PlayerManager.GetDeployItem());
 			//Refresh!
 			RefreshWeaponSetup();
 

@@ -24,6 +24,15 @@ public class EnumTools
         NONE
     }
     
+    public enum InventoryKind
+    {
+        Main,
+        Sec,
+        Grenade,
+        Item,
+        NONE
+    }
+    
     public enum HitKinds
     {
         normal,

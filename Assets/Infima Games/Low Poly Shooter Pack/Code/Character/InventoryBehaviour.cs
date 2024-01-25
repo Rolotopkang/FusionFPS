@@ -28,6 +28,8 @@ namespace InfimaGames.LowPolyShooterPack
         
         public abstract WeaponBehaviour GetSecWeapon();
 
+        public abstract WeaponBehaviour GetItem();
+
         /// <summary>
         /// Returns the currently equipped index. Meaning the index in the weapon array of the equipped weapon.
         /// </summary>
@@ -42,7 +44,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// PlayerCharacter component to run this with the index it wants to equip!
         /// </summary>
         /// <param name="equippedAtStart">Inventory index of the weapon we want to equip when the game starts.</param>
-        public abstract void Init(String DepolyMainWeapon ,String DepolySecWeapon);
+        public abstract void Init(String DepolyMainWeapon ,String DepolySecWeapon, String DeployItem);
         
         /// <summary>
         /// Equips a Weapon.
