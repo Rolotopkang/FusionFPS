@@ -41,7 +41,7 @@ namespace UnityTemplateProjects.DBServer.NetWork
         {
             if (context.Channel.Active)
             {
-                // Debug.Log("Send Heartbeat!");
+                Debug.Log("Send Heartbeat!");
                 context.WriteAndFlushAsync(HEARTBEAT_SEQUENCE.Duplicate());
             }
         }
@@ -51,8 +51,8 @@ namespace UnityTemplateProjects.DBServer.NetWork
         {
             long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             currentTimestamp = lastHeartbeatTimestamp;
-            // Debug.LogFormat("Received heartbeat response from server {0}, timestamp: {1}",
-            //     context.Channel.RemoteAddress, currentTimestamp);
+            Debug.LogFormat("Received heartbeat response from server {0}, timestamp: {1}",
+                context.Channel.RemoteAddress, currentTimestamp);
         }
 
         // 发送心跳包，判断服务器是否在线

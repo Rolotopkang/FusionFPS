@@ -6,6 +6,8 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityTemplateProjects.Tools;
 
+
+
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
